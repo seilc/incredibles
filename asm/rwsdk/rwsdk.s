@@ -1665,7 +1665,7 @@ _esc__2_329:
 _esc__2_56_0:
 	.incbin "baserom.dol", 0x3347F8, 0x8
 
-.section .text
+.section .text, "ax"
 
 .global _rpCollTreeDestroy
 _rpCollTreeDestroy:
