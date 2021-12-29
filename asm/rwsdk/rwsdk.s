@@ -122,9 +122,9 @@ _rxPipesFreeList:
 .global defaultCB
 defaultCB:
 	.4byte 0x00000000
-	.4byte 0x8025E214
-	.4byte 0x8025E3E0
-	.4byte 0x8025E3E8
+	.4byte _rpPTankGameCubeCreateCallBack
+	.4byte _rpPTankGameCubeInstanceCallBack
+	.4byte _rpPTankGameCubeRenderCallBack
 .global _rpSkinGlobals
 _rpSkinGlobals:
 	.4byte 0x00000000
@@ -195,7 +195,7 @@ MeshopStatic:
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
-	.4byte 0x80274AD4
+	.4byte RpBuildMeshGenerateDefaultTriStrip
 	.4byte 0x00000000
 .global sectorTKList
 sectorTKList:
@@ -224,11 +224,11 @@ _esc__2_489:
 	.4byte 0x736C0000
 .global nodeGameCubeAtomicAllInOneCSL_esc__7_488
 nodeGameCubeAtomicAllInOneCSL_esc__7_488:
-	.4byte 0x8032BEE8
-	.4byte 0x80279310
+	.4byte _esc__2_489
+	.4byte _rxGCAtomicAllInOneNode
 	.4byte 0x00000000
 	.4byte 0x00000000
-	.4byte 0x80279594
+	.4byte _rxGCAtomicAllInOnePipelineInit
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
@@ -254,11 +254,11 @@ _esc__2_359_0:
 	.4byte 0x00000000
 .global nodeGameCubeWorldSectorAllInOneCSL_esc__7_358
 nodeGameCubeWorldSectorAllInOneCSL_esc__7_358:
-	.4byte 0x8032BF48
-	.4byte 0x80279858
+	.4byte _esc__2_359_0
+	.4byte _rxGCWorldSectorAllInOneNode
 	.4byte 0x00000000
 	.4byte 0x00000000
-	.4byte 0x80279A3C
+	.4byte _rxGCWorldSectorAllInOnePipelineInit
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
@@ -273,255 +273,255 @@ nodeGameCubeWorldSectorAllInOneCSL_esc__7_358:
 	.4byte 0x00000000
 .global _esc__2_482
 _esc__2_482:
-	.4byte 0x8027B9BC
-	.4byte 0x8027B974
-	.4byte 0x8027B97C
-	.4byte 0x8027B984
-	.4byte 0x8027B98C
-	.4byte 0x8027B9BC
-	.4byte 0x8027B994
-	.4byte 0x8027B99C
-	.4byte 0x8027B9A4
-	.4byte 0x8027B9AC
-	.4byte 0x8027B9B4
+	.4byte VertexDataCreateRemapped+564
+	.4byte VertexDataCreateRemapped+492
+	.4byte VertexDataCreateRemapped+500
+	.4byte VertexDataCreateRemapped+508
+	.4byte VertexDataCreateRemapped+516
+	.4byte VertexDataCreateRemapped+564
+	.4byte VertexDataCreateRemapped+524
+	.4byte VertexDataCreateRemapped+532
+	.4byte VertexDataCreateRemapped+540
+	.4byte VertexDataCreateRemapped+548
+	.4byte VertexDataCreateRemapped+556
 .global _esc__2_481
 _esc__2_481:
-	.4byte 0x8027B914
-	.4byte 0x8027B8CC
-	.4byte 0x8027B8D4
-	.4byte 0x8027B8DC
-	.4byte 0x8027B8E4
-	.4byte 0x8027B914
-	.4byte 0x8027B8EC
-	.4byte 0x8027B8F4
-	.4byte 0x8027B8FC
-	.4byte 0x8027B904
-	.4byte 0x8027B90C
+	.4byte VertexDataCreateRemapped+396
+	.4byte VertexDataCreateRemapped+324
+	.4byte VertexDataCreateRemapped+332
+	.4byte VertexDataCreateRemapped+340
+	.4byte VertexDataCreateRemapped+348
+	.4byte VertexDataCreateRemapped+396
+	.4byte VertexDataCreateRemapped+356
+	.4byte VertexDataCreateRemapped+364
+	.4byte VertexDataCreateRemapped+372
+	.4byte VertexDataCreateRemapped+380
+	.4byte VertexDataCreateRemapped+388
 .global _esc__2_480
 _esc__2_480:
-	.4byte 0x8027B830
-	.4byte 0x8027B7E8
-	.4byte 0x8027B7F0
-	.4byte 0x8027B7F8
-	.4byte 0x8027B800
-	.4byte 0x8027B830
-	.4byte 0x8027B808
-	.4byte 0x8027B810
-	.4byte 0x8027B818
-	.4byte 0x8027B820
-	.4byte 0x8027B828
+	.4byte VertexDataCreateRemapped+168
+	.4byte VertexDataCreateRemapped+96
+	.4byte VertexDataCreateRemapped+104
+	.4byte VertexDataCreateRemapped+112
+	.4byte VertexDataCreateRemapped+120
+	.4byte VertexDataCreateRemapped+168
+	.4byte VertexDataCreateRemapped+128
+	.4byte VertexDataCreateRemapped+136
+	.4byte VertexDataCreateRemapped+144
+	.4byte VertexDataCreateRemapped+152
+	.4byte VertexDataCreateRemapped+160
 .global _esc__2_679
 _esc__2_679:
-	.4byte 0x8027C16C
-	.4byte 0x8027C124
-	.4byte 0x8027C12C
-	.4byte 0x8027C134
-	.4byte 0x8027C13C
-	.4byte 0x8027C16C
-	.4byte 0x8027C144
-	.4byte 0x8027C14C
-	.4byte 0x8027C154
-	.4byte 0x8027C15C
-	.4byte 0x8027C164
+	.4byte VertexDataCreateMaps+1828
+	.4byte VertexDataCreateMaps+1756
+	.4byte VertexDataCreateMaps+1764
+	.4byte VertexDataCreateMaps+1772
+	.4byte VertexDataCreateMaps+1780
+	.4byte VertexDataCreateMaps+1828
+	.4byte VertexDataCreateMaps+1788
+	.4byte VertexDataCreateMaps+1796
+	.4byte VertexDataCreateMaps+1804
+	.4byte VertexDataCreateMaps+1812
+	.4byte VertexDataCreateMaps+1820
 .global _esc__2_678
 _esc__2_678:
-	.4byte 0x8027C0D8
-	.4byte 0x8027BF70
-	.4byte 0x8027BF88
-	.4byte 0x8027BFA0
-	.4byte 0x8027BFDC
-	.4byte 0x8027C0D8
-	.4byte 0x8027BFF4
-	.4byte 0x8027C00C
-	.4byte 0x8027C038
-	.4byte 0x8027C074
-	.4byte 0x8027C0C0
+	.4byte VertexDataCreateMaps+1680
+	.4byte VertexDataCreateMaps+1320
+	.4byte VertexDataCreateMaps+1344
+	.4byte VertexDataCreateMaps+1368
+	.4byte VertexDataCreateMaps+1428
+	.4byte VertexDataCreateMaps+1680
+	.4byte VertexDataCreateMaps+1452
+	.4byte VertexDataCreateMaps+1476
+	.4byte VertexDataCreateMaps+1520
+	.4byte VertexDataCreateMaps+1580
+	.4byte VertexDataCreateMaps+1656
 .global _esc__2_677
 _esc__2_677:
-	.4byte 0x8027BF1C
-	.4byte 0x8027BED4
-	.4byte 0x8027BEDC
-	.4byte 0x8027BEE4
-	.4byte 0x8027BEEC
-	.4byte 0x8027BF1C
-	.4byte 0x8027BEF4
-	.4byte 0x8027BEFC
-	.4byte 0x8027BF04
-	.4byte 0x8027BF0C
-	.4byte 0x8027BF14
+	.4byte VertexDataCreateMaps+1236
+	.4byte VertexDataCreateMaps+1164
+	.4byte VertexDataCreateMaps+1172
+	.4byte VertexDataCreateMaps+1180
+	.4byte VertexDataCreateMaps+1188
+	.4byte VertexDataCreateMaps+1236
+	.4byte VertexDataCreateMaps+1196
+	.4byte VertexDataCreateMaps+1204
+	.4byte VertexDataCreateMaps+1212
+	.4byte VertexDataCreateMaps+1220
+	.4byte VertexDataCreateMaps+1228
 .global _esc__2_676
 _esc__2_676:
-	.4byte 0x8027BE90
-	.4byte 0x8027BD28
-	.4byte 0x8027BD40
-	.4byte 0x8027BD58
-	.4byte 0x8027BD94
-	.4byte 0x8027BE90
-	.4byte 0x8027BDAC
-	.4byte 0x8027BDC4
-	.4byte 0x8027BDF0
-	.4byte 0x8027BE2C
-	.4byte 0x8027BE78
+	.4byte VertexDataCreateMaps+1096
+	.4byte VertexDataCreateMaps+736
+	.4byte VertexDataCreateMaps+760
+	.4byte VertexDataCreateMaps+784
+	.4byte VertexDataCreateMaps+844
+	.4byte VertexDataCreateMaps+1096
+	.4byte VertexDataCreateMaps+868
+	.4byte VertexDataCreateMaps+892
+	.4byte VertexDataCreateMaps+936
+	.4byte VertexDataCreateMaps+996
+	.4byte VertexDataCreateMaps+1072
 .global _esc__2_675
 _esc__2_675:
-	.4byte 0x8027BCB8
-	.4byte 0x8027BC70
-	.4byte 0x8027BC78
-	.4byte 0x8027BC80
-	.4byte 0x8027BC88
-	.4byte 0x8027BCB8
-	.4byte 0x8027BC90
-	.4byte 0x8027BC98
-	.4byte 0x8027BCA0
-	.4byte 0x8027BCA8
-	.4byte 0x8027BCB0
+	.4byte VertexDataCreateMaps+624
+	.4byte VertexDataCreateMaps+552
+	.4byte VertexDataCreateMaps+560
+	.4byte VertexDataCreateMaps+568
+	.4byte VertexDataCreateMaps+576
+	.4byte VertexDataCreateMaps+624
+	.4byte VertexDataCreateMaps+584
+	.4byte VertexDataCreateMaps+592
+	.4byte VertexDataCreateMaps+600
+	.4byte VertexDataCreateMaps+608
+	.4byte VertexDataCreateMaps+616
 .global _esc__2_341_0
 _esc__2_341_0:
-	.4byte 0x8027C32C
-	.4byte 0x8027C33C
-	.4byte 0x8027C34C
-	.4byte 0x8027C35C
-	.4byte 0x8027C36C
-	.4byte 0x8027C37C
-	.4byte 0x8027C38C
-	.4byte 0x8027C39C
+	.4byte rwGCNTexGetSize+36
+	.4byte rwGCNTexGetSize+52
+	.4byte rwGCNTexGetSize+68
+	.4byte rwGCNTexGetSize+84
+	.4byte rwGCNTexGetSize+100
+	.4byte rwGCNTexGetSize+116
+	.4byte rwGCNTexGetSize+132
+	.4byte rwGCNTexGetSize+148
 .global _esc__2_417
 _esc__2_417:
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805B0
-	.4byte 0x802805CC
-	.4byte 0x8028060C
-	.4byte 0x802806AC
-	.4byte 0x802806AC
-	.4byte 0x80280700
-	.4byte 0x80280744
-	.4byte 0x80280788
-	.4byte 0x802807CC
-	.4byte 0x80280810
-	.4byte 0x80280854
-	.4byte 0x80280898
-	.4byte 0x802808DC
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+64
+	.4byte _rwGCNDisplayListGetStride+92
+	.4byte _rwGCNDisplayListGetStride+156
+	.4byte _rwGCNDisplayListGetStride+316
+	.4byte _rwGCNDisplayListGetStride+316
+	.4byte _rwGCNDisplayListGetStride+400
+	.4byte _rwGCNDisplayListGetStride+468
+	.4byte _rwGCNDisplayListGetStride+536
+	.4byte _rwGCNDisplayListGetStride+604
+	.4byte _rwGCNDisplayListGetStride+672
+	.4byte _rwGCNDisplayListGetStride+740
+	.4byte _rwGCNDisplayListGetStride+808
+	.4byte _rwGCNDisplayListGetStride+876
 	.4byte 0x00000000
 .global _esc__2_823
 _esc__2_823:
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283ED0
-	.4byte 0x80283F0C
-	.4byte 0x80283FC8
-	.4byte 0x802840D4
-	.4byte 0x802840D4
-	.4byte 0x8028417C
-	.4byte 0x8028422C
-	.4byte 0x802842E0
-	.4byte 0x80284394
-	.4byte 0x80284448
-	.4byte 0x802844FC
-	.4byte 0x802845B0
-	.4byte 0x80284664
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+136
+	.4byte _rwGCNDisplayListFill+196
+	.4byte _rwGCNDisplayListFill+384
+	.4byte _rwGCNDisplayListFill+652
+	.4byte _rwGCNDisplayListFill+652
+	.4byte _rwGCNDisplayListFill+820
+	.4byte _rwGCNDisplayListFill+996
+	.4byte _rwGCNDisplayListFill+1176
+	.4byte _rwGCNDisplayListFill+1356
+	.4byte _rwGCNDisplayListFill+1536
+	.4byte _rwGCNDisplayListFill+1716
+	.4byte _rwGCNDisplayListFill+1896
+	.4byte _rwGCNDisplayListFill+2076
 	.4byte 0x00000000
 .global _esc__2_343_0
 _esc__2_343_0:
-	.4byte 0x802847A0
-	.4byte 0x802847D8
-	.4byte 0x80284844
-	.4byte 0x80284844
-	.4byte 0x80284894
-	.4byte 0x802848D4
-	.4byte 0x80284914
-	.4byte 0x80284954
-	.4byte 0x80284994
-	.4byte 0x802849D4
-	.4byte 0x80284A14
-	.4byte 0x80284A54
+	.4byte _rwGCNVertexBufferGetSize+76
+	.4byte _rwGCNVertexBufferGetSize+132
+	.4byte _rwGCNVertexBufferGetSize+240
+	.4byte _rwGCNVertexBufferGetSize+240
+	.4byte _rwGCNVertexBufferGetSize+320
+	.4byte _rwGCNVertexBufferGetSize+384
+	.4byte _rwGCNVertexBufferGetSize+448
+	.4byte _rwGCNVertexBufferGetSize+512
+	.4byte _rwGCNVertexBufferGetSize+576
+	.4byte _rwGCNVertexBufferGetSize+640
+	.4byte _rwGCNVertexBufferGetSize+704
+	.4byte _rwGCNVertexBufferGetSize+768
 .global _esc__2_437
 _esc__2_437:
-	.4byte 0x80284B1C
-	.4byte 0x80284B70
-	.4byte 0x80284C0C
-	.4byte 0x80284C0C
-	.4byte 0x80284C78
-	.4byte 0x80284CD4
-	.4byte 0x80284D30
-	.4byte 0x80284D8C
-	.4byte 0x80284DE8
-	.4byte 0x80284E44
-	.4byte 0x80284EA0
-	.4byte 0x80284EFC
+	.4byte _rwGCNVertexBufferInitialize+96
+	.4byte _rwGCNVertexBufferInitialize+180
+	.4byte _rwGCNVertexBufferInitialize+336
+	.4byte _rwGCNVertexBufferInitialize+336
+	.4byte _rwGCNVertexBufferInitialize+444
+	.4byte _rwGCNVertexBufferInitialize+536
+	.4byte _rwGCNVertexBufferInitialize+628
+	.4byte _rwGCNVertexBufferInitialize+720
+	.4byte _rwGCNVertexBufferInitialize+812
+	.4byte _rwGCNVertexBufferInitialize+904
+	.4byte _rwGCNVertexBufferInitialize+996
+	.4byte _rwGCNVertexBufferInitialize+1088
 .global _esc__2_381
 _esc__2_381:
-	.4byte 0x80284FD4
-	.4byte 0x8028504C
-	.4byte 0x802850FC
-	.4byte 0x802850FC
-	.4byte 0x8028515C
-	.4byte 0x802851C4
-	.4byte 0x80285230
-	.4byte 0x8028529C
-	.4byte 0x80285308
-	.4byte 0x80285374
-	.4byte 0x802853DC
-	.4byte 0x80285444
+	.4byte _rwGCNVertexBufferFill+84
+	.4byte _rwGCNVertexBufferFill+204
+	.4byte _rwGCNVertexBufferFill+380
+	.4byte _rwGCNVertexBufferFill+380
+	.4byte _rwGCNVertexBufferFill+476
+	.4byte _rwGCNVertexBufferFill+580
+	.4byte _rwGCNVertexBufferFill+688
+	.4byte _rwGCNVertexBufferFill+796
+	.4byte _rwGCNVertexBufferFill+904
+	.4byte _rwGCNVertexBufferFill+1012
+	.4byte _rwGCNVertexBufferFill+1116
+	.4byte _rwGCNVertexBufferFill+1220
 .global _esc__2_299
 _esc__2_299:
-	.4byte 0x80285528
-	.4byte 0x80285558
-	.4byte 0x802855E0
-	.4byte 0x8028560C
-	.4byte 0x80285638
-	.4byte 0x8028566C
-	.4byte 0x8028569C
-	.4byte 0x802856D0
-	.4byte 0x80285704
-	.4byte 0x8028574C
-	.4byte 0x80285780
-	.4byte 0x802857B4
-	.4byte 0x802857E4
-	.4byte 0x802857E4
-	.4byte 0x802857E4
-	.4byte 0x802857E4
-	.4byte 0x80285590
+	.4byte _rwGCNVertexDescSetElementAttr+36
+	.4byte _rwGCNVertexDescSetElementAttr+84
+	.4byte _rwGCNVertexDescSetElementAttr+220
+	.4byte _rwGCNVertexDescSetElementAttr+264
+	.4byte _rwGCNVertexDescSetElementAttr+308
+	.4byte _rwGCNVertexDescSetElementAttr+360
+	.4byte _rwGCNVertexDescSetElementAttr+408
+	.4byte _rwGCNVertexDescSetElementAttr+460
+	.4byte _rwGCNVertexDescSetElementAttr+512
+	.4byte _rwGCNVertexDescSetElementAttr+584
+	.4byte _rwGCNVertexDescSetElementAttr+636
+	.4byte _rwGCNVertexDescSetElementAttr+688
+	.4byte _rwGCNVertexDescSetElementAttr+736
+	.4byte _rwGCNVertexDescSetElementAttr+736
+	.4byte _rwGCNVertexDescSetElementAttr+736
+	.4byte _rwGCNVertexDescSetElementAttr+736
+	.4byte _rwGCNVertexDescSetElementAttr+140
 .global _esc__2_409
 _esc__2_409:
-	.4byte 0x80285808
-	.4byte 0x80285828
-	.4byte 0x80285828
-	.4byte 0x80285828
-	.4byte 0x80285828
-	.4byte 0x80285828
-	.4byte 0x80285828
-	.4byte 0x80285828
-	.4byte 0x80285828
-	.4byte 0x80285858
-	.4byte 0x80285878
-	.4byte 0x80285910
-	.4byte 0x80285910
-	.4byte 0x80285980
-	.4byte 0x802859F4
-	.4byte 0x80285A68
-	.4byte 0x80285ADC
-	.4byte 0x80285B50
-	.4byte 0x80285BC4
-	.4byte 0x80285C38
-	.4byte 0x80285CAC
-	.4byte 0x80285D1C
-	.4byte 0x80285D1C
-	.4byte 0x80285D1C
-	.4byte 0x80285D1C
-	.4byte 0x802858C4
+	.4byte _rwGCNVertexDescSetElementDesc+32
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+64
+	.4byte _rwGCNVertexDescSetElementDesc+112
+	.4byte _rwGCNVertexDescSetElementDesc+144
+	.4byte _rwGCNVertexDescSetElementDesc+296
+	.4byte _rwGCNVertexDescSetElementDesc+296
+	.4byte _rwGCNVertexDescSetElementDesc+408
+	.4byte _rwGCNVertexDescSetElementDesc+524
+	.4byte _rwGCNVertexDescSetElementDesc+640
+	.4byte _rwGCNVertexDescSetElementDesc+756
+	.4byte _rwGCNVertexDescSetElementDesc+872
+	.4byte _rwGCNVertexDescSetElementDesc+988
+	.4byte _rwGCNVertexDescSetElementDesc+1104
+	.4byte _rwGCNVertexDescSetElementDesc+1220
+	.4byte _rwGCNVertexDescSetElementDesc+1332
+	.4byte _rwGCNVertexDescSetElementDesc+1332
+	.4byte _rwGCNVertexDescSetElementDesc+1332
+	.4byte _rwGCNVertexDescSetElementDesc+1332
+	.4byte _rwGCNVertexDescSetElementDesc+220
 	.4byte 0x00000000
 .global _rtSkinSplitBitTable
 _rtSkinSplitBitTable:
@@ -531,33 +531,33 @@ _rtSkinSplitBitTable:
 	.4byte 0x02030304
 .global _esc__2_65_0
 _esc__2_65_0:
-	.4byte 0x8028A128
-	.4byte 0x8028A098
-	.4byte 0x8028A0A0
-	.4byte 0x8028A0A8
-	.4byte 0x8028A128
-	.4byte 0x8028A0B0
-	.4byte 0x8028A0B8
-	.4byte 0x8028A0C0
-	.4byte 0x8028A0C8
-	.4byte 0x8028A0D0
-	.4byte 0x8028A0D8
-	.4byte 0x8028A0E0
-	.4byte 0x8028A128
-	.4byte 0x8028A0E8
-	.4byte 0x8028A0F0
-	.4byte 0x8028A0F8
-	.4byte 0x8028A100
-	.4byte 0x8028A128
-	.4byte 0x8028A108
-	.4byte 0x8028A110
-	.4byte 0x8028A118
-	.4byte 0x8028A128
-	.4byte 0x8028A128
-	.4byte 0x8028A128
-	.4byte 0x8028A128
-	.4byte 0x8028A128
-	.4byte 0x8028A120
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+36
+	.4byte ChunkIsComplex+44
+	.4byte ChunkIsComplex+52
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+60
+	.4byte ChunkIsComplex+68
+	.4byte ChunkIsComplex+76
+	.4byte ChunkIsComplex+84
+	.4byte ChunkIsComplex+92
+	.4byte ChunkIsComplex+100
+	.4byte ChunkIsComplex+108
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+116
+	.4byte ChunkIsComplex+124
+	.4byte ChunkIsComplex+132
+	.4byte ChunkIsComplex+140
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+148
+	.4byte ChunkIsComplex+156
+	.4byte ChunkIsComplex+164
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+180
+	.4byte ChunkIsComplex+172
 	.4byte 0x00000000
 .global _esc__2_583
 _esc__2_583:
@@ -712,35 +712,35 @@ _esc__2_551:
 	.4byte 0x65640000
 .global _esc__2_552
 _esc__2_552:
-	.4byte 0x8029FAF8
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBA8
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBA8
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBD4
-	.4byte 0x8029FBA8
+	.4byte _rwDlImage4GetFromRaster+316
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+492
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+492
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+536
+	.4byte _rwDlImage4GetFromRaster+492
 .global _esc__2_623
 _esc__2_623:
 	.4byte 0x436F6E76
@@ -762,97 +762,97 @@ _esc__2_623:
 	.4byte 0x00000000
 .global _esc__2_624
 _esc__2_624:
-	.4byte 0x8029FD4C
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FDFC
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FE9C
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FEC8
-	.4byte 0x8029FE9C
+	.4byte _rwDlImage8GetFromRaster+316
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+492
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+652
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+696
+	.4byte _rwDlImage8GetFromRaster+652
 .global _esc__2_715
 _esc__2_715:
-	.4byte 0x802A0040
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A00F8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A01A0
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A0210
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A02A8
-	.4byte 0x802A0238
+	.4byte _rwDlImage32GetFromRaster+316
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+500
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+668
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+780
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+932
+	.4byte _rwDlImage32GetFromRaster+820
 .global _esc__2_1015
 _esc__2_1015:
-	.4byte 0x802A0F80
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0F90
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FA0
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FB0
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FE8
-	.4byte 0x802A0FD8
+	.4byte _rwDlRasterSetFromImage+200
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+216
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+232
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+248
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+304
+	.4byte _rwDlRasterSetFromImage+288
 .global _RwDlVideoModes
 _RwDlVideoModes:
 	.4byte 0x00000280
@@ -896,29 +896,29 @@ _esc__2_389:
 	.4byte 0x74000000
 .global _esc__2_491
 _esc__2_491:
-	.4byte 0x802A19C8
-	.4byte 0x802A1A7C
-	.4byte 0x802A1AB8
-	.4byte 0x802A1D70
-	.4byte 0x802A1944
-	.4byte 0x802A17D8
-	.4byte 0x802A17E8
-	.4byte 0x802A17BC
-	.4byte 0x802A193C
-	.4byte 0x802A1D94
-	.4byte 0x802A192C
-	.4byte 0x802A1D9C
-	.4byte 0x802A1EC0
-	.4byte 0x802A1EC0
-	.4byte 0x802A1EC0
-	.4byte 0x802A1EC0
-	.4byte 0x802A1EC0
-	.4byte 0x802A1D58
-	.4byte 0x802A1D64
-	.4byte 0x802A1EA0
-	.4byte 0x802A1EC0
-	.4byte 0x802A1EC0
-	.4byte 0x802A1EB0
+	.4byte _rwDlSystem+584
+	.4byte _rwDlSystem+764
+	.4byte _rwDlSystem+824
+	.4byte _rwDlSystem+1520
+	.4byte _rwDlSystem+452
+	.4byte _rwDlSystem+88
+	.4byte _rwDlSystem+104
+	.4byte _rwDlSystem+60
+	.4byte _rwDlSystem+444
+	.4byte _rwDlSystem+1556
+	.4byte _rwDlSystem+428
+	.4byte _rwDlSystem+1564
+	.4byte _rwDlSystem+1856
+	.4byte _rwDlSystem+1856
+	.4byte _rwDlSystem+1856
+	.4byte _rwDlSystem+1856
+	.4byte _rwDlSystem+1856
+	.4byte _rwDlSystem+1496
+	.4byte _rwDlSystem+1508
+	.4byte _rwDlSystem+1824
+	.4byte _rwDlSystem+1856
+	.4byte _rwDlSystem+1856
+	.4byte _rwDlSystem+1840
 .global projVector_esc__7_512
 projVector_esc__7_512:
 	.4byte 0x00000000
@@ -931,236 +931,236 @@ projVector_esc__7_512:
 .global rwDlDriverDevice_esc__7_630
 rwDlDriverDevice_esc__7_630:
 	.4byte 0x3F800000
-	.4byte 0x802A1780
+	.4byte _rwDlSystem
 	.4byte 0x00000000
 	.4byte 0x3F7FFFFF
-	.4byte 0x802A5200
-	.4byte 0x802A4D70
-	.4byte 0x8029E5B0
-	.4byte 0x8029E3AC
-	.4byte 0x8029E724
-	.4byte 0x8029ED00
+	.4byte _rwDlSetRenderState
+	.4byte _rwDlGetRenderState
+	.4byte _rwDlIm2DRenderLine
+	.4byte _rwDlIm2DRenderTriangle
+	.4byte _rwDlIm2DRenderPrimitive
+	.4byte _rwDlIm2DRenderIndexedPrimitive
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
 .global _esc__2_664
 _esc__2_664:
-	.4byte 0x802A2B88
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2BB0
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2BD4
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2C24
-	.4byte 0x802A2BFC
+	.4byte RwGameCubeCameraTextureFlush+220
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+260
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+296
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+376
+	.4byte RwGameCubeCameraTextureFlush+336
 .global _esc__2_309
 _esc__2_309:
-	.4byte 0x802A2DA4
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2DC0
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2DD8
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2E10
-	.4byte 0x802A2DF4
+	.4byte DlRasterGetMipLevelSize+128
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+156
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+180
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+236
+	.4byte DlRasterGetMipLevelSize+208
 .global _esc__2_344
 _esc__2_344:
-	.4byte 0x802A2F18
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F28
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F34
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F4C
-	.4byte 0x802A2F40
+	.4byte _rwDlRasterGetStride+80
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+96
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+108
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+132
+	.4byte _rwDlRasterGetStride+120
 .global _esc__2_440
 _esc__2_440:
-	.4byte 0x802A3074
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A30F4
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3168
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A3280
-	.4byte 0x802A31E4
+	.4byte DlRasterTile+76
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+204
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+320
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+600
+	.4byte DlRasterTile+444
 .global _esc__2_510
 _esc__2_510:
-	.4byte 0x802A3308
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3388
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A33FC
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3514
-	.4byte 0x802A3478
+	.4byte DlRasterUntile+76
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+204
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+320
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+600
+	.4byte DlRasterUntile+444
 .global _esc__2_614
 _esc__2_614:
-	.4byte 0x802A3760
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A3784
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37A4
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37EC
-	.4byte 0x802A37C8
+	.4byte _rwDlRasterLock+528
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+564
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+596
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+668
+	.4byte _rwDlRasterLock+632
 .global _esc__2_613
 _esc__2_613:
-	.4byte 0x802A3620
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3630
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A363C
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3654
-	.4byte 0x802A3648
+	.4byte _rwDlRasterLock+208
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+224
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+236
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+260
+	.4byte _rwDlRasterLock+248
 .global _esc__2_816_0
 _esc__2_816_0:
 	.4byte 0x72775241
@@ -1240,39 +1240,39 @@ _esc__2_822:
 	.4byte 0x6D617400
 .global _esc__2_823_0
 _esc__2_823_0:
-	.4byte 0x802A3DC8
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3E38
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3E70
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EAC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EDC
-	.4byte 0x802A3EC4
+	.4byte DlGetRasterFormat+196
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+308
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+364
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+424
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+472
+	.4byte DlGetRasterFormat+448
 .global _esc__2_932
 _esc__2_932:
 	.4byte 0x4661696C
@@ -1307,70 +1307,70 @@ _RwDlBlendConvTable:
 	.4byte 0x00000000
 .global _esc__2_331
 _esc__2_331:
-	.4byte 0x802A4F5C
-	.4byte 0x802A4E54
-	.4byte 0x802A4DE0
-	.4byte 0x802A4E0C
-	.4byte 0x802A4E24
-	.4byte 0x802A4EDC
-	.4byte 0x802A4E7C
-	.4byte 0x802A4EC4
-	.4byte 0x802A4E68
-	.4byte 0x802A4E3C
-	.4byte 0x802A4E94
-	.4byte 0x802A4EAC
-	.4byte 0x802A4F5C
-	.4byte 0x802A4ED4
-	.4byte 0x802A4D90
-	.4byte 0x802A4DC0
-	.4byte 0x802A4DA8
-	.4byte 0x802A4DD8
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4EEC
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F5C
-	.4byte 0x802A4F04
-	.4byte 0x802A4F44
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+228
+	.4byte _rwDlGetRenderState+112
+	.4byte _rwDlGetRenderState+156
+	.4byte _rwDlGetRenderState+180
+	.4byte _rwDlGetRenderState+364
+	.4byte _rwDlGetRenderState+268
+	.4byte _rwDlGetRenderState+340
+	.4byte _rwDlGetRenderState+248
+	.4byte _rwDlGetRenderState+204
+	.4byte _rwDlGetRenderState+292
+	.4byte _rwDlGetRenderState+316
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+356
+	.4byte _rwDlGetRenderState+32
+	.4byte _rwDlGetRenderState+80
+	.4byte _rwDlGetRenderState+56
+	.4byte _rwDlGetRenderState+104
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+380
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+492
+	.4byte _rwDlGetRenderState+404
+	.4byte _rwDlGetRenderState+468
 .global _esc__2_712
 _esc__2_712:
-	.4byte 0x802A5804
-	.4byte 0x802A54C4
-	.4byte 0x802A5418
-	.4byte 0x802A5450
-	.4byte 0x802A547C
-	.4byte 0x802A56F4
-	.4byte 0x802A5550
-	.4byte 0x802A56DC
-	.4byte 0x802A54E4
-	.4byte 0x802A54A8
-	.4byte 0x802A55E4
-	.4byte 0x802A566C
-	.4byte 0x802A5804
-	.4byte 0x802A56EC
-	.4byte 0x802A523C
-	.4byte 0x802A532C
-	.4byte 0x802A53A4
-	.4byte 0x802A5410
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A56FC
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A5804
-	.4byte 0x802A5724
-	.4byte 0x802A57C4
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+708
+	.4byte _rwDlSetRenderState+536
+	.4byte _rwDlSetRenderState+592
+	.4byte _rwDlSetRenderState+636
+	.4byte _rwDlSetRenderState+1268
+	.4byte _rwDlSetRenderState+848
+	.4byte _rwDlSetRenderState+1244
+	.4byte _rwDlSetRenderState+740
+	.4byte _rwDlSetRenderState+680
+	.4byte _rwDlSetRenderState+996
+	.4byte _rwDlSetRenderState+1132
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1260
+	.4byte _rwDlSetRenderState+60
+	.4byte _rwDlSetRenderState+300
+	.4byte _rwDlSetRenderState+420
+	.4byte _rwDlSetRenderState+528
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1276
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1540
+	.4byte _rwDlSetRenderState+1316
+	.4byte _rwDlSetRenderState+1476
 .global projVector_esc__7_272_0
 projVector_esc__7_272_0:
 	.4byte 0x3F800000
@@ -1434,35 +1434,35 @@ posMatrix_esc__7_452:
 	.4byte 0x00000000
 .global _esc__2_613_0
 _esc__2_613_0:
-	.4byte 0x802A6BB0
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6C10
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6C60
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6D2C
-	.4byte 0x802A6CC8
+	.4byte _rwDlRasterClearGeneric+480
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+576
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+656
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+860
+	.4byte _rwDlRasterClearGeneric+760
 .global _RwDlFilterModeConvTable
 _RwDlFilterModeConvTable:
 	.4byte 0x00000000
@@ -1514,8 +1514,8 @@ _ImmInstance_csl_esc__7_277:
 	.4byte 0x63736C00
 .global nodeImmInstanceCSL_esc__7_278
 nodeImmInstanceCSL_esc__7_278:
-	.4byte 0x8032D0AC
-	.4byte 0x802AD590
+	.4byte _ImmInstance_csl_esc__7_277
+	.4byte _rwDlImmInstanceNode
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
@@ -1539,8 +1539,8 @@ _SubmitNoLight_csl_esc__7_656:
 	.4byte 0x6C000000
 .global nodeDlSubmitNoLightCSL_esc__7_657
 nodeDlSubmitNoLightCSL_esc__7_657:
-	.4byte 0x8032D0FC
-	.4byte 0x802AD5AC
+	.4byte _SubmitNoLight_csl_esc__7_656
+	.4byte DlSubmitNode
 	.4byte 0x00000000
 	.4byte 0x00000000
 	.4byte 0x00000000
@@ -1615,61 +1615,61 @@ character_esc__7_44:
 .global _esc__2_334
 _esc__2_334:
 	.4byte 0x00000001
-	.4byte 0x802A1F98
+	.4byte _rwDlCameraBeginUpdate
 	.4byte 0x0000000A
-	.4byte 0x802A2550
+	.4byte _rwDlCameraEndUpdate
 	.4byte 0x00000015
-	.4byte 0x802A1EDC
+	.4byte _rwDlCameraClear
 	.4byte 0x00000014
-	.4byte 0x802A2560
+	.4byte _rwDlRasterShowRaster
 	.4byte 0x00000002
-	.4byte 0x8029F4A0
+	.4byte _rwDlRGBToPixel
 	.4byte 0x00000003
-	.4byte 0x8029F7B4
+	.4byte _rwDlPixelToRGB
 	.4byte 0x00000007
-	.4byte 0x802A0EB8
+	.4byte _rwDlRasterSetFromImage
 	.4byte 0x00000006
-	.4byte 0x802A02E4
+	.4byte _rwDlImageGetFromRaster
 	.4byte 0x00000005
-	.4byte 0x802A4904
+	.4byte _rwDlRasterDestroy
 	.4byte 0x00000004
-	.4byte 0x802A4554
+	.4byte _rwDlRasterCreate
 	.4byte 0x00000009
-	.4byte 0x802A117C
+	.4byte _rwDlImageFindRasterFormat
 	.4byte 0x00000008
-	.4byte 0x802A4A48
+	.4byte _rwDlTextureSetRaster
 	.4byte 0x0000000F
-	.4byte 0x802A3550
+	.4byte _rwDlRasterLock
 	.4byte 0x00000010
-	.4byte 0x802A39B0
+	.4byte _rwDlRasterUnlock
 	.4byte 0x00000017
-	.4byte 0x802A3B64
+	.4byte _rwDlRasterLockPalette
 	.4byte 0x00000018
-	.4byte 0x802A3C34
+	.4byte _rwDlRasterUnlockPalette
 	.4byte 0x0000000E
-	.4byte 0x802A6DD8
+	.4byte _rwDlRasterClear
 	.4byte 0x0000000D
-	.4byte 0x802A6DB4
+	.4byte _rwDlRasterClearRect
 	.4byte 0x00000011
-	.4byte 0x802A6348
+	.4byte _rwDlRasterRender
 	.4byte 0x00000012
-	.4byte 0x802A6398
+	.4byte _rwDlRasterRenderScaled
 	.4byte 0x00000013
 .global lbl_802F0004
 lbl_802F0004:
-	.4byte 0x802A6370
+	.4byte _rwDlRasterRenderFast
 	.4byte 0x0000000B
-	.4byte 0x802A6E1C
+	.4byte _rwDlSetRasterContext
 	.4byte 0x0000000C
-	.4byte 0x802A4A64
+	.4byte _rwDlRasterSubRaster
 	.4byte 0x00000019
-	.4byte 0x802A6E28
+	.4byte _rwDlNativeTextureGetSize
 	.4byte 0x0000001B
-	.4byte 0x802A6EB0
+	.4byte _rwDlNativeTextureWrite
 	.4byte 0x0000001A
-	.4byte 0x802A7188
+	.4byte _rwDlNativeTextureRead
 	.4byte 0x0000001C
-	.4byte 0x802A2F84
+	.4byte _rwDlRasterGetNumMipLevels
 
 .section .sbss
 
@@ -2035,10 +2035,10 @@ _rpHAnimHierarchyFreeListPreallocBlocks:
 	.4byte 0x00000001
 .global _rwPNumber1
 _rwPNumber1:
-	.4byte 0x803D7AC0
+	.4byte _rwNnumber1
 .global _rwConst
 _rwConst:
-	.4byte 0x802EFF00
+	.4byte _rwConstants
 .global _rpSkinFreeListBlockSize
 _rpSkinFreeListBlockSize:
 	.4byte 0x00000014
