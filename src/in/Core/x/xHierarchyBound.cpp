@@ -7,9 +7,9 @@
 #include <string.h>
 
 void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* init,
-                         float32 masterRadius, uint32 extraBounds, float32 scale)
+                         F32 masterRadius, U32 extraBounds, F32 scale)
 {
-    uint32 count = 0;
+    U32 count = 0;
 
     while (init[count].bone >= -1)
     {
@@ -19,7 +19,7 @@ void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* 
     bound->count = count;
     bound->nodes = (xHierarchyNode*)xMEMALLOC((count + extraBounds) * sizeof(xHierarchyNode));
 
-    for (uint32 i = 0; i < count; i++)
+    for (U32 i = 0; i < count; i++)
     {
         xHierarchyNode& node = bound->nodes[i];
 
@@ -39,8 +39,8 @@ void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* 
 #endif
 }
 
-bool xHierarchyBoundTest(const xHierarchyBound* bound, const xRay3* testRay, uint16* boundUserData,
-                         xIsect* isect, int8* subsphere)
+bool xHierarchyBoundTest(const xHierarchyBound* bound, const xRay3* testRay, U16* boundUserData,
+                         xIsect* isect, S8* subsphere)
 {
     xIsect localIsect;
 
@@ -51,7 +51,7 @@ bool xHierarchyBoundTest(const xHierarchyBound* bound, const xRay3* testRay, uin
         return false;
     }
 
-    for (uint32 i = 0; i < bound->count; i++)
+    for (U32 i = 0; i < bound->count; i++)
     {
         iSphereIsectRay(&bound->nodes[i].sphere, testRay, &localIsect);
 
@@ -79,8 +79,8 @@ bool xHierarchyBoundTest(const xHierarchyBound* bound, const xRay3* testRay, uin
     return false;
 }
 
-bool xHierarchyBoundTest(const xHierarchyBound* bound, xSweptSphere* sphere, uint16* boundUserData,
-                         int8* subsphere)
+bool xHierarchyBoundTest(const xHierarchyBound* bound, xSweptSphere* sphere, U16* boundUserData,
+                         S8* subsphere)
 {
     if (!xSweptSphereToSphere(sphere, &bound->master))
     {
@@ -89,7 +89,7 @@ bool xHierarchyBoundTest(const xHierarchyBound* bound, xSweptSphere* sphere, uin
 
     xSweptSphereResetCollision(sphere);
 
-    for (uint32 i = 0; i < bound->count; i++)
+    for (U32 i = 0; i < bound->count; i++)
     {
         if (xSweptSphereToSphere(sphere, &bound->nodes[i].sphere))
         {

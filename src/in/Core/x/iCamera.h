@@ -3,7 +3,7 @@
 
 #include "iFog.h"
 
-void iCameraSetFogParams(iFogParams* fp, float32 time);
+void iCameraSetFogParams(iFogParams* fp, F32 time);
 RwCamera* RwCameraBeginUpdateWrapper(RwCamera* camera);
 
 #endif

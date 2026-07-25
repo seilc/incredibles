@@ -4,16 +4,16 @@
 #include "xBound.h"
 #include "zBase.h"
 
-extern uint32 sLODTableCount;
+extern U32 sLODTableCount;
 extern zLODTable* sLODTableList;
-extern uint32 sManagerCount;
+extern U32 sManagerCount;
 extern zLODManager sManagerList[2048];
-extern float32 sLODFadeDistance;
+extern F32 sLODFadeDistance;
 
-extern float32 _esc__2_1004_0; // 1.0e-4, 0.0001
-extern float32 _esc__2_1003_0; // 1.0
-// extern float32 lbl_803CDC48; // 4.0
-extern float32 _esc__2_1005_0; // 10.0
+extern F32 _esc__2_1004_0; // 1.0e-4, 0.0001
+extern F32 _esc__2_1003_0; // 1.0
+// extern F32 lbl_803CDC48; // 4.0
+extern F32 _esc__2_1005_0; // 10.0
 
 void AddToLODList(xEnt* ent);
 

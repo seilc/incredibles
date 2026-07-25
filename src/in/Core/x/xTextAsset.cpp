@@ -3,14 +3,14 @@
 #include "xstransvc.h"
 #include "xString.h"
 
-const char* xTextFindString(uint32 key, uint32* len)
+const char* xTextFindString(U32 key, U32* len)
 {
     if (key == 0)
     {
         return NULL;
     }
 
-    uint32 size;
+    U32 size;
     xTextAsset* asset = (xTextAsset*)xSTFindAsset(key, &size);
 
     if (!asset)
@@ -26,7 +26,7 @@ const char* xTextFindString(uint32 key, uint32* len)
     return (const char*)(asset + 1);
 }
 
-const char* xTextFindString(const char* key, uint32* len)
+const char* xTextFindString(const char* key, U32* len)
 {
     return xTextFindString(xStrHash(key), len);
 }

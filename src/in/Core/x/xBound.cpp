@@ -185,7 +185,7 @@ static void xBoundOBBIsectRay(const xBox* b, const xMat4x3* m, const xRay3* r, x
     xRay3 xfr;
     xBox sbox;
     xMat4x3 mnormal;
-    float32 xlen, ylen, zlen;
+    F32 xlen, ylen, zlen;
 
     xVec3NormalizeMacro(xlen, &mnormal.right, &m->right);
     xVec3NormalizeMacro(ylen, &mnormal.up, &m->up);
@@ -302,7 +302,7 @@ bool xRayHitsBound(const xRay3& r, const xBound& b)
     return (isect.penned <= 0.0f);
 }
 
-bool xSphereHitsBound(const xVec3& c, float32 r, const xBound& b)
+bool xSphereHitsBound(const xVec3& c, F32 r, const xBound& b)
 {
     switch (b.type)
     {

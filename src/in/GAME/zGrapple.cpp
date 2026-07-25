@@ -7,7 +7,7 @@
 #include "xEvent.h"
 
 static zGrapplePoint* sGrapplePoints = NULL;
-static int32 sNumGrapplePoints = 0;
+static S32 sNumGrapplePoints = 0;
 
 void zGrapple_Init(xBase& data, xDynAsset& asset, ulong32)
 {
@@ -31,10 +31,10 @@ void zGrapple_Init(zGrapple* grapple, zGrappleAsset* asset)
     }
 }
 
-int32 zGrapple_Recurse(uint32 id, zGrapplePoint* gpList, zGrapple* grapple)
+S32 zGrapple_Recurse(U32 id, zGrapplePoint* gpList, zGrapple* grapple)
 {
-    uint32 i;
-    int32 result = 0;
+    U32 i;
+    S32 result = 0;
     xBase* base = zSceneFindObject(id);
 
     if (base)
@@ -42,12 +42,12 @@ int32 zGrapple_Recurse(uint32 id, zGrapplePoint* gpList, zGrapple* grapple)
         if (base->baseType == eBaseTypeGroup)
         {
             xGroup* group = (xGroup*)base;
-            uint32 count = xGroupGetCount(group);
+            U32 count = xGroupGetCount(group);
 
             for (i = 0; i < count; i++)
             {
-                uint32 memberID = xGroupGetItem(group, i);
-                int32 incr = gpList ? zGrapple_Recurse(memberID, &gpList[result], grapple) :
+                U32 memberID = xGroupGetItem(group, i);
+                S32 incr = gpList ? zGrapple_Recurse(memberID, &gpList[result], grapple) :
                                       zGrapple_Recurse(memberID, NULL, NULL);
 
                 result += incr;
@@ -69,7 +69,7 @@ int32 zGrapple_Recurse(uint32 id, zGrapplePoint* gpList, zGrapple* grapple)
     }
     else
     {
-        uint32 size;
+        U32 size;
         void* data = xSTFindAsset(id, &size);
 
         if (size == sizeof(xMarkerAsset))
@@ -92,9 +92,9 @@ int32 zGrapple_Recurse(uint32 id, zGrapplePoint* gpList, zGrapple* grapple)
 
 void zGrapple_SceneInit(zScene* zsc)
 {
-    int32 i;
-    int32 count = zsc->baseCount[eBaseTypeGrapple];
-    int32 numGrapples = 0;
+    S32 i;
+    S32 count = zsc->baseCount[eBaseTypeGrapple];
+    S32 numGrapples = 0;
     zGrapple* grapple;
 
     for (i = 0; i < count; i++)
@@ -124,7 +124,7 @@ void zGrapple_SceneInit(zScene* zsc)
 
 void zGrapple_Reset()
 {
-    int32 i;
+    S32 i;
     zGrapple* grapple;
 
     for (i = 0; i < sNumGrapplePoints; i++)
@@ -134,7 +134,7 @@ void zGrapple_Reset()
     }
 }
 
-void zGrapple_EventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void zGrapple_EventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zGrapple* grap = (zGrapple*)to;
 
@@ -149,12 +149,12 @@ void zGrapple_EventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*,
     }
 }
 
-int32 zGrapple_NumGrapplePoints()
+S32 zGrapple_NumGrapplePoints()
 {
     return sNumGrapplePoints;
 }
 
-zGrapplePoint* zGrapple_GetGrapplePoint(int32 i)
+zGrapplePoint* zGrapple_GetGrapplePoint(S32 i)
 {
     return &sGrapplePoints[i];
 }

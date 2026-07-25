@@ -13,7 +13,7 @@ namespace zNPC
 {
     iSndHandle base::play_sound(zAnimFxSoundGroup* group)
     {
-        uint32 soundID = group->ID;
+        U32 soundID = group->ID;
 
         if (group->count > 1)
         {
@@ -30,7 +30,7 @@ namespace zNPC
         return xSndMgrPlay(GroupToPlay, 0x800, NULL, NULL, this);
     }
 
-    void base::initialize_bounds(float32 modelScale)
+    void base::initialize_bounds(F32 modelScale)
     {
         sound_id_offset = 0xFFFF;
 
@@ -40,7 +40,7 @@ namespace zNPC
         get_parameter("BoundBone", &bound_bone, -1);
 
         xVec3 offset;
-        float32 scale;
+        F32 scale;
 
         if (!use_bounding_box && get_parameter("BoundCenter", &offset, g_O3) &&
             get_parameter("BoundRadius", &scale, 1.0f))
@@ -60,7 +60,7 @@ namespace zNPC
         }
     }
 
-    void base::change_bounds(float32 scale, xVec3 offset, bool use_bounding_box)
+    void base::change_bounds(F32 scale, xVec3 offset, bool use_bounding_box)
     {
         xVec3Copy(&bound_offset, &offset);
 
@@ -78,9 +78,9 @@ namespace zNPC
             bound.box.box.lower.z -= model->Mat->pos.z;
             bound.mat = &frame->mat;
 
-            float32 width = bound.box.box.upper.x - bound.box.box.lower.x;
-            float32 height = bound.box.box.upper.y - bound.box.box.lower.y;
-            float32 length = bound.box.box.upper.z - bound.box.box.lower.z;
+            F32 width = bound.box.box.upper.x - bound.box.box.lower.x;
+            F32 height = bound.box.box.upper.y - bound.box.box.lower.y;
+            F32 length = bound.box.box.upper.z - bound.box.box.lower.z;
 
             bound.box.box.lower.x += (width - width * scale) / 2.0f;
             bound.box.box.lower.y += (height - height * scale) / 2.0f;
@@ -162,7 +162,7 @@ namespace zNPC
         zGridUpdateEnt(this);
     }
 
-    void base::update_npc(float32 dt)
+    void base::update_npc(F32 dt)
     {
         if (pflags & 0x2)
         {
@@ -175,7 +175,7 @@ namespace zNPC
         }
     }
 
-    xVec3 base::get_bone_world_direction(int32 bone, const xVec3& bone_local_offset)
+    xVec3 base::get_bone_world_direction(S32 bone, const xVec3& bone_local_offset)
     {
         xVec3 direction;
 
@@ -185,7 +185,7 @@ namespace zNPC
         return direction;
     }
 
-    xVec3 base::get_bone_world_position(int32 bone)
+    xVec3 base::get_bone_world_position(S32 bone)
     {
         if (bone == -1)
         {
@@ -199,7 +199,7 @@ namespace zNPC
         return position;
     }
 
-    xVec3 base::get_bone_world_position_offset(int32 bone, const xVec3& bone_local_offset)
+    xVec3 base::get_bone_world_position_offset(S32 bone, const xVec3& bone_local_offset)
     {
         xVec3 position;
 
@@ -209,7 +209,7 @@ namespace zNPC
         return position;
     }
 
-    bool base::get_parameter(const char* name, uint8* value, uint8 default_value)
+    bool base::get_parameter(const char* name, U8* value, U8 default_value)
     {
         const char* text;
 
@@ -223,7 +223,7 @@ namespace zNPC
         return false;
     }
 
-    bool base::get_parameter(const char* name, int32* value, int32 default_value)
+    bool base::get_parameter(const char* name, S32* value, S32 default_value)
     {
         const char* text;
 
@@ -237,7 +237,7 @@ namespace zNPC
         return false;
     }
 
-    bool base::get_parameter(const char* name, int16* value, int16 default_value)
+    bool base::get_parameter(const char* name, S16* value, S16 default_value)
     {
         const char* text;
 
@@ -265,7 +265,7 @@ namespace zNPC
         return false;
     }
 
-    bool base::get_parameter(const char* name, float32* value, float32 default_value)
+    bool base::get_parameter(const char* name, F32* value, F32 default_value)
     {
         const char* text;
 
@@ -285,7 +285,7 @@ namespace zNPC
 
         if (get_parameter(name, &text, NULL))
         {
-            int32 size = xStrParseFloatList((float32*)value, text, 3);
+            S32 size = xStrParseFloatList((F32*)value, text, 3);
 
             if (size < 3)
             {

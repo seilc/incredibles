@@ -5,9 +5,9 @@
 #include "xString.h"
 #include "zScene.h"
 
-void zEntEvent(char* to, uint32 toEvent)
+void zEntEvent(char* to, U32 toEvent)
 {
-    uint32 id = xStrHash(to);
+    U32 id = xStrHash(to);
     xBase* sendTo = zSceneFindObject(id);
 
     if (sendTo)
@@ -16,7 +16,7 @@ void zEntEvent(char* to, uint32 toEvent)
     }
 }
 
-void zEntEvent(uint32 toID, uint32 toEvent)
+void zEntEvent(U32 toID, U32 toEvent)
 {
     xBase* sendTo = zSceneFindObject(toID);
 
@@ -31,13 +31,13 @@ void zEntEvent(uint32 toID, uint32 toEvent)
 #pragma force_active off
 static void hack_unused_function()
 {
-    zEntEvent((xBase*)NULL, 0, (const float32*)NULL);
+    zEntEvent((xBase*)NULL, 0, (const F32*)NULL);
 }
 #pragma pop
 #endif
 
-void zEntEvent(xBase* from, uint32, xBase* to, uint32 toEvent, const float32* toParam,
-               xBase* toParamWidget, uint32 toParamWidgetID, ForceEvent forceEvent)
+void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
+               xBase* toParamWidget, U32 toParamWidgetID, ForceEvent forceEvent)
 {
     if (toEvent == eEventDisable)
     {
@@ -69,7 +69,7 @@ void zEntEvent(xBase* from, uint32, xBase* to, uint32 toEvent, const float32* to
     {
         xLinkAsset* idx = to->link;
 
-        for (int32 i = 0; i < to->linkCount; i++, idx++)
+        for (S32 i = 0; i < to->linkCount; i++, idx++)
         {
             if (toEvent == idx->srcEvent)
             {

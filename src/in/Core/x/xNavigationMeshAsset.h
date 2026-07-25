@@ -12,34 +12,34 @@ namespace xAsset
         {
             struct exit
             {
-                int32 exit_triangle_index;
-                int32 dest_triangle_index;
-                int32 neighbor_mesh_index;
+                S32 exit_triangle_index;
+                S32 dest_triangle_index;
+                S32 neighbor_mesh_index;
             };
 
             struct triangle
             {
-                uint8 a;
-                uint8 b;
-                uint8 c;
-                uint8 flags;
+                U8 a;
+                U8 b;
+                U8 c;
+                U8 flags;
             };
 
-            uint8* portal_lookup;
-            uint8* portal;
-            float32* edge_shift;
+            U8* portal_lookup;
+            U8* portal;
+            F32* edge_shift;
             exit* exits;
-            int32 num_exits;
+            S32 num_exits;
             xVec3* vertices;
-            int32 num_vertices;
+            S32 num_vertices;
             triangle* triangles;
-            int32 num_triangles;
-            uint32* objects;
-            int32 num_objects;
-            uint8* level_two_route_exits;
+            S32 num_triangles;
+            U32* objects;
+            S32 num_objects;
+            U8* level_two_route_exits;
         };
 
-        int32 num_sub_meshes;
+        S32 num_sub_meshes;
         sub_mesh* sub_meshes;
     };
 } // namespace xAsset

@@ -12,7 +12,7 @@ struct xModelBucket
         xModelInstance* List;
         xModelBucket** BackRef;
     };
-    int32 ClipFlags;
+    S32 ClipFlags;
     xModelPipe Pipe;
 };
 

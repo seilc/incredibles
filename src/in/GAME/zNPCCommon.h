@@ -18,11 +18,11 @@ namespace zNPC
         // (or moved to the end) in the final game. They're commented out for now,
         // but feel free to uncomment and move them wherever if they are in fact used.
 
-        float32 move_speed_multiply;
+        F32 move_speed_multiply;
         bool invincible;
-        float32 near_target_radius;
-        float32 mass;
-        float32 cull_distance;
+        F32 near_target_radius;
+        F32 mass;
+        F32 cull_distance;
         group* group_data;
         struct
         {
@@ -41,38 +41,38 @@ namespace zNPC
 
             bool pad3 : 8;
 
-            uint8 old_chkby : 8;
+            U8 old_chkby : 8;
         } commonFlags;
         zDuplicator* duplicator;
         navigate* navigation_behavior;
         behavior_manager manager;
         Senses senses;
         //xShadowSimpleCache simpShadow_embedded;
-        float32 shadow_radius;
+        F32 shadow_radius;
         //xEntShadow entShadow_embedded;
-        int16 incredi_power_points;
-        int32 grab_bone;
+        S16 incredi_power_points;
+        S32 grab_bone;
         xVec3 grab_offset;
 
         // clang-format off
         common();
         virtual ~common();
         virtual void init_npc(xEntAsset* asset);
-        virtual void update_npc(float32 dt);
+        virtual void update_npc(F32 dt);
         virtual void setup();
         virtual void scene_setup();
         virtual void render_extra();
-        virtual bool system_event(xBase* from, xBase* to, uint32 toEvent, const float32* toParam,
-                                  xBase* toParamWidget, uint32 toParamWidgetID);
+        virtual bool system_event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                                  xBase* toParamWidget, U32 toParamWidgetID);
         virtual void activate();
         virtual void deactivate();
         virtual const char* get_type_name() const { return "other"; }
-        virtual void BehaviorUpdate(float32 dt) {}
-        virtual void before_anim_matrices(xAnimPlay* play, xQuat* quat, xVec3* tran, int32 boneCount);
+        virtual void BehaviorUpdate(F32 dt) {}
+        virtual void before_anim_matrices(xAnimPlay* play, xQuat* quat, xVec3* tran, S32 boneCount);
         virtual void add_states(xAnimTable* table);
         virtual void add_transitions(xAnimTable* table);
         virtual void reset();
-        virtual uint32 get_throw_anim_code() { return 0; }
+        virtual U32 get_throw_anim_code() { return 0; }
         virtual void render_npc();
         virtual bool static_object_carry() { return false; }
         virtual bool player_orient_carry() { return false; }
@@ -87,13 +87,13 @@ namespace zNPC
         virtual xEnt* get_target_ent() const { return senses.targetEnt; }
         virtual const xVec3& get_target_pos() const { return senses.targetPos; }
         virtual const xVec3& get_target_dir() const { return senses.targetDir; }
-        virtual float32 get_target_dist() const { return senses.targetDist; }
+        virtual F32 get_target_dist() const { return senses.targetDist; }
         virtual const xVec2& get_target_dir_2d() const { return senses.targetDir2d; }
-        virtual float32 get_target_dist_2d() const { return senses.targetDist2d; }
+        virtual F32 get_target_dist_2d() const { return senses.targetDist2d; }
         virtual const xVec3& get_aim_pos() const { return senses.aimPos; }
         virtual const xVec3& get_aim_dir() const { return senses.aimDir; }
-        virtual float32 get_aim_dist() const { return senses.aimDist; }
-        virtual uint8 get_target_priority() const { return 10; }
+        virtual F32 get_aim_dist() const { return senses.aimDist; }
+        virtual U8 get_target_priority() const { return 10; }
         virtual void debug_render();
         virtual void move() {}
         // clang-format on
@@ -104,13 +104,13 @@ namespace zNPC
         void check_transient_damage();
         zCombat* get_combat();
 
-        static void BeforeAnimMatrices(xAnimPlay* play, xQuat* quat, xVec3* tran, int32 boneCount);
+        static void BeforeAnimMatrices(xAnimPlay* play, xQuat* quat, xVec3* tran, S32 boneCount);
 
         void revive();
         void imminent_death();
         bool alive();
-        int32 grabOffset(xVec3* offset);
-        void set_shadow_strength(float32 percent);
+        S32 grabOffset(xVec3* offset);
+        void set_shadow_strength(F32 percent);
         void set_update_cull();
 
         bool is_human()

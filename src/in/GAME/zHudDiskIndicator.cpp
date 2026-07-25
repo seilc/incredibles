@@ -18,7 +18,7 @@ namespace zHud
 
     void DiskIndicator::setup()
     {
-        uint32 meterID = xStrHash("DiskSpinner");
+        U32 meterID = xStrHash("DiskSpinner");
         xhud::widget_chunk* chunk = (xhud::widget_chunk*)zSceneFindObject(meterID);
 
         if (chunk)
@@ -72,7 +72,7 @@ namespace zHud
     {
     }
 
-    void DiskIndicator::spin(float32 fSeconds)
+    void DiskIndicator::spin(F32 fSeconds)
     {
         m_fDisplayTimeLeft = fSeconds;
 
@@ -81,7 +81,7 @@ namespace zHud
         m_pImageWidget->show(xhud::widget::RIGHT, true, false);
     }
 
-    void DiskIndicator::update(float32 dt)
+    void DiskIndicator::update(F32 dt)
     {
         if (m_fDisplayTimeLeft > 0.0f)
         {

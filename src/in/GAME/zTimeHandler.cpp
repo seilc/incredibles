@@ -2,9 +2,9 @@
 
 zTimeHandlerMgr timehandler_mgr;
 
-void zTimeHandlerMgr::update(float32 dt)
+void zTimeHandlerMgr::update(F32 dt)
 {
-    for (int32 i = get_size_queue() - 1; i >= 0; i--)
+    for (S32 i = get_size_queue() - 1; i >= 0; i--)
     {
         zTimeHandlerStruct* s = fetch_queue_ptr(i);
 

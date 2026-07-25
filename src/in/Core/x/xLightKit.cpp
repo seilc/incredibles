@@ -19,7 +19,7 @@ xLightKit* xLightKit_Prepare(void* data)
 
     xLightKitLight* currlight = lightList;
 
-    for (uint32 i = 0; i < lkit->lightCount; i++)
+    for (U32 i = 0; i < lkit->lightCount; i++)
     {
         if (currlight->platLight)
         {
@@ -29,7 +29,7 @@ xLightKit* xLightKit_Prepare(void* data)
         if (currlight->color.red > 1.0f || currlight->color.green > 1.0f ||
             currlight->color.blue > 1.0f)
         {
-            float32 s =
+            F32 s =
                 MAX(MAX(currlight->color.red, currlight->color.green), currlight->color.blue);
 
             s = 1.0f / MAX(s, 0.00001f);
@@ -109,7 +109,7 @@ void xLightKit_Enable(xLightKit* lkit, RpWorld* world)
         return;
     }
 
-    uint32 i;
+    U32 i;
 
     if (gLastLightKit)
     {
@@ -142,7 +142,7 @@ void xLightKit_Destroy(xLightKit* lkit)
         return;
     }
 
-    uint32 i;
+    U32 i;
     xLightKitLight* currLight = lkit->lightList;
 
     for (i = 0; i < lkit->lightCount; i++)

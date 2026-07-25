@@ -5,22 +5,22 @@
 
 struct zWireframeVertex
 {
-    float32 x;
-    float32 y;
-    float32 z;
+    F32 x;
+    F32 y;
+    F32 z;
 };
 
 struct zWireframeLine
 {
-    uint16 start;
-    uint16 end;
+    U16 start;
+    U16 end;
 };
 
 struct zWireframeAsset
 {
-    uint32 size;
-    uint32 vertexCount;
-    uint32 lineCount;
+    U32 size;
+    U32 vertexCount;
+    U32 lineCount;
     zWireframeVertex* vertices;
     zWireframeLine* lines;
 };

@@ -30,11 +30,11 @@ void zEnvInit(_zEnv* env, xEnvAsset* easset)
 
     xEnvLoadJSPList(globals.sceneCur->env, 0);
 
-    int32 mapper_count = xSTAssetCountByType('MAPR');
+    S32 mapper_count = xSTAssetCountByType('MAPR');
 
-    for (int32 i = 0; i < mapper_count; i++)
+    for (S32 i = 0; i < mapper_count; i++)
     {
-        uint32 size;
+        U32 size;
         xBase* material_map = (xBase*)xSTFindAssetByType('MAPR', i, &size);
 
         zSurfaceRegisterMapper(material_map->id);
@@ -51,7 +51,7 @@ void zEnvInit(_zEnv* env, xEnvAsset* easset)
 
     if (easset->flags & XENVASSET_FLAGS_0x1)
     {
-        for (int32 i = 0; i < globals.sceneCur->env->geom->jsp_count; i++)
+        for (S32 i = 0; i < globals.sceneCur->env->geom->jsp_count; i++)
         {
             xEntGrowGlobalBoundingBox(&globals.sceneCur->env->geom->jsp_bound[i].upper);
             xEntGrowGlobalBoundingBox(&globals.sceneCur->env->geom->jsp_bound[i].lower);
@@ -72,9 +72,9 @@ void zEnvStartingCamera(_zEnv*)
 void zEnvRender(xEnv* env)
 {
     RpWorld* world = env->geom->world;
-    int32 num = RpWorldGetNumMaterials(world);
+    S32 num = RpWorldGetNumMaterials(world);
 
-    for (int32 i = 0; i < num; i++)
+    for (S32 i = 0; i < num; i++)
     {
         xSurface* sp = zSurfaceGetSurface(i);
         zSurfaceProps* pp = zSurfaceGetProps(sp);
@@ -89,7 +89,7 @@ void zEnvRender(xEnv* env)
 
                 if (g)
                 {
-                    uint32 texid = xGroupGetItem(g, pp->texanim[0].group_idx);
+                    U32 texid = xGroupGetItem(g, pp->texanim[0].group_idx);
                     RwTexture* texptr = (RwTexture*)xSTFindAsset(texid);
 
                     if (texptr)
@@ -119,7 +119,7 @@ void zEnvReset(_zEnv* env)
     xBaseReset(env, env->easset);
 }
 
-void zEnvEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase* toParamWidget, uint32)
+void zEnvEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase* toParamWidget, U32)
 {
     switch (toEvent)
     {

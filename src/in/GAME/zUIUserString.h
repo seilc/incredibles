@@ -5,8 +5,8 @@
 
 struct zUIUserStringAsset : zUITextAsset
 {
-    uint8 hardMaxChars;
-    uint8 softMaxChars;
+    U8 hardMaxChars;
+    U8 softMaxChars;
 };
 
 class zUIUserString : public zUIText
@@ -21,16 +21,16 @@ public:
         return (zUIUserStringAsset*)zUI::GetAsset();
     }
 
-    virtual uint32 GetSortKey() const;
+    virtual U32 GetSortKey() const;
     virtual void DoInit();
     virtual void DoReset();
-    virtual void DoHandleEvent(xBase* from, uint32 toEvent, const float32* toParam,
-                               xBase* toParamWidget, uint32 toParamWidgetID);
+    virtual void DoHandleEvent(xBase* from, U32 toEvent, const F32* toParam,
+                               xBase* toParamWidget, U32 toParamWidgetID);
 
 private:
     char* textBuffer;
-    int32 length;
-    int32 maxLength;
+    S32 length;
+    S32 maxLength;
 };
 
 void zUIUserString_Init(xBase& data, xDynAsset& asset, ulong32);

@@ -5,10 +5,10 @@
 
 struct xTextAsset
 {
-    uint32 len;
+    U32 len;
 };
 
-const char* xTextFindString(uint32 key, uint32* len = NULL);
-const char* xTextFindString(const char* key, uint32* len = NULL);
+const char* xTextFindString(U32 key, U32* len = NULL);
+const char* xTextFindString(const char* key, U32* len = NULL);
 
 #endif

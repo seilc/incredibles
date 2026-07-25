@@ -26,7 +26,7 @@ void pool_list_base::push_back()
     _size++;
 }
 
-void pool_list_base::create(int32 node_size, int32 max_size, void* buffer)
+void pool_list_base::create(S32 node_size, S32 max_size, void* buffer)
 {
     if (!buffer)
     {
@@ -42,7 +42,7 @@ void pool_list_base::create(int32 node_size, int32 max_size, void* buffer)
     reset(node_size);
 }
 
-void pool_list_base::reset(int32 node_size)
+void pool_list_base::reset(S32 node_size)
 {
     _size = 0;
     head.next = &tail;
@@ -51,8 +51,8 @@ void pool_list_base::reset(int32 node_size)
     tail.next = NULL;
     stack = (node_base*)buffer;
 
-    uint8* mem = (uint8*)buffer;
-    uint8* end_mem = mem + (_max_size - 1) * node_size;
+    U8* mem = (U8*)buffer;
+    U8* end_mem = mem + (_max_size - 1) * node_size;
 
     while (mem != end_mem)
     {

@@ -5,12 +5,12 @@
 
 struct xJawDataTable
 {
-    uint32 soundHashID;
-    uint32 dataStart;
-    uint32 dataLength;
+    U32 soundHashID;
+    U32 dataStart;
+    U32 dataLength;
 };
 
-void* xJaw_FindData(uint32 soundID);
-float32 xJaw_EvalData(void* data, float32 time);
+void* xJaw_FindData(U32 soundID);
+F32 xJaw_EvalData(void* data, F32 time);
 
 #endif

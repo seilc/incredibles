@@ -4,12 +4,12 @@
 
 #include <string.h>
 
-static int32 OrdTest_infotype(const void* vkey, void* vitem);
-static int32 OrdComp_infotype(void* vkey, void* vitem);
+static S32 OrdTest_infotype(const void* vkey, void* vitem);
+static S32 OrdComp_infotype(void* vkey, void* vitem);
 
-xFactory::xFactory(int32 maxTypes)
+xFactory::xFactory(S32 maxTypes)
 {
-    uint32 amt = maxTypes * sizeof(XGOFTypeInfo);
+    U32 amt = maxTypes * sizeof(XGOFTypeInfo);
 
     infopool = (XGOFTypeInfo*)xMEMALLOC(amt);
 
@@ -24,9 +24,9 @@ xFactory::~xFactory()
     XOrdDone(&infolist, FALSE);
 }
 
-int32 xFactory::RegItemType(XGOFTypeInfo* info)
+S32 xFactory::RegItemType(XGOFTypeInfo* info)
 {
-    int32 rc = 0;
+    S32 rc = 0;
 
     for (XGOFTypeInfo* tptr = info; tptr->tid != 0; tptr++)
     {
@@ -50,7 +50,7 @@ int32 xFactory::RegItemType(XGOFTypeInfo* info)
             break;
         }
 
-        int32 idx = XOrdLookup(&infolist, tptr, OrdTest_infotype);
+        S32 idx = XOrdLookup(&infolist, tptr, OrdTest_infotype);
 
         if (idx >= 0)
         {
@@ -70,9 +70,9 @@ int32 xFactory::RegItemType(XGOFTypeInfo* info)
     return rc;
 }
 
-xFactoryInst* xFactory::CreateItem(int32 typeID, void* userdata, RyzMemGrow* callerzgrow)
+xFactoryInst* xFactory::CreateItem(S32 typeID, void* userdata, RyzMemGrow* callerzgrow)
 {
-    int32 idx;
+    S32 idx;
     xFactoryInst* item;
     XGOFTypeInfo pattern = {};
     XGOFTypeInfo* darec = NULL;
@@ -132,7 +132,7 @@ void xFactory::DestroyAll()
 
 void xFactory::DestroyItem(xFactoryInst* item)
 {
-    int32 idx;
+    S32 idx;
     XGOFTypeInfo pattern = {};
 
     pattern.tid = item->itemType;
@@ -168,9 +168,9 @@ void xFactory::DestroyItem(xFactoryInst* item)
     }
 }
 
-static int32 OrdTest_infotype(const void* vkey, void* vitem)
+static S32 OrdTest_infotype(const void* vkey, void* vitem)
 {
-    int32 rc;
+    S32 rc;
 
     if (((XGOFTypeInfo*)vkey)->tid < ((XGOFTypeInfo*)vitem)->tid)
     {
@@ -188,9 +188,9 @@ static int32 OrdTest_infotype(const void* vkey, void* vitem)
     return rc;
 }
 
-static int32 OrdComp_infotype(void* vkey, void* vitem)
+static S32 OrdComp_infotype(void* vkey, void* vitem)
 {
-    int32 rc;
+    S32 rc;
 
     if (((XGOFTypeInfo*)vkey)->tid < ((XGOFTypeInfo*)vitem)->tid)
     {

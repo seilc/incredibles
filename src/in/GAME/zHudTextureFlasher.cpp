@@ -4,8 +4,8 @@
 
 namespace zHud
 {
-    void TextureFlasher::setup(xhud::image_widget* pImageWidget, uint32 uLayer, float32 onTime,
-                               float32 offTime, float32 decayTime)
+    void TextureFlasher::setup(xhud::image_widget* pImageWidget, U32 uLayer, F32 onTime,
+                               F32 offTime, F32 decayTime)
     {
         m_onTime = onTime;
         m_offTime = -offTime;
@@ -21,7 +21,7 @@ namespace zHud
         m_callback = callback;
     }
 
-    void TextureFlasher::update(float32 dt)
+    void TextureFlasher::update(F32 dt)
     {
         if (m_callback && !m_callback(m_context, this))
         {
@@ -39,8 +39,8 @@ namespace zHud
 
         if (m_timer < 0.0f)
         {
-            float32 timeoff = m_timer - m_offTime;
-            float32 fPercentDecay = 1.0f;
+            F32 timeoff = m_timer - m_offTime;
+            F32 fPercentDecay = 1.0f;
 
             if (m_offDecayTime > 0.0f)
             {
@@ -60,7 +60,7 @@ namespace zHud
         }
     }
 
-    void TextureFlasher::setFlashingParams(float32 offTime, float32 onTime)
+    void TextureFlasher::setFlashingParams(F32 offTime, F32 onTime)
     {
         m_offTime = -offTime;
         m_onTime = onTime;

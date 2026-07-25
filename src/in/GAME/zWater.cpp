@@ -36,12 +36,12 @@ void zWaterBody::load(const asset_type& a)
     visible = (asset->flags & ZWATERBODY_VISIBLE);
 }
 
-uint32 zWaterBody::get_bodyID()
+U32 zWaterBody::get_bodyID()
 {
     return asset->body;
 }
 
-void zWaterBody::cb_dispatch(xBase*, xBase* to, uint32 event, const float32*, xBase*, uint32)
+void zWaterBody::cb_dispatch(xBase*, xBase* to, U32 event, const F32*, xBase*, U32)
 {
     zWaterBody& e = *(zWaterBody*)to;
 

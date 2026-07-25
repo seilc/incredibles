@@ -7,14 +7,14 @@ class xMemoryManagerFixed : public xMemoryManager
 {
     xMemoryManagerFixed();
 
-    uint32 GetElementSize() const;
+    U32 GetElementSize() const;
 
-    void Init(void* start, uint32 elements, uint32 elementSize);
+    void Init(void* start, U32 elements, U32 elementSize);
 
-    void* DoAllocate(uint32, uint32);
+    void* DoAllocate(U32, U32);
     void DoFree(void* pointer);
-    void* DoReallocate(void* pointer, uint32, uint32);
-    uint32 DoGetBlockSize(void*) const;
+    void* DoReallocate(void* pointer, U32, U32);
+    U32 DoGetBlockSize(void*) const;
 
 private:
     struct FixedHeader
@@ -23,8 +23,8 @@ private:
     };
 
     FixedHeader* freeList;
-    uint32 elements;
-    uint32 elementSize;
+    U32 elements;
+    U32 elementSize;
 
     void InitMemory();
 };

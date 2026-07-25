@@ -9,11 +9,11 @@ class zUICustomSysMessageManager : public zUICustom
 public:
     zUICustomSysMessageManager(zUI* ui);
     void Init();
-    bool IsSignalAllowed(uint32 toEvent);
-    bool HandleEvent(xBase* from, uint32 toEvent, const float32* toParam, xBase* toParamWidget,
-                     uint32 toParamWidgetID);
-    void ShowSystemMessage(xBaseEventCB cb, uint32, uint32 _toCBEvent, const float32* _toCBParams,
-                           xBase* _toCBto, xBase* _toCBParamWidget, uint32 _toCBParamWidgetID,
+    bool IsSignalAllowed(U32 toEvent);
+    bool HandleEvent(xBase* from, U32 toEvent, const F32* toParam, xBase* toParamWidget,
+                     U32 toParamWidgetID);
+    void ShowSystemMessage(xBaseEventCB cb, U32, U32 _toCBEvent, const F32* _toCBParams,
+                           xBase* _toCBto, xBase* _toCBParamWidget, U32 _toCBParamWidgetID,
                            const char* sys_message);
 
     bool IsSystem(zUI* ptr)
@@ -23,11 +23,11 @@ public:
 
 private:
     xBaseEventCB cb_function;
-    uint32 toCBEvent;
-    float32 toCBParams[4];
+    U32 toCBEvent;
+    F32 toCBParams[4];
     xBase* toCBto;
     xBase* toCBParamWidget;
-    uint32 toCBParamWidgetID;
+    U32 toCBParamWidgetID;
     zUI* fromUI;
     zUIText* itemOk;
     zUIText* itemYes;

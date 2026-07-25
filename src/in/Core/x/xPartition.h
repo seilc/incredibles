@@ -11,7 +11,7 @@ typedef struct _tagPartLink
 
 typedef struct _tagPartSpace
 {
-    int32 total;
+    S32 total;
     PartLink head;
 } PartSpace;
 
@@ -20,9 +20,9 @@ typedef struct _tagPartition
     xVec3 min;
     xVec3 max;
     xVec3 space_dim;
-    int32 total_x;
-    int32 total_y;
-    int32 total_z;
+    S32 total_x;
+    S32 total_y;
+    S32 total_z;
     PartSpace* space;
     PartSpace global;
 } Partition;

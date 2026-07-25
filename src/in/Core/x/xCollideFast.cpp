@@ -2,13 +2,13 @@
 
 #include "iMath3.h"
 
-uint32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
+U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
 {
     xVec3 v;
 
     xVec3Sub(&v, &r->origin, &s->center);
 
-    float32 c = xVec3Dot(&v, &v) - SQR(s->r);
+    F32 c = xVec3Dot(&v, &v) - SQR(s->r);
 
     if (c <= 0.0f)
     {
@@ -20,7 +20,7 @@ uint32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
         return 0;
     }
 
-    float32 f1 = xVec3Dot(&v, &r->dir);
+    F32 f1 = xVec3Dot(&v, &r->dir);
 
     if (f1 >= 0.0f)
     {
@@ -35,7 +35,7 @@ uint32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
     return 0;
 }
 
-uint32 xRayHitsBoxFast(const xRay3* r, const xBox* b)
+U32 xRayHitsBoxFast(const xRay3* r, const xBox* b)
 {
     xIsect isx;
 
@@ -44,7 +44,7 @@ uint32 xRayHitsBoxFast(const xRay3* r, const xBox* b)
     return isx.penned <= 0.0f || isx.contained <= 0.0f;
 }
 
-uint32 xRayHitsCylinderFast(const xRay3* r, const xCylinder* c)
+U32 xRayHitsCylinderFast(const xRay3* r, const xCylinder* c)
 {
     xIsect isx;
 
@@ -53,7 +53,7 @@ uint32 xRayHitsCylinderFast(const xRay3* r, const xCylinder* c)
     return isx.penned <= 0.0f || isx.contained <= 0.0f;
 }
 
-uint32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
+U32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
 {
     xRay3 lr;
 
@@ -63,7 +63,7 @@ uint32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
     }
     else if (b->type == XBOUND_TYPE_OBB)
     {
-        float32 len = xVec3Length(&b->mat->right);
+        F32 len = xVec3Length(&b->mat->right);
         xMat3x3 mn;
 
         xMat3x3Normalize(&mn, b->mat);

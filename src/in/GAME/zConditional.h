@@ -7,10 +7,10 @@ struct zVarEntry;
 
 struct zCondAsset : xBaseAsset
 {
-    uint32 constNum;
-    uint32 expr1;
-    uint32 op;
-    uint32 value_asset;
+    U32 constNum;
+    U32 expr1;
+    U32 op;
+    U32 value_asset;
 };
 
 struct _zConditional : xBase
@@ -32,8 +32,8 @@ void zConditionalInit(xBase* b, zCondAsset* asset);
 void zConditionalReset(_zConditional* c);
 void zConditionalSave(_zConditional* ent, xSerial* s);
 void zConditionalLoad(_zConditional* ent, xSerial* s);
-uint32 zConditional_GetCount(_zConditional* c);
-uint32 zConditional_Evaluate(_zConditional* c);
-void zConditionalEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32);
+U32 zConditional_GetCount(_zConditional* c);
+U32 zConditional_Evaluate(_zConditional* c);
+void zConditionalEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32);
 
 #endif

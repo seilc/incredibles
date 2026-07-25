@@ -50,15 +50,15 @@ struct zHitSourceMapEntry
 
 struct zHitDecalData
 {
-    uint32 texture;
-    float32 x_size;
-    float32 y_size;
+    U32 texture;
+    F32 x_size;
+    F32 y_size;
 };
 
 extern const zHitSourceMapEntry zHitSourceMap[];
-extern uint32 zHitSourceCCs[];
-extern uint32 zHitTargetCCs[];
+extern U32 zHitSourceCCs[];
+extern U32 zHitTargetCCs[];
 
-int32 getSourceCCIdx(uint32 value);
+S32 getSourceCCIdx(U32 value);
 
 #endif

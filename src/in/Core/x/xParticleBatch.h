@@ -5,8 +5,8 @@
 
 struct xParticleBatchGroup
 {
-    uint8* elements;
-    int32 elements_size;
+    U8* elements;
+    S32 elements_size;
 };
 
 #endif

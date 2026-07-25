@@ -5,7 +5,7 @@
 
 template <class T> struct xListItem
 {
-    int32 flg_travFilter;
+    S32 flg_travFilter;
     T* next;
     T* prev;
 };
@@ -45,8 +45,8 @@ struct xGoal : xListItem<xGoal>, xFactoryInst
 {
     xPsyche* psyche;
     en_GOALSTATE stat;
-    int32 flg_able;
-    int32 (*fun_process)(xGoal*, void*, en_trantype*, float32, void*);
+    S32 flg_able;
+    S32 (*fun_process)(xGoal*, void*, en_trantype*, F32, void*);
     void* cbdata;
 };
 
@@ -81,17 +81,17 @@ struct xPsyche : RyzMemData
 {
     xBase* clt_owner;
     xPSYNote* cb_notice;
-    int32 flg_psyche;
+    S32 flg_psyche;
     xGoal* goallist;
     xGoal* goalstak[5];
-    float32 tmr_stack[1][5];
-    int32 staktop;
+    F32 tmr_stack[1][5];
+    S32 staktop;
     xGoal* pendgoal;
     en_pendtype pendtype;
-    int32 gid_safegoal;
-    void (*fun_remap)(int32*, en_trantype*);
+    S32 gid_safegoal;
+    void (*fun_remap)(S32*, en_trantype*);
     void* userContext;
-    int32 cnt_transLastTimestep;
+    S32 cnt_transLastTimestep;
     PSY_BRAIN_STATUS psystat;
     xBase fakebase;
 };

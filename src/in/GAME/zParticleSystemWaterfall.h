@@ -15,8 +15,8 @@ public:
 
     virtual zParticleGenerator* create_generator(zParticleAsset& asset);
     virtual void scene_enter();
-    virtual void update(float32 dt);
-    virtual int32 get_asset_size() const;
+    virtual void update(F32 dt);
+    virtual S32 get_asset_size() const;
 };
 
 class zParticleSystemWaterfallMist : public zParticleSystem
@@ -30,8 +30,8 @@ public:
 
     virtual zParticleGenerator* create_generator(zParticleAsset& asset);
     virtual void scene_enter();
-    virtual void update(float32 dt);
-    virtual int32 get_asset_size() const;
+    virtual void update(F32 dt);
+    virtual S32 get_asset_size() const;
 };
 
 class zParticleSystemWaterfallSplash : public zParticleSystem
@@ -45,8 +45,8 @@ public:
 
     virtual zParticleGenerator* create_generator(zParticleAsset& asset);
     virtual void scene_enter();
-    virtual void update(float32 dt);
-    virtual int32 get_asset_size() const;
+    virtual void update(F32 dt);
+    virtual S32 get_asset_size() const;
 };
 
 #endif

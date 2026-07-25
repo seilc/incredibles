@@ -6,6 +6,6 @@
 
 void xModelWarpSceneEnter();
 void xModelWarpSceneExit();
-void xModelWarpSphereMapUVsByNormals(xVec2* uv, int32 verts_size, const xVec3* norm);
+void xModelWarpSphereMapUVsByNormals(xVec2* uv, S32 verts_size, const xVec3* norm);
 
 #endif

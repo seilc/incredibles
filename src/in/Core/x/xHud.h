@@ -15,10 +15,10 @@ namespace xhud
         xVec3 loc;
         xVec3 size;
         xVec3 rot;
-        float32 r;
-        float32 g;
-        float32 b;
-        float32 a;
+        F32 r;
+        F32 g;
+        F32 b;
+        F32 a;
     };
 
     struct asset : xDynAsset
@@ -31,57 +31,57 @@ namespace xhud
     {
         union
         {
-            float32* value;
+            F32* value;
             xColor* value_color;
         };
         union
         {
-            float32 delta;
-            float32 on_time;
+            F32 delta;
+            F32 on_time;
         };
         union
         {
-            float32 max_offset;
-            float32 total_time;
-            float32 begin_scale;
+            F32 max_offset;
+            F32 total_time;
+            F32 begin_scale;
         };
         union
         {
-            float32 accel;
-            float32 fade_time;
-            float32 final_scale;
+            F32 accel;
+            F32 fade_time;
+            F32 final_scale;
         };
         union
         {
             void* context;
             xColor on_color;
-            float32 begin_alpha;
+            F32 begin_alpha;
         };
         union
         {
-            float32 period;
+            F32 period;
             xColor off_color;
-            float32 end_alpha;
+            F32 end_alpha;
         };
         union
         {
-            float32 elapsed;
-            float32 orig_width;
+            F32 elapsed;
+            F32 orig_width;
         };
         union
         {
-            float32 offset;
-            float32 current_scale;
+            F32 offset;
+            F32 current_scale;
         };
-        uint8 (*fp_update)(widget&, motive&, float32);
-        uint8 (*fp_finish)(widget&, motive&);
+        U8 (*fp_update)(widget&, motive&, F32);
+        U8 (*fp_finish)(widget&, motive&);
         union
         {
-            float32 start_delta;
-            float32 orig_height;
+            F32 start_delta;
+            F32 orig_height;
         };
-        uint8 hold;
-        uint8 inverse;
+        U8 hold;
+        U8 inverse;
     };
 
     struct motive_node
@@ -106,7 +106,7 @@ namespace xhud
             bool visible;
             bool enabled;
             bool active;
-            float32 timer;
+            F32 timer;
         } flag;
         render_context rc;
         render_context start_rc;
@@ -126,7 +126,7 @@ namespace xhud
         void enable();
         void disable();
         void destruct();
-        void updater(float32 dt);
+        void updater(F32 dt);
         void show(move_direction dir, bool clearmotives, bool bSkipShowMotive);
         void hide(move_direction d, bool clearmotives, bool bSkipHideMotive);
         void clear_motives();
@@ -134,13 +134,13 @@ namespace xhud
         bool visible() const;
 
         virtual void destroy();
-        virtual uint32 type() const;
-        virtual bool is(uint32 typeID) const;
+        virtual U32 type() const;
+        virtual bool is(U32 typeID) const;
         virtual void init();
         virtual void setup();
-        virtual void update(float32 dt);
+        virtual void update(F32 dt);
         virtual void render();
-        virtual void dispatch(xBase*, uint32 event, const float32*, xBase*, uint32);
+        virtual void dispatch(xBase*, U32 event, const F32*, xBase*, U32);
 
     private:
         motive_node* _motive_top;
@@ -155,9 +155,9 @@ namespace xhud
 
     void init();
     void destroy();
-    void update(float32 dt);
+    void update(F32 dt);
     void render();
-    xModelInstance* load_model(uint32 id);
+    xModelInstance* load_model(U32 id);
     void render_model(xModelInstance& m, const render_context& rc);
 } // namespace xhud
 

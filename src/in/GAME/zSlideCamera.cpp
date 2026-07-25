@@ -29,19 +29,19 @@ void zSlideCam::start()
 }
 
 static xVec3 SpringDamp(const xVec3& cam_pos, const xVec3& curr_tgt_pos, const xVec3& prev_tgt_pos,
-                        float32 dt, float32 spring_const, float32 damp_const, float32 spring_len)
+                        F32 dt, F32 spring_const, F32 damp_const, F32 spring_len)
 {
     xVec3 var_7C, var_88;
 
     var_7C = cam_pos - curr_tgt_pos;
     var_88 = (prev_tgt_pos - curr_tgt_pos) * dt;
 
-    float32 f30 = xVec3Length(&var_7C);
-    float32 f31 = xVec3Dot(&var_7C, &var_88);
+    F32 f30 = xVec3Length(&var_7C);
+    F32 f31 = xVec3Dot(&var_7C, &var_88);
 
     xVec3Normalize(&var_7C, &var_7C);
 
-    float32 f0 = spring_const * (spring_len - f30) + damp_const * (f31 / f30);
+    F32 f0 = spring_const * (spring_len - f30) + damp_const * (f31 / f30);
 
     var_7C *= f0 * dt;
 
@@ -64,7 +64,7 @@ void zSlideCam::setPrevTgtPos(const xVec3& pos, const xVec3& up)
     prev_tgt_pos += up * cfg.vertical_offset;
 }
 
-void zSlideCam::update(xScene&, float32 dt)
+void zSlideCam::update(xScene&, F32 dt)
 {
     setCurrTgtPos(target->pos, target->up);
 

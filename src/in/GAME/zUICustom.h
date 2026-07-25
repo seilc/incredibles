@@ -18,10 +18,10 @@ public:
     virtual void Setup();
     virtual void Reset();
     virtual void ResetMotion();
-    virtual bool HandleEvent(xBase* from, uint32 toEvent, const float32* toParam,
-                             xBase* toParamWidget, uint32 toParamWidgetID);
-    virtual void PreUpdate(float32 dt);
-    virtual void PostUpdate(float32 dt);
+    virtual bool HandleEvent(xBase* from, U32 toEvent, const F32* toParam,
+                             xBase* toParamWidget, U32 toParamWidgetID);
+    virtual void PreUpdate(F32 dt);
+    virtual void PostUpdate(F32 dt);
     virtual bool PreRender();
     virtual void PostRender();
     virtual void Exit();
@@ -31,7 +31,7 @@ public:
     virtual void PreApplyMotionFrame(zUIMotionFrame* frame);
     virtual void PostApplyMotionFrame(zUIMotionFrame* frame);
     virtual bool IsSystem(zUI* ptr);
-    virtual bool IsSignalAllowed(uint32 toEvent);
+    virtual bool IsSignalAllowed(U32 toEvent);
     virtual bool IsForcePreUpdate();
 
 protected:

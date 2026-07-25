@@ -8,24 +8,24 @@ namespace zExplosion
 {
     struct presence_volume
     {
-        float32 knockback;
+        F32 knockback;
         xVec3 center;
-        float32 radius;
-        float32 damage_player;
-        float32 damage_npc;
-        float32 damage_other;
+        F32 radius;
+        F32 damage_player;
+        F32 damage_npc;
+        F32 damage_other;
     };
 
     struct trail_emitter
     {
-        int32 type;
+        S32 type;
         xVec3 loc;
-        float32 emitted;
-        int32 glare_id;
-        float32 streak_delay;
-        float32 streaks_emitted;
-        float32 spark_delay;
-        float32 sparks_emitted;
+        F32 emitted;
+        S32 glare_id;
+        F32 streak_delay;
+        F32 streaks_emitted;
+        F32 spark_delay;
+        F32 sparks_emitted;
         presence_volume* presence;
         iSndHandle tracking_sound;
     };

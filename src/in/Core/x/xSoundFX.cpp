@@ -14,7 +14,7 @@ static bool xSoundFXWillSendDone(xSoundFX* sfx)
     {
         xLinkAsset* l = sfx->link;
 
-        for (int32 i = 0; i < sfx->linkCount; i++, l++)
+        for (S32 i = 0; i < sfx->linkCount; i++, l++)
         {
             if (l->srcEvent == eEventDone)
             {
@@ -72,7 +72,7 @@ void xSoundFXReset(xSoundFX* sfx)
     xBaseReset(sfx, sfx->asset);
 }
 
-void xSoundFXEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xBase*, uint32)
+void xSoundFXEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U32)
 {
     xSoundFX* t = (xSoundFX*)to;
 
@@ -151,13 +151,13 @@ static void xSoundFXStop(xSoundFX* sfx)
     xSndMgrStop(sfx->sndHandle);
 }
 
-xSoundFX* xSoundFXGet(uint32 soundfxID)
+xSoundFX* xSoundFXGet(U32 soundfxID)
 {
     zScene* s = xglobals->sceneCur;
-    int32 count = s->baseCount[eBaseTypeSoundFX];
+    S32 count = s->baseCount[eBaseTypeSoundFX];
     xSoundFX* sfx = NULL;
 
-    for (int32 i = 0; i < count; i++)
+    for (S32 i = 0; i < count; i++)
     {
         sfx = &((xSoundFX*)s->baseList[eBaseTypeSoundFX])[i];
 

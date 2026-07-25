@@ -5,8 +5,8 @@
 
 namespace
 {
-    void EventHandlerFunc(xBase* from, xBase* to, uint32 toEvent, const float32* toParam,
-                          xBase* toParamWidget, uint32 toParamWidgetID)
+    void EventHandlerFunc(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                          xBase* toParamWidget, U32 toParamWidgetID)
     {
         ((zHud::hud_element*)to)
             ->handle_event(from, toEvent, toParam, toParamWidget, toParamWidgetID);
@@ -43,7 +43,7 @@ namespace zHud
         }
     }
 
-    void hud_system::update(float32 dt)
+    void hud_system::update(F32 dt)
     {
         if (!last_paused && zGameIsPaused())
         {

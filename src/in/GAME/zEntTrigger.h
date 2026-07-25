@@ -7,7 +7,7 @@
 struct zEntTrigger : zEnt
 {
     xBox triggerBox;
-    uint32 entered;
+    U32 entered;
     xEntDrive drive;
 };
 
@@ -17,7 +17,7 @@ struct xTriggerAsset
 {
     xVec3 p[4];
     xVec3 direction;
-    uint32 flags;
+    U32 flags;
 };
 
 bool zEntTriggerHitsSphere(const zEntTrigger& trig, const xSphere& o, const xVec3& dir);

@@ -36,7 +36,7 @@ void zPortalLoad(_zPortal* ent, xSerial* s)
     xBaseLoad(ent, s);
 }
 
-void zPortalEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xBase*, uint32)
+void zPortalEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U32)
 {
     switch (toEvent)
     {

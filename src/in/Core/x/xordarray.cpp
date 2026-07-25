@@ -4,7 +4,7 @@
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
-void XOrdInit(XORDEREDARRAY* array, int32 size, bool32 tempAlloc)
+void XOrdInit(XORDEREDARRAY* array, S32 size, bool32 tempAlloc)
 {
     size = MAX(size, 1);
 
@@ -54,7 +54,7 @@ void XOrdInsert(XORDEREDARRAY* array, void* elt, XOrdCompareCB compare)
     {
         array->cnt++;
 
-        for (int32 i = array->cnt - 1; i > 0; i--)
+        for (S32 i = array->cnt - 1; i > 0; i--)
         {
             if (compare(array->list[i - 1], elt) <= 0)
             {
@@ -71,16 +71,16 @@ void XOrdInsert(XORDEREDARRAY* array, void* elt, XOrdCompareCB compare)
     }
 }
 
-int32 XOrdLookup(XORDEREDARRAY* array, const void* key, XOrdTestCB test)
+S32 XOrdLookup(XORDEREDARRAY* array, const void* key, XOrdTestCB test)
 {
-    int32 da_idx = -1;
-    int32 k0 = 0;
-    int32 k1 = array->cnt;
+    S32 da_idx = -1;
+    S32 k0 = 0;
+    S32 k1 = array->cnt;
 
     while (k1 > k0)
     {
-        int32 k = (k0 + k1) / 2;
-        int32 v = test(key, array->list[k]);
+        S32 k = (k0 + k1) / 2;
+        S32 v = test(key, array->list[k]);
 
         if (v == 0)
         {
@@ -104,9 +104,9 @@ int32 XOrdLookup(XORDEREDARRAY* array, const void* key, XOrdTestCB test)
 void XOrdSort(XORDEREDARRAY* array, XOrdCompareCB test)
 {
     void** list = array->list;
-    int32 num = array->cnt;
-    int32 i, j;
-    int32 h = 1;
+    S32 num = array->cnt;
+    S32 i, j;
+    S32 h = 1;
 
     while (h <= num)
     {

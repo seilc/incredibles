@@ -23,52 +23,52 @@ public:
 
     struct rest_config
     {
-        float32 dist;
-        float32 input_center_phi;
-        float32 yaw_offset;
-        float32 pitch_offset;
+        F32 dist;
+        F32 input_center_phi;
+        F32 yaw_offset;
+        F32 pitch_offset;
     };
 
     target_traits target_goal;
     target_traits target;
     struct
     {
-        float32 phi;
-        float32 vel_theta;
-        float32 vel_phi;
-        float32 dphi;
-        float32 pitch_offset;
+        F32 phi;
+        F32 vel_theta;
+        F32 vel_phi;
+        F32 dphi;
+        F32 pitch_offset;
     } input;
     struct
     {
-        float32 input_theta;
-        float32 input_pitch_offset;
-        float32 restore_dist;
-        float32 restore_phi;
-        float32 target_xz;
-        float32 target_y;
-        float32 pitch;
-        float32 mount;
-        float32 look_xz;
-        float32 collide_dist;
-        float32 pitch_rest;
-        float32 pitch_clamp;
+        F32 input_theta;
+        F32 input_pitch_offset;
+        F32 restore_dist;
+        F32 restore_phi;
+        F32 target_xz;
+        F32 target_y;
+        F32 pitch;
+        F32 mount;
+        F32 look_xz;
+        F32 collide_dist;
+        F32 pitch_rest;
+        F32 pitch_clamp;
     } blend_vel;
     struct
     {
-        float32 dtheta;
-        float32 dphi;
-        float32 ddist;
+        F32 dtheta;
+        F32 dphi;
+        F32 ddist;
     } vel_drift;
     struct
     {
-        float32 dist;
-        float32 dist_goal;
-        float32 dist_vel;
-        float32 pitch_offset;
-        float32 pitch_offset_goal;
-        float32 pitch_offset_vel;
-        float32 pitch_offset_speed;
+        F32 dist;
+        F32 dist_goal;
+        F32 dist_vel;
+        F32 pitch_offset;
+        F32 pitch_offset_goal;
+        F32 pitch_offset_vel;
+        F32 pitch_offset_speed;
         rest_config start;
         rest_config end;
         rest_config vel;
@@ -77,62 +77,62 @@ public:
     } zone;
     struct
     {
-        float32 delay_start;
-        float32 precollide_theta;
-        float32 theta_vel;
+        F32 delay_start;
+        F32 precollide_theta;
+        F32 theta_vel;
     } aggression;
     struct
     {
         xEnt* ent;
         xVec3 center;
-        float32 radius;
-        float32 margin_angle;
+        F32 radius;
+        F32 margin_angle;
     } secondary;
     struct
     {
-        int32 which;
-        float32 phi;
-        float32 dist;
-        float32 theta;
-        float32 pitch_offset;
-        float32 yaw_offset;
+        S32 which;
+        F32 phi;
+        F32 dist;
+        F32 theta;
+        F32 pitch_offset;
+        F32 yaw_offset;
     } start_zone;
     basis_traits basis;
     basis_traits last_basis;
     basis_traits result;
     basis_traits last_result;
-    float32 pitch_rest;
-    float32 pitch_clamp;
-    float32 result_pitch;
+    F32 pitch_rest;
+    F32 pitch_clamp;
+    F32 result_pitch;
     xVec3 look_loc;
     xVec3 losbar_loc;
     xVec3 last_losbar_loc;
-    float32 losbar_rail_yoffset;
-    float32 last_losbar_rail_yoffset;
-    float32 dist_extend;
-    float32 dist_extend_vel;
-    float32 rest_dist;
-    float32 rest_dist_vel;
-    float32 rest_phi;
-    float32 rest_phi_vel;
-    float32 drest_phi;
-    float32 look_pitch;
+    F32 losbar_rail_yoffset;
+    F32 last_losbar_rail_yoffset;
+    F32 dist_extend;
+    F32 dist_extend_vel;
+    F32 rest_dist;
+    F32 rest_dist_vel;
+    F32 rest_phi;
+    F32 rest_phi_vel;
+    F32 drest_phi;
+    F32 look_pitch;
     xCamSupportPath path;
     xCamSupportLOSBar losbar;
-    float32 floor_height;
-    float32 mount_height;
-    float32 mount_offset;
-    float32 last_mount_offset;
+    F32 floor_height;
+    F32 mount_height;
+    F32 mount_offset;
+    F32 last_mount_offset;
     bool grounded;
     bool was_colliding;
     xMat4x3 snap_mat;
 
     void create();
     void start();
-    void update(xScene& scene, float32 dt);
+    void update(xScene& scene, F32 dt);
     void snap_to(const xMat4x3& mat);
 
-    void set_start_theta(float32 theta)
+    void set_start_theta(F32 theta)
     {
         start_zone.theta = theta;
         start_zone.which |= 0x4;

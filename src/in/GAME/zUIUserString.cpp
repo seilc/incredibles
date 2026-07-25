@@ -40,14 +40,14 @@ void zUIUserString::DoReset()
     }
 }
 
-void zUIUserString::DoHandleEvent(xBase* from, uint32 toEvent, const float32* toParam,
-                                  xBase* toParamWidget, uint32 toParamWidgetID)
+void zUIUserString::DoHandleEvent(xBase* from, U32 toEvent, const F32* toParam,
+                                  xBase* toParamWidget, U32 toParamWidgetID)
 {
     switch (toEvent)
     {
     case eEventSetText:
     {
-        uint32 len;
+        U32 len;
         const char* asset = xTextFindString(toParamWidgetID, &len);
 
         if (!asset)
@@ -73,9 +73,9 @@ void zUIUserString::DoHandleEvent(xBase* from, uint32 toEvent, const float32* to
     }
     case eEventUIAddChar:
     {
-        // Cast to int32 instead of char.
+        // Cast to S32 instead of char.
         // This generates an extsb instruction.
-        char ch = (int32)toParam[0];
+        char ch = (S32)toParam[0];
 
         if (length < maxLength)
         {
@@ -106,7 +106,7 @@ void zUIUserString::DoHandleEvent(xBase* from, uint32 toEvent, const float32* to
     }
     case eEventUISetMaxChars:
     {
-        maxLength = (int32)toParam[1];
+        maxLength = (S32)toParam[1];
 
         if (maxLength > GetAsset()->hardMaxChars)
         {
@@ -156,7 +156,7 @@ void zUIUserString::DoHandleEvent(xBase* from, uint32 toEvent, const float32* to
     }
 }
 
-uint32 zUIUserString::GetSortKey() const
+U32 zUIUserString::GetSortKey() const
 {
     return GetAsset()->id;
 }

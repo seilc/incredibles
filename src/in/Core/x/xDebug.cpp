@@ -1,7 +1,7 @@
 #include "xDebug.h"
 
-uint32 gFrameCount = 0;
-uint32 gSceneFrameCount = 0;
+U32 gFrameCount = 0;
+U32 gSceneFrameCount = 0;
 
 void xprintf(const char*, ...)
 {
@@ -28,7 +28,7 @@ void xDebugTimestampScreen()
     return;
 }
 
-void xDrawTextInit(uint32, uint32)
+void xDrawTextInit(U32, U32)
 {
     return;
 }

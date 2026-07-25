@@ -5,10 +5,10 @@
 
 struct zVarEntry
 {
-    uint32 entry;
-    uint32 varNameID;
+    U32 entry;
+    U32 varNameID;
     const char* varName;
-    uint32 (*varCB)(void*);
+    U32 (*varCB)(void*);
 };
 
 enum zVarEntryID // helper enum, not present in dwarf
@@ -53,6 +53,6 @@ enum zVarEntryID // helper enum, not present in dwarf
 
 extern zVarEntry zVarEntryTable[eVarEntryCount];
 
-uint32 zVarEntryCB_SubtitlesOn(void*);
+U32 zVarEntryCB_SubtitlesOn(void*);
 
 #endif

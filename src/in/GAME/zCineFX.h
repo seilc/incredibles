@@ -16,7 +16,7 @@ struct NCINLyt
 
 struct NCINStreak
 {
-    uint32 streakID;
+    U32 streakID;
 };
 
 struct NCINArc
@@ -37,9 +37,9 @@ struct NCINEnts
 
 struct NCINCustom
 {
-    float32 f[1];
+    F32 f[1];
     xVec3 v[2];
-    int32 n[3];
+    S32 n[3];
 };
 
 struct NCINMat
@@ -74,8 +74,8 @@ union NCINInput
     void* whateverMakesTheCompilerHappyIsFineWithMe;
     void* fxparm;
     const char* str_fx;
-    int32 int_val;
-    float32 flt_val;
+    S32 int_val;
+    F32 flt_val;
     NCINRibbonInput* ribbon;
 };
 
@@ -85,28 +85,28 @@ struct NCINEntry
     {
         union
         {
-            int32 fxTypeID;
-            int32 usrTypeID;
+            S32 fxTypeID;
+            S32 usrTypeID;
         };
-        float32 tym_beg;
-        float32 tym_end;
+        F32 tym_beg;
+        F32 tym_end;
         const char* twk_name;
     };
 
     struct Callbacks
     {
-        void (*fxupd)(zCutsceneMgr*, NCINEntry*, int32);
-        void (*fxanim)(zCutsceneMgr*, NCINEntry*, RpAtomic*, RwMatrix*, uint32, uint32);
+        void (*fxupd)(zCutsceneMgr*, NCINEntry*, S32);
+        void (*fxanim)(zCutsceneMgr*, NCINEntry*, RpAtomic*, RwMatrix*, U32, U32);
         void (*fxrend)(zCutsceneMgr*, NCINEntry*);
         void (*tweaks)(const char*, NCINEntry*);
     };
 
     struct IndexInput
     {
-        int32 idx_anim;
-        int32 idx_bone;
-        int32 idx_boneA;
-        int32 idx_boneB;
+        S32 idx_anim;
+        S32 idx_bone;
+        S32 idx_boneA;
+        S32 idx_boneB;
     };
 
     struct PosInput
@@ -122,7 +122,7 @@ struct NCINEntry
     NCINInput input;
     void* userFXData;
     NCINData fxdata;
-    int32 flg_stat;
+    S32 flg_stat;
 };
 
 #endif

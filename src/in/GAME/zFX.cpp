@@ -2,9 +2,9 @@
 
 #include "xFX.h"
 
-uint32 gFXSurfaceFlags = 0;
+U32 gFXSurfaceFlags = 0;
 
-void zFXUpdate(float32 dt)
+void zFXUpdate(F32 dt)
 {
     xFXUpdate(dt);
 }

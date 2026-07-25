@@ -7,13 +7,13 @@
 struct SkyDomeInfo
 {
     xEnt* ent;
-    int32 sortorder;
+    S32 sortorder;
     bool32 lockXZ;
     bool32 lockY;
 };
 
 static SkyDomeInfo sSkyList[8];
-static int32 sSkyCount = 0;
+static S32 sSkyCount = 0;
 
 void xSkyDome_EmptyRender(xEnt*)
 {
@@ -26,9 +26,9 @@ void xSkyDome_Setup()
 
 #ifndef NON_MATCHING
 #else
-void xSkyDome_AddEntity(xEnt* ent, int32 sortorder, bool32 lockY, bool32 lockXZ)
+void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, bool32 lockY, bool32 lockXZ)
 {
-    int32 i, j;
+    S32 i, j;
 
     if (xSkyDome_EntityIsSkyDome(ent))
     {
@@ -69,7 +69,7 @@ void xSkyDome_AddEntity(xEnt* ent, int32 sortorder, bool32 lockY, bool32 lockXZ)
     ent->user_data = (void*)i;
     ent->render = xSkyDome_EmptyRender;
     ent->model->Flags &= ~0x1;
-    ent->baseFlags &= (uint16)~XBASE_UNK10;
+    ent->baseFlags &= (U16)~XBASE_UNK10;
 
     zEntEvent(ent, eEventCollisionOff);
     zEntEvent(ent, eEventCameraCollideOff);
@@ -85,7 +85,7 @@ void xSkyDome_Render()
 {
     RwCamera* cam = RwCameraGetCurrentCamera();
     RwMatrix* cammat = RwFrameGetMatrix(RwCameraGetFrame(cam));
-    float32 far_clip = RwCameraGetFarClipPlane(cam);
+    F32 far_clip = RwCameraGetFarClipPlane(cam);
 
     RwCameraEndUpdate(cam);
     RwCameraSetFarClipPlane(cam, 10000.0f);
@@ -98,7 +98,7 @@ void xSkyDome_Render()
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)FALSE);
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, (void*)FALSE);
 
-    for (int32 i = 0; i < sSkyCount; i++)
+    for (S32 i = 0; i < sSkyCount; i++)
     {
         xEnt* ent = sSkyList[i].ent;
 

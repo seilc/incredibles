@@ -33,7 +33,7 @@ void zUICustomSysMessageManager::Init()
     itemMsg = (zUIText*)zSceneFindObject(xStrHash("UI SYS MSG TEXT"));
 }
 
-bool zUICustomSysMessageManager::IsSignalAllowed(uint32 toEvent)
+bool zUICustomSysMessageManager::IsSignalAllowed(U32 toEvent)
 {
     switch (toEvent)
     {
@@ -49,8 +49,8 @@ bool zUICustomSysMessageManager::IsSignalAllowed(uint32 toEvent)
     return true;
 }
 
-bool zUICustomSysMessageManager::HandleEvent(xBase* from, uint32 toEvent, const float32* toParam,
-                                             xBase* toParamWidget, uint32 toParamWidgetID)
+bool zUICustomSysMessageManager::HandleEvent(xBase* from, U32 toEvent, const F32* toParam,
+                                             xBase* toParamWidget, U32 toParamWidgetID)
 {
     zUICustom::HandleEvent(from, toEvent, toParam, toParamWidget, toParamWidgetID);
 
@@ -114,10 +114,10 @@ bool zUICustomSysMessageManager::HandleEvent(xBase* from, uint32 toEvent, const 
     return true;
 }
 
-void zUICustomSysMessageManager::ShowSystemMessage(xBaseEventCB cb, uint32, uint32 _toCBEvent,
-                                                   const float32* _toCBParams, xBase* _toCBto,
+void zUICustomSysMessageManager::ShowSystemMessage(xBaseEventCB cb, U32, U32 _toCBEvent,
+                                                   const F32* _toCBParams, xBase* _toCBto,
                                                    xBase* _toCBParamWidget,
-                                                   uint32 _toCBParamWidgetID,
+                                                   U32 _toCBParamWidgetID,
                                                    const char* sys_message)
 {
     cb_function = cb;

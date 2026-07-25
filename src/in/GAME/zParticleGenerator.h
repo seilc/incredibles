@@ -12,16 +12,16 @@ struct zParticleAsset : xDynAsset
 
     struct attach_entity_data
     {
-        uint32 entity;
-        uint8 bone;
-        uint8 pad1;
-        uint8 pad2;
-        uint8 pad3;
+        U32 entity;
+        U8 bone;
+        U8 pad1;
+        U8 pad2;
+        U8 pad3;
     };
 
     struct attach_entity_tag_data
     {
-        uint32 entity;
+        U32 entity;
         xVec3 tag;
     };
 
@@ -31,14 +31,14 @@ struct zParticleAsset : xDynAsset
 
     struct motion_spiral_data
     {
-        uint8 flags;
-        uint8 points;
-        uint8 pad1;
-        uint8 pad2;
-        float32 radius_inner;
-        float32 radius_outer;
-        float32 duration;
-        float32 frequency;
+        U8 flags;
+        U8 points;
+        U8 pad1;
+        U8 pad2;
+        F32 radius_inner;
+        F32 radius_outer;
+        F32 duration;
+        F32 frequency;
     };
 
     struct volume_point_data
@@ -47,32 +47,32 @@ struct zParticleAsset : xDynAsset
 
     struct volume_sphere_data
     {
-        float32 radius;
+        F32 radius;
     };
 
     struct volume_circle_data
     {
-        float32 radius;
-        float32 arc_length;
+        F32 radius;
+        F32 arc_length;
     };
 
     struct volume_line_data
     {
-        uint8 flags;
-        uint8 pad1;
-        uint8 pad2;
-        uint8 pad3;
-        float32 radius;
-        float32 length;
+        U8 flags;
+        U8 pad1;
+        U8 pad2;
+        U8 pad3;
+        F32 radius;
+        F32 length;
     };
 
     struct volume_model_data
     {
-        uint8 flags;
-        uint8 exclude;
-        uint8 pad1;
-        uint8 pad2;
-        float32 expand;
+        U8 flags;
+        U8 exclude;
+        U8 pad1;
+        U8 pad2;
+        F32 expand;
     };
 
     union attach_data
@@ -97,22 +97,22 @@ struct zParticleAsset : xDynAsset
         volume_model_data model;
     };
 
-    uint8 flags;
-    uint8 attach_flags;
-    uint8 motion_flags;
-    uint8 volume_flags;
-    float32 rate;
-    uint32 texture;
-    uint8 attach_type;
-    uint8 motion_type;
-    uint8 volume_type;
-    uint8 system_type;
+    U8 flags;
+    U8 attach_flags;
+    U8 motion_flags;
+    U8 volume_flags;
+    F32 rate;
+    U32 texture;
+    U8 attach_type;
+    U8 motion_type;
+    U8 volume_type;
+    U8 system_type;
     xVec3 location;
     struct
     {
-        float32 yaw;
-        float32 pitch;
-        float32 roll;
+        F32 yaw;
+        F32 pitch;
+        F32 roll;
     } axis;
     attach_data attach;
     motion_data motion;
@@ -122,7 +122,7 @@ struct zParticleAsset : xDynAsset
 struct zParticleGenerator : xBase
 {
     zParticleAsset* asset;
-    int32 flags;
+    S32 flags;
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "xBehaveMgr.h"
 
-static int32 g_modinit = 0;
+static S32 g_modinit = 0;
 static xBehaveMgr* g_behavmgr = NULL;
 
 void xBehaveMgr_Shutdown()

@@ -22,8 +22,8 @@ void zReferenceInit(zReference* ref, zReferenceAsset* asset)
     ref->eventFunc = zReferenceEventCB;
 }
 
-void zReferenceEventCB(xBase* from, xBase* to, uint32 toEvent, const float32* toParam,
-                       xBase* toParamWidget, uint32 toParamWidgetID)
+void zReferenceEventCB(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                       xBase* toParamWidget, U32 toParamWidgetID)
 {
     zReference* ref = (zReference*)to;
 

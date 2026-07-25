@@ -5,10 +5,10 @@ const xVec3 xVec3::m_UnitAxisX = { 1.0f, 0.0f, 0.0f };
 const xVec3 xVec3::m_UnitAxisY = { 0.0f, 1.0f, 0.0f };
 const xVec3 xVec3::m_UnitAxisZ = { 0.0f, 0.0f, 1.0f };
 
-float32 xVec3Normalize(xVec3* o, const xVec3* v)
+F32 xVec3Normalize(xVec3* o, const xVec3* v)
 {
-    float32 len;
-    float32 len2 = SQR(v->x) + SQR(v->y) + SQR(v->z);
+    F32 len;
+    F32 len2 = SQR(v->x) + SQR(v->y) + SQR(v->z);
 
     if (APPROX_EQUAL(len2, 1.0f))
     {
@@ -30,7 +30,7 @@ float32 xVec3Normalize(xVec3* o, const xVec3* v)
     {
         len = xsqrt(len2);
 
-        float32 len_inv = 1.0f / len;
+        F32 len_inv = 1.0f / len;
 
         o->x = v->x * len_inv;
         o->y = v->y * len_inv;
@@ -45,7 +45,7 @@ float32 xVec3Normalize(xVec3* o, const xVec3* v)
 #pragma force_active off
 static void hack_unused_function()
 {
-    float32 f;
+    F32 f;
     xsqrtfast(f, 0.0f);
 }
 #pragma pop
@@ -60,7 +60,7 @@ asm void xVec3Copy(register xVec3* o, register const xVec3* v)
     blr;
 }
 
-asm float32 xVec3Dot(register const xVec3* a, register const xVec3* b)
+asm F32 xVec3Dot(register const xVec3* a, register const xVec3* b)
 {
     psq_l f2, xVec3.y(a), 0, 0;
     psq_l f3, xVec3.y(b), 0, 0;

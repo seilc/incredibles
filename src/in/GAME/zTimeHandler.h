@@ -6,18 +6,18 @@
 
 struct zTimeHandlerStruct
 {
-    float32 elapsed;
-    float32 period;
-    void (*cb)(float32, zTimeHandlerStruct*);
+    F32 elapsed;
+    F32 period;
+    void (*cb)(F32, zTimeHandlerStruct*);
     xVec3 pos;
     xVec3 normal;
-    float32 num_particles;
+    F32 num_particles;
 };
 
 class zTimeHandlerMgr : public zQueue<zTimeHandlerStruct, 64>
 {
 public:
-    void update(float32 dt);
+    void update(F32 dt);
 };
 
 extern zTimeHandlerMgr timehandler_mgr;

@@ -38,19 +38,19 @@ namespace xhud
         destruct();
     }
 
-    uint32 model_widget::type() const
+    U32 model_widget::type() const
     {
-        static uint32 myid = xStrHash(model_asset::type_name());
+        static U32 myid = xStrHash(model_asset::type_name());
 
         return myid;
     }
 
-    bool model_widget::is(uint32 id) const
+    bool model_widget::is(U32 id) const
     {
         return id == model_widget::type() || widget::is(id);
     }
 
-    void model_widget::update(float32 dt)
+    void model_widget::update(F32 dt)
     {
         updater(dt);
 
@@ -63,8 +63,8 @@ namespace xhud
         xModelEval(model);
     }
 
-    void model_widget::set_params(xModelInstance*& model, render_context& rc, float32 xs,
-                                  float32 ys, float32 lx, float32 ly)
+    void model_widget::set_params(xModelInstance*& model, render_context& rc, F32 xs,
+                                  F32 ys, F32 lx, F32 ly)
     {
         x_scale = xs;
         y_scale = ys;

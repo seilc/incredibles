@@ -3,6 +3,6 @@
 
 #include "xEnt.h"
 
-void zCombatSystemUpdateEntity(xEnt* ent, float32 dt);
+void zCombatSystemUpdateEntity(xEnt* ent, F32 dt);
 
 #endif

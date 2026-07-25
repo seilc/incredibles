@@ -9,7 +9,7 @@
 
 namespace
 {
-    uint32 input_disabled;
+    U32 input_disabled;
     zcam_mode_enum current_mode = ZCAM_MODE_INVALID;
     xCam* mode_cams[1];
     bool have_default_orientation;
@@ -22,7 +22,7 @@ namespace
     {
     }
 
-    inline bool update_debug_cam(float32)
+    inline bool update_debug_cam(F32)
     {
         return false;
     }
@@ -93,7 +93,7 @@ void zCamReset(const xMat4x3& mat)
     ZPLAYER->SetCamera();
 }
 
-void zCamUpdate(float32 dt)
+void zCamUpdate(F32 dt)
 {
     if (globals.player.ControlOff)
     {
@@ -256,16 +256,16 @@ void zCamRemove(xCam& cam, bool force_cut)
     globals.cam->remove(cam, force_cut);
 }
 
-void zCamSetStartOrientation(uint32 pointer_id)
+void zCamSetStartOrientation(U32 pointer_id)
 {
-    uint32 size;
+    U32 size;
     void* a = xSTFindAsset(pointer_id, &size);
     pointer_asset& pa = *(pointer_asset*)a;
 
     zCamSetStartOrientation(pa.yaw, pa.pitch, pa.roll);
 }
 
-void zCamSetStartOrientation(float32 yaw, float32 pitch, float32 roll)
+void zCamSetStartOrientation(F32 yaw, F32 pitch, F32 roll)
 {
     have_default_orientation = true;
     default_orientation.assign(yaw, pitch, roll);

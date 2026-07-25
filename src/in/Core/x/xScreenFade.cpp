@@ -10,7 +10,7 @@ namespace ScreenFade
 {
     namespace GlobalData
     {
-        int32 cnt_fadesInProgress = 0;
+        S32 cnt_fadesInProgress = 0;
     }
 } // namespace ScreenFade
 
@@ -71,7 +71,7 @@ void xScreenFade::load(xBase& data, xDynAsset& asset, ulong32)
     ((xScreenFade&)data).load((asset_type&)asset);
 }
 
-void xScreenFade::cb_dispatch(xBase* from, xBase* to, uint32 event, const float32*, xBase*, uint32)
+void xScreenFade::cb_dispatch(xBase* from, xBase* to, U32 event, const F32*, xBase*, U32)
 {
     xScreenFade& e = *(xScreenFade*)to;
 

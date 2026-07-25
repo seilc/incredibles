@@ -4,7 +4,7 @@ namespace z
 {
     namespace lightweight_manager
     {
-        int32 system_count = 0;
+        S32 system_count = 0;
         lightweight_system_base* system[10];
 
         void setup()
@@ -14,7 +14,7 @@ namespace z
 
         void exit()
         {
-            for (int32 i = 0; i < system_count; i++)
+            for (S32 i = 0; i < system_count; i++)
             {
                 system[i]->exit();
             }
@@ -22,15 +22,15 @@ namespace z
 
         void reset()
         {
-            for (int32 i = 0; i < system_count; i++)
+            for (S32 i = 0; i < system_count; i++)
             {
                 system[i]->reset();
             }
         }
 
-        void update(float32 dt)
+        void update(F32 dt)
         {
-            for (int32 i = 0; i < system_count; i++)
+            for (S32 i = 0; i < system_count; i++)
             {
                 system[i]->update(dt);
             }
@@ -38,7 +38,7 @@ namespace z
 
         void render()
         {
-            for (int32 i = 0; i < system_count; i++)
+            for (S32 i = 0; i < system_count; i++)
             {
                 system[i]->render();
             }
@@ -46,7 +46,7 @@ namespace z
 
         void post_render_2d()
         {
-            for (int32 i = 0; i < system_count; i++)
+            for (S32 i = 0; i < system_count; i++)
             {
                 system[i]->post_render_2d();
             }
@@ -54,7 +54,7 @@ namespace z
 
         void post_render_3d()
         {
-            for (int32 i = 0; i < system_count; i++)
+            for (S32 i = 0; i < system_count; i++)
             {
                 system[i]->post_render_3d();
             }
@@ -62,7 +62,7 @@ namespace z
 
         void scene_setup()
         {
-            for (int32 i = 0; i < system_count; i++)
+            for (S32 i = 0; i < system_count; i++)
             {
                 system[i]->scene_setup();
             }

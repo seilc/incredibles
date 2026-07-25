@@ -6,7 +6,6 @@
 
 #ifdef GAMECUBE
 // OLD TYPES
-// TODO: MIGRATE EVERYTHING AWAY FROM THESE
 typedef signed char int8;
 typedef signed short int16;
 typedef signed int int32;
@@ -26,7 +25,6 @@ typedef unsigned long ulong32;
 typedef int32 bool32;
 
 // NEW TYPES
-// S32 is known to collide with bink's typedef
 typedef signed char S8;
 typedef signed short S16;
 typedef signed int S32;

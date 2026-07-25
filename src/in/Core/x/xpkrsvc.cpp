@@ -12,8 +12,8 @@
 
 #define PACKER_READ_DATA_COUNT 20
 
-static PACKER_READ_DATA* PKR_ReadInit(void* userdata, const char* pkgfile, uint32 opts,
-                                      int32* cltver, PKRAssetType* typelist, int32 fileflags);
+static PACKER_READ_DATA* PKR_ReadInit(void* userdata, const char* pkgfile, U32 opts,
+                                      S32* cltver, PKRAssetType* typelist, S32 fileflags);
 static void PKR_ReadDone(PACKER_READ_DATA* pr);
 static bool32 PKR_SetActive(PACKER_READ_DATA* pr, LAYER_TYPE layer);
 static bool32 PKR_parse_TOC(HIPLOADDATA* pkg, PACKER_READ_DATA* pr);
@@ -27,30 +27,30 @@ static bool32 PKR_findNextLayerToLoad(PACKER_READ_DATA** work_on_pkg,
 static void PKR_updateLayerAssets(PACKER_LTOC_NODE* laynode);
 static void PKR_xformLayerAssets(PACKER_LTOC_NODE* laynode);
 static void PKR_xform_asset(PACKER_ATOC_NODE* assnode, bool32 dumpable_layer);
-static void* PKR_FindAsset(PACKER_READ_DATA* pr, uint32 aid, int32* assetsize);
+static void* PKR_FindAsset(PACKER_READ_DATA* pr, U32 aid, S32* assetsize);
 static bool32 PKR_LoadLayer(PACKER_READ_DATA*, LAYER_TYPE);
-static void* PKR_LoadAsset(PACKER_READ_DATA* pr, uint32 aid, const char*, void*, int32* assetsize);
-static uint32 PKR_GetAssetSize(PACKER_READ_DATA* pr, uint32 aid);
-static int32 PKR_AssetCount(PACKER_READ_DATA* pr, uint32 type);
-static void* PKR_AssetByType(PACKER_READ_DATA* pr, uint32 type, int32 idx, uint32* size);
-static bool32 PKR_IsAssetReady(PACKER_READ_DATA* pr, uint32 aid);
-static uint32 PKR_getPackTimestamp(PACKER_READ_DATA* pr);
+static void* PKR_LoadAsset(PACKER_READ_DATA* pr, U32 aid, const char*, void*, S32* assetsize);
+static U32 PKR_GetAssetSize(PACKER_READ_DATA* pr, U32 aid);
+static S32 PKR_AssetCount(PACKER_READ_DATA* pr, U32 type);
+static void* PKR_AssetByType(PACKER_READ_DATA* pr, U32 type, S32 idx, U32* size);
+static bool32 PKR_IsAssetReady(PACKER_READ_DATA* pr, U32 aid);
+static U32 PKR_getPackTimestamp(PACKER_READ_DATA* pr);
 static void PKR_Disconnect(PACKER_READ_DATA* pr);
-static const char* PKR_AssetName(PACKER_READ_DATA* pr, uint32 aid);
-static uint32 PKR_GetBaseSector(PACKER_READ_DATA* pr);
-static bool32 PKR_GetAssetInfo(PACKER_READ_DATA* pr, uint32 aid, PKRAssetTOCInfo* tocinfo);
-static bool32 PKR_GetAssetInfoByType(PACKER_READ_DATA* pr, uint32 type, int32 idx,
+static const char* PKR_AssetName(PACKER_READ_DATA* pr, U32 aid);
+static U32 PKR_GetBaseSector(PACKER_READ_DATA* pr);
+static bool32 PKR_GetAssetInfo(PACKER_READ_DATA* pr, U32 aid, PKRAssetTOCInfo* tocinfo);
+static bool32 PKR_GetAssetInfoByType(PACKER_READ_DATA* pr, U32 type, S32 idx,
                                      PKRAssetTOCInfo* tocinfo);
-static bool32 PKR_PkgHasAsset(PACKER_READ_DATA* pr, uint32 aid);
-static bool32 PKR_FRIEND_assetIsGameDup(uint32 aid, const PACKER_READ_DATA* skippr, int32 oursize,
-                                        uint32 ourtype, uint32 chksum, char*);
-static int32 PKR_makepool_anode(PACKER_READ_DATA* pr, int32 asscnt);
+static bool32 PKR_PkgHasAsset(PACKER_READ_DATA* pr, U32 aid);
+static bool32 PKR_FRIEND_assetIsGameDup(U32 aid, const PACKER_READ_DATA* skippr, S32 oursize,
+                                        U32 ourtype, U32 chksum, char*);
+static S32 PKR_makepool_anode(PACKER_READ_DATA* pr, S32 asscnt);
 static void PKR_kiilpool_anode(PACKER_READ_DATA* pr);
-static PACKER_ATOC_NODE* PKR_newassnode(PACKER_READ_DATA* pr, uint32 aid);
-static PACKER_LTOC_NODE* PKR_newlaynode(LAYER_TYPE layer, int32 asscnt);
+static PACKER_ATOC_NODE* PKR_newassnode(PACKER_READ_DATA* pr, U32 aid);
+static PACKER_LTOC_NODE* PKR_newlaynode(LAYER_TYPE layer, S32 asscnt);
 static void PKR_oldlaynode(PACKER_LTOC_NODE* laynode);
-static int32 OrdComp_R_Asset(void* vkey, void* vitem);
-static int32 OrdTest_R_AssetID(const void* vkey, void* vitem);
+static S32 OrdComp_R_Asset(void* vkey, void* vitem);
+static S32 OrdTest_R_AssetID(const void* vkey, void* vitem);
 static bool32 LOD_r_HIPA(HIPLOADDATA*, PACKER_READ_DATA* pr);
 static bool32 LOD_r_PACK(HIPLOADDATA* pkg, PACKER_READ_DATA* pr);
 static bool32 LOD_r_PVER(HIPLOADDATA* pkg, PACKER_READ_DATA* pr);
@@ -74,13 +74,13 @@ static bool32 LOD_r_STRM(HIPLOADDATA* pkg, PACKER_READ_DATA*);
 static bool32 LOD_r_DHDR(HIPLOADDATA* pkg, PACKER_READ_DATA*);
 static bool32 LOD_r_DPAK(HIPLOADDATA*, PACKER_READ_DATA*);
 static void PKR_spew_verhist();
-static PKRAssetType* PKR_type2typeref(uint32 type, PKRAssetType* typelist);
+static PKRAssetType* PKR_type2typeref(U32 type, PKRAssetType* typelist);
 static void PKR_bld_typecnt(PACKER_READ_DATA* pr);
-static int32 PKR_typeHdlr_idx(PACKER_READ_DATA* pr, uint32 type);
+static S32 PKR_typeHdlr_idx(PACKER_READ_DATA* pr, U32 type);
 static void PKR_alloc_chkidx();
-static void* PKR_getmem(uint32 id, int32 amount, uint32 r5, int32 align);
-static void* PKR_getmem(uint32 id, int32 amount, uint32, int32 align, bool32 isTemp, char** memtru);
-static void PKR_relmem(uint32 id, int32 blksize, void* memptr, uint32, bool32 isTemp);
+static void* PKR_getmem(U32 id, S32 amount, U32 r5, S32 align);
+static void* PKR_getmem(U32 id, S32 amount, U32, S32 align, bool32 isTemp, char** memtru);
+static void PKR_relmem(U32 id, S32 blksize, void* memptr, U32, bool32 isTemp);
 static void PKR_push_memmark();
 static void PKR_pop_memmark();
 
@@ -110,12 +110,12 @@ static PKRReadFuncs g_pkr_read_funcmap_original =
 static PKRReadFuncs g_pkr_read_funcmap = g_pkr_read_funcmap_original;
 static HIPLOADFUNCS* g_hiprf = NULL;
 static PACKER_READ_DATA g_readdatainst[PACKER_READ_DATA_COUNT] = {};
-static uint32 g_loadlock = 0;
-static int32 pkr_sector_size = 0;
-static int32 g_packinit = 0;
-static int32 g_memalloc_pair = 0;
-static int32 g_memalloc_runtot = 0;
-static int32 g_memalloc_runfree = 0;
+static U32 g_loadlock = 0;
+static S32 pkr_sector_size = 0;
+static S32 g_packinit = 0;
+static S32 g_memalloc_pair = 0;
+static S32 g_memalloc_runtot = 0;
+static S32 g_memalloc_runfree = 0;
 
 #ifndef NO_HACKS
 #pragma push
@@ -135,7 +135,7 @@ static const char* unused_string_12 = "JSPINFO";
 #pragma pop
 #endif
 
-PKRReadFuncs* PKRGetReadFuncs(int32 apiver)
+PKRReadFuncs* PKRGetReadFuncs(S32 apiver)
 {
     switch (apiver)
     {
@@ -146,7 +146,7 @@ PKRReadFuncs* PKRGetReadFuncs(int32 apiver)
     }
 }
 
-int32 PKRStartup()
+S32 PKRStartup()
 {
     if (!g_packinit++)
     {
@@ -159,23 +159,23 @@ int32 PKRStartup()
     return g_packinit;
 }
 
-int32 PKRShutdown()
+S32 PKRShutdown()
 {
     return --g_packinit;
 }
 
-bool32 PKRLoadStep(int32)
+bool32 PKRLoadStep(S32)
 {
     bool32 more_todo = PKR_LoadStep_Async();
     return more_todo;
 }
 
-static PACKER_READ_DATA* PKR_ReadInit(void* userdata, const char* pkgfile, uint32 opts,
-                                      int32* cltver, PKRAssetType* typelist, int32 fileflags)
+static PACKER_READ_DATA* PKR_ReadInit(void* userdata, const char* pkgfile, U32 opts,
+                                      S32* cltver, PKRAssetType* typelist, S32 fileflags)
 {
     PACKER_READ_DATA* pr = NULL;
-    int32 i;
-    int32 uselock = -1;
+    S32 i;
+    S32 uselock = -1;
     char* tocbuf_RAW = NULL;
     char* tocbuf_aligned;
 
@@ -248,9 +248,9 @@ static PACKER_READ_DATA* PKR_ReadInit(void* userdata, const char* pkgfile, uint3
 
 static void PKR_ReadDone(PACKER_READ_DATA* pr)
 {
-    int32 i;
-    int32 j;
-    int32 lockid;
+    S32 i;
+    S32 j;
+    S32 lockid;
     PACKER_ATOC_NODE* assnode;
     PACKER_LTOC_NODE* laynode;
     XORDEREDARRAY* tmplist;
@@ -324,11 +324,11 @@ static void PKR_ReadDone(PACKER_READ_DATA* pr)
 
 static bool32 PKR_SetActive(PACKER_READ_DATA* pr, LAYER_TYPE layer)
 {
-    int32 r3;
+    S32 r3;
     bool32 result = TRUE;
     bool32 rc;
-    int32 i;
-    int32 j;
+    S32 i;
+    S32 j;
     PACKER_ATOC_NODE* assnode;
     PACKER_LTOC_NODE* laynode;
 
@@ -379,9 +379,9 @@ static bool32 PKR_SetActive(PACKER_READ_DATA* pr, LAYER_TYPE layer)
 
 static bool32 PKR_parse_TOC(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    int32 r4;
+    S32 r4;
     bool32 is_ok = FALSE;
-    uint32 cid;
+    U32 cid;
     bool32 done = FALSE;
 
     cid = g_hiprf->enter(pkg);
@@ -446,7 +446,7 @@ static bool32 PKR_LoadStep_Async()
     static PACKER_READ_DATA* curpr = NULL;
     static PACKER_LTOC_NODE* asynlay = NULL;
     bool32 moretodo;
-    int32 rc;
+    S32 rc;
     READ_ASYNC_STATUS readstat;
     PACKER_ATOC_NODE* tmpass;
 
@@ -674,8 +674,8 @@ static bool32 PKR_findNextLayerToLoad(PACKER_READ_DATA** work_on_pkg, PACKER_LTO
 {
     PACKER_READ_DATA* tmppr;
     PACKER_LTOC_NODE* tmplay;
-    int32 i;
-    int32 j;
+    S32 i;
+    S32 j;
 
     *next_layer = NULL;
     tmppr = *work_on_pkg;
@@ -732,9 +732,9 @@ static bool32 PKR_findNextLayerToLoad(PACKER_READ_DATA** work_on_pkg, PACKER_LTO
 static void PKR_updateLayerAssets(PACKER_LTOC_NODE* laynode)
 {
     PACKER_ATOC_NODE* tmpass2;
-    int32 i;
+    S32 i;
     PACKER_ATOC_NODE* tmpass = NULL;
-    int32 lay_hip_pos;
+    S32 lay_hip_pos;
 
     for (i = 0; i < laynode->assref.cnt; i++)
     {
@@ -771,7 +771,7 @@ static void PKR_updateLayerAssets(PACKER_LTOC_NODE* laynode)
 
 static void PKR_xformLayerAssets(PACKER_LTOC_NODE* laynode)
 {
-    int32 i;
+    S32 i;
     bool32 will_be_dumped = FALSE;
     PACKER_ATOC_NODE* tmpass;
     PKR_LAYER_LOAD_DEST loaddest;
@@ -827,7 +827,7 @@ static void PKR_xform_asset(PACKER_ATOC_NODE* assnode, bool32 dumpable_layer)
         }
 
         xformloc = (char*)atype->readXForm(assnode->ownpr->userdata, assnode->aid, assnode->memloc,
-                                           assnode->d_size, (uint32*)&assnode->x_size);
+                                           assnode->d_size, (U32*)&assnode->x_size);
 
         if (dumpable_layer || assnode->memloc != xformloc || assnode->x_size == 0)
         {
@@ -844,9 +844,9 @@ static void PKR_xform_asset(PACKER_ATOC_NODE* assnode, bool32 dumpable_layer)
     }
 }
 
-static void* PKR_FindAsset(PACKER_READ_DATA* pr, uint32 aid, int32* assetsize)
+static void* PKR_FindAsset(PACKER_READ_DATA* pr, U32 aid, S32* assetsize)
 {
-    int32 idx;
+    S32 idx;
     PACKER_ATOC_NODE* assnode = NULL;
 
     idx = XOrdLookup(&pr->asstoc, (void*)aid, OrdTest_R_AssetID);
@@ -889,14 +889,14 @@ static bool32 PKR_LoadLayer(PACKER_READ_DATA*, LAYER_TYPE)
     return FALSE;
 }
 
-static void* PKR_LoadAsset(PACKER_READ_DATA* pr, uint32 aid, const char*, void*, int32* assetsize)
+static void* PKR_LoadAsset(PACKER_READ_DATA* pr, U32 aid, const char*, void*, S32* assetsize)
 {
     return PKR_FindAsset(pr, aid, assetsize);
 }
 
-static uint32 PKR_GetAssetSize(PACKER_READ_DATA* pr, uint32 aid)
+static U32 PKR_GetAssetSize(PACKER_READ_DATA* pr, U32 aid)
 {
-    int32 idx;
+    S32 idx;
     PACKER_ATOC_NODE* assnode = NULL;
 
     idx = XOrdLookup(&pr->asstoc, (void*)aid, OrdTest_R_AssetID);
@@ -919,10 +919,10 @@ static uint32 PKR_GetAssetSize(PACKER_READ_DATA* pr, uint32 aid)
     return 0;
 }
 
-static int32 PKR_AssetCount(PACKER_READ_DATA* pr, uint32 type)
+static S32 PKR_AssetCount(PACKER_READ_DATA* pr, U32 type)
 {
-    int32 cnt = 0;
-    int32 tidx;
+    S32 cnt = 0;
+    S32 tidx;
     XORDEREDARRAY* typlist;
 
     if (type == 0)
@@ -941,11 +941,11 @@ static int32 PKR_AssetCount(PACKER_READ_DATA* pr, uint32 type)
     return cnt;
 }
 
-static void* PKR_AssetByType(PACKER_READ_DATA* pr, uint32 type, int32 idx, uint32* size)
+static void* PKR_AssetByType(PACKER_READ_DATA* pr, U32 type, S32 idx, U32* size)
 {
     XORDEREDARRAY* typlist;
     PACKER_ATOC_NODE* assnode;
-    int32 tidx;
+    S32 tidx;
 
     if (size)
     {
@@ -981,10 +981,10 @@ static void* PKR_AssetByType(PACKER_READ_DATA* pr, uint32 type, int32 idx, uint3
     return assnode->memloc;
 }
 
-static bool32 PKR_IsAssetReady(PACKER_READ_DATA* pr, uint32 aid)
+static bool32 PKR_IsAssetReady(PACKER_READ_DATA* pr, U32 aid)
 {
     bool32 is_ok = FALSE;
-    int32 idx;
+    S32 idx;
 
     idx = XOrdLookup(&pr->asstoc, (void*)aid, OrdTest_R_AssetID);
 
@@ -1003,7 +1003,7 @@ static bool32 PKR_IsAssetReady(PACKER_READ_DATA* pr, uint32 aid)
     return is_ok;
 }
 
-static uint32 PKR_getPackTimestamp(PACKER_READ_DATA* pr)
+static U32 PKR_getPackTimestamp(PACKER_READ_DATA* pr)
 {
     return pr->time_made;
 }
@@ -1017,10 +1017,10 @@ static void PKR_Disconnect(PACKER_READ_DATA* pr)
     }
 }
 
-static const char* PKR_AssetName(PACKER_READ_DATA* pr, uint32 aid)
+static const char* PKR_AssetName(PACKER_READ_DATA* pr, U32 aid)
 {
     const char* da_name = NULL;
-    int32 idx;
+    S32 idx;
 
     if (aid == 0)
     {
@@ -1037,14 +1037,14 @@ static const char* PKR_AssetName(PACKER_READ_DATA* pr, uint32 aid)
     return da_name;
 }
 
-static uint32 PKR_GetBaseSector(PACKER_READ_DATA* pr)
+static U32 PKR_GetBaseSector(PACKER_READ_DATA* pr)
 {
     return pr->base_sector;
 }
 
-static bool32 PKR_GetAssetInfo(PACKER_READ_DATA* pr, uint32 aid, PKRAssetTOCInfo* tocinfo)
+static bool32 PKR_GetAssetInfo(PACKER_READ_DATA* pr, U32 aid, PKRAssetTOCInfo* tocinfo)
 {
-    int32 idx;
+    S32 idx;
     PACKER_ATOC_NODE* assnode;
 
     memset(tocinfo, 0, sizeof(PKRAssetTOCInfo));
@@ -1068,12 +1068,12 @@ static bool32 PKR_GetAssetInfo(PACKER_READ_DATA* pr, uint32 aid, PKRAssetTOCInfo
     return TRUE;
 }
 
-static bool32 PKR_GetAssetInfoByType(PACKER_READ_DATA* pr, uint32 type, int32 idx,
+static bool32 PKR_GetAssetInfoByType(PACKER_READ_DATA* pr, U32 type, S32 idx,
                                      PKRAssetTOCInfo* tocinfo)
 {
     PACKER_ATOC_NODE* assnode;
     XORDEREDARRAY* typlist;
-    int32 tidx;
+    S32 tidx;
 
     memset(tocinfo, 0, sizeof(PKRAssetTOCInfo));
 
@@ -1108,10 +1108,10 @@ static bool32 PKR_GetAssetInfoByType(PACKER_READ_DATA* pr, uint32 type, int32 id
     return TRUE;
 }
 
-static bool32 PKR_PkgHasAsset(PACKER_READ_DATA* pr, uint32 aid)
+static bool32 PKR_PkgHasAsset(PACKER_READ_DATA* pr, U32 aid)
 {
     bool32 rc;
-    int32 idx;
+    S32 idx;
 
     idx = XOrdLookup(&pr->asstoc, (void*)aid, OrdTest_R_AssetID);
 
@@ -1134,13 +1134,13 @@ static bool32 PKR_PkgHasAsset(PACKER_READ_DATA* pr, uint32 aid)
     return rc;
 }
 
-static bool32 PKR_FRIEND_assetIsGameDup(uint32 aid, const PACKER_READ_DATA* skippr, int32 oursize,
-                                        uint32 ourtype, uint32 chksum, char*)
+static bool32 PKR_FRIEND_assetIsGameDup(U32 aid, const PACKER_READ_DATA* skippr, S32 oursize,
+                                        U32 ourtype, U32 chksum, char*)
 {
     bool32 is_dup = FALSE;
     PACKER_ATOC_NODE* tmp_ass;
-    int32 i;
-    int32 idx;
+    S32 i;
+    S32 idx;
 
     if (aid == 0x98A3F56C) // "simple shadow table" in font2.HIP (BfBB leftover)
     {
@@ -1188,10 +1188,10 @@ static bool32 PKR_FRIEND_assetIsGameDup(uint32 aid, const PACKER_READ_DATA* skip
     return is_dup;
 }
 
-static int32 PKR_makepool_anode(PACKER_READ_DATA* pr, int32 asscnt)
+static S32 PKR_makepool_anode(PACKER_READ_DATA* pr, S32 asscnt)
 {
     PACKER_ATOC_NODE* pool;
-    int32 size;
+    S32 size;
 
     if (asscnt == 0)
     {
@@ -1220,7 +1220,7 @@ static void PKR_kiilpool_anode(PACKER_READ_DATA* pr)
     }
 }
 
-static PACKER_ATOC_NODE* PKR_newassnode(PACKER_READ_DATA* pr, uint32 aid)
+static PACKER_ATOC_NODE* PKR_newassnode(PACKER_READ_DATA* pr, U32 aid)
 {
     PACKER_ATOC_NODE* assnode;
 
@@ -1234,7 +1234,7 @@ static PACKER_ATOC_NODE* PKR_newassnode(PACKER_READ_DATA* pr, uint32 aid)
     return assnode;
 }
 
-static PACKER_LTOC_NODE* PKR_newlaynode(LAYER_TYPE layer, int32 asscnt)
+static PACKER_LTOC_NODE* PKR_newlaynode(LAYER_TYPE layer, S32 asscnt)
 {
     PACKER_LTOC_NODE* laynode;
 
@@ -1255,9 +1255,9 @@ static void PKR_oldlaynode(PACKER_LTOC_NODE* laynode)
     PKR_relmem('LNOD', sizeof(PACKER_LTOC_NODE), laynode, 0x8000 + laynode->laytyp, FALSE);
 }
 
-static int32 OrdComp_R_Asset(void* vkey, void* vitem)
+static S32 OrdComp_R_Asset(void* vkey, void* vitem)
 {
-    int32 rc;
+    S32 rc;
 
     if (((PACKER_ATOC_NODE*)vkey)->aid < ((PACKER_ATOC_NODE*)vitem)->aid)
     {
@@ -1275,10 +1275,10 @@ static int32 OrdComp_R_Asset(void* vkey, void* vitem)
     return rc;
 }
 
-static int32 OrdTest_R_AssetID(const void* vkey, void* vitem)
+static S32 OrdTest_R_AssetID(const void* vkey, void* vitem)
 {
-    int32 rc;
-    uint32 key = (uint32)vkey;
+    S32 rc;
+    U32 key = (U32)vkey;
 
     if (key < ((PACKER_ATOC_NODE*)vitem)->aid)
     {
@@ -1304,7 +1304,7 @@ static bool32 LOD_r_HIPA(HIPLOADDATA*, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_PACK(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    uint32 cid;
+    U32 cid;
 
     cid = g_hiprf->enter(pkg);
 
@@ -1342,8 +1342,8 @@ static bool32 LOD_r_PACK(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_PVER(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    int32 ver = 0;
-    int32 amt;
+    S32 ver = 0;
+    S32 amt;
 
     g_hiprf->readLongs(pkg, &ver, 1);
     pr->subver = ver;
@@ -1374,7 +1374,7 @@ static bool32 LOD_r_PVER(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_PFLG(HIPLOADDATA* pkg, PACKER_READ_DATA*)
 {
-    int32 ival = 0;
+    S32 ival = 0;
     g_hiprf->readLongs(pkg, &ival, 1);
 
     return TRUE;
@@ -1382,7 +1382,7 @@ static bool32 LOD_r_PFLG(HIPLOADDATA* pkg, PACKER_READ_DATA*)
 
 static bool32 LOD_r_PCNT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    int32 ival = 0;
+    S32 ival = 0;
 
     g_hiprf->readLongs(pkg, &ival, 1);
     pr->asscnt = ival;
@@ -1399,7 +1399,7 @@ static bool32 LOD_r_PCNT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_PCRT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    int32 ival = 0;
+    S32 ival = 0;
     char str[256] = {};
 
     g_hiprf->readLongs(pkg, &ival, 1);
@@ -1415,7 +1415,7 @@ static bool32 LOD_r_PCRT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_PMOD(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    int32 ival = 0;
+    S32 ival = 0;
 
     g_hiprf->readLongs(pkg, &ival, 1);
     pr->time_mod = ival;
@@ -1427,7 +1427,7 @@ static bool32 ValidatePlatform(HIPLOADDATA*, PACKER_READ_DATA*, char* plat, char
                                char* title)
 {
     char fullname[128] = {};
-    int32 rc;
+    S32 rc;
 
     sprintf(fullname, "%s %s %s %s", plat, vid, lang, title);
 
@@ -1469,7 +1469,7 @@ static bool32 LOD_r_PLAT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
     char vidname[32] = {};
     char langname[32] = {};
     char titlename[32] = {};
-    int32 n;
+    S32 n;
     bool32 rc;
 
     g_hiprf->readString(pkg, platname);
@@ -1495,7 +1495,7 @@ static bool32 LOD_r_PLAT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_DICT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    uint32 cid;
+    U32 cid;
 
     cid = g_hiprf->enter(pkg);
 
@@ -1522,7 +1522,7 @@ static bool32 LOD_r_DICT(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_ATOC(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    uint32 cid;
+    U32 cid;
 
     cid = g_hiprf->enter(pkg);
 
@@ -1548,7 +1548,7 @@ static bool32 LOD_r_ATOC(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_AINF(HIPLOADDATA* pkg, PACKER_READ_DATA*)
 {
-    int32 ival = 0;
+    S32 ival = 0;
 
     g_hiprf->readLongs(pkg, &ival, 1);
 
@@ -1557,8 +1557,8 @@ static bool32 LOD_r_AINF(HIPLOADDATA* pkg, PACKER_READ_DATA*)
 
 static bool32 LOD_r_AHDR(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    uint32 cid;
-    int32 ival = 0;
+    U32 cid;
+    S32 ival = 0;
     bool32 isdup;
     PACKER_ATOC_NODE* assnode;
 
@@ -1622,7 +1622,7 @@ static bool32 LOD_r_AHDR(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_ADBG(HIPLOADDATA* pkg, PACKER_READ_DATA* pr, PACKER_ATOC_NODE* assnode)
 {
-    int32 ival = 0;
+    S32 ival = 0;
     char tmpbuf[256] = {};
 
     g_hiprf->readLongs(pkg, &ival, 1);
@@ -1647,7 +1647,7 @@ static bool32 LOD_r_ADBG(HIPLOADDATA* pkg, PACKER_READ_DATA* pr, PACKER_ATOC_NOD
 
 static bool32 LOD_r_LTOC(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    uint32 cid;
+    U32 cid;
 
     cid = g_hiprf->enter(pkg);
 
@@ -1673,7 +1673,7 @@ static bool32 LOD_r_LTOC(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_LINF(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    int32 ival = 0;
+    S32 ival = 0;
 
     g_hiprf->readLongs(pkg, &ival, 1);
 
@@ -1682,12 +1682,12 @@ static bool32 LOD_r_LINF(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_LHDR(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    uint32 cid;
-    int32 ival = 0;
+    U32 cid;
+    S32 ival = 0;
     LAYER_TYPE laytyp;
-    int32 refcnt = 0;
-    int32 idx;
-    int32 i;
+    S32 refcnt = 0;
+    S32 idx;
+    S32 i;
     PACKER_LTOC_NODE* laynode;
     PACKER_ATOC_NODE* assnode;
 
@@ -1745,7 +1745,7 @@ static bool32 LOD_r_LHDR(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_LDBG(HIPLOADDATA* pkg, PACKER_READ_DATA* pr, PACKER_LTOC_NODE* laynode)
 {
-    int32 ival = 0;
+    S32 ival = 0;
 
     if (pr->subver > 1)
     {
@@ -1758,7 +1758,7 @@ static bool32 LOD_r_LDBG(HIPLOADDATA* pkg, PACKER_READ_DATA* pr, PACKER_LTOC_NOD
 
 static bool32 LOD_r_STRM(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 {
-    uint32 cid;
+    U32 cid;
 
     cid = g_hiprf->enter(pkg);
 
@@ -1784,7 +1784,7 @@ static bool32 LOD_r_STRM(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
 static bool32 LOD_r_DHDR(HIPLOADDATA* pkg, PACKER_READ_DATA*)
 {
-    int32 ival = 0;
+    S32 ival = 0;
 
     g_hiprf->readLongs(pkg, &ival, 1);
 
@@ -1800,7 +1800,7 @@ static void PKR_spew_verhist()
 {
 }
 
-static PKRAssetType* PKR_type2typeref(uint32 type, PKRAssetType* typelist)
+static PKRAssetType* PKR_type2typeref(U32 type, PKRAssetType* typelist)
 {
     PKRAssetType* da_type = NULL;
     PKRAssetType* tmptype;
@@ -1831,16 +1831,16 @@ static PKRAssetType* PKR_type2typeref(uint32 type, PKRAssetType* typelist)
 
 static void PKR_bld_typecnt(PACKER_READ_DATA* pr)
 {
-    int32 j2;
+    S32 j2;
     PACKER_LTOC_NODE* laynode;
     PACKER_ATOC_NODE* assnode;
-    int32 i;
-    int32 j;
-    int32 idx;
-    int32 typcnt[PACKER_TYPE_COUNT] = {};
+    S32 i;
+    S32 j;
+    S32 idx;
+    S32 typcnt[PACKER_TYPE_COUNT] = {};
     XORDEREDARRAY* tmplist;
-    uint32 lasttype = 0;
-    int32 lasttidx = 0;
+    U32 lasttype = 0;
+    S32 lasttidx = 0;
 
     for (j = 0; j < pr->laytoc.cnt; j++)
     {
@@ -1921,10 +1921,10 @@ static void PKR_bld_typecnt(PACKER_READ_DATA* pr)
     }
 }
 
-static int32 PKR_typeHdlr_idx(PACKER_READ_DATA* pr, uint32 type)
+static S32 PKR_typeHdlr_idx(PACKER_READ_DATA* pr, U32 type)
 {
-    int32 idx = -1;
-    int32 i = 0;
+    S32 idx = -1;
+    S32 i = 0;
     PKRAssetType* tmptype = pr->types;
 
     while (tmptype->typetag != 0)
@@ -1946,12 +1946,12 @@ static void PKR_alloc_chkidx()
 {
 }
 
-static void* PKR_getmem(uint32 id, int32 amount, uint32 r5, int32 align)
+static void* PKR_getmem(U32 id, S32 amount, U32 r5, S32 align)
 {
     return PKR_getmem(id, amount, r5, align, FALSE, NULL);
 }
 
-static void* PKR_getmem(uint32 id, int32 amount, uint32, int32 align, bool32 isTemp, char** memtru)
+static void* PKR_getmem(U32 id, S32 amount, U32, S32 align, bool32 isTemp, char** memtru)
 {
     void* memptr;
 
@@ -2004,7 +2004,7 @@ static void* PKR_getmem(uint32 id, int32 amount, uint32, int32 align, bool32 isT
     return memptr;
 }
 
-static void PKR_relmem(uint32 id, int32 blksize, void* memptr, uint32, bool32 isTemp)
+static void PKR_relmem(U32 id, S32 blksize, void* memptr, U32, bool32 isTemp)
 {
     g_memalloc_pair--;
     g_memalloc_runfree += blksize;

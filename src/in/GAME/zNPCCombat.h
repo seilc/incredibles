@@ -3,7 +3,7 @@
 
 #include "xEnt.h"
 
-void zNPCCombatSetCombat(xEnt* ent, uint32 id, const char* root, uint32 atkTblID, uint32,
-                         uint16 hitPoints, float32 scale);
+void zNPCCombatSetCombat(xEnt* ent, U32 id, const char* root, U32 atkTblID, U32,
+                         U16 hitPoints, F32 scale);
 
 #endif

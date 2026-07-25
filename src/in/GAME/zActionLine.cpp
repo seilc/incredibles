@@ -11,7 +11,7 @@ static RwRaster* sActionLineRaster;
 
 void zActionLineInit()
 {
-    for (int32 i = 0; i < ACTION_LINE_COUNT; i++)
+    for (S32 i = 0; i < ACTION_LINE_COUNT; i++)
     {
         sActionLine[i] = NULL;
     }
@@ -26,9 +26,9 @@ void zActionLineInit()
     }
 }
 
-void zActionLineUpdate(float32 seconds)
+void zActionLineUpdate(F32 seconds)
 {
-    for (int32 i = 0; i < ACTION_LINE_COUNT; i++)
+    for (S32 i = 0; i < ACTION_LINE_COUNT; i++)
     {
         ActionLine* l = sActionLine[i];
 
@@ -50,12 +50,12 @@ static void RenderActionLine(ActionLine* l)
 
     RwIm3DVertex* vert = &sStripVert[0];
 
-    for (int32 i = 0; i < 4; i++, vert++)
+    for (S32 i = 0; i < 4; i++, vert++)
     {
         RwRGBA* _col = &vert->color;
-        float32 x = l->pos[i].x;
-        float32 y = l->pos[i].y;
-        float32 z = l->pos[i].z;
+        F32 x = l->pos[i].x;
+        F32 y = l->pos[i].y;
+        F32 z = l->pos[i].z;
 
         RwIm3DVertexSetPos(vert, x, y, z);
         RwIm3DVertexSetU(vert, 0.0f);
@@ -80,7 +80,7 @@ void zActionLineRender()
 {
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, (void*)sActionLineRaster);
 
-    for (int32 i = 0; i < ACTION_LINE_COUNT; i++)
+    for (S32 i = 0; i < ACTION_LINE_COUNT; i++)
     {
         if (sActionLine[i] && (sActionLine[i]->flags & ZACTIONLINE_ENABLED))
         {
