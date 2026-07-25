@@ -1,3 +1,5 @@
+# Old build system
+
 # Ignore
 __pycache__
 *.pyc
@@ -26,3 +28,42 @@ inspect.s
 
 # Allow
 !tools/mwcc_compiler/README.md
+
+
+# DTK
+
+# IDE folders
+.idea/
+.vs/
+
+# Caches
+__pycache__
+.mypy_cache
+.cache/
+
+# Original files
+orig/*/*
+!orig/*/.gitkeep
+*.dol
+*.rel
+*.elf
+*.o
+*.map
+*.MAP
+
+# Build files
+build/
+.ninja_*
+build.ninja
+
+# decompctx output
+ctx.*
+*.ctx
+
+# Generated configs
+objdiff.json
+compile_commands.json
+
+# Miscellaneous
+/*.txt
+*.exe

@@ -1,0 +1,8 @@
+# See config.example.yml for documentation.
+object_base: orig/GICE78
+object: sys/main.dol
+hash: c7413be2fba5b8cc47b7506ecb7785677a4a1c12
+symbols: config/GICE78/symbols.txt
+splits: config/GICE78/splits.txt
+# Change this to match the linker version.
+# See config.example.yml for a list.
