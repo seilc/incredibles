@@ -23,7 +23,7 @@ void xGroupInit(xBase* b, xGroupAsset* asset)
 
     if (g->linkCount)
     {
-        g->link = (xLinkAsset*)((uint8*)g->asset + asset->itemCount * sizeof(uint32) +
+        g->link = (xLinkAsset*)((U8*)g->asset + asset->itemCount * sizeof(U32) +
                                 sizeof(xGroupAsset));
     }
     else
@@ -31,7 +31,7 @@ void xGroupInit(xBase* b, xGroupAsset* asset)
         g->link = NULL;
     }
 
-    uint32 count = xGroupGetCount(g);
+    U32 count = xGroupGetCount(g);
 
     g->item = (count) ? (xBase**)xMEMALLOC(count * sizeof(xBase*)) : NULL;
     g->last_index = 0;
@@ -42,11 +42,11 @@ void xGroupSetup(xGroup* g)
 {
     if (!(g->flg_group & XGROUP_IS_SETUP))
     {
-        uint32 count = xGroupGetCount(g);
+        U32 count = xGroupGetCount(g);
 
-        for (uint32 i = 0; i < count; i++)
+        for (U32 i = 0; i < count; i++)
         {
-            uint32 id = xGroupGetItem(g, i);
+            U32 id = xGroupGetItem(g, i);
 
             g->item[i] = zSceneFindObject(id);
 
@@ -84,8 +84,8 @@ void xGroupReset(xGroup* g)
     xBaseReset(g, g->asset);
 }
 
-void xGroupEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xBase* toParamWidget,
-                   uint32 toParamWidgetID)
+void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* toParamWidget,
+                   U32 toParamWidgetID)
 {
     xGroup* g = (xGroup*)to;
 
@@ -99,7 +99,7 @@ void xGroupEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xB
         break;
     }
 
-    int32 rand = -1;
+    S32 rand = -1;
 
     if (g->asset->groupFlags & XGROUPASSET_RANDOM)
     {
@@ -131,7 +131,7 @@ void xGroupEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xB
             break;
         }
 
-        for (int32 i = 0; i < g->asset->itemCount; i++)
+        for (S32 i = 0; i < g->asset->itemCount; i++)
         {
             if (rand == -1 || rand == i)
             {
@@ -158,7 +158,7 @@ void xGroupEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xB
     }
     default:
     {
-        for (int32 i = 0; i < g->asset->itemCount; i++)
+        for (S32 i = 0; i < g->asset->itemCount; i++)
         {
             if (rand == -1 || rand == i)
             {
@@ -174,12 +174,12 @@ void xGroupEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xB
     }
 }
 
-uint32 xGroupGetCount(xGroup* g)
+U32 xGroupGetCount(xGroup* g)
 {
     return g->asset->itemCount;
 }
 
-xBase* xGroupGetItemPtr(xGroup* g, uint32 index)
+xBase* xGroupGetItemPtr(xGroup* g, U32 index)
 {
     if (!(g->flg_group & XGROUP_IS_SETUP))
     {
@@ -194,19 +194,19 @@ xBase* xGroupGetItemPtr(xGroup* g, uint32 index)
     return NULL;
 }
 
-uint32 xGroupGetItem(xGroup* g, uint32 index)
+U32 xGroupGetItem(xGroup* g, U32 index)
 {
-    return ((uint32*)(g->asset + 1))[index];
+    return ((U32*)(g->asset + 1))[index];
 }
 
-uint32 xGroup::get_any()
+U32 xGroup::get_any()
 {
     if (!asset->itemCount)
     {
         return 0;
     }
 
-    uint32 id = ((uint32*)(asset + 1))[last_index];
+    U32 id = ((U32*)(asset + 1))[last_index];
 
     last_index = (last_index + 1) % asset->itemCount;
 

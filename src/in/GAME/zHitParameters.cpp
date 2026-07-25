@@ -29,7 +29,7 @@ const zHitSourceMapEntry zHitSourceMap[] =
     0
 };
 
-uint32 zHitSourceCCs[] =
+U32 zHitSourceCCs[] =
 {
     'EV\0\0', // EVENT
     'GE\0\0', // GENERAL
@@ -54,7 +54,7 @@ uint32 zHitSourceCCs[] =
     0
 };
 
-uint32 zHitTargetCCs[] =
+U32 zHitTargetCCs[] =
 {
     '\0\0G\0',
     '\0\0F\0',
@@ -66,9 +66,9 @@ uint32 zHitTargetCCs[] =
 };
 // clang-format on
 
-int32 getSourceCCIdx(uint32 value)
+S32 getSourceCCIdx(U32 value)
 {
-    for (int32 i = 0; i < zHS_COUNT; i++)
+    for (S32 i = 0; i < zHS_COUNT; i++)
     {
         char tag[4];
 

@@ -5,14 +5,14 @@
 
 #include <string.h>
 
-uint32 ErrorCB(xAnimTransition*, xAnimSingle*, void*)
+U32 ErrorCB(xAnimTransition*, xAnimSingle*, void*)
 {
     return 0;
 }
 
-bool behavior_manager::system_event(xBase* from, xBase* to, uint32 to_event,
-                                    const float32* to_param, xBase* to_param_widget,
-                                    uint32 to_param_widget_id)
+bool behavior_manager::system_event(xBase* from, xBase* to, U32 to_event,
+                                    const F32* to_param, xBase* to_param_widget,
+                                    U32 to_param_widget_id)
 {
     if (current_behavior && current_behavior->system_event(from, to, to_event, to_param,
                                                            to_param_widget, to_param_widget_id))
@@ -36,7 +36,7 @@ bool behavior_manager::system_event(xBase* from, xBase* to, uint32 to_event,
 }
 
 void behavior_manager::before_anim_matrices(xAnimPlay* play, xQuat* quat, xVec3* tran,
-                                            int32 boneCount)
+                                            S32 boneCount)
 {
     set_iteration_pointers();
 
@@ -127,7 +127,7 @@ void behavior_manager::damage(zCombatDamageInfo& damageInfo)
     }
 }
 
-void behavior_manager::select_current(float32 dt)
+void behavior_manager::select_current(F32 dt)
 {
     behavior* new_behavior = NULL;
 
@@ -150,7 +150,7 @@ void behavior_manager::select_current(float32 dt)
             }
             else
             {
-                float32 state_delay = i->data->delay();
+                F32 state_delay = i->data->delay();
 
                 if (i->delay <= 0.0f && state_delay > 0.0f)
                 {
@@ -163,7 +163,7 @@ void behavior_manager::select_current(float32 dt)
     set_behavior(new_behavior);
 }
 
-void behavior_manager::update(float32 dt)
+void behavior_manager::update(F32 dt)
 {
     killed = false;
 
@@ -216,7 +216,7 @@ void behavior_manager::set_iteration_pointers()
     }
 }
 
-void behavior_manager::add_behavior(behavior* new_behavior, int8 priority)
+void behavior_manager::add_behavior(behavior* new_behavior, S8 priority)
 {
     behavior_node* node = NULL;
 
@@ -323,7 +323,7 @@ void behavior_manager::set_behavior(behavior* new_behavior)
     }
 }
 
-behavior* behavior_manager::get_behavior(uint32 type)
+behavior* behavior_manager::get_behavior(U32 type)
 {
     if (!behavior_list)
     {
@@ -494,7 +494,7 @@ void behavior_manager::kill()
     }
 }
 
-bool behavior::in_state(const char* state, float32 look_ahead, xModelInstance* model) const
+bool behavior::in_state(const char* state, F32 look_ahead, xModelInstance* model) const
 {
     if (!model)
     {
@@ -531,7 +531,7 @@ bool behavior::in_state(const char* state, float32 look_ahead, xModelInstance* m
     return false;
 }
 
-void behavior::set_state(const char* new_state, float32 blend, xModelInstance* model)
+void behavior::set_state(const char* new_state, F32 blend, xModelInstance* model)
 {
     if (!model)
     {
@@ -549,7 +549,7 @@ void behavior::set_state(const char* new_state, float32 blend, xModelInstance* m
     }
 }
 
-void behavior::set_state(const char* new_state, float32 blend, float32 dest_time,
+void behavior::set_state(const char* new_state, F32 blend, F32 dest_time,
                          xModelInstance* model)
 {
     if (!model)

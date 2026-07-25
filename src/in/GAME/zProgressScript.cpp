@@ -31,7 +31,7 @@ void zProgressScript_Init(xBase* b, xProgressScriptAsset* sasset)
 
     s->events = (xProgressScriptEventAsset*)(s->sasset + 1);
     s->numFlagWords = (sasset->eventCount >> 5) + 1;
-    s->flags = (uint32*)xMEMALLOC(s->numFlagWords * sizeof(uint32));
+    s->flags = (U32*)xMEMALLOC(s->numFlagWords * sizeof(U32));
 
     zProgressScript_Reset(s);
 }
@@ -43,18 +43,18 @@ void zProgressScript_Reset(zProgressScript* s)
     s->percent = 0.0f;
     s->current = 0;
 
-    for (int32 i = 0; i < s->numFlagWords; i++)
+    for (S32 i = 0; i < s->numFlagWords; i++)
     {
         s->flags[i] = 0;
     }
 }
 
-void zProgressScript_JumpTo(zProgressScript* s, float32 percent)
+void zProgressScript_JumpTo(zProgressScript* s, F32 percent)
 {
     s->percent = percent;
     s->current = 0;
 
-    while (s->current < (int32)s->sasset->eventCount)
+    while (s->current < (S32)s->sasset->eventCount)
     {
         if (s->events[s->current].percent > percent)
         {
@@ -65,9 +65,9 @@ void zProgressScript_JumpTo(zProgressScript* s, float32 percent)
     }
 }
 
-void zProgressScript_WalkForward(zProgressScript* s, float32 percent)
+void zProgressScript_WalkForward(zProgressScript* s, F32 percent)
 {
-    while (s->current < (int32)s->sasset->eventCount)
+    while (s->current < (S32)s->sasset->eventCount)
     {
         xProgressScriptEventAsset* event = &s->events[s->current];
 
@@ -92,8 +92,8 @@ void zProgressScript_WalkForward(zProgressScript* s, float32 percent)
                 }
             }
 
-            int32 index = s->current >> 5;
-            int32 bit = 1 << (s->current & 0x1f);
+            S32 index = s->current >> 5;
+            S32 bit = 1 << (s->current & 0x1f);
 
             if (!(event->flags & 0x1) || !(bit & s->flags[index]))
             {
@@ -110,7 +110,7 @@ void zProgressScript_WalkForward(zProgressScript* s, float32 percent)
     s->percent = percent;
 }
 
-void zProgressScript_WalkBack(zProgressScript* s, float32 percent)
+void zProgressScript_WalkBack(zProgressScript* s, F32 percent)
 {
     while (s->current > 0)
     {
@@ -137,8 +137,8 @@ void zProgressScript_WalkBack(zProgressScript* s, float32 percent)
                 }
             }
 
-            int32 index = (s->current - 1) >> 5;
-            int32 bit = 1 << ((s->current - 1) & 0x1f);
+            S32 index = (s->current - 1) >> 5;
+            S32 bit = 1 << ((s->current - 1) & 0x1f);
 
             if (!(event->flags & 0x1) || !(bit & s->flags[index]))
             {
@@ -155,7 +155,7 @@ void zProgressScript_WalkBack(zProgressScript* s, float32 percent)
     s->percent = percent;
 }
 
-void zProgressScript_MoveTo(zProgressScript* s, float32 percent)
+void zProgressScript_MoveTo(zProgressScript* s, F32 percent)
 {
     if (percent != s->percent)
     {
@@ -180,7 +180,7 @@ void zProgressScript_Load(zProgressScript* ent, xSerial* s)
     xBaseLoad(ent, s);
 }
 
-void zProgressScript_EventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void zProgressScript_EventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zProgressScript* s = (zProgressScript*)to;
 

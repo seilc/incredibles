@@ -6,9 +6,9 @@
 
 namespace
 {
-    void FunctionGeneratorEventWrapper(xBase* from, xBase* to, uint32 toEvent,
-                                       const float32* toParam, xBase* toParamWidget,
-                                       uint32 toParamWidgetID)
+    void FunctionGeneratorEventWrapper(xBase* from, xBase* to, U32 toEvent,
+                                       const F32* toParam, xBase* toParamWidget,
+                                       U32 toParamWidgetID)
     {
         ((xFunctionGenerator*)to)
             ->HandleEvent(from, toEvent, toParam, toParamWidget, toParamWidgetID);
@@ -27,7 +27,7 @@ xFunctionGenerator::xFunctionGenerator(const xFunctionGeneratorAsset* asset)
     currentState = XFUNCTIONGENERATOR_STATE_0;
 }
 
-void xFunctionGenerator::Update(float32 dt)
+void xFunctionGenerator::Update(F32 dt)
 {
     if (!IsEnabled())
     {
@@ -42,7 +42,7 @@ void xFunctionGenerator::Update(float32 dt)
         {
             if (currentTime < asset->middleTime)
             {
-                float32 t = currentTime / asset->middleTime;
+                F32 t = currentTime / asset->middleTime;
 
                 currentCycleWidth =
                     t * (asset->middleCycleWidth - asset->startCycleWidth) + asset->startCycleWidth;
@@ -62,7 +62,7 @@ void xFunctionGenerator::Update(float32 dt)
             {
                 if (!asset->middleEnabled)
                 {
-                    float32 t = currentTime / asset->endTime;
+                    F32 t = currentTime / asset->endTime;
 
                     currentCycleWidth = t * (asset->endCycleWidth - asset->startCycleWidth) +
                                         asset->startCycleWidth;
@@ -71,7 +71,7 @@ void xFunctionGenerator::Update(float32 dt)
                 }
                 else if (currentTime > asset->middleTime)
                 {
-                    float32 t =
+                    F32 t =
                         (currentTime - asset->middleTime) / (asset->endTime - asset->middleTime);
 
                     currentCycleWidth = t * (asset->endCycleWidth - asset->middleCycleWidth) +
@@ -94,7 +94,7 @@ void xFunctionGenerator::Update(float32 dt)
 
         if (currentState == XFUNCTIONGENERATOR_STATE_0)
         {
-            float32 currentOffWidth = currentCycleWidth - currentPulseWidth;
+            F32 currentOffWidth = currentCycleWidth - currentPulseWidth;
 
             if (currentTime - lastDownTime > currentOffWidth)
             {
@@ -144,7 +144,7 @@ void xFunctionGenerator::Update(float32 dt)
     }
 }
 
-void xFunctionGenerator::HandleEvent(xBase*, uint32 toEvent, const float32* toParam, xBase*, uint32)
+void xFunctionGenerator::HandleEvent(xBase*, U32 toEvent, const F32* toParam, xBase*, U32)
 {
     switch (toEvent)
     {

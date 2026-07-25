@@ -5,17 +5,17 @@
 
 struct xTimerAsset : xBaseAsset
 {
-    float32 seconds;
-    float32 randomRange;
+    F32 seconds;
+    F32 randomRange;
 };
 
 struct xTimer : xBase
 {
     xTimerAsset* tasset;
-    uint8 state;
-    uint8 runsInPause;
-    uint16 flags;
-    float32 secondsLeft;
+    U8 state;
+    U8 runsInPause;
+    U16 flags;
+    F32 secondsLeft;
 };
 
 #define XTIMER_STATE_STOPPED 0
@@ -33,7 +33,7 @@ void xTimerInit(xBase* b, xTimerAsset* tasset);
 void xTimerReset(xTimer* t);
 void xTimerSave(xTimer* ent, xSerial* s);
 void xTimerLoad(xTimer* ent, xSerial* s);
-void xTimerEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xBase*, uint32);
-void xTimerUpdate(xBase* to, xScene*, float32 dt);
+void xTimerEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U32);
+void xTimerUpdate(xBase* to, xScene*, F32 dt);
 
 #endif

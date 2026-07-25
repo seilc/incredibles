@@ -27,7 +27,7 @@ void zConditionalInit(xBase* b, zCondAsset* asset)
         c->link = NULL;
     }
 
-    for (int32 i = 0; i < eVarEntryCount; i++)
+    for (S32 i = 0; i < eVarEntryCount; i++)
     {
         if (c->asset->expr1 == zVarEntryTable[i].varNameID)
         {
@@ -52,12 +52,12 @@ void zConditionalLoad(_zConditional* ent, xSerial* s)
     xBaseLoad(ent, s);
 }
 
-uint32 zConditional_GetCount(_zConditional* c)
+U32 zConditional_GetCount(_zConditional* c)
 {
     zVarEntry* v = NULL;
     void* context = NULL;
 
-    for (int32 i = 0; i < eVarEntryCount; i++)
+    for (S32 i = 0; i < eVarEntryCount; i++)
     {
         if (c->asset->expr1 == zVarEntryTable[i].varNameID)
         {
@@ -65,7 +65,7 @@ uint32 zConditional_GetCount(_zConditional* c)
 
             if (zVarEntryNeedsContext(i))
             {
-                uint32 id = c->asset->value_asset;
+                U32 id = c->asset->value_asset;
 
                 if (id)
                 {
@@ -80,7 +80,7 @@ uint32 zConditional_GetCount(_zConditional* c)
         return eEventUnknown;
     }
 
-    uint32 temp = v->varCB(context);
+    U32 temp = v->varCB(context);
 
     if (temp >= 1 && temp <= 20)
     {
@@ -95,9 +95,9 @@ uint32 zConditional_GetCount(_zConditional* c)
     return eEventUnknown;
 }
 
-uint32 zConditional_Evaluate(_zConditional* c)
+U32 zConditional_Evaluate(_zConditional* c)
 {
-    uint32 temp;
+    U32 temp;
     void* context = NULL;
 
     if (!c->varEntry)
@@ -107,7 +107,7 @@ uint32 zConditional_Evaluate(_zConditional* c)
 
     if (zVarEntryNeedsContext(c->varEntry->entry))
     {
-        uint32 id = c->asset->value_asset;
+        U32 id = c->asset->value_asset;
 
         if (id)
         {
@@ -136,7 +136,7 @@ uint32 zConditional_Evaluate(_zConditional* c)
     }
 }
 
-void zConditionalEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void zConditionalEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     _zConditional* t = (_zConditional*)to;
 
@@ -157,7 +157,7 @@ void zConditionalEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBas
     }
     case eEventEvaluateCounterValue:
     {
-        uint32 event = zConditional_GetCount(t);
+        U32 event = zConditional_GetCount(t);
 
         if (event != eEventUnknown)
         {

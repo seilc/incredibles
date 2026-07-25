@@ -1,6 +1,6 @@
 #include "xMemoryManagerFixed.h"
 
-void xMemoryManagerFixed::Init(void* start, uint32 elements, uint32 elementSize)
+void xMemoryManagerFixed::Init(void* start, U32 elements, U32 elementSize)
 {
     DoInit(start, elements * elementSize, false);
 
@@ -10,7 +10,7 @@ void xMemoryManagerFixed::Init(void* start, uint32 elements, uint32 elementSize)
     InitMemory();
 }
 
-void* xMemoryManagerFixed::DoAllocate(uint32, uint32)
+void* xMemoryManagerFixed::DoAllocate(U32, U32)
 {
     FixedHeader* header = freeList;
 
@@ -34,12 +34,12 @@ void xMemoryManagerFixed::DoFree(void* pointer)
     freeList = header;
 }
 
-void* xMemoryManagerFixed::DoReallocate(void* pointer, uint32, uint32)
+void* xMemoryManagerFixed::DoReallocate(void* pointer, U32, U32)
 {
     return pointer;
 }
 
-uint32 xMemoryManagerFixed::DoGetBlockSize(void*) const
+U32 xMemoryManagerFixed::DoGetBlockSize(void*) const
 {
     return elementSize;
 }
@@ -50,7 +50,7 @@ void xMemoryManagerFixed::InitMemory()
 
     FixedHeader* header = freeList;
 
-    for (uint32 i = 0; i < elements - 1; i++)
+    for (U32 i = 0; i < elements - 1; i++)
     {
         header->next = xMEMADVANCE(header, elementSize);
         header = header->next;

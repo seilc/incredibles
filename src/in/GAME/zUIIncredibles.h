@@ -5,7 +5,7 @@
 
 namespace stats
 {
-    void add(const char* name, float32 value);
+    void add(const char* name, F32 value);
 }
 
 #endif

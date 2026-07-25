@@ -10,9 +10,9 @@ namespace zHud
     {
     private:
         xhud::image_widget* m_pImageWidget;
-        float32 m_fCircleSpeed;
-        float32 m_fCircleValue;
-        float32 m_fDisplayTimeLeft;
+        F32 m_fCircleSpeed;
+        F32 m_fCircleValue;
+        F32 m_fDisplayTimeLeft;
 
     public:
         DiskIndicator();
@@ -20,8 +20,8 @@ namespace zHud
         void reset();
         void setup();
         void destroy();
-        void spin(float32 fSeconds);
-        void update(float32 dt);
+        void spin(F32 fSeconds);
+        void update(F32 dt);
         void show();
         void hide();
     };

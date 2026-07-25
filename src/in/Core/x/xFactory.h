@@ -6,7 +6,7 @@
 
 struct xFactoryInst : RyzMemData
 {
-    int32 itemType;
+    S32 itemType;
     xFactoryInst* nextprod;
     xFactoryInst* prevprod;
 
@@ -24,8 +24,8 @@ struct xFactoryInst : RyzMemData
 
 struct XGOFTypeInfo
 {
-    int32 tid;
-    xFactoryInst* (*creator)(int32, RyzMemGrow*, void*);
+    S32 tid;
+    xFactoryInst* (*creator)(S32, RyzMemGrow*, void*);
     void (*destroyer)(xFactoryInst*);
 };
 
@@ -36,11 +36,11 @@ struct xFactory : RyzMemData
     xFactoryInst* products;
     RyzMemGrow growContextData;
 
-    xFactory(int32 maxTypes);
+    xFactory(S32 maxTypes);
     ~xFactory();
 
-    int32 RegItemType(XGOFTypeInfo* info);
-    xFactoryInst* CreateItem(int32 typeID, void* userdata, RyzMemGrow* callerzgrow);
+    S32 RegItemType(XGOFTypeInfo* info);
+    xFactoryInst* CreateItem(S32 typeID, void* userdata, RyzMemGrow* callerzgrow);
     void DestroyAll();
     void DestroyItem(xFactoryInst* item);
 };

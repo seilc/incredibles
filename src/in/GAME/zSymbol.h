@@ -12,7 +12,7 @@ namespace z
         struct symbol_map
         {
             symbol_map* next;
-            uint32 id;
+            U32 id;
             xModelInstance* model;
         };
 

@@ -2,8 +2,8 @@
 
 namespace zNPC
 {
-    void group::EventCB(xBase* from, xBase* to, uint32 toEvent, const float32* toParam,
-                        xBase* toParamWidget, uint32 toParamWidgetID)
+    void group::EventCB(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                        xBase* toParamWidget, U32 toParamWidgetID)
     {
         ((group*)to)->handle_event(from, to, toEvent, toParam, toParamWidget, toParamWidgetID);
     }
@@ -19,8 +19,8 @@ namespace zNPC
         new_group->eventFunc = EventCB;
     }
 
-    void group::handle_event(xBase* from, xBase* to, uint32 toEvent, const float32* toParam,
-                             xBase* toParamWidget, uint32 toParamWidgetID)
+    void group::handle_event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                             xBase* toParamWidget, U32 toParamWidgetID)
     {
         return;
     }

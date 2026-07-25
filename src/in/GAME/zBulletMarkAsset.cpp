@@ -14,9 +14,9 @@ void zBulletMarkAssetMgr::init()
     size = 0;
 }
 
-zBulletMarkAsset* zBulletMarkAssetMgr::get(uint32 id)
+zBulletMarkAsset* zBulletMarkAssetMgr::get(U32 id)
 {
-    for (uint32 i = 0; i < size; i++)
+    for (U32 i = 0; i < size; i++)
     {
         if (data[i].textureID == id)
         {

@@ -12,21 +12,21 @@ public:
         node_base* next;
     };
 
-    int32 size() const;
-    int32 max_size() const;
+    S32 size() const;
+    S32 max_size() const;
     bool full() const;
     bool empty() const;
 
     void push_front();
     void push_back();
-    void create(int32 node_size, int32 max_size, void* buffer);
-    void reset(int32 node_size);
+    void create(S32 node_size, S32 max_size, void* buffer);
+    void reset(S32 node_size);
     node_base* insert(node_base* it);
     node_base* erase(node_base* it);
 
 protected:
-    int32 _size;
-    int32 _max_size;
+    S32 _size;
+    S32 _max_size;
     node_base head;
     node_base tail;
     node_base* stack;
@@ -57,30 +57,30 @@ class tier_queue_allocator
 public:
     struct block_data
     {
-        uint8 prev;
-        uint8 next;
-        uint16 flags;
+        U8 prev;
+        U8 next;
+        U16 flags;
         void* data;
     };
 
 private:
     block_data* blocks;
-    uint32 _unit_size;
-    uint32 _block_size;
-    uint32 _block_size_shift;
-    uint32 _max_blocks;
-    uint32 _max_blocks_shift;
-    uint8 head;
+    U32 _unit_size;
+    U32 _block_size;
+    U32 _block_size_shift;
+    U32 _max_blocks;
+    U32 _max_blocks_shift;
+    U8 head;
 };
 
 class tier_queue
 {
 private:
-    uint32 first;
-    uint32 _size;
-    uint32 wrap_mask;
+    U32 first;
+    U32 _size;
+    U32 wrap_mask;
     tier_queue_allocator* alloc;
-    uint8 blocks[32];
+    U8 blocks[32];
 };
 
 #endif

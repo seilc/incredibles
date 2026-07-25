@@ -7,7 +7,7 @@ struct zAnimCacheEntry
 {
     xVec3* data;
     xAnimFile* animFile;
-    uint16 bone;
+    U16 bone;
 };
 
 #endif

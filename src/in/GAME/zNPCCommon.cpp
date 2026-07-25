@@ -23,9 +23,9 @@
 #pragma force_active off
 static void hack_symbol_order()
 {
-    FORCE_USE_SYMBOL(float32, 0.0f);
-    FORCE_USE_SYMBOL(float32, 1.0f);
-    FORCE_USE_SYMBOL(float32, EPSILON);
+    FORCE_USE_SYMBOL(F32, 0.0f);
+    FORCE_USE_SYMBOL(F32, 1.0f);
+    FORCE_USE_SYMBOL(F32, EPSILON);
 
     xMat3x3RMulVec(NULL, NULL, NULL);
 }
@@ -34,7 +34,7 @@ static void hack_symbol_order()
 
 namespace
 {
-    void scale_model(xModelInstance* model, float32 scale)
+    void scale_model(xModelInstance* model, F32 scale)
     {
         if (scale == 1.0f)
         {
@@ -64,7 +64,7 @@ namespace zNPC
 
     namespace
     {
-        void update_wrapper(xEnt* ent, xScene* xscn, float32 dt)
+        void update_wrapper(xEnt* ent, xScene* xscn, F32 dt)
         {
             if (!xEntIsVisible(ent))
             {
@@ -111,7 +111,7 @@ namespace zNPC
             xEntEndUpdate(ent, xscn, dt);
         }
 
-        void move_wrapper(xEnt* ent, xScene*, float32, xEntFrame*)
+        void move_wrapper(xEnt* ent, xScene*, F32, xEntFrame*)
         {
             if (((common*)ent)->alive())
             {
@@ -127,8 +127,8 @@ namespace zNPC
             }
         }
 
-        void event_wrapper(xBase* from, xBase* to, uint32 toEvent, const float32* toParam,
-                           xBase* toParamWidget, uint32 toParamWidgetID)
+        void event_wrapper(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                           xBase* toParamWidget, U32 toParamWidgetID)
         {
             ((common*)to)->system_event(from, to, toEvent, toParam, toParamWidget, toParamWidgetID);
         }
@@ -193,7 +193,7 @@ namespace zNPC
 
         xBoundGetBox(box, bound);
 
-        int32 hits_found = zTransient::check_damage(hits, box, 8, 8, 3);
+        S32 hits_found = zTransient::check_damage(hits, box, 8, 8, 3);
 
         zTransient::damage_result* hit = hits;
         zTransient::damage_result* end_hit = hits + hits_found;
@@ -211,7 +211,7 @@ namespace zNPC
 
                 zCombatDamageInfo info;
                 info.from = NULL;
-                info.damage = (int32)hit->damage;
+                info.damage = (S32)hit->damage;
                 info.source = hit->source;
                 info.target = zHT_GENERAL;
                 info.knockback.x = hitdir.x * hit->knockback;
@@ -226,7 +226,7 @@ namespace zNPC
         }
     }
 
-    void common::update_npc(float32 dt)
+    void common::update_npc(F32 dt)
     {
         check_transient_damage();
 
@@ -375,12 +375,12 @@ namespace zNPC
         manager.scene_setup();
     }
 
-    void common::BeforeAnimMatrices(xAnimPlay* play, xQuat* quat, xVec3* tran, int32 boneCount)
+    void common::BeforeAnimMatrices(xAnimPlay* play, xQuat* quat, xVec3* tran, S32 boneCount)
     {
         ((common*)play->Object)->before_anim_matrices(play, quat, tran, boneCount);
     }
 
-    void common::before_anim_matrices(xAnimPlay* play, xQuat* quat, xVec3* tran, int32 boneCount)
+    void common::before_anim_matrices(xAnimPlay* play, xQuat* quat, xVec3* tran, S32 boneCount)
     {
         manager.before_anim_matrices(play, quat, tran, boneCount);
     }
@@ -430,11 +430,11 @@ namespace zNPC
 
         if (npc_asset && npc_asset->settings != 0)
         {
-            uint32 bufsize;
+            U32 bufsize;
             void* info = xSTFindAsset(npc_asset->settings, &bufsize);
 
-            local_parameters_size = bufsize - sizeof(uint32);
-            local_parameters = (xModelAssetParam*)((uint32*)info + 1);
+            local_parameters_size = bufsize - sizeof(U32);
+            local_parameters = (xModelAssetParam*)((U32*)info + 1);
         }
         else
         {
@@ -458,7 +458,7 @@ namespace zNPC
 
         if (!tempBool)
         {
-            chkby &= (uint8)~0x10;
+            chkby &= (U8)~0x10;
             commonFlags.old_chkby = chkby;
         }
 
@@ -514,7 +514,7 @@ namespace zNPC
 
         if (incredi_power_points != 0 && commonFlags.shouldGivePower)
         {
-            int32 powerMult = zCombo_GetPowerMult();
+            S32 powerMult = zCombo_GetPowerMult();
 
             ZPLAYER->GiveIncrediPower(incredi_power_points * powerMult, false);
         }
@@ -570,7 +570,7 @@ namespace zNPC
         return false;
     }
 
-    int32 common::grabOffset(xVec3* offset)
+    S32 common::grabOffset(xVec3* offset)
     {
         if (offset)
         {
@@ -604,8 +604,8 @@ namespace zNPC
     {
     }
 
-    bool common::system_event(xBase* from, xBase* to, uint32 to_event, const float32* to_param,
-                              xBase* to_param_widget, uint32 to_param_widget_id)
+    bool common::system_event(xBase* from, xBase* to, U32 to_event, const F32* to_param,
+                              xBase* to_param_widget, U32 to_param_widget_id)
     {
         if (duplicator && from != duplicator && to_event != eEventExplode)
         {
@@ -754,7 +754,7 @@ namespace zNPC
                                     to_param_widget_id);
     }
 
-    void common::set_shadow_strength(float32 percent)
+    void common::set_shadow_strength(F32 percent)
     {
         if (!commonFlags.cast_shadow)
         {
@@ -804,15 +804,15 @@ namespace zNPC
 
         xEntSetup(this);
 
-        pflags &= (uint8)~0x4;
+        pflags &= (U8)~0x4;
 
-        int32 hit_points;
+        S32 hit_points;
         const char* table;
 
         get_parameter("HitPoints", &hit_points, 50);
         get_parameter("MoveSpeedMult", &move_speed_multiply, 1.0f);
 
-        float32 scale = 1.0f;
+        F32 scale = 1.0f;
 
         get_parameter("Scale", &scale, 1.0f);
         get_parameter("AttackTable", &table, "");
@@ -940,7 +940,7 @@ namespace zNPC
         frame->rot.axis = xVec3::m_UnitAxisY;
         frame->rot.angle = xatan2(frame->mat.at.x, frame->mat.at.z);
 
-        float32 scale = 1.0f;
+        F32 scale = 1.0f;
 
         get_parameter("Scale", &scale, 1.0f);
 

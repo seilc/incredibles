@@ -29,7 +29,7 @@ void zCameraFly_Setup(zCameraFly* fly)
     fly->baseFlags |= XBASE_PERSISTENT;
 }
 
-void zCameraFly_Update(xBase*, xScene*, float32)
+void zCameraFly_Update(xBase*, xScene*, F32)
 {
 }
 
@@ -43,7 +43,7 @@ void zCameraFly_Load(zCameraFly* fly, xSerial* s)
     xBaseLoad(fly, s);
 }
 
-void zCameraFlyEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void zCameraFlyEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zCameraFly* fly = (zCameraFly*)to;
 

@@ -15,7 +15,7 @@ void xRenderSceneExit()
     return;
 }
 
-void xRenderStateSetZBias(float32 zbias)
+void xRenderStateSetZBias(F32 zbias)
 {
     RwCamera* camera = RwCameraGetCurrentCamera();
 
@@ -49,7 +49,7 @@ void xRenderStateResetZBias()
     }
 }
 
-void xRenderStateSetAlphaDiscard(int32 value)
+void xRenderStateSetAlphaDiscard(S32 value)
 {
     alphaDiscardCurrentlySet = true;
 

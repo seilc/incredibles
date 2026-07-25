@@ -4,7 +4,7 @@
 
 #include <string.h>
 
-void* RyzMemData::operator new(size_t amt, int32, RyzMemGrow* growCtxt)
+void* RyzMemData::operator new(size_t amt, S32, RyzMemGrow* growCtxt)
 {
     void* mem;
 

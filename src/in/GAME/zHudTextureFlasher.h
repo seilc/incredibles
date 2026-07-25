@@ -10,19 +10,19 @@ namespace zHud
     public:
         typedef bool (*Callback)(void* context, TextureFlasher* flasher);
 
-        void setup(xhud::image_widget* pImageWidget, uint32 uLayer, float32 onTime, float32 offTime,
-                   float32 decayTime);
+        void setup(xhud::image_widget* pImageWidget, U32 uLayer, F32 onTime, F32 offTime,
+                   F32 decayTime);
         void setCallback(Callback callback, void* context);
-        void update(float32 dt);
-        void setFlashingParams(float32 offTime, float32 onTime);
+        void update(F32 dt);
+        void setFlashingParams(F32 offTime, F32 onTime);
 
     private:
         xhud::image_widget* m_pImageWidget;
-        uint32 m_uFlashLayer;
-        float32 m_timer;
-        float32 m_onTime;
-        float32 m_offTime;
-        float32 m_offDecayTime;
+        U32 m_uFlashLayer;
+        F32 m_timer;
+        F32 m_onTime;
+        F32 m_offTime;
+        F32 m_offDecayTime;
         void* m_context;
         Callback m_callback;
     };

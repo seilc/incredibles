@@ -14,40 +14,40 @@ struct xFXRibbon
         xFXRibbon* owner;
         activity_data** position;
         tier_queue joints;
-        int32 curve_index;
-        float32 ilife;
-        uint32 mtime;
-        uint32 mlife;
+        S32 curve_index;
+        F32 ilife;
+        U32 mtime;
+        U32 mlife;
     };
 
     struct curve_node
     {
-        float32 time;
+        F32 time;
         xColor color;
-        float32 scale;
+        F32 scale;
     };
 
     struct config_type
     {
-        float32 life_time;
-        uint32 blend_src;
-        uint32 blend_dst;
-        float32 pivot;
-        int32 flags;
+        F32 life_time;
+        U32 blend_src;
+        U32 blend_dst;
+        F32 pivot;
+        S32 flags;
         curve_node* curve;
-        int32 curve_size;
+        S32 curve_size;
         RwRaster* raster;
     };
 
-    float32 texture_offset;
-    float32 texture_increment_scale;
+    F32 texture_offset;
+    F32 texture_increment_scale;
     activity_data* act;
     config_type* cfg;
 };
 
 void xFX_SceneEnter(RpWorld* world);
 void xFX_SceneExit(RpWorld*);
-void xFXUpdate(float32 dt);
+void xFXUpdate(F32 dt);
 void xFXanimUV2PSetTexture(RwTexture* texture);
 
 #endif

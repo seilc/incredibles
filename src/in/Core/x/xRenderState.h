@@ -7,9 +7,9 @@
 
 void xRenderSceneEnter();
 void xRenderSceneExit();
-void xRenderStateSetZBias(float32 zbias);
+void xRenderStateSetZBias(F32 zbias);
 void xRenderStateResetZBias();
-void xRenderStateSetAlphaDiscard(int32 value);
+void xRenderStateSetAlphaDiscard(S32 value);
 void xRenderStateResetAlphaDiscard();
 void xRenderFixUntexturedBegin(RpAtomic*);
 void xRenderFixUntexturedEnd(RpAtomic*);

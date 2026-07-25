@@ -13,7 +13,7 @@ void zCamPreset::load(xBase& data, xDynAsset& asset, ulong32)
     ((zCamPreset&)data).load((const asset_type&)asset);
 }
 
-void zCamPreset::update_all(float32)
+void zCamPreset::update_all(F32)
 {
 }
 
@@ -40,7 +40,7 @@ void zCamPreset::apply_on_reset()
 zCamPreset* zCamPreset::find_preset(bool scene_prepare)
 {
     zCamPreset* best_preset = NULL;
-    float32 best_dist2 = 1e+38f;
+    F32 best_dist2 = 1e+38f;
     bool best_has_checkpoint = false;
     xVec3& to = globals.player.checkpoint.pos;
     zScene& s = *globals.sceneCur;
@@ -56,7 +56,7 @@ zCamPreset* zCamPreset::find_preset(bool scene_prepare)
             if ((!best_has_checkpoint || has_checkpoint) &&
                 (!has_checkpoint || preset->at_checkpoint()))
             {
-                float32 dist2 = preset->distance2(to);
+                F32 dist2 = preset->distance2(to);
 
                 if (dist2 < best_dist2)
                 {
@@ -92,14 +92,14 @@ void zCamPreset::load(const asset_type& a)
     debug_init();
 }
 
-bool zCamPreset::get_checkpoint(xVec3& loc, float32& yaw) const
+bool zCamPreset::get_checkpoint(xVec3& loc, F32& yaw) const
 {
     PKRAssetTOCInfo ainfo;
 
     xSTGetAssetInfo(asset->checkpoint, &ainfo);
 
     xBaseAsset* checkpoint = (xBaseAsset*)ainfo.mempos;
-    uint32 type = ainfo.typeref->typetag;
+    U32 type = ainfo.typeref->typetag;
 
     if (type == 'PLYR')
     {
@@ -127,7 +127,7 @@ bool zCamPreset::get_checkpoint(xVec3& loc, float32& yaw) const
 bool zCamPreset::at_checkpoint() const
 {
     xVec3 loc;
-    float32 yaw;
+    F32 yaw;
 
     if (get_checkpoint(loc, yaw))
     {
@@ -137,14 +137,14 @@ bool zCamPreset::at_checkpoint() const
     return false;
 }
 
-float32 zCamPreset::distance2(const xVec3& loc) const
+F32 zCamPreset::distance2(const xVec3& loc) const
 {
     xMat4x3 mat;
     get_matrix(mat);
 
-    float32 dx = loc.x - mat.pos.x;
-    float32 dy = loc.y - mat.pos.y;
-    float32 dz = loc.z - mat.pos.z;
+    F32 dx = loc.x - mat.pos.x;
+    F32 dy = loc.y - mat.pos.y;
+    F32 dz = loc.z - mat.pos.z;
 
     return SQR(dx) + SQR(dy) + SQR(dz);
 }
@@ -157,7 +157,7 @@ void zCamPreset::apply()
     zCamGetDefault()->snap_to(mat);
 }
 
-bool zCamPreset::get_relative(xVec3& loc, float32& yaw) const
+bool zCamPreset::get_relative(xVec3& loc, F32& yaw) const
 {
     if (!(asset->flags & 0x4) || !asset->checkpoint)
     {
@@ -171,7 +171,7 @@ void zCamPreset::get_matrix(xMat4x3& mat) const
 {
     xMat4x3 arg_20;
     xVec3 loc;
-    float32 yaw;
+    F32 yaw;
 
     xMat3x3Euler(&mat, asset->dir.yaw, asset->dir.pitch, asset->dir.roll);
 
@@ -187,7 +187,7 @@ void zCamPreset::get_matrix(xMat4x3& mat) const
     }
 }
 
-void zCamPreset::event_handler(xBase* from, uint32 toEvent, const float32*, xBase*, uint32)
+void zCamPreset::event_handler(xBase* from, U32 toEvent, const F32*, xBase*, U32)
 {
     switch (toEvent)
     {
@@ -203,9 +203,9 @@ void zCamPreset::event_handler(xBase* from, uint32 toEvent, const float32*, xBas
     }
 }
 
-void zCamPreset::event_handler_callback(xBase* from, xBase* to, uint32 toEvent,
-                                        const float32* toParam, xBase* toParamWidget,
-                                        uint32 toParamWidgetID)
+void zCamPreset::event_handler_callback(xBase* from, xBase* to, U32 toEvent,
+                                        const F32* toParam, xBase* toParamWidget,
+                                        U32 toParamWidgetID)
 {
     zCamPreset* w = (zCamPreset*)to;
 

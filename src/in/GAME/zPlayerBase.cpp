@@ -8,9 +8,9 @@
 #include "xutil.h"
 #include "iSnd.h"
 
-static int32 sMemDepthJustHIPStartPlayer = -1;
+static S32 sMemDepthJustHIPStartPlayer = -1;
 
-void zPlayerUpdate(xEnt* ent, xScene* sc, float32 dt)
+void zPlayerUpdate(xEnt* ent, xScene* sc, F32 dt)
 {
     zPlayer* player = (zPlayer*)ent;
 
@@ -47,14 +47,14 @@ void zPlayerReset(zEnt* ent)
     ((zPlayer*)ent)->Reset();
 }
 
-void zPlayerMove(xEnt* ent, xScene* s, float32 dt, xEntFrame* frame)
+void zPlayerMove(xEnt* ent, xScene* s, F32 dt, xEntFrame* frame)
 {
     ((zPlayer*)ent)->Move(s, dt, frame);
 }
 
-void zPlayerLoadHIP(uint32 sceneID)
+void zPlayerLoadHIP(U32 sceneID)
 {
-    uint32 tagPlayer = zConfig_getPlayerTag(sceneID, 0);
+    U32 tagPlayer = zConfig_getPlayerTag(sceneID, 0);
 
     if (tagPlayer == globals.playerTag)
     {
@@ -94,7 +94,7 @@ void zPlayerUnloadHIP()
     globals.playerLoaded = false;
 }
 
-void zPlayer_StoreCheckPoint(const xVec3& pos, float32 rot, uint32 initialCameraID)
+void zPlayer_StoreCheckPoint(const xVec3& pos, F32 rot, U32 initialCameraID)
 {
     globals.player.checkpoint.pos = pos;
     globals.player.checkpoint.rot = rot;

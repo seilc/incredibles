@@ -9,7 +9,7 @@ namespace
     bool gSceneReset = false;
 }
 
-static bool zScriptExecuteEvents(_zScript* t, float32 start, float32 end);
+static bool zScriptExecuteEvents(_zScript* t, F32 start, F32 end);
 
 void zScriptInit(void* b, void* tasset)
 {
@@ -58,7 +58,7 @@ void zScriptLoad(_zScript* ent, xSerial* s)
     xBaseLoad(ent, s);
 }
 
-void zScriptEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xBase*, uint32)
+void zScriptEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U32)
 {
     _zScript* t = (_zScript*)to;
 
@@ -121,12 +121,12 @@ void zScriptEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, x
     }
 }
 
-static bool zScriptExecuteEvents(_zScript* t, float32 start, float32 end)
+static bool zScriptExecuteEvents(_zScript* t, F32 start, F32 end)
 {
     gSceneReset = false;
 
-    int32 i;
-    int32 eventCount = t->tasset->eventCount;
+    S32 i;
+    S32 eventCount = t->tasset->eventCount;
     xScriptEventAsset* currentScript = (xScriptEventAsset*)(t->tasset + 1);
 
     currentScript += eventCount;
@@ -191,7 +191,7 @@ static bool zScriptExecuteEvents(_zScript* t, float32 start, float32 end)
     return true;
 }
 
-void zScriptUpdate(xBase* to, xScene*, float32 dt)
+void zScriptUpdate(xBase* to, xScene*, F32 dt)
 {
     _zScript* t = (_zScript*)to;
 

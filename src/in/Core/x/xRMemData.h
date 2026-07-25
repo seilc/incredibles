@@ -9,11 +9,11 @@
 
 struct RyzMemGrow
 {
-    int32 flg_grow;
-    int32 amt;
+    S32 flg_grow;
+    S32 amt;
     char* ptr;
     xBase* user;
-    int32 amt_last;
+    S32 amt_last;
     char* ptr_last;
     xBase* user_last;
 
@@ -25,7 +25,7 @@ struct RyzMemGrow
 
 struct RyzMemData
 {
-    void* operator new(size_t amt, int32, RyzMemGrow* growCtxt);
+    void* operator new(size_t amt, S32, RyzMemGrow* growCtxt);
     void operator delete(void*);
 };
 

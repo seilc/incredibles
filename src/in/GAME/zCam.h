@@ -17,15 +17,15 @@ struct zScene;
 void zCamSceneEnter(zScene& scene, const xMat4x3& mat);
 void zCamSceneExit();
 void zCamReset(const xMat4x3& mat);
-void zCamUpdate(float32 dt);
+void zCamUpdate(F32 dt);
 void zCamPrepareRender();
 void zCamBeginRender();
 void zCamEndRender();
 void zCamSetMode(zcam_mode_enum mode);
 void zCamAdd(xCam& cam, bool force_cut);
 void zCamRemove(xCam& cam, bool force_cut);
-void zCamSetStartOrientation(uint32 pointer_id);
-void zCamSetStartOrientation(float32 yaw, float32 pitch, float32 roll);
+void zCamSetStartOrientation(U32 pointer_id);
+void zCamSetStartOrientation(F32 yaw, F32 pitch, F32 roll);
 xMat4x3& zCamGetMatrix();
 zCamPlayer* zCamGetDefault();
 

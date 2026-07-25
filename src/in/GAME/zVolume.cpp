@@ -5,10 +5,10 @@
 #include "xEvent.h"
 
 static zVolume* vols;
-static uint16 nvols;
-int32 gOccludeCount;
+static U16 nvols;
+S32 gOccludeCount;
 zVolume* gOccludeList[10];
-int32 gOccludeCalcCount;
+S32 gOccludeCalcCount;
 PreCalcOcclude gOccludeCalc[10];
 
 static void zVolumeInit(zVolume* volume, xVolumeAsset* asset)
@@ -19,8 +19,8 @@ static void zVolumeInit(zVolume* volume, xVolumeAsset* asset)
 
 void zVolumeInit()
 {
-    uint16 i;
-    uint32 size;
+    U16 i;
+    U32 size;
     xVolumeAsset* asset;
 
     nvols = xSTAssetCountByType('VOLU');
@@ -44,7 +44,7 @@ void zVolumeInit()
 
 void zVolumeSetup()
 {
-    uint32 i;
+    U32 i;
 
     for (i = 0; i < nvols; i++)
     {
@@ -52,20 +52,20 @@ void zVolumeSetup()
     }
 }
 
-zVolume* zVolumeGetVolume(uint16 n)
+zVolume* zVolumeGetVolume(U16 n)
 {
     return &vols[n];
 }
 
 void zVolume_OccludePrecalc(xVec3* camPos)
 {
-    int32 i, j;
+    S32 i, j;
     xVec3 corner[5];
     xVolumeAsset* a;
     PreCalcOcclude* calc;
     xVec4 locFrustVec[4];
-    float32 depthdot, camdot;
-    float32 f30, f1;
+    F32 depthdot, camdot;
+    F32 f30, f1;
     xVec3 var_EC, var_F8;
 
     gOccludeCalcCount = 0;
@@ -163,10 +163,10 @@ void zVolume_OccludePrecalc(xVec3* camPos)
     }
 }
 
-void zVolumeEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void zVolumeEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zVolume* vol = (zVolume*)to;
-    int32 i;
+    S32 i;
 
     switch (toEvent)
     {

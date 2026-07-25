@@ -29,7 +29,7 @@ void zCameraRBandAsset_Init(zCameraRBandObject* object, zCameraRBandAsset* asset
     rbCam->cfg.vertical_offset = asset->vertical_offset;
 }
 
-void zCameraRBandAsset_EventCB(xBase*, xBase*, uint32 toEvent, const float32*, xBase*, uint32)
+void zCameraRBandAsset_EventCB(xBase*, xBase*, U32 toEvent, const F32*, xBase*, U32)
 {
     switch (toEvent)
     {

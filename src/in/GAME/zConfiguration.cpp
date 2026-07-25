@@ -4,12 +4,12 @@
 
 struct zConfig_ScenePlayer_MapEntry
 {
-    uint32 scene_tag;
-    uint32 scene_mask;
+    U32 scene_tag;
+    U32 scene_mask;
     PLAYER_ENUM player_enum[4];
-    uint32 pointerToPlayer[10];
-    int32 playerCount;
-    int32 pointerCount;
+    U32 pointerToPlayer[10];
+    S32 playerCount;
+    S32 pointerCount;
 };
 
 namespace
@@ -45,7 +45,7 @@ namespace
         NULL // VIOLET
     };
 
-    const uint32 player_tag[PLAYER_COUNT] =
+    const U32 player_tag[PLAYER_COUNT] =
     {
         'PLY0', // MR_INCREDIBLE_YOUNG
         'PLY1', // MR_INCREDIBLE_DISGUISED
@@ -62,12 +62,12 @@ namespace
     // clang-format on
 
     zConfig_ScenePlayer_MapEntry scene_player_map[128] = {};
-    int32 scene_player_map_max = 0;
+    S32 scene_player_map_max = 0;
 } // namespace
 
-uint32 zConfig_getPlayerEnumIdx(uint32 _player_tag)
+U32 zConfig_getPlayerEnumIdx(U32 _player_tag)
 {
-    for (int32 i = 0; i < PLAYER_COUNT; i++)
+    for (S32 i = 0; i < PLAYER_COUNT; i++)
     {
         if (player_tag[i] == _player_tag)
         {
@@ -78,9 +78,9 @@ uint32 zConfig_getPlayerEnumIdx(uint32 _player_tag)
     return 0;
 }
 
-void zConfig_setScenePlayer_MapEntry_Fixed(uint32 sceneID, uint32 _player_tag, uint32 idx)
+void zConfig_setScenePlayer_MapEntry_Fixed(U32 sceneID, U32 _player_tag, U32 idx)
 {
-    for (int32 i = 0; i < scene_player_map_max; i++)
+    for (S32 i = 0; i < scene_player_map_max; i++)
     {
         if (sceneID == scene_player_map[i].scene_tag)
         {
@@ -92,9 +92,9 @@ void zConfig_setScenePlayer_MapEntry_Fixed(uint32 sceneID, uint32 _player_tag, u
     }
 }
 
-void zConfig_setScenePlayer_MapEntry(uint32 sceneID, uint32 _player_tag)
+void zConfig_setScenePlayer_MapEntry(U32 sceneID, U32 _player_tag)
 {
-    for (int32 i = 0; i < scene_player_map_max; i++)
+    for (S32 i = 0; i < scene_player_map_max; i++)
     {
         if (sceneID == scene_player_map[i].scene_tag)
         {
@@ -105,9 +105,9 @@ void zConfig_setScenePlayer_MapEntry(uint32 sceneID, uint32 _player_tag)
         }
     }
 
-    uint32 sceneMask = 0xffffffff;
+    U32 sceneMask = 0xffffffff;
 
-    for (int32 i = 0; i < 4; i++)
+    for (S32 i = 0; i < 4; i++)
     {
         if ((sceneID >> (i * 8) & 0xff) == '?')
         {
@@ -125,18 +125,18 @@ void zConfig_setScenePlayer_MapEntry(uint32 sceneID, uint32 _player_tag)
     scene_player_map_max++;
 }
 
-uint32 zConfig_findNextScene(uint32 sceneID, uint32 numChars, uint32& startIdx)
+U32 zConfig_findNextScene(U32 sceneID, U32 numChars, U32& startIdx)
 {
-    for (uint32 i = startIdx; i < scene_player_map_max; i++)
+    for (U32 i = startIdx; i < scene_player_map_max; i++)
     {
-        int8 c0 = (scene_player_map[i].scene_tag >> 24) & 0xff;
-        int8 c1 = (scene_player_map[i].scene_tag >> 16) & 0xff;
-        int8 c2 = (scene_player_map[i].scene_tag >> 8) & 0xff;
-        int8 c3 = scene_player_map[i].scene_tag & 0xff;
-        int8 s0 = (sceneID >> 24) & 0xff;
-        int8 s1 = (sceneID >> 16) & 0xff;
-        int8 s2 = (sceneID >> 8) & 0xff;
-        int8 s3 = sceneID & 0xff;
+        S8 c0 = (scene_player_map[i].scene_tag >> 24) & 0xff;
+        S8 c1 = (scene_player_map[i].scene_tag >> 16) & 0xff;
+        S8 c2 = (scene_player_map[i].scene_tag >> 8) & 0xff;
+        S8 c3 = scene_player_map[i].scene_tag & 0xff;
+        S8 s0 = (sceneID >> 24) & 0xff;
+        S8 s1 = (sceneID >> 16) & 0xff;
+        S8 s2 = (sceneID >> 8) & 0xff;
+        S8 s3 = sceneID & 0xff;
 
         switch (numChars)
         {
@@ -174,9 +174,9 @@ uint32 zConfig_findNextScene(uint32 sceneID, uint32 numChars, uint32& startIdx)
     return 0;
 }
 
-uint32 zConfig_getPlayerTag(uint32 sceneID, int32 playerIdx)
+U32 zConfig_getPlayerTag(U32 sceneID, S32 playerIdx)
 {
-    for (int32 i = 0; i < scene_player_map_max; i++)
+    for (S32 i = 0; i < scene_player_map_max; i++)
     {
         if ((sceneID & scene_player_map[i].scene_mask) ==
             (scene_player_map[i].scene_mask & scene_player_map[i].scene_tag))
@@ -193,9 +193,9 @@ uint32 zConfig_getPlayerTag(uint32 sceneID, int32 playerIdx)
     return player_tag[MR_INCREDIBLE_OLD_FAT_RED];
 }
 
-const char* zConfig_getPlayerModelInfoString(uint32 _tag)
+const char* zConfig_getPlayerModelInfoString(U32 _tag)
 {
-    for (int32 i = 0; i < PLAYER_COUNT; i++)
+    for (S32 i = 0; i < PLAYER_COUNT; i++)
     {
         if (_tag == player_tag[i])
         {
@@ -206,9 +206,9 @@ const char* zConfig_getPlayerModelInfoString(uint32 _tag)
     return player_model_info[MR_INCREDIBLE_OLD_FAT_RED];
 }
 
-uint32 zConfig_getPlayerLorezModelID(uint32 _tag)
+U32 zConfig_getPlayerLorezModelID(U32 _tag)
 {
-    for (int32 i = 0; i < PLAYER_COUNT; i++)
+    for (S32 i = 0; i < PLAYER_COUNT; i++)
     {
         if (_tag == player_tag[i])
         {
@@ -224,9 +224,9 @@ uint32 zConfig_getPlayerLorezModelID(uint32 _tag)
     return 0;
 }
 
-PLAYER_ENUM zConfig_getPlayerEnum(uint32 sceneID, int32 playerIdx)
+PLAYER_ENUM zConfig_getPlayerEnum(U32 sceneID, S32 playerIdx)
 {
-    for (int32 i = 0; i < scene_player_map_max; i++)
+    for (S32 i = 0; i < scene_player_map_max; i++)
     {
         if (sceneID == scene_player_map[i].scene_tag)
         {

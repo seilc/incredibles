@@ -3,9 +3,9 @@
 
 #include "xRand.h"
 
-const char* xUtil_idtag2string(uint32 srctag, int32 bufidx = 0);
+const char* xUtil_idtag2string(U32 srctag, S32 bufidx = 0);
 
-template <class T> static inline T xUtil_choose(const T* r3, int32 r4, const float32* r5 = NULL)
+template <class T> static inline T xUtil_choose(const T* r3, S32 r4, const F32* r5 = NULL)
 {
     if (!r3)
     {
@@ -17,8 +17,8 @@ template <class T> static inline T xUtil_choose(const T* r3, int32 r4, const flo
         return 0;
     }
 
-    int32 r31 = 0;
-    float32 f1 = xurand();
+    S32 r31 = 0;
+    F32 f1 = xurand();
 
     if (!r5)
     {
@@ -26,11 +26,11 @@ template <class T> static inline T xUtil_choose(const T* r3, int32 r4, const flo
     }
     else
     {
-        float32 f2 = 0.0f;
+        F32 f2 = 0.0f;
 
-        for (int32 i = 0; i < r4; i++)
+        for (S32 i = 0; i < r4; i++)
         {
-            float32 f3 = f2;
+            F32 f3 = f2;
 
             f2 += r5[i];
 

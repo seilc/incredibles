@@ -5,10 +5,10 @@
 
 struct zDuplicatorAsset : xBaseAsset
 {
-    uint16 initial_spawn;
-    uint16 maximum_in_game;
-    uint16 maximum_to_spawn;
-    float32 spawn_rate;
+    U16 initial_spawn;
+    U16 maximum_in_game;
+    U16 maximum_to_spawn;
+    F32 spawn_rate;
 };
 
 struct zDuplicator : xEnt
@@ -16,11 +16,11 @@ struct zDuplicator : xEnt
     zNPC::common* avatar;
     bool need_reset;
     bool active;
-    int32 npcs_alive;
-    int32 npcs_healthy;
-    int32 npcs_spawned;
-    uint32 spawn_event;
-    float32 time_till_next_spawn;
+    S32 npcs_alive;
+    S32 npcs_healthy;
+    S32 npcs_spawned;
+    U32 spawn_event;
+    F32 time_till_next_spawn;
     zNPC::common** npc_pool;
     zDuplicatorAsset* duplicator_asset;
 };

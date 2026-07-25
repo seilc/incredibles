@@ -9,21 +9,21 @@ namespace zNPC
     struct circle
     {
         circle* base_next;
-        float32 base_radius;
+        F32 base_radius;
         xVec3 center;
         xVec3 velocity;
         circle* next;
         xEnt* entity;
-        float32 radius;
-        float32 radius_2;
-        int32 sub_mesh_index;
-        uint8 tri_index;
+        F32 radius;
+        F32 radius_2;
+        S32 sub_mesh_index;
+        U8 tri_index;
     };
 
     struct navigation_mesh
     {
         navigation_mesh* asset;
-        uint8 registered_objects;
+        U8 registered_objects;
         circle* circle_list;
     };
 

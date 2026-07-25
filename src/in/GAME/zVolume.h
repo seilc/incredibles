@@ -13,15 +13,15 @@ struct PreCalcOcclude
     xVec4 FrustVec[4];
 };
 
-extern int32 gOccludeCount;
+extern S32 gOccludeCount;
 extern zVolume* gOccludeList[10];
-extern int32 gOccludeCalcCount;
+extern S32 gOccludeCalcCount;
 extern PreCalcOcclude gOccludeCalc[10];
 
 void zVolumeInit();
 void zVolumeSetup();
-zVolume* zVolumeGetVolume(uint16 n);
+zVolume* zVolumeGetVolume(U16 n);
 void zVolume_OccludePrecalc(xVec3* camPos);
-void zVolumeEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32);
+void zVolumeEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32);
 
 #endif

@@ -4,22 +4,22 @@
 
 xEnv* gCurXEnv = NULL;
 
-void xEnvLoadJSPList(xEnv* env, int32 dataType)
+void xEnvLoadJSPList(xEnv* env, S32 dataType)
 {
     if (dataType == 0)
     {
-        uint32 bufsize;
+        U32 bufsize;
         void* buf;
 
         env->geom = &env->ienv;
 
-        int32 jsp_count = xSTAssetCountByType('JSP ');
+        S32 jsp_count = xSTAssetCountByType('JSP ');
 
         iEnvLoadBegin(env->geom, dataType, jsp_count / 2);
 
-        int32 index = 0;
+        S32 index = 0;
 
-        for (int32 i = 0; i < jsp_count; i++)
+        for (S32 i = 0; i < jsp_count; i++)
         {
             buf = xSTFindAssetByType('JSP ', i, &bufsize);
 
@@ -72,7 +72,7 @@ void xEnvRender(xEnv* env, bool alpha)
 
     if (env->geom->jsp_count > 0)
     {
-        for (int32 i = 0; i < env->geom->jsp_count; i++)
+        for (S32 i = 0; i < env->geom->jsp_count; i++)
         {
             // do nothing
         }

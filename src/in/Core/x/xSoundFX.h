@@ -9,26 +9,26 @@ struct xSoundFXAsset : xBaseAsset
 {
     union
     {
-        uint32 soundAssetID;
+        U32 soundAssetID;
         iSndGroupHandle soundAsset;
     };
-    uint32 attachID;
+    U32 attachID;
     xVec3 pos;
-    uint32 uFlags;
+    U32 uFlags;
 };
 
 struct xSoundFX : xBase
 {
     xSoundFXAsset* asset;
     iSndHandle sndHandle;
-    //float32 cachedOuterDistSquared;
+    //F32 cachedOuterDistSquared;
 };
 
 void xSoundFXInit(void* t, void* asset);
 void xSoundFXInit(xSoundFX* t, xSoundFXAsset* asset);
 void xSoundFXReset(xSoundFX* sfx);
-void xSoundFXEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xBase*, uint32);
-xSoundFX* xSoundFXGet(uint32 soundfxID);
+void xSoundFXEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U32);
+xSoundFX* xSoundFXGet(U32 soundfxID);
 
 inline void xSoundFXSetSoundFXPlaying(xSoundFXAsset* asset, bool playing)
 {

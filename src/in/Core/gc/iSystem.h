@@ -4,11 +4,11 @@
 #include <types.h>
 
 #ifdef GAMECUBE
-uint32 iGetDay();
-uint32 iGetMonth();
+U32 iGetDay();
+U32 iGetMonth();
 #else
-uint8 iGetDay();
-uint8 iGetMonth();
+U8 iGetDay();
+U8 iGetMonth();
 #endif
 
 #endif

@@ -15,7 +15,7 @@ struct EGGItem;
 
 struct EGGItemFuncs
 {
-    void (*fun_update)(float32, EGGItem*);
+    void (*fun_update)(F32, EGGItem*);
     void (*fun_init)(EGGItem*);
     void (*fun_reset)(EGGItem*);
     void (*fun_done)(EGGItem*);
@@ -23,12 +23,12 @@ struct EGGItemFuncs
 
 struct EGGMisc
 {
-    int32 other;
+    S32 other;
 };
 
 union EGGData
 {
-    int32 placeholder;
+    S32 placeholder;
     EGGMisc misc;
 };
 
@@ -42,10 +42,10 @@ struct EGGItem
 
 struct GECheat
 {
-    uint32* key_code;
+    U32* key_code;
     void (*fun_cheat)();
-    int32 flg_keep;
-    int32 flg_mode;
+    S32 flg_keep;
+    S32 flg_mode;
 };
 
 static bool32 EGG_check_ExtrasFlags(EGGItem*);
@@ -54,9 +54,9 @@ static void GEC_cb_SwapCCLR();
 static void GEC_cb_SwapCCUD();
 
 static bool32 g_enableGameExtras = FALSE;
-static int32 g_currDay = 0;
-static int32 g_currMonth = 0;
-static int32 g_gameExtraFlags = 0;
+static S32 g_currDay = 0;
+static S32 g_currMonth = 0;
+static S32 g_gameExtraFlags = 0;
 static EGGItemFuncs EGGEmpty = {};
 
 // clang-format off
@@ -67,12 +67,12 @@ static EGGItem g_eggBasket[] =
 };
 // clang-format on
 
-static int32 g_flg_chEnabled = 0;
-static float32 sCheatTimer = 0.0f;
-static int32 sCheatInputCount = 0;
+static S32 g_flg_chEnabled = 0;
+static F32 sCheatTimer = 0.0f;
+static S32 sCheatInputCount = 0;
 
 // clang-format off
-uint32 sCheatTestCheats[CHEAT_COUNT] =
+U32 sCheatTestCheats[CHEAT_COUNT] =
 {
     0x40000,
     0x20000,
@@ -92,7 +92,7 @@ uint32 sCheatTestCheats[CHEAT_COUNT] =
     0x40000
 };
 
-uint32 sCheatSwapCCLR[CHEAT_COUNT] =
+U32 sCheatSwapCCLR[CHEAT_COUNT] =
 {
     0x0,
     0x0,
@@ -112,7 +112,7 @@ uint32 sCheatSwapCCLR[CHEAT_COUNT] =
     0x40000
 };
 
-uint32 sCheatSwapCCUD[CHEAT_COUNT] =
+U32 sCheatSwapCCUD[CHEAT_COUNT] =
 {
     0x0,
     0x0,
@@ -141,7 +141,7 @@ static GECheat cheatList[] =
 };
 // clang-format on
 
-uint32 sCheatPressed[CHEAT_COUNT] = {};
+U32 sCheatPressed[CHEAT_COUNT] = {};
 
 void zGameExtras_SceneInit()
 {
@@ -149,7 +149,7 @@ void zGameExtras_SceneInit()
     g_currDay = iGetDay();
     g_currMonth = iGetMonth();
 
-    int32 somethingIsEnabled = 0;
+    S32 somethingIsEnabled = 0;
     EGGItem* egg_next = g_eggBasket;
 
     while (egg_next->fun_check)
@@ -240,7 +240,7 @@ void zGameExtras_SceneExit()
     g_currMonth = 0;
 }
 
-void zGameExtras_SceneUpdate(float32 dt)
+void zGameExtras_SceneUpdate(F32 dt)
 {
     zGameCheatsUpdate(dt);
 
@@ -428,15 +428,15 @@ void zGameExtras_Save(xSerial* xser)
 
 void zGameExtras_Load(xSerial* xser)
 {
-    int32 keepers = 0;
+    S32 keepers = 0;
     xser->Read(&keepers);
 
     g_flg_chEnabled |= keepers;
 }
 
-static bool32 TestCheat(uint32* r3)
+static bool32 TestCheat(U32* r3)
 {
-    int32 r4 = CHEAT_COUNT - 1;
+    S32 r4 = CHEAT_COUNT - 1;
 
     if (r3[CHEAT_COUNT - 1] == 0)
     {
@@ -456,9 +456,9 @@ static bool32 TestCheat(uint32* r3)
     return TRUE;
 }
 
-static void AddToCheatPressed(uint32 r3)
+static void AddToCheatPressed(U32 r3)
 {
-    for (int32 i = 1; i < CHEAT_COUNT; i++)
+    for (S32 i = 1; i < CHEAT_COUNT; i++)
     {
         sCheatPressed[i - 1] = sCheatPressed[i];
     }
@@ -466,17 +466,17 @@ static void AddToCheatPressed(uint32 r3)
     sCheatPressed[CHEAT_COUNT - 1] = r3;
 }
 
-inline void GEC_CheatFlagAdd(int32 r3)
+inline void GEC_CheatFlagAdd(S32 r3)
 {
     g_flg_chEnabled |= r3;
 }
 
-inline void GEC_CheatFlagToggle(int32 r3)
+inline void GEC_CheatFlagToggle(S32 r3)
 {
     g_flg_chEnabled ^= r3;
 }
 
-void zGameCheatsUpdate(float32 dt)
+void zGameCheatsUpdate(F32 dt)
 {
     if (GCN_DEMO_PARAM)
     {
@@ -536,7 +536,7 @@ void zGameCheatsUpdate(float32 dt)
 
     sCheatTimer = CHEAT_TIME;
 
-    int32 match = 0;
+    S32 match = 0;
     GECheat* rec_next = cheatList;
 
     while (rec_next->key_code)
@@ -575,7 +575,7 @@ void zGameCheatsUpdate(float32 dt)
 static void GEC_dfltSound()
 {
     // clang-format off
-    static uint32 aid_sndList[] =
+    static U32 aid_sndList[] =
     {
         0x5EEA143C,
         0x5EEA143C,

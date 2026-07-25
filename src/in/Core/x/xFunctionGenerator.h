@@ -5,14 +5,14 @@
 
 struct xFunctionGeneratorAsset : xDynAsset
 {
-    float32 startCycleWidth;
-    float32 middleCycleWidth;
-    float32 endCycleWidth;
-    float32 startPulseWidth;
-    float32 middlePulseWidth;
-    float32 endPulseWidth;
-    float32 middleTime;
-    float32 endTime;
+    F32 startCycleWidth;
+    F32 middleCycleWidth;
+    F32 endCycleWidth;
+    F32 startPulseWidth;
+    F32 middlePulseWidth;
+    F32 endPulseWidth;
+    F32 middleTime;
+    F32 endTime;
     bool middleEnabled;
     bool endEnabled;
 };
@@ -21,13 +21,13 @@ struct xFunctionGenerator : xBase
 {
     const xFunctionGeneratorAsset* asset;
     bool started;
-    uint8 currentState;
+    U8 currentState;
     bool override;
-    float32 currentCycleWidth;
-    float32 currentPulseWidth;
-    float32 currentTime;
-    float32 lastUpTime;
-    float32 lastDownTime;
+    F32 currentCycleWidth;
+    F32 currentPulseWidth;
+    F32 currentTime;
+    F32 lastUpTime;
+    F32 lastDownTime;
 
     xFunctionGenerator(const xFunctionGeneratorAsset* asset);
 
@@ -36,8 +36,8 @@ struct xFunctionGenerator : xBase
         return (baseFlags & XBASE_ENABLED) && started;
     }
 
-    void Update(float32 dt);
-    void HandleEvent(xBase*, uint32 toEvent, const float32* toParam, xBase*, uint32);
+    void Update(F32 dt);
+    void HandleEvent(xBase*, U32 toEvent, const F32* toParam, xBase*, U32);
     void Start();
     void Stop();
     void Reset();

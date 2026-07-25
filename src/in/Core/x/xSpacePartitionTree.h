@@ -12,10 +12,10 @@ struct xSpacePartitionTree2D
         struct
         {
             void* value;
-            int32 type;
-            uint16 searchid;
-            uint16 owner_size;
-            uint16 owner[4];
+            S32 type;
+            U16 searchid;
+            U16 owner_size;
+            U16 owner[4];
         };
     };
 
@@ -25,8 +25,8 @@ struct xSpacePartitionTree2D
 
         struct
         {
-            uint16 next;
-            uint16 entry;
+            U16 next;
+            U16 entry;
         };
     };
 
@@ -36,45 +36,45 @@ struct xSpacePartitionTree2D
 
         struct
         {
-            uint16 parent;
-            uint16 children;
-            uint16 entries;
-            uint8 cid;
-            uint8 level;
-            uint16 xcode;
-            uint16 ycode;
+            U16 parent;
+            U16 children;
+            U16 entries;
+            U8 cid;
+            U8 level;
+            U16 xcode;
+            U16 ycode;
         };
     };
 
     xVec2 origin;
     xVec2 size;
-    float32 cell_size[9];
-    float32 cell_isize[9];
-    float32 cell_frac[9];
-    int32 max_depth;
-    float32 ilogdepth;
-    int32 grid_size_x;
-    int32 grid_shift_x;
-    int32 grid_mask_x;
-    int32 grid_size_y;
-    int32 grid_shift_y;
-    int32 grid_mask_y;
-    uint16 current_searchid;
+    F32 cell_size[9];
+    F32 cell_isize[9];
+    F32 cell_frac[9];
+    S32 max_depth;
+    F32 ilogdepth;
+    S32 grid_size_x;
+    S32 grid_shift_x;
+    S32 grid_mask_x;
+    S32 grid_size_y;
+    S32 grid_shift_y;
+    S32 grid_mask_y;
+    U16 current_searchid;
     entry_data* free_entries;
     entry_node* free_nodes;
     cell* free_cells;
-    int32 free_cells_size;
-    int32 safety_free_cells_size;
+    S32 free_cells_size;
+    S32 safety_free_cells_size;
     cell* grid;
     entry_data* entry_buffer;
-    int32 entry_buffer_size;
+    S32 entry_buffer_size;
     entry_node* node_buffer;
-    int32 node_buffer_size;
+    S32 node_buffer_size;
     cell* cell_buffer;
-    int32 cell_buffer_size;
+    S32 cell_buffer_size;
 
-    void create(float32 minx, float32 miny, float32 maxx, float32 maxy, float32 min_width,
-                float32 max_width, int32 max_entries);
+    void create(F32 minx, F32 miny, F32 maxx, F32 maxy, F32 min_width,
+                F32 max_width, S32 max_entries);
     void clear();
 };
 

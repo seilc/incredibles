@@ -7,9 +7,9 @@
 struct pointer_asset : xDynAsset
 {
     xVec3 loc;
-    float32 yaw;
-    float32 pitch;
-    float32 roll;
+    F32 yaw;
+    F32 pitch;
+    F32 roll;
 };
 
 #endif

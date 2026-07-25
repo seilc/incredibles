@@ -4,24 +4,24 @@
 
 #include <cmath>
 
-void* xJaw_FindData(uint32 soundID)
+void* xJaw_FindData(U32 soundID)
 {
-    int32 i;
-    int32 numJawTables = xSTAssetCountByType('JAW ');
+    S32 i;
+    S32 numJawTables = xSTAssetCountByType('JAW ');
 
     for (i = 0; i < numJawTables; i++)
     {
-        uint32 j;
+        U32 j;
         void* data = xSTFindAssetByType('JAW ', i);
-        uint32 jawcount = *(uint32*)data;
-        xJawDataTable* tbl = (xJawDataTable*)((uint32*)data + 1);
+        U32 jawcount = *(U32*)data;
+        xJawDataTable* tbl = (xJawDataTable*)((U32*)data + 1);
         void* rawdata = (void*)(tbl + jawcount);
 
         for (j = 0; j < jawcount; j++)
         {
             if (soundID == tbl[j].soundHashID)
             {
-                return (uint8*)rawdata + tbl[j].dataStart;
+                return (U8*)rawdata + tbl[j].dataStart;
             }
         }
     }
@@ -33,24 +33,24 @@ void* xJaw_FindData(uint32 soundID)
 
 #define swap(data)                                                                                 \
     {                                                                                              \
-        uint8 c;                                                                                   \
-        c = ((uint8*)(data))[3];                                                                   \
-        ((uint8*)(data))[3] = ((uint8*)(data))[0];                                                 \
-        ((uint8*)(data))[0] = c;                                                                   \
-        c = ((uint8*)(data))[2];                                                                   \
-        ((uint8*)(data))[2] = ((uint8*)(data))[1];                                                 \
-        ((uint8*)(data))[1] = c;                                                                   \
+        U8 c;                                                                                   \
+        c = ((U8*)(data))[3];                                                                   \
+        ((U8*)(data))[3] = ((U8*)(data))[0];                                                 \
+        ((U8*)(data))[0] = c;                                                                   \
+        c = ((U8*)(data))[2];                                                                   \
+        ((U8*)(data))[2] = ((U8*)(data))[1];                                                 \
+        ((U8*)(data))[1] = c;                                                                   \
     }
 
-float32 xJaw_EvalData(void* data, float32 time)
+F32 xJaw_EvalData(void* data, F32 time)
 {
-    float32 lerp;
-    int32 idx;
-    int32 numdata;
+    F32 lerp;
+    S32 idx;
+    S32 numdata;
 
-    numdata = *(int32*)data;
+    numdata = *(S32*)data;
 
-    if (numdata > (uint32)0xFFFF)
+    if (numdata > (U32)0xFFFF)
     {
         swap(data);
     }
@@ -70,7 +70,7 @@ float32 xJaw_EvalData(void* data, float32 time)
     }
     else
     {
-        uint8* jawdata = (uint8*)data + sizeof(int32);
+        U8* jawdata = (U8*)data + sizeof(S32);
 
         return ((1.0f - lerp) * jawdata[idx] + lerp * jawdata[idx + 1]) / 255.0f;
     }

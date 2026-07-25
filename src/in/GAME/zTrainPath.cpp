@@ -93,14 +93,14 @@ void zTrainPathJunction::GetCurrentOut(x::NURBS*& out_curve, bool& travel_increa
     }
 }
 
-void zTrainPathJunction::Event(xBase* from, xBase* to, uint32 toEvent, const float32* toParam,
-                               xBase* toParamWidget, uint32 toParamWidgetID)
+void zTrainPathJunction::Event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                               xBase* toParamWidget, U32 toParamWidgetID)
 {
     ((zTrainPathJunction*)to)->Event(from, toEvent, toParam, toParamWidget, toParamWidgetID);
 }
 
-void zTrainPathJunction::Event(xBase* from, uint32 toEvent, const float32* toParam,
-                               xBase* toParamWidget, uint32 toParamWidgetID)
+void zTrainPathJunction::Event(xBase* from, U32 toEvent, const F32* toParam,
+                               xBase* toParamWidget, U32 toParamWidgetID)
 {
     switch (toEvent)
     {

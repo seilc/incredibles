@@ -6,31 +6,31 @@
 
 #include <string.h>
 
-static int32 g_straninit;
+static S32 g_straninit;
 static STRAN_DATA g_xstdata = {};
 static PKRReadFuncs* g_pkrf;
 static PKRAssetType* g_typeHandlers;
 static char g_localCode[] = "_US";
 static xRegion g_localEnum = eRegionUnknown;
 
-static int32 XST_PreLoadScene(STRAN_SCENE* sdata, const char* filename, int32 fileflags);
-static char* XST_translate_sid(uint32 sid, char* exten, bool local);
-static char* XST_translate_sid_path(uint32 sid, char* exten, bool local);
+static S32 XST_PreLoadScene(STRAN_SCENE* sdata, const char* filename, S32 fileflags);
+static char* XST_translate_sid(U32 sid, char* exten, bool local);
+static char* XST_translate_sid_path(U32 sid, char* exten, bool local);
 static void XST_reset_raw();
 static STRAN_SCENE* XST_lock_next();
 static void XST_unlock(STRAN_SCENE* sdata);
 static void XST_unlock_all();
-static STRAN_SCENE* XST_get_rawinst(int32 idx);
-static int32 XST_cnt_locked();
-static STRAN_SCENE* XST_nth_locked(int32 idx);
-static STRAN_SCENE* XST_find_bySID(uint32 sid, int32 flagHipHop);
+static STRAN_SCENE* XST_get_rawinst(S32 idx);
+static S32 XST_cnt_locked();
+static STRAN_SCENE* XST_nth_locked(S32 idx);
+static STRAN_SCENE* XST_find_bySID(U32 sid, S32 flagHipHop);
 
 bool xSTIsLoaded()
 {
     return (g_straninit != 0);
 }
 
-int32 xSTStartup(PKRAssetType* handlers)
+S32 xSTStartup(PKRAssetType* handlers)
 {
     if (!g_straninit++)
     {
@@ -45,7 +45,7 @@ int32 xSTStartup(PKRAssetType* handlers)
     return g_straninit;
 }
 
-int32 xSTShutdown()
+S32 xSTShutdown()
 {
     if (!--g_straninit)
     {
@@ -58,13 +58,13 @@ int32 xSTShutdown()
     return g_straninit;
 }
 
-int32 xSTPreLoadScene(uint32 sid, void* userdata, int32 flg_hiphop, int32 fileflags,
+S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags,
                       const char* filename)
 {
-    int32 result;
+    S32 result;
     STRAN_SCENE* sdata;
     const char* sfile;
-    int32 cltver;
+    S32 cltver;
 
     sfile = NULL;
 
@@ -177,7 +177,7 @@ int32 xSTPreLoadScene(uint32 sid, void* userdata, int32 flg_hiphop, int32 filefl
     return result;
 }
 
-bool32 xSTQueueSceneAssets(uint32 sid, int32 flg_hiphop)
+bool32 xSTQueueSceneAssets(U32 sid, S32 flg_hiphop)
 {
     bool32 result = TRUE;
     STRAN_SCENE* sdata = XST_find_bySID(sid, flg_hiphop);
@@ -194,11 +194,11 @@ bool32 xSTQueueSceneAssets(uint32 sid, int32 flg_hiphop)
     return result;
 }
 
-void xSTUnLoadScene(uint32 sid, int32 flg_hiphop)
+void xSTUnLoadScene(U32 sid, S32 flg_hiphop)
 {
-    int32 cnt;
+    S32 cnt;
     STRAN_SCENE* sdata;
-    int32 i;
+    S32 i;
 
     if (sid == 0)
     {
@@ -236,7 +236,7 @@ void xSTUnLoadScene(uint32 sid, int32 flg_hiphop)
     }
 }
 
-void xSTUnLoadSceneMany(uint32 sceneID, int32 type)
+void xSTUnLoadSceneMany(U32 sceneID, S32 type)
 {
     if (type & XSTUNLOAD_HIP)
     {
@@ -290,9 +290,9 @@ void xSTUnLoadSceneMany(uint32 sceneID, int32 type)
     }
 }
 
-float32 xSTLoadStep(uint32)
+F32 xSTLoadStep(U32)
 {
-    float32 pct;
+    F32 pct;
     bool32 rc;
 
     rc = PKRLoadStep(0);
@@ -312,7 +312,7 @@ float32 xSTLoadStep(uint32)
     return pct;
 }
 
-void xSTDisconnect(uint32 sid, int32 flg_hiphop)
+void xSTDisconnect(U32 sid, S32 flg_hiphop)
 {
     STRAN_SCENE* sdata;
 
@@ -324,12 +324,12 @@ void xSTDisconnect(uint32 sid, int32 flg_hiphop)
     }
 }
 
-bool32 xSTSwitchScene(uint32 sid, void* userdata, int32 (*progmon)(void*, float32))
+bool32 xSTSwitchScene(U32 sid, void* userdata, S32 (*progmon)(void*, F32))
 {
     STRAN_SCENE* sdata;
     bool32 rc = FALSE;
-    int32 i;
-    const int32 types[3] = { XST_HIP, XST_HOP, XST_HIPHOP };
+    S32 i;
+    const S32 types[3] = { XST_HIP, XST_HOP, XST_HIPHOP };
 
     for (i = 2; i >= 0; i--)
     {
@@ -354,12 +354,12 @@ bool32 xSTSwitchScene(uint32 sid, void* userdata, int32 (*progmon)(void*, float3
     return rc;
 }
 
-const char* xSTAssetName(uint32 aid)
+const char* xSTAssetName(U32 aid)
 {
     const char* aname = NULL;
-    int32 cnt;
+    S32 cnt;
     STRAN_SCENE* sdata;
-    int32 i;
+    S32 i;
 
     cnt = XST_cnt_locked();
 
@@ -381,12 +381,12 @@ const char* xSTAssetName(uint32 aid)
     return aname;
 }
 
-int32 xSTRandMemToAsset(PKRAssetTOCInfo* tocainfo, const void* mem)
+S32 xSTRandMemToAsset(PKRAssetTOCInfo* tocainfo, const void* mem)
 {
-    int32 cnt;
+    S32 cnt;
     STRAN_SCENE* sdata;
-    int32 r3;
-    int32 i;
+    S32 r3;
+    S32 i;
 
     cnt = XST_cnt_locked();
 
@@ -404,13 +404,13 @@ int32 xSTRandMemToAsset(PKRAssetTOCInfo* tocainfo, const void* mem)
     return 0;
 }
 
-void* xSTFindAsset(uint32 aid, uint32* size)
+void* xSTFindAsset(U32 aid, U32* size)
 {
     void* memloc;
-    int32 cnt;
+    S32 cnt;
     STRAN_SCENE* sdata;
-    int32 i;
-    int32 asssize;
+    S32 i;
+    S32 asssize;
 
     if (aid == 0)
     {
@@ -440,13 +440,13 @@ void* xSTFindAsset(uint32 aid, uint32* size)
     return memloc;
 }
 
-int32 xSTAssetCountByType(uint32 type)
+S32 xSTAssetCountByType(U32 type)
 {
-    int32 sum = 0;
+    S32 sum = 0;
     STRAN_SCENE* sdata;
-    int32 asscnt;
-    int32 cnt;
-    int32 i;
+    S32 asscnt;
+    S32 cnt;
+    S32 i;
 
     cnt = XST_cnt_locked();
 
@@ -461,14 +461,14 @@ int32 xSTAssetCountByType(uint32 type)
     return sum;
 }
 
-void* xSTFindAssetByType(uint32 type, int32 idx, uint32* size)
+void* xSTFindAssetByType(U32 type, S32 idx, U32* size)
 {
     void* memptr = NULL;
-    int32 i;
-    int32 sum = 0;
-    int32 cnt;
+    S32 i;
+    S32 sum = 0;
+    S32 cnt;
     STRAN_SCENE* sdata;
-    int32 asscnt;
+    S32 asscnt;
 
     cnt = XST_cnt_locked();
 
@@ -489,12 +489,12 @@ void* xSTFindAssetByType(uint32 type, int32 idx, uint32* size)
     return memptr;
 }
 
-bool32 xSTGetAssetInfo(uint32 aid, PKRAssetTOCInfo* tocainfo)
+bool32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
 {
     bool32 found = FALSE;
-    int32 cnt;
+    S32 cnt;
     STRAN_SCENE* sdata;
-    int32 i;
+    S32 i;
     bool32 rc;
 
     cnt = XST_cnt_locked();
@@ -514,14 +514,14 @@ bool32 xSTGetAssetInfo(uint32 aid, PKRAssetTOCInfo* tocainfo)
     return found;
 }
 
-bool32 xSTGetAssetInfoByType(uint32 type, int32 idx, PKRAssetTOCInfo* tocainfo)
+bool32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo)
 {
     bool32 found = FALSE;
-    int32 sum = 0;
-    int32 cnt;
+    S32 sum = 0;
+    S32 cnt;
     STRAN_SCENE* sdata;
-    int32 asscnt;
-    int32 i;
+    S32 asscnt;
+    S32 i;
     bool32 rc;
 
     cnt = XST_cnt_locked();
@@ -548,18 +548,18 @@ bool32 xSTGetAssetInfoByType(uint32 type, int32 idx, PKRAssetTOCInfo* tocainfo)
     return found;
 }
 
-const char* xST_xAssetID_HIPFullPath(uint32 aid)
+const char* xST_xAssetID_HIPFullPath(U32 aid)
 {
     return xST_xAssetID_HIPFullPath(aid, NULL);
 }
 
-const char* xST_xAssetID_HIPFullPath(uint32 aid, uint32* sceneID)
+const char* xST_xAssetID_HIPFullPath(U32 aid, U32* sceneID)
 {
     const char* da_hipname = NULL;
-    int32 cnt;
+    S32 cnt;
     STRAN_SCENE* sdata;
     bool32 rc;
-    int32 i;
+    S32 i;
 
     cnt = XST_cnt_locked();
 
@@ -584,9 +584,9 @@ const char* xST_xAssetID_HIPFullPath(uint32 aid, uint32* sceneID)
     return da_hipname;
 }
 
-static int32 XST_PreLoadScene(STRAN_SCENE* sdata, const char* filename, int32 fileflags)
+static S32 XST_PreLoadScene(STRAN_SCENE* sdata, const char* filename, S32 fileflags)
 {
-    int32 cltver = 0;
+    S32 cltver = 0;
 
     sdata->spkg = g_pkrf->Init(sdata->userdata, filename, 0x2E, &cltver, g_typeHandlers, fileflags);
 
@@ -598,7 +598,7 @@ static int32 XST_PreLoadScene(STRAN_SCENE* sdata, const char* filename, int32 fi
     return 0;
 }
 
-static char* XST_translate_sid(uint32 sid, char* exten, bool local)
+static char* XST_translate_sid(U32 sid, char* exten, bool local)
 {
     static char fname[64];
 
@@ -622,7 +622,7 @@ static char* XST_translate_sid(uint32 sid, char* exten, bool local)
     return fname;
 }
 
-static char* XST_translate_sid_path(uint32 sid, char* exten, bool local)
+static char* XST_translate_sid_path(U32 sid, char* exten, bool local)
 {
     static char fname[64];
     char path_delimiter[] = "/";
@@ -663,8 +663,8 @@ static void XST_reset_raw()
 static STRAN_SCENE* XST_lock_next()
 {
     STRAN_SCENE* sdata = NULL;
-    int32 i;
-    int32 uselock = -1;
+    S32 i;
+    S32 uselock = -1;
 
     for (i = 0; i < STRAN_SCENE_COUNT; i++)
     {
@@ -698,7 +698,7 @@ static void XST_unlock(STRAN_SCENE* sdata)
 
     if (g_xstdata.loadlock & (1 << sdata->lockid))
     {
-        g_xstdata.loadlock &= ~(uint32)(1 << sdata->lockid);
+        g_xstdata.loadlock &= ~(U32)(1 << sdata->lockid);
 
         memset(sdata, 0, sizeof(STRAN_SCENE));
     }
@@ -706,7 +706,7 @@ static void XST_unlock(STRAN_SCENE* sdata)
 
 void XST_unlock_all()
 {
-    int32 i;
+    S32 i;
 
     if (g_xstdata.loadlock == 0)
     {
@@ -722,15 +722,15 @@ void XST_unlock_all()
     }
 }
 
-static STRAN_SCENE* XST_get_rawinst(int32 idx)
+static STRAN_SCENE* XST_get_rawinst(S32 idx)
 {
     return &g_xstdata.hipscn[idx];
 }
 
-static int32 XST_cnt_locked()
+static S32 XST_cnt_locked()
 {
-    int32 cnt = 0;
-    int32 i;
+    S32 cnt = 0;
+    S32 i;
 
     for (i = 0; i < STRAN_SCENE_COUNT; i++)
     {
@@ -743,11 +743,11 @@ static int32 XST_cnt_locked()
     return cnt;
 }
 
-static STRAN_SCENE* XST_nth_locked(int32 idx)
+static STRAN_SCENE* XST_nth_locked(S32 idx)
 {
     STRAN_SCENE* da_sdata = NULL;
-    int32 cnt = 0;
-    int32 i;
+    S32 cnt = 0;
+    S32 i;
 
     for (i = 0; i < STRAN_SCENE_COUNT; i++)
     {
@@ -766,10 +766,10 @@ static STRAN_SCENE* XST_nth_locked(int32 idx)
     return da_sdata;
 }
 
-static STRAN_SCENE* XST_find_bySID(uint32 sid, int32 flagHipHop)
+static STRAN_SCENE* XST_find_bySID(U32 sid, S32 flagHipHop)
 {
     STRAN_SCENE* da_sdata = NULL;
-    int32 i;
+    S32 i;
     STRAN_SCENE* sdata;
 
     for (i = 0; i < STRAN_SCENE_COUNT; i++)

@@ -18,16 +18,16 @@ struct xScreenFade : xBase
     struct asset_type : xDynAsset
     {
         xColor dest;
-        float32 fadeDownTime;
-        float32 waitTime;
-        float32 fadeUpTime;
+        F32 fadeDownTime;
+        F32 waitTime;
+        F32 fadeUpTime;
     };
 
     asset_type* asset;
     eScreenFadeState state;
     xColor src;
     xColor current_color;
-    float32 time_passed;
+    F32 time_passed;
     xBase* owner;
 
     void load(asset_type& a);
@@ -35,7 +35,7 @@ struct xScreenFade : xBase
     void reset();
 
     static void load(xBase& data, xDynAsset& asset, ulong32);
-    static void cb_dispatch(xBase* from, xBase* to, uint32 event, const float32*, xBase*, uint32);
+    static void cb_dispatch(xBase* from, xBase* to, U32 event, const F32*, xBase*, U32);
 };
 
 #endif

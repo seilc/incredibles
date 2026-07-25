@@ -7,21 +7,21 @@
 
 struct xSweptSphere
 {
-    uint8 detect_initial_penetration;
-    uint8 init_collide;
+    U8 detect_initial_penetration;
+    U8 init_collide;
     xVec3 start;
     xVec3 end;
-    float32 radius;
-    float32 dist;
+    F32 radius;
+    F32 dist;
     xVec3 dir;
     xBox box;
     xQCData qcd;
-    float32 curdist;
-    uint32 oid;
+    F32 curdist;
+    U32 oid;
     void* optr;
     xModelInstance* mptr;
     xVec3 worldContact;
-    int32 hitIt;
+    S32 hitIt;
     xVec3 worldPos;
     xVec3 worldNormal;
     xVec3 worldTangent;

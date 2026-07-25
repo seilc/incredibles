@@ -8,41 +8,41 @@
 
 typedef struct st_XSERIAL_DATA_PRIV
 {
-    int32 flg_info;
-    int32* bitbuf;
-    int32 buf_bytcnt;
+    S32 flg_info;
+    S32* bitbuf;
+    S32 buf_bytcnt;
     SERIAL_CLIENTINFO* cltbuf;
     SERIAL_CLIENTINFO* cltnext;
     XORDEREDARRAY cltlist;
 } XSERIAL_DATA_PRIV;
 
-static int32 g_serinit = 0;
+static S32 g_serinit = 0;
 static XSERIAL_DATA_PRIV g_xserdata = {};
-static int32 g_tbl_onbit[32] = {};
-static int32 g_tbl_clear[32] = {};
+static S32 g_tbl_onbit[32] = {};
+static S32 g_tbl_clear[32] = {};
 
 static void xSER_init_tables();
-static void xSER_init_buffers(int32 count, SERIAL_PERCID_SIZE* sizeinfo);
-static int32 xSER_ord_compare(void* e1, void* e2);
-static int32 xSER_ord_test(const void* key, void* elt);
-static SERIAL_CLIENTINFO* XSER_get_client(uint32 idtag);
-static bool32 xSER_xsgclt_svinfo_ver(void*, XSAVEGAME_DATA*, int32* cur_space, int32* max_fullgame);
+static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo);
+static S32 xSER_ord_compare(void* e1, void* e2);
+static S32 xSER_ord_test(const void* key, void* elt);
+static SERIAL_CLIENTINFO* XSER_get_client(U32 idtag);
+static bool32 xSER_xsgclt_svinfo_ver(void*, XSAVEGAME_DATA*, S32* cur_space, S32* max_fullgame);
 static bool32 xSER_xsgclt_svproc_ver(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_WRITECONTEXT* wctxt);
 static bool32 xSER_xsgclt_ldproc_ver(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONTEXT* rctxt,
-                                     uint32, int32);
-static bool32 xSER_xsgclt_svinfo_clt(void* cltdata, XSAVEGAME_DATA*, int32* cur_space,
-                                     int32* max_fullgame);
+                                     U32, S32);
+static bool32 xSER_xsgclt_svinfo_clt(void* cltdata, XSAVEGAME_DATA*, S32* cur_space,
+                                     S32* max_fullgame);
 static bool32 xSER_xsgclt_svproc_clt(void* cltdata, XSAVEGAME_DATA* xsg,
                                      XSAVEGAME_WRITECONTEXT* wctxt);
 static bool32 xSER_xsgclt_ldproc_clt(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONTEXT* rctxt,
-                                     uint32 idtag, int32);
-static bool32 xSER_xsgclt_svinfo_fill(void*, XSAVEGAME_DATA*, int32* cur_space,
-                                      int32* max_fullgame);
+                                     U32 idtag, S32);
+static bool32 xSER_xsgclt_svinfo_fill(void*, XSAVEGAME_DATA*, S32* cur_space,
+                                      S32* max_fullgame);
 static bool32 xSER_xsgclt_svproc_fill(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_WRITECONTEXT* wctxt);
 static bool32 xSER_xsgclt_ldproc_fill(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONTEXT* rctxt,
-                                      uint32, int32);
+                                      U32, S32);
 
-int32 xSerialStartup(int32 count, SERIAL_PERCID_SIZE* sizeinfo)
+S32 xSerialStartup(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
 {
     if (!g_serinit++)
     {
@@ -55,14 +55,14 @@ int32 xSerialStartup(int32 count, SERIAL_PERCID_SIZE* sizeinfo)
     return g_serinit;
 }
 
-int32 xSerialShutdown()
+S32 xSerialShutdown()
 {
     return --g_serinit;
 }
 
 void xSerialTraverse(xSerialTraverseCallback func)
 {
-    int32 i;
+    S32 i;
     XSERIAL_DATA_PRIV* xsd = &g_xserdata;
     SERIAL_CLIENTINFO* clt;
     xSerial xser;
@@ -87,19 +87,19 @@ xSerial::~xSerial()
 {
 }
 
-void xSerial::setClient(uint32 idtag)
+void xSerial::setClient(U32 idtag)
 {
     prepare(idtag);
 }
 
-int32 xSerial::Write(char* data, int32 elesize, int32 n)
+S32 xSerial::Write(char* data, S32 elesize, S32 n)
 {
     if (n == 0)
     {
         return 0;
     }
 
-    int32 nbit;
+    S32 nbit;
 
     if (n > 0)
     {
@@ -112,10 +112,10 @@ int32 xSerial::Write(char* data, int32 elesize, int32 n)
 
     if (n < 0)
     {
-        int32 bidx = 0;
-        int32* iptr = (int32*)data;
+        S32 bidx = 0;
+        S32* iptr = (S32*)data;
 
-        for (int32 i = 0; i < nbit; i++)
+        for (S32 i = 0; i < nbit; i++)
         {
             wrbit(*iptr & g_tbl_onbit[bidx]);
 
@@ -130,10 +130,10 @@ int32 xSerial::Write(char* data, int32 elesize, int32 n)
     }
     else
     {
-        int32 bidx = 0;
-        int8* cptr = (int8*)data;
+        S32 bidx = 0;
+        S8* cptr = (S8*)data;
 
-        for (int32 i = 0; i < nbit; i++)
+        for (S32 i = 0; i < nbit; i++)
         {
             wrbit(*cptr & g_tbl_onbit[bidx]);
 
@@ -150,47 +150,47 @@ int32 xSerial::Write(char* data, int32 elesize, int32 n)
     return nbit;
 }
 
-int32 xSerial::Write_b1(int32 bits)
+S32 xSerial::Write_b1(S32 bits)
 {
-    return Write((char*)&bits, sizeof(int32), -1);
+    return Write((char*)&bits, sizeof(S32), -1);
 }
 
-int32 xSerial::Write_b1(uint32 bits)
+S32 xSerial::Write_b1(U32 bits)
 {
-    return Write((char*)&bits, sizeof(uint32), -1);
+    return Write((char*)&bits, sizeof(U32), -1);
 }
 
-int32 xSerial::Write(uint8 data)
+S32 xSerial::Write(U8 data)
 {
-    return Write((char*)&data, sizeof(uint8), 1);
+    return Write((char*)&data, sizeof(U8), 1);
 }
 
-int32 xSerial::Write(int16 data)
+S32 xSerial::Write(S16 data)
 {
-    return Write((char*)&data, sizeof(int16), 1);
+    return Write((char*)&data, sizeof(S16), 1);
 }
 
-int32 xSerial::Write(int32 data)
+S32 xSerial::Write(S32 data)
 {
-    return Write((char*)&data, sizeof(int32), 1);
+    return Write((char*)&data, sizeof(S32), 1);
 }
 
-int32 xSerial::Write(uint32 data)
+S32 xSerial::Write(U32 data)
 {
-    return Write((char*)&data, sizeof(uint32), 1);
+    return Write((char*)&data, sizeof(U32), 1);
 }
 
-int32 xSerial::Write(float32 data)
+S32 xSerial::Write(F32 data)
 {
-    return Write((char*)&data, sizeof(float32), 1);
+    return Write((char*)&data, sizeof(F32), 1);
 }
 
-int32 xSerial::Read(char* buf, int32 elesize, int32 n)
+S32 xSerial::Read(char* buf, S32 elesize, S32 n)
 {
-    int32 nbit;
-    int32* iptr;
-    int32 bidx;
-    int32 i;
+    S32 nbit;
+    S32* iptr;
+    S32 bidx;
+    S32 i;
 
     if (n > 0)
     {
@@ -204,7 +204,7 @@ int32 xSerial::Read(char* buf, int32 elesize, int32 n)
     if (n < 0)
     {
         bidx = 0;
-        iptr = (int32*)buf;
+        iptr = (S32*)buf;
 
         for (i = 0; i < nbit; i++)
         {
@@ -259,34 +259,34 @@ int32 xSerial::Read(char* buf, int32 elesize, int32 n)
     return nbit;
 }
 
-int32 xSerial::Read_b1(int32* bits)
+S32 xSerial::Read_b1(S32* bits)
 {
-    return Read((char*)bits, sizeof(int32), -1);
+    return Read((char*)bits, sizeof(S32), -1);
 }
 
-int32 xSerial::Read(uint8* buf)
+S32 xSerial::Read(U8* buf)
 {
-    return Read((char*)buf, sizeof(uint8), 1);
+    return Read((char*)buf, sizeof(U8), 1);
 }
 
-int32 xSerial::Read(int16* buf)
+S32 xSerial::Read(S16* buf)
 {
-    return Read((char*)buf, sizeof(int16), 1);
+    return Read((char*)buf, sizeof(S16), 1);
 }
 
-int32 xSerial::Read(int32* buf)
+S32 xSerial::Read(S32* buf)
 {
-    return Read((char*)buf, sizeof(int32), 1);
+    return Read((char*)buf, sizeof(S32), 1);
 }
 
-int32 xSerial::Read(uint32* buf)
+S32 xSerial::Read(U32* buf)
 {
-    return Read((char*)buf, sizeof(uint32), 1);
+    return Read((char*)buf, sizeof(U32), 1);
 }
 
-int32 xSerial::Read(float32* buf)
+S32 xSerial::Read(F32* buf)
 {
-    return Read((char*)buf, sizeof(float32), 1);
+    return Read((char*)buf, sizeof(F32), 1);
 }
 
 void xSerial::wrbit(bool32 is_on)
@@ -342,7 +342,7 @@ bool32 xSerial::rdbit()
     return bit;
 }
 
-void xSerial::prepare(uint32 clientID)
+void xSerial::prepare(U32 clientID)
 {
     SERIAL_CLIENTINFO* clt = XSER_get_client(clientID);
 
@@ -362,19 +362,19 @@ void xSerialWipeMainBuffer()
 
 static void xSER_init_tables()
 {
-    for (int32 i = 0; i < 32; i++)
+    for (S32 i = 0; i < 32; i++)
     {
         g_tbl_onbit[i] = 1 << i;
         g_tbl_clear[i] = ~(1 << i);
     }
 }
 
-static void xSER_init_buffers(int32 count, SERIAL_PERCID_SIZE* sizeinfo)
+static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
 {
     XSERIAL_DATA_PRIV* xsd = &g_xserdata;
-    int32 i;
-    int32 tally = 0;
-    int32 sicnt = 0;
+    S32 i;
+    S32 tally = 0;
+    S32 sicnt = 0;
     SERIAL_PERCID_SIZE* sitmp;
     SERIAL_CLIENTINFO* tmp_clt;
 
@@ -400,7 +400,7 @@ static void xSER_init_buffers(int32 count, SERIAL_PERCID_SIZE* sizeinfo)
 
     tally += (count - sicnt) * 400;
 
-    xsd->bitbuf = (int32*)xMEMALLOC(tally);
+    xsd->bitbuf = (S32*)xMEMALLOC(tally);
     memset(xsd->bitbuf, 0, tally);
 
     xsd->buf_bytcnt = tally;
@@ -439,9 +439,9 @@ static void xSER_init_buffers(int32 count, SERIAL_PERCID_SIZE* sizeinfo)
     }
 }
 
-static int32 xSER_ord_compare(void* e1, void* e2)
+static S32 xSER_ord_compare(void* e1, void* e2)
 {
-    int32 rc;
+    S32 rc;
 
     if (((SERIAL_CLIENTINFO*)e1)->idtag < ((SERIAL_CLIENTINFO*)e2)->idtag)
     {
@@ -459,10 +459,10 @@ static int32 xSER_ord_compare(void* e1, void* e2)
     return rc;
 }
 
-static int32 xSER_ord_test(const void* key, void* elt)
+static S32 xSER_ord_test(const void* key, void* elt)
 {
-    int32 rc;
-    uint32 idtag = (uint32)key;
+    S32 rc;
+    U32 idtag = (U32)key;
 
     if (idtag < ((SERIAL_CLIENTINFO*)elt)->idtag)
     {
@@ -480,11 +480,11 @@ static int32 xSER_ord_test(const void* key, void* elt)
     return rc;
 }
 
-static SERIAL_CLIENTINFO* XSER_get_client(uint32 idtag)
+static SERIAL_CLIENTINFO* XSER_get_client(U32 idtag)
 {
     XSERIAL_DATA_PRIV* xsd = &g_xserdata;
     SERIAL_CLIENTINFO* clt;
-    int32 idx = XOrdLookup(&xsd->cltlist, (const void*)idtag, xSER_ord_test);
+    S32 idx = XOrdLookup(&xsd->cltlist, (const void*)idtag, xSER_ord_test);
 
     if (idx < 0)
     {
@@ -508,7 +508,7 @@ bool32 xSerial_svgame_register(XSAVEGAME_DATA* sgctxt, SAVEGAME_MODE mode)
 {
     XSERIAL_DATA_PRIV* xsd = &g_xserdata;
     SERIAL_CLIENTINFO* clt;
-    int32 i;
+    S32 i;
 
     xsd->flg_info &= ~0x1;
 
@@ -538,7 +538,7 @@ bool32 xSerial_svgame_register(XSAVEGAME_DATA* sgctxt, SAVEGAME_MODE mode)
     return TRUE;
 }
 
-static bool32 xSER_xsgclt_svinfo_ver(void*, XSAVEGAME_DATA*, int32* cur_space, int32* max_fullgame)
+static bool32 xSER_xsgclt_svinfo_ver(void*, XSAVEGAME_DATA*, S32* cur_space, S32* max_fullgame)
 {
     *cur_space = 4;
     *max_fullgame = 4;
@@ -548,7 +548,7 @@ static bool32 xSER_xsgclt_svinfo_ver(void*, XSAVEGAME_DATA*, int32* cur_space, i
 
 static bool32 xSER_xsgclt_svproc_ver(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_WRITECONTEXT* wctxt)
 {
-    int32 ver = 1;
+    S32 ver = 1;
 
     xSGWriteData(xsg, wctxt, &ver, 1);
 
@@ -556,10 +556,10 @@ static bool32 xSER_xsgclt_svproc_ver(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_WRITE
 }
 
 static bool32 xSER_xsgclt_ldproc_ver(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONTEXT* rctxt,
-                                     uint32, int32)
+                                     U32, S32)
 {
     XSERIAL_DATA_PRIV* xsd = &g_xserdata;
-    int32 ver = 0;
+    S32 ver = 0;
 
     xSGReadData(xsg, rctxt, &ver, 1);
 
@@ -571,8 +571,8 @@ static bool32 xSER_xsgclt_ldproc_ver(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READC
     return TRUE;
 }
 
-static bool32 xSER_xsgclt_svinfo_clt(void* cltdata, XSAVEGAME_DATA*, int32* cur_space,
-                                     int32* max_fullgame)
+static bool32 xSER_xsgclt_svinfo_clt(void* cltdata, XSAVEGAME_DATA*, S32* cur_space,
+                                     S32* max_fullgame)
 {
     SERIAL_CLIENTINFO* clt = (SERIAL_CLIENTINFO*)cltdata;
 
@@ -595,7 +595,7 @@ static bool32 xSER_xsgclt_svproc_clt(void* cltdata, XSAVEGAME_DATA* xsg,
 }
 
 static bool32 xSER_xsgclt_ldproc_clt(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONTEXT* rctxt,
-                                     uint32 idtag, int32)
+                                     U32 idtag, S32)
 {
     SERIAL_CLIENTINFO* clt;
 
@@ -611,12 +611,12 @@ static bool32 xSER_xsgclt_ldproc_clt(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READC
     return TRUE;
 }
 
-static bool32 xSER_xsgclt_svinfo_fill(void*, XSAVEGAME_DATA*, int32* cur_space, int32* max_fullgame)
+static bool32 xSER_xsgclt_svinfo_fill(void*, XSAVEGAME_DATA*, S32* cur_space, S32* max_fullgame)
 {
     XSERIAL_DATA_PRIV* xsd = &g_xserdata;
-    int32 i;
-    int32 tally = 0;
-    int32 size;
+    S32 i;
+    S32 tally = 0;
+    S32 size;
 
     for (i = 0; i < xsd->cltlist.cnt; i++)
     {
@@ -643,7 +643,7 @@ static bool32 xSER_xsgclt_svproc_fill(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_WRIT
 }
 
 static bool32 xSER_xsgclt_ldproc_fill(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONTEXT* rctxt,
-                                      uint32, int32)
+                                      U32, S32)
 {
     char filbuf[9] = {};
 

@@ -5,29 +5,29 @@
 
 struct xScriptAsset : xBaseAsset
 {
-    float32 scaleFactor;
-    uint32 eventCount;
+    F32 scaleFactor;
+    U32 eventCount;
     bool loop;
-    uint8 pad[3];
+    U8 pad[3];
 };
 
 struct xScriptEventAsset
 {
-    float32 time;
-    uint32 widget;
-    uint32 paramEvent;
-    float32 param[4];
-    uint32 paramWidget;
+    F32 time;
+    U32 widget;
+    U32 paramEvent;
+    F32 param[4];
+    U32 paramWidget;
 };
 
 struct _zScript : xBase
 {
     xScriptAsset* tasset;
     xScriptEventAsset* current;
-    uint8 state;
-    uint8 pad[3];
-    float32 time;
-    float32 scaleFactor;
+    U8 state;
+    U8 pad[3];
+    F32 time;
+    F32 scaleFactor;
 };
 
 #define ZSCRIPT_STOPPED 0
@@ -40,7 +40,7 @@ void zScriptInit(xBase* b, xScriptAsset* tasset);
 void zScriptReset(_zScript* t);
 void zScriptSave(_zScript* ent, xSerial* s);
 void zScriptLoad(_zScript* ent, xSerial* s);
-void zScriptEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam, xBase*, uint32);
-void zScriptUpdate(xBase* to, xScene*, float32 dt);
+void zScriptEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U32);
+void zScriptUpdate(xBase* to, xScene*, F32 dt);
 
 #endif

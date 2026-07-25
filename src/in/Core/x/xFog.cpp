@@ -47,7 +47,7 @@ void xFogLoad(_xFog* ent, xSerial* s)
     xBaseLoad(ent, s);
 }
 
-void xFogEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void xFogEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     _xFog* t = (_xFog*)to;
 
@@ -83,7 +83,7 @@ void xFogEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint
     }
 }
 
-void xFogUpdate(xBase*, xScene*, float32)
+void xFogUpdate(xBase*, xScene*, F32)
 {
     return;
 }

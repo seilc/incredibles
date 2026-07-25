@@ -19,13 +19,13 @@ typedef enum _PLAYER_ENUM
     PLAYER_COUNT
 } PLAYER_ENUM;
 
-uint32 zConfig_getPlayerEnumIdx(uint32 _player_tag);
-void zConfig_setScenePlayer_MapEntry_Fixed(uint32 sceneID, uint32 _player_tag, uint32 idx);
-void zConfig_setScenePlayer_MapEntry(uint32 sceneID, uint32 _player_tag);
-uint32 zConfig_findNextScene(uint32 sceneID, uint32 numChars, uint32& startIdx);
-uint32 zConfig_getPlayerTag(uint32 sceneID, int32 playerIdx);
-const char* zConfig_getPlayerModelInfoString(uint32 _tag);
-uint32 zConfig_getPlayerLorezModelID(uint32 _tag);
-PLAYER_ENUM zConfig_getPlayerEnum(uint32 sceneID, int32 playerIdx);
+U32 zConfig_getPlayerEnumIdx(U32 _player_tag);
+void zConfig_setScenePlayer_MapEntry_Fixed(U32 sceneID, U32 _player_tag, U32 idx);
+void zConfig_setScenePlayer_MapEntry(U32 sceneID, U32 _player_tag);
+U32 zConfig_findNextScene(U32 sceneID, U32 numChars, U32& startIdx);
+U32 zConfig_getPlayerTag(U32 sceneID, S32 playerIdx);
+const char* zConfig_getPlayerModelInfoString(U32 _tag);
+U32 zConfig_getPlayerLorezModelID(U32 _tag);
+PLAYER_ENUM zConfig_getPlayerEnum(U32 sceneID, S32 playerIdx);
 
 #endif

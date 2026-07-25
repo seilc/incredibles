@@ -5,9 +5,9 @@
 #include <hacks.h>
 
 static xSurface* surfs = NULL;
-static uint16 nsurfs = 0;
+static U16 nsurfs = 0;
 
-void xSurfaceInit(uint16 num_surfs)
+void xSurfaceInit(U16 num_surfs)
 {
     nsurfs = num_surfs;
 
@@ -15,7 +15,7 @@ void xSurfaceInit(uint16 num_surfs)
     {
         surfs = (xSurface*)xMEMALLOC(nsurfs * sizeof(xSurface));
 
-        for (uint16 i = 0; i < nsurfs; i++)
+        for (U16 i = 0; i < nsurfs; i++)
         {
             surfs[i].idx = i;
         }
@@ -48,12 +48,12 @@ void xSurfaceReset(xSurface*)
     return;
 }
 
-uint16 xSurfaceGetNumSurfaces()
+U16 xSurfaceGetNumSurfaces()
 {
     return nsurfs;
 }
 
-xSurface* xSurfaceGetByIdx(uint16 n)
+xSurface* xSurfaceGetByIdx(U16 n)
 {
     if (surfs)
     {

@@ -6,7 +6,7 @@
 #define ACTIVITY_MAX 64
 
 xLightVolume::activity_type* xLightVolume::activities = NULL;
-int32 xLightVolume::activities_used = 0;
+S32 xLightVolume::activities_used = 0;
 
 void xLightVolume::scene_enter()
 {
@@ -102,7 +102,7 @@ void xLightVolumeModel::render()
     }
 }
 
-void xLightVolumeModel::render_single(xModelInstance* model, uint32 stencil_pass)
+void xLightVolumeModel::render_single(xModelInstance* model, U32 stencil_pass)
 {
     RpAtomic* atomic = model->Data;
     RpHAnimHierarchy* hierarchy = iModelGetHierarchy(atomic);
@@ -148,6 +148,6 @@ void xLightVolume::render_all()
 {
 }
 
-void xLightVolume::render_atomic(RpAtomic*, xColor, bool, uint32)
+void xLightVolume::render_atomic(RpAtomic*, xColor, bool, U32)
 {
 }

@@ -5,8 +5,8 @@
 
 struct xFFX
 {
-    uint32 flags;
-    void (*doEffect)(xEnt*, xScene*, float32, void*);
+    U32 flags;
+    void (*doEffect)(xEnt*, xScene*, F32, void*);
     void* fdata;
     xFFX* next;
 };

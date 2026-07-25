@@ -8,10 +8,10 @@ namespace x
 {
     struct NURBS : xBaseAsset
     {
-        int32 p;
-        int32 m;
-        int32 n;
-        float32* knot;
+        S32 p;
+        S32 m;
+        S32 n;
+        F32* knot;
         xVec3* control;
     };
 }; // namespace x

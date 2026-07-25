@@ -16,7 +16,7 @@ public:
         return NULL;
     }
 
-    virtual int32 get_asset_size() const
+    virtual S32 get_asset_size() const
     {
         return 0;
     }

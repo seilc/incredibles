@@ -28,32 +28,32 @@ enum xCamOrientType
 struct xCamCoordCylinder
 {
     xVec3 origin;
-    float32 dist;
-    float32 height;
-    float32 theta;
+    F32 dist;
+    F32 height;
+    F32 theta;
 };
 
 struct xCamCoordSphere
 {
     xVec3 origin;
-    float32 dist;
+    F32 dist;
     xQuat dir;
 };
 
 struct xCamOrientEuler
 {
-    float32 yaw;
-    float32 pitch;
-    float32 roll;
+    F32 yaw;
+    F32 pitch;
+    F32 roll;
 };
 
 struct xCamConfigCommon
 {
-    uint8 priority;
-    uint8 pad1;
-    uint8 pad2;
-    uint8 pad3;
-    float32 blend_time;
+    U8 priority;
+    U8 pad1;
+    U8 pad2;
+    U8 pad3;
+    F32 blend_time;
 };
 
 struct xCamConfigFollow
@@ -67,21 +67,21 @@ struct xCamConfigFollow
     zone_data zone_rest;
     zone_data zone_above;
     zone_data zone_below;
-    float32 speed_zone_offset;
-    float32 speed_zone_face;
-    float32 speed_move_orbit;
+    F32 speed_zone_offset;
+    F32 speed_zone_face;
+    F32 speed_move_orbit;
 };
 
 class xCam
 {
 public:
     xMat4x3 mat;
-    float32 fov;
-    int32 flags;
-    uint32 owner;
+    F32 fov;
+    S32 flags;
+    U32 owner;
     xCamGroup* group;
     xPad::analog_data analog;
-    float32 motion_factor;
+    F32 motion_factor;
     xCamCoordType coord_type;
     xCamOrientType orient_type;
     union
@@ -108,16 +108,16 @@ public:
     virtual void destroy();
     virtual void start();
     virtual void stop();
-    virtual void update(xScene& scene, float32 dt) = 0;
+    virtual void update(xScene& scene, F32 dt) = 0;
     virtual xCam* get_next();
     virtual xCamConfigFollow* config_follow();
 
     void add_tweaks(const char*);
 
-    int32 group_index;
-    int32 group_flags;
+    S32 group_index;
+    S32 group_flags;
     xCamBlend* blender;
-    uint8 unk0xBC[4];
+    U8 unk0xBC[4];
 };
 
 class xCamBlend : public xCam
@@ -125,7 +125,7 @@ class xCamBlend : public xCam
 public:
     xCam* src;
     xCam* dst;
-    float32 time;
+    F32 time;
 };
 
 class xCamGroup
@@ -133,22 +133,22 @@ class xCamGroup
 public:
     xMat4x3 mat;
     xVec3 vel;
-    float32 fov;
-    float32 fov_default;
-    int32 flags;
+    F32 fov;
+    F32 fov_default;
+    S32 flags;
     xCam* primary;
     xPad::analog_data analog;
     xCam* owned[32];
-    int32 size;
-    int32 primary_index;
-    int32 child_flags;
-    int32 child_flags_mask;
+    S32 size;
+    S32 primary_index;
+    S32 child_flags;
+    S32 child_flags_mask;
     xCamBlend* blend_cam[4];
 
     void create();
     void destroy();
     void reset();
-    void update(xScene& scene, float32 dt);
+    void update(xScene& scene, F32 dt);
     void add(xCam& cam, bool force_cut);
     void remove(xCam& cam, bool force_cut);
 };
@@ -157,16 +157,16 @@ class xCamScreen
 {
 public:
     RwCamera* icam;
-    float32 fov;
+    F32 fov;
 
-    void create(int32 w, int32 h);
+    void create(S32 w, S32 h);
     void destroy();
     void set_scene(xScene& scene);
     void prepare_render();
     void begin_render(bool clear);
     void end_render();
     void set_world_matrix(const xMat4x3& mat);
-    void set_fov(float32 fov);
+    void set_fov(F32 fov);
 };
 
 #endif

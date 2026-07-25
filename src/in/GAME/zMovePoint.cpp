@@ -5,9 +5,9 @@
 #include "xEvent.h"
 
 static zMovePoint* g_mvpt_list = NULL;
-static int32 g_mvpt_cnt = 0;
+static S32 g_mvpt_cnt = 0;
 
-zMovePoint* zMovePoint_GetMemPool(int32 cnt)
+zMovePoint* zMovePoint_GetMemPool(S32 cnt)
 {
     g_mvpt_list = (cnt) ? (zMovePoint*)xMEMALLOC(cnt * sizeof(zMovePoint)) : NULL;
     g_mvpt_cnt = cnt;
@@ -23,7 +23,7 @@ void zMovePointInit(zMovePoint* m, xMovePointAsset* asset)
 
     if (m->linkCount)
     {
-        m->link = (xLinkAsset*)((uint8*)asset + asset->numPoints * sizeof(uint32) +
+        m->link = (xLinkAsset*)((U8*)asset + asset->numPoints * sizeof(U32) +
                                 sizeof(xMovePointAsset));
     }
     else
@@ -32,7 +32,7 @@ void zMovePointInit(zMovePoint* m, xMovePointAsset* asset)
     }
 }
 
-zMovePoint* zMovePoint_GetInst(int32 n)
+zMovePoint* zMovePoint_GetInst(S32 n)
 {
     return &g_mvpt_list[n];
 }
@@ -57,7 +57,7 @@ void zMovePointReset(zMovePoint* m)
     xMovePointReset(m);
 }
 
-void zMovePointEventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void zMovePointEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zMovePoint* m = (zMovePoint*)to;
 

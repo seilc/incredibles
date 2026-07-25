@@ -9,12 +9,12 @@
 
 namespace
 {
-    float32 subtitleSize = 0.0f;
-    float32 subtitleFontWidth = 20.0f;
-    float32 subtitleFontHeight = 20.0f;
+    F32 subtitleSize = 0.0f;
+    F32 subtitleFontWidth = 20.0f;
+    F32 subtitleFontHeight = 20.0f;
 
     xSubtitlesAsset* m_pCurrentAsset = NULL;
-    uint32 m_uLastTimeKey = 0;
+    U32 m_uLastTimeKey = 0;
 } // namespace
 
 void xSubTitlesInit()
@@ -38,7 +38,7 @@ void xSubTitlesInit()
     }
 }
 
-void* xSubTitlesRead(void*, uint32, void* indata, uint32 insize, uint32* outsize)
+void* xSubTitlesRead(void*, U32, void* indata, U32 insize, U32* outsize)
 {
     xSubtitlesAsset* pSubTitleAsset = (xSubtitlesAsset*)xMEMALLOC(insize);
 
@@ -49,11 +49,11 @@ void* xSubTitlesRead(void*, uint32, void* indata, uint32 insize, uint32* outsize
     return pSubTitleAsset;
 }
 
-void xSubTitlesUnloaded(void*, uint32)
+void xSubTitlesUnloaded(void*, U32)
 {
 }
 
-bool xSubTitlesRender(uint32 aid, float32 fTime)
+bool xSubTitlesRender(U32 aid, F32 fTime)
 {
     if (aid == 0 || !zVarEntryCB_SubtitlesOn(NULL))
     {
@@ -83,7 +83,7 @@ bool xSubTitlesRender(uint32 aid, float32 fTime)
         return false;
     }
 
-    uint32 uSearchIndex = 0;
+    U32 uSearchIndex = 0;
 
     if (fTime > m_pCurrentAsset->m_paSubtitleLines[m_uLastTimeKey].fStartTime)
     {
@@ -132,12 +132,12 @@ bool xSubTitlesRender(uint32 aid, float32 fTime)
     return true;
 }
 
-void xSubTitlesSetSize(float32 size)
+void xSubTitlesSetSize(F32 size)
 {
     subtitleSize = size;
 }
 
-float32 xSubTitlesGetSize()
+F32 xSubTitlesGetSize()
 {
     return subtitleSize;
 }

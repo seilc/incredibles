@@ -4,11 +4,11 @@
 #include "xEvent.h"
 
 zJSPExtraData::jspGroupPair zJSPExtraData::sJspGroupPairs[10];
-int32 zJSPExtraData::sNumPairs = 0;
+S32 zJSPExtraData::sNumPairs = 0;
 
-void zJSPExtraData::ShowAssociatedGroup(uint32 jspAssetId, bool show)
+void zJSPExtraData::ShowAssociatedGroup(U32 jspAssetId, bool show)
 {
-    for (int32 i = 0; i < sNumPairs; i++)
+    for (S32 i = 0; i < sNumPairs; i++)
     {
         if (sJspGroupPairs[i].jspID == jspAssetId)
         {
@@ -44,7 +44,7 @@ void zJSPExtraData::ShowAssociatedGroup(uint32 jspAssetId, bool show)
     }
 }
 
-void zJSPExtraData::AddPair(uint32 jspID, uint32 groupID, zJSPExtraData* data)
+void zJSPExtraData::AddPair(U32 jspID, U32 groupID, zJSPExtraData* data)
 {
     sJspGroupPairs[sNumPairs].jspID = jspID;
     sJspGroupPairs[sNumPairs].groupID = groupID;

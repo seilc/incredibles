@@ -7,7 +7,7 @@ namespace
     struct render_context
     {
         xMat4x3 uvmat;
-        int32 flags;
+        S32 flags;
         xBox box;
         xFColor color;
         RpAtomic* atomic;
@@ -17,7 +17,7 @@ namespace
 
     xFXCameraTexture camtex;
     render_context render_contexts[8];
-    int32 render_contexts_size = 0;
+    S32 render_contexts_size = 0;
 
     namespace tweak
     {
@@ -58,7 +58,7 @@ void xModelWarpSceneExit()
     camtex.destroy();
 }
 
-void xModelWarpSphereMapUVsByNormals(xVec2* uv, int32 verts_size, const xVec3* norm)
+void xModelWarpSphereMapUVsByNormals(xVec2* uv, S32 verts_size, const xVec3* norm)
 {
     xVec2* end_uv = uv + verts_size;
 

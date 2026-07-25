@@ -25,7 +25,7 @@ namespace zHud
         {
         }
 
-        virtual void update(float32 dt)
+        virtual void update(F32 dt)
         {
         }
 
@@ -36,8 +36,8 @@ namespace zHud
         virtual void show() = 0;
         virtual void hide() = 0;
 
-        virtual void handle_event(xBase* from, uint32 toEvent, const float32* toParam,
-                                  xBase* toParamWidget, uint32 toParamWidgetID)
+        virtual void handle_event(xBase* from, U32 toEvent, const F32* toParam,
+                                  xBase* toParamWidget, U32 toParamWidgetID)
         {
         }
 
@@ -50,7 +50,7 @@ namespace zHud
     {
     private:
         hud_element* elements;
-        int8 hide_count;
+        S8 hide_count;
         bool last_paused;
 
     public:
@@ -63,7 +63,7 @@ namespace zHud
         void startup();
         void shutdown();
         void init();
-        void update(float32 dt);
+        void update(F32 dt);
         void render();
         void show();
         void hide();

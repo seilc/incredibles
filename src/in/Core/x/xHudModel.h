@@ -7,7 +7,7 @@ namespace xhud
 {
     struct model_asset : asset
     {
-        uint32 model;
+        U32 model;
 
         static const char* type_name()
         {
@@ -25,18 +25,18 @@ namespace xhud
         void destruct();
 
         virtual void destroy();
-        virtual uint32 type() const;
-        virtual bool is(uint32 id) const;
-        virtual void update(float32 dt);
+        virtual U32 type() const;
+        virtual bool is(U32 id) const;
+        virtual void update(F32 dt);
         virtual void render();
-        virtual void set_params(xModelInstance*& model, render_context& rc, float32 xs, float32 ys,
-                                float32 lx, float32 ly);
+        virtual void set_params(xModelInstance*& model, render_context& rc, F32 xs, F32 ys,
+                                F32 lx, F32 ly);
 
     private:
-        uint32 mid;
+        U32 mid;
         xModelInstance* model;
-        float32 x_scale;
-        float32 y_scale;
+        F32 x_scale;
+        F32 y_scale;
     };
 } // namespace xhud
 

@@ -82,8 +82,8 @@ void xCounterLoad(_xCounter* ent, xSerial* s)
     s->Read(&ent->count);
 }
 
-void xCounterEventCB(xBase*, xBase* to, uint32 toEvent, const float32* toParam,
-                     xBase* toParamWidget, uint32)
+void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
+                     xBase* toParamWidget, U32)
 {
     _xCounter* t = (_xCounter*)to;
 

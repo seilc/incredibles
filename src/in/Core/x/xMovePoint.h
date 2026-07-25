@@ -10,15 +10,15 @@ struct xScene;
 struct xMovePointAsset : xBaseAsset
 {
     xVec3 pos;
-    uint16 wt;
-    uint8 on;
-    uint8 bezIndex;
-    uint8 flg_props;
-    uint8 pad;
-    uint16 numPoints;
-    float32 delay;
-    float32 zoneRadius;
-    float32 arenaRadius;
+    U16 wt;
+    U8 on;
+    U8 bezIndex;
+    U8 flg_props;
+    U8 pad;
+    U16 numPoints;
+    F32 delay;
+    F32 zoneRadius;
+    F32 arenaRadius;
 };
 
 struct xMovePoint : xBase
@@ -27,10 +27,10 @@ struct xMovePoint : xBase
     xVec3* pos;
     xMovePoint** nodes;
     xMovePoint* prev;
-    uint32 node_wt_sum;
+    U32 node_wt_sum;
     bool on;
-    uint8 pad[3];
-    float32 delay;
+    U8 pad[3];
+    F32 delay;
     xSpline3* spl;
 };
 

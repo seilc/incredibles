@@ -11,28 +11,28 @@ struct tweak_info
     void* value;
     tweak_callback* cb;
     void* context;
-    uint8 type;
-    uint8 value_size;
-    uint16 flags;
+    U8 type;
+    U8 value_size;
+    U16 flags;
     union
     {
         struct
         {
-            int32 value_def;
-            int32 value_min;
-            int32 value_max;
+            S32 value_def;
+            S32 value_min;
+            S32 value_max;
         } int_context;
         struct
         {
-            uint32 value_def;
-            uint32 value_min;
-            uint32 value_max;
+            U32 value_def;
+            U32 value_min;
+            U32 value_max;
         } uint_context;
         struct
         {
-            float32 value_def;
-            float32 value_min;
-            float32 value_max;
+            F32 value_def;
+            F32 value_min;
+            F32 value_max;
         } float_context;
         struct
         {
@@ -40,19 +40,19 @@ struct tweak_info
         } bool_context;
         struct
         {
-            uint32 value_def;
-            uint32 labels_size;
+            U32 value_def;
+            U32 labels_size;
             char** labels;
             void* values;
         } select_context;
         struct
         {
-            uint32 value_def;
-            uint32 mask;
+            U32 value_def;
+            U32 mask;
         } flag_context;
         struct
         {
-            uint8 pad[16];
+            U8 pad[16];
         } all_context;
     };
 };
@@ -71,8 +71,8 @@ struct tweak_callback
     void (*convert_tweak_to_mem)(tweak_info&, void*);
 };
 
-extern uint32 gFrameCount;
-extern uint32 gSceneFrameCount;
+extern U32 gFrameCount;
+extern U32 gSceneFrameCount;
 
 void xprintf(const char*, ...);
 void xDebugInit();
@@ -80,7 +80,7 @@ void xDebugUpdate();
 void xDebugExit();
 void xDebugTimestampScreen();
 void xDebugRemoveTweak(const char*);
-void xDrawTextInit(uint32, uint32);
+void xDrawTextInit(U32, U32);
 void xDrawTextRender();
 
 inline void xDebugRemoveTweaks(const char*, bool (*)(const tweak_info&, void*), void*)

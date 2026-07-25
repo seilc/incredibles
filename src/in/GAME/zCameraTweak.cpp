@@ -6,36 +6,36 @@
 
 #include <hacks.h>
 
-float32 zcam_near_d = 3.0f;
-float32 zcam_near_h = 1.8f;
-float32 zcam_near_pitch = DEG2RAD(10.0f);
-float32 zcam_far_d = 5.0f;
-float32 zcam_far_h = 3.0f;
-float32 zcam_far_pitch = DEG2RAD(15.0f);
+F32 zcam_near_d = 3.0f;
+F32 zcam_near_h = 1.8f;
+F32 zcam_near_pitch = DEG2RAD(10.0f);
+F32 zcam_far_d = 5.0f;
+F32 zcam_far_h = 3.0f;
+F32 zcam_far_pitch = DEG2RAD(15.0f);
 
 struct zCamTweak
 {
-    uint32 owner;
-    float32 priority;
-    float32 time;
-    float32 pitch;
-    float32 distMult;
+    U32 owner;
+    F32 priority;
+    F32 time;
+    F32 pitch;
+    F32 distMult;
 };
 
-static int32 sCamTweakCount = 0;
+static S32 sCamTweakCount = 0;
 static zCamTweak sCamTweakList[8];
-static float32 sCamTweakLerp = 0.0f;
-static float32 sCamTweakTime = 0.0f;
-static float32 sCamTweakPitch[2];
-static float32 sCamTweakDistMult[2];
-static float32 sCamTweakPitchCur = 0.0f;
-static float32 sCamTweakDistMultCur = 0.0f;
+static F32 sCamTweakLerp = 0.0f;
+static F32 sCamTweakTime = 0.0f;
+static F32 sCamTweakPitch[2];
+static F32 sCamTweakDistMult[2];
+static F32 sCamTweakPitchCur = 0.0f;
+static F32 sCamTweakDistMultCur = 0.0f;
 
 struct zCamTweakLook
 {
-    float32 h;
-    float32 dist;
-    float32 pitch;
+    F32 h;
+    F32 dist;
+    F32 pitch;
 };
 
 static zCamTweakLook zcam_neartweak;
@@ -46,15 +46,15 @@ static zCamTweakLook zcam_fartweak;
 #pragma force_active off
 static void hack_float_order()
 {
-    FORCE_USE_SYMBOL(float32, 0.0f);
-    FORCE_USE_SYMBOL(float32, 1.0f);
+    FORCE_USE_SYMBOL(F32, 0.0f);
+    FORCE_USE_SYMBOL(F32, 1.0f);
 }
 #pragma pop
 #endif
 
-static void zCameraTweak_LookPreCalc(zCamTweakLook* look, float32 d, float32 h, float32 pitch)
+static void zCameraTweak_LookPreCalc(zCamTweakLook* look, F32 d, F32 h, F32 pitch)
 {
-    float32 f1 = d * itan(pitch);
+    F32 f1 = d * itan(pitch);
 
     look->h = h - f1;
     look->dist = xsqrt(f1 * f1 + d * d);
@@ -69,10 +69,10 @@ void zCameraTweakGlobal_Init()
     zCameraTweakGlobal_Reset();
 }
 
-void zCameraTweakGlobal_Add(uint32 owner, float32 priority, float32 time, float32 pitch,
-                            float32 distMult)
+void zCameraTweakGlobal_Add(U32 owner, F32 priority, F32 time, F32 pitch,
+                            F32 distMult)
 {
-    int32 i, j;
+    S32 i, j;
 
     for (i = 0; i < sCamTweakCount; i++)
     {
@@ -116,9 +116,9 @@ void zCameraTweakGlobal_Add(uint32 owner, float32 priority, float32 time, float3
     }
 }
 
-void zCameraTweakGlobal_Remove(uint32 owner)
+void zCameraTweakGlobal_Remove(U32 owner)
 {
-    int32 i, j;
+    S32 i, j;
 
     for (i = 0; i < sCamTweakCount; i++)
     {
@@ -202,7 +202,7 @@ void zCameraTweak_Load(zCameraTweak* tweak, xSerial* s)
     xBaseLoad(tweak, s);
 }
 
-void zCameraTweak_EventCB(xBase*, xBase* to, uint32 toEvent, const float32*, xBase*, uint32)
+void zCameraTweak_EventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zCameraTweak* tweak = (zCameraTweak*)to;
 

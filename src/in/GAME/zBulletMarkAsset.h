@@ -5,20 +5,20 @@
 
 struct zBulletMarkAsset : xDynAsset
 {
-    uint32 textureID;
-    float32 size;
-    float32 lifetime;
+    U32 textureID;
+    F32 size;
+    F32 lifetime;
 };
 
 class zBulletMarkAssetMgr
 {
 public:
     void init();
-    zBulletMarkAsset* get(uint32 id);
+    zBulletMarkAsset* get(U32 id);
     void add(zBulletMarkAsset* asset);
 
 private:
-    uint32 size;
+    U32 size;
     zBulletMarkAsset data[32];
 };
 
