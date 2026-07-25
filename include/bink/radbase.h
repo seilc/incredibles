@@ -10,7 +10,7 @@
 //  __RADMACH__ means MachO
 //  __RADXBOX__ means the XBox console
 //  __RADNGC__ means the Nintendo GameCube
-//  __RADNTBUILDLINUX__ means building Linux on NT 
+//  __RADNTBUILDLINUX__ means building Linux on NT
 //  __RADLINUX__ means actually building on Linux (most likely with GCC)
 
 //  __RADX86__ means Intel x86
@@ -22,368 +22,378 @@
 // __RADBIGENDIAN__ means processor is big-endian (680x0, PPC)
 
 #ifndef __RADBASEH__
-  #define __RADBASEH__
+#define __RADBASEH__
 
-  #define RADCOPYRIGHT "Copyright (C) 1994-2003, RAD Game Tools, Inc."
+#define RADCOPYRIGHT "Copyright (C) 1994-2003, RAD Game Tools, Inc."
 
-  #ifndef __RADRES__
+#ifndef __RADRES__
 
-    #if defined(GEKKO)
+#define __RADNGC__
+#define __RAD32__
+#define __RADPPC__
+#define __RADBIGENDIAN__
 
-      #define __RADNGC__
-      #define __RAD32__
-      #define __RADPPC__
-      #define __RADBIGENDIAN__
-      #define RADINLINE inline
+#if defined(GEKKO)
 
-    #elif (defined(__MWERKS__) && !defined(__INTEL__)) || defined(__MRC__) || defined(THINK_C) || defined(powerc) || defined(macintosh) || defined(__powerc) || defined(__APPLE__) || defined(__MACH__)
-      #define __RADMAC__
-      #if defined(powerc) || defined(__powerc) || defined(__ppc__)
-        #define __RADPPC__
-      #else
-        #define __RAD68K__
-      #endif
+#define __RADNGC__
+#define __RAD32__
+#define __RADPPC__
+#define __RADBIGENDIAN__
+#define RADINLINE inline
 
-      #define __RAD32__
-      #define __RADBIGENDIAN__
+#elif (defined(__MWERKS__) && !defined(__INTEL__)) || defined(__MRC__) || defined(THINK_C) ||      \
+    defined(powerc) || defined(macintosh) || defined(__powerc) || defined(__APPLE__) ||            \
+    defined(__MACH__)
+#define __RADMAC__
+#if defined(powerc) || defined(__powerc) || defined(__ppc__)
+#define __RADPPC__
+#else
+#define __RAD68K__
+#endif
 
-      #if defined(__MWERKS__)
-        #if (defined(__cplusplus) || ! __option(only_std_keywords))
-          #define RADINLINE inline
-        #endif
-      #elif defined(__MRC__)
-        #if defined(__cplusplus)
-          #define RADINLINE inline
-        #endif
-      #elif defined(__GNUC__) || defined(__GNUG__)
-        #define RADINLINE inline
-        #define __RADMACH__
-      #endif
+#define __RAD32__
+#define __RADBIGENDIAN__
 
-      #ifdef __MACH__
-        #define __RADMACH__
-      #endif
-      
-      #ifdef TARGET_API_MAC_CARBON
-        #if TARGET_API_MAC_CARBON
-          #ifndef __RADCARBON__
-            #define __RADCARBON__
-          #endif
-        #endif
-      #endif
+#if defined(__MWERKS__)
+#if (defined(__cplusplus) || !__option(only_std_keywords))
+#define RADINLINE inline
+#endif
+#elif defined(__MRC__)
+#if defined(__cplusplus)
+#define RADINLINE inline
+#endif
+#elif defined(__GNUC__) || defined(__GNUG__)
+#define RADINLINE inline
+#define __RADMACH__
+#endif
 
-    #elif defined(linux)
-      
-      #define __RADLINUX__
-      #define __RADX86__
-      #define __RADMMX__
-      #define __RAD32__
-      #define __RADLITTLEENDIAN__
-      #define RADINLINE inline
+#ifdef __MACH__
+#define __RADMACH__
+#endif
 
-    #else
+#ifdef TARGET_API_MAC_CARBON
+#if TARGET_API_MAC_CARBON
+#ifndef __RADCARBON__
+#define __RADCARBON__
+#endif
+#endif
+#endif
 
-      #define __RADX86__
-      #define __RADMMX__
+#elif defined(linux)
 
-      #ifdef __MWERKS__
-        #define _WIN32
-      #endif
+#define __RADLINUX__
+#define __RADX86__
+#define __RADMMX__
+#define __RAD32__
+#define __RADLITTLEENDIAN__
+#define RADINLINE inline
 
-      #ifdef __DOS__
-        #define __RADDOS__
-      #endif
+#else
 
-      #ifdef __386__
-        #define __RAD32__
-      #endif
+#define __RADX86__
+#define __RADMMX__
 
-      #ifdef _Windows    //For Borland
-        #ifdef __WIN32__
-          #define WIN32
-        #else
-          #define __WINDOWS__
-        #endif
-      #endif
+#ifdef __MWERKS__
+#define _WIN32
+#endif
 
-      #ifdef _WINDOWS    //For MS
-        #ifndef _WIN32
-          #define __WINDOWS__
-        #endif
-      #endif
+#ifdef __DOS__
+#define __RADDOS__
+#endif
 
-      #ifdef _WIN32
-        #ifdef _XBOX
-          #define __RADXBOX__
-        #else
-          #define __RADNT__
-        #endif
-        #define __RADWIN__
-        #define __RAD32__
-      #else
-        #ifdef __NT__
-          #ifdef _XBOX
-            #define __RADXBOX__
-          #else
-            #define __RADNT__
-          #endif
-          #define __RADWIN__
-          #define __RAD32__
-        #else
-          #ifdef __WINDOWS_386__
-            #define __RADWIN__
-            #define __RADWINEXT__
-            #define __RAD32__
-          #else
-            #ifdef __WINDOWS__
-              #define __RADWIN__
-              #define __RAD16__
-            #else
-              #ifdef WIN32
-                #ifdef _XBOX
-                  #define __RADXBOX__
-                #else
-                  #define __RADNT__
-                #endif
-                #define __RADWIN__
-                #define __RAD32__
-              #endif
-            #endif
-          #endif
-        #endif
-      #endif
+#ifdef __386__
+#define __RAD32__
+#endif
 
-      #define __RADLITTLEENDIAN__
-      #ifdef __WATCOMC__
-        #define RADINLINE
-      #else
-        #define RADINLINE __inline
-      #endif
-    #endif
+#ifdef _Windows //For Borland
+#ifdef __WIN32__
+#define WIN32
+#else
+#define __WINDOWS__
+#endif
+#endif
 
-    #if (!defined(__RADDOS__) && !defined(__RADWIN__) && !defined(__RADMAC__) && !defined(__RADNGC__) && !defined(__RADXBOX__) && !defined(__RADLINUX__))
-      #error "RAD.H did not detect your platform.  Define __DOS__, __WINDOWS__, WIN32, macintosh, or powerc."
-    #endif
+#ifdef _WINDOWS //For MS
+#ifndef _WIN32
+#define __WINDOWS__
+#endif
+#endif
 
-    #ifdef __RADFINAL__
-      #define RADTODO(str) { char __str[0]=str; }
-    #else
-      #define RADTODO(str)
-    #endif
+#ifdef _WIN32
+#ifdef _XBOX
+#define __RADXBOX__
+#else
+#define __RADNT__
+#endif
+#define __RADWIN__
+#define __RAD32__
+#else
+#ifdef __NT__
+#ifdef _XBOX
+#define __RADXBOX__
+#else
+#define __RADNT__
+#endif
+#define __RADWIN__
+#define __RAD32__
+#else
+#ifdef __WINDOWS_386__
+#define __RADWIN__
+#define __RADWINEXT__
+#define __RAD32__
+#else
+#ifdef __WINDOWS__
+#define __RADWIN__
+#define __RAD16__
+#else
+#ifdef WIN32
+#ifdef _XBOX
+#define __RADXBOX__
+#else
+#define __RADNT__
+#endif
+#define __RADWIN__
+#define __RAD32__
+#endif
+#endif
+#endif
+#endif
+#endif
 
-    #ifdef __RADNGC__
+#define __RADLITTLEENDIAN__
+#ifdef __WATCOMC__
+#define RADINLINE
+#else
+#define RADINLINE __inline
+#endif
+#endif
 
-      #define RADLINK
-      #define RADEXPLINK
-      #define RADEXPFUNC RADDEFFUNC
-      #define RADASMLINK
-      #define PTR4
+#if (!defined(__RADDOS__) && !defined(__RADWIN__) && !defined(__RADMAC__) &&                       \
+     !defined(__RADNGC__) && !defined(__RADXBOX__) && !defined(__RADLINUX__))
+#error                                                                                             \
+    "RAD.H did not detect your platform.  Define __DOS__, __WINDOWS__, WIN32, macintosh, or powerc."
+#endif
 
-    #elif defined(__RADLINUX__)
-      
-      #define RADLINK __attribute__((cdecl))
-      #define RADEXPLINK __attribute__((cdecl))
-      #define RADEXPFUNC RADDEFFUNC
-      #define RADASMLINK
-      #define PTR4
+#ifdef __RADFINAL__
+#define RADTODO(str)                                                                               \
+    {                                                                                              \
+        char __str[0] = str;                                                                       \
+    }
+#else
+#define RADTODO(str)
+#endif
 
-    #elif defined(__RADMAC__)
+#ifdef __RADNGC__
 
-      // this define is for CodeWarrior 11's stupid new libs (even though
-      //   we don't use longlong's).
+#define RADLINK
+#define RADEXPLINK
+#define RADEXPFUNC RADDEFFUNC
+#define RADASMLINK
+#define PTR4
 
-      #define __MSL_LONGLONG_SUPPORT__
+#elif defined(__RADLINUX__)
 
-      #define RADLINK
-      #define RADEXPLINK
+#define RADLINK __attribute__((cdecl))
+#define RADEXPLINK __attribute__((cdecl))
+#define RADEXPFUNC RADDEFFUNC
+#define RADASMLINK
+#define PTR4
 
-      #ifdef __CFM68K__
-        #ifdef __RADINDLL__
-          #define RADEXPFUNC RADDEFFUNC __declspec(export)
-        #else
-          #define RADEXPFUNC RADDEFFUNC __declspec(import)
-        #endif
-      #else
-        #define RADEXPFUNC RADDEFFUNC
-      #endif
-      #define RADASMLINK
+#elif defined(__RADMAC__)
 
-    #else
+// this define is for CodeWarrior 11's stupid new libs (even though
+//   we don't use longlong's).
 
-      #ifdef __RADNT__
-        #ifndef _WIN32
-          #define _WIN32
-        #endif
-        #ifndef WIN32
-          #define WIN32
-        #endif
-      #endif
+#define __MSL_LONGLONG_SUPPORT__
 
-      #ifdef __RADWIN__
-        #ifdef __RAD32__
-          #ifdef __RADXBOX__
+#define RADLINK
+#define RADEXPLINK
 
-             #define RADLINK __stdcall
-             #define RADEXPLINK __stdcall
-             #define RADEXPFUNC RADDEFFUNC
+#ifdef __CFM68K__
+#ifdef __RADINDLL__
+#define RADEXPFUNC RADDEFFUNC __declspec(export)
+#else
+#define RADEXPFUNC RADDEFFUNC __declspec(import)
+#endif
+#else
+#define RADEXPFUNC RADDEFFUNC
+#endif
+#define RADASMLINK
 
-          #elif defined(__RADNTBUILDLINUX__)
-            
-            #define RADLINK __cdecl
-            #define RADEXPLINK __cdecl
-            #define RADEXPFUNC RADDEFFUNC
+#else
 
-          #else
-            #ifdef __RADNT__
+#ifdef __RADNT__
+#ifndef _WIN32
+#define _WIN32
+#endif
+#ifndef WIN32
+#define WIN32
+#endif
+#endif
 
-              #define RADLINK __stdcall
-              #define RADEXPLINK __stdcall
+#ifdef __RADWIN__
+#ifdef __RAD32__
+#ifdef __RADXBOX__
 
-              #ifdef __RADINEXE__
-                #define RADEXPFUNC RADDEFFUNC
-              #else
-                #ifndef __RADINDLL__
-                  #define RADEXPFUNC RADDEFFUNC __declspec(dllimport)
-                  #ifdef __BORLANDC__
-                    #if __BORLANDC__<=0x460
-                      #undef RADEXPFUNC
-                      #define RADEXPFUNC RADDEFFUNC
-                    #endif
-                  #endif
-                #else
-                  #define RADEXPFUNC RADDEFFUNC __declspec(dllexport)
-                #endif
-              #endif
-            #else
-              #define RADLINK __pascal
-              #define RADEXPLINK __far __pascal
-              #define RADEXPFUNC RADDEFFUNC
-            #endif
-          #endif
-        #else
-          #define RADLINK __pascal
-          #define RADEXPLINK __far __pascal __export
-          #define RADEXPFUNC RADDEFFUNC
-        #endif
-      #else
-        #define RADLINK __pascal
-        #define RADEXPLINK __pascal
-        #define RADEXPFUNC RADDEFFUNC
-      #endif
+#define RADLINK __stdcall
+#define RADEXPLINK __stdcall
+#define RADEXPFUNC RADDEFFUNC
 
-      #define RADASMLINK __cdecl
+#elif defined(__RADNTBUILDLINUX__)
 
-    #endif
+#define RADLINK __cdecl
+#define RADEXPLINK __cdecl
+#define RADEXPFUNC RADDEFFUNC
 
-    #ifndef __RADXBOX__
-      #ifdef __RADWIN__
-        #ifndef _WINDOWS
-          #define _WINDOWS
-        #endif
-      #endif
-    #endif
+#else
+#ifdef __RADNT__
 
-    #ifndef RADDEFFUNC
+#define RADLINK __stdcall
+#define RADEXPLINK __stdcall
 
-      #ifdef __cplusplus
-        #define RADDEFFUNC extern "C"
-        #define RADDEFSTART extern "C" {
-        #define RADDEFEND }
-        #define RADDEFINEDATA extern "C"
-        #define RADDECLAREDATA extern "C"
-        #define RADDEFAULT( val ) =val
-      #else
-        #define RADDEFFUNC
-        #define RADDEFSTART
-        #define RADDEFEND
-        #define RADDEFINEDATA
-        #define RADDECLAREDATA extern
-        #define RADDEFAULT( val )
-      #endif
+#ifdef __RADINEXE__
+#define RADEXPFUNC RADDEFFUNC
+#else
+#ifndef __RADINDLL__
+#define RADEXPFUNC RADDEFFUNC __declspec(dllimport)
+#ifdef __BORLANDC__
+#if __BORLANDC__ <= 0x460
+#undef RADEXPFUNC
+#define RADEXPFUNC RADDEFFUNC
+#endif
+#endif
+#else
+#define RADEXPFUNC RADDEFFUNC __declspec(dllexport)
+#endif
+#endif
+#else
+#define RADLINK __pascal
+#define RADEXPLINK __far __pascal
+#define RADEXPFUNC RADDEFFUNC
+#endif
+#endif
+#else
+#define RADLINK __pascal
+#define RADEXPLINK __far __pascal __export
+#define RADEXPFUNC RADDEFFUNC
+#endif
+#else
+#define RADLINK __pascal
+#define RADEXPLINK __pascal
+#define RADEXPFUNC RADDEFFUNC
+#endif
 
-    #endif
+#define RADASMLINK __cdecl
 
-    #ifdef __RADNGC__
-      #define RAD_ATTRIBUTE_ALIGN(num) __attribute__ ((aligned (num)))
-    #else
-      #ifdef __RADX86__
-        #ifdef __WATCOMC__
-          #define RAD_ATTRIBUTE_ALIGN(num) 
-        #else
-          #define RAD_ATTRIBUTE_ALIGN(num) __declspec(align(num))
-        #endif
-      #else
-        #define RAD_ATTRIBUTE_ALIGN(num) 
-      #endif
-    #endif
+#endif
 
-    #ifdef __RADX86__
-      #ifdef __WATCOMC__
-        #define RAD_ALIGN_TYPE double
-        #define RAD_ALIGN_DEF 0.0
-      #else
-        #define RAD_ALIGN_TYPE double __declspec(align(8))
-        #define RAD_ALIGN_DEF 0.0
-      #endif
-    #else
-      #define RAD_ALIGN_TYPE double
-      #define RAD_ALIGN_DEF 0.0
-    #endif
+#ifndef __RADXBOX__
+#ifdef __RADWIN__
+#ifndef _WINDOWS
+#define _WINDOWS
+#endif
+#endif
+#endif
 
-    #define RAD_ALIGN_ADD_TYPE(var) RAD_ALIGN_TYPE var##align = RAD_ALIGN_DEF
+#ifndef RADDEFFUNC
 
-    #define S8 signed char
-    #define U8 unsigned char
-    #define U32 unsigned long
-    #define S32 signed long
-    #define F32 float
-    #define F64 double
+#ifdef __cplusplus
+#define RADDEFFUNC extern "C"
+#define RADDEFSTART extern "C" {
+#define RADDEFEND }
+#define RADDEFINEDATA extern "C"
+#define RADDECLAREDATA extern "C"
+#define RADDEFAULT(val) = val
+#else
+#define RADDEFFUNC
+#define RADDEFSTART
+#define RADDEFEND
+#define RADDEFINEDATA
+#define RADDECLAREDATA extern
+#define RADDEFAULT(val)
+#endif
 
-    #if defined(__MWERKS__) || defined(__MRC__) || defined( GEKKO )
-      #define U64 unsigned long long
-      #define S64 signed long long
-    #else
-      #define U64 unsigned __int64
-      #define S64 signed __int64
-    #endif
+#endif
 
-    #ifdef __RAD32__
-      #define PTR4
-      #define U16 unsigned short
-      #define S16 signed short
-    #else
-      #define PTR4 __far
-      #define U16 unsigned int
-      #define S16 signed int
-    #endif
+#ifdef __RADNGC__
+#define RAD_ATTRIBUTE_ALIGN(num) __attribute__((aligned(num)))
+#else
+#ifdef __RADX86__
+#ifdef __WATCOMC__
+#define RAD_ATTRIBUTE_ALIGN(num)
+#else
+#define RAD_ATTRIBUTE_ALIGN(num) __declspec(align(num))
+#endif
+#else
+#define RAD_ATTRIBUTE_ALIGN(num)
+#endif
+#endif
 
-    #ifndef RAD_NO_LOWERCASE_TYPES
+#ifdef __RADX86__
+#ifdef __WATCOMC__
+#define RAD_ALIGN_TYPE double
+#define RAD_ALIGN_DEF 0.0
+#else
+#define RAD_ALIGN_TYPE double __declspec(align(8))
+#define RAD_ALIGN_DEF 0.0
+#endif
+#else
+#define RAD_ALIGN_TYPE double
+#define RAD_ALIGN_DEF 0.0
+#endif
 
-      #ifdef __RADNGC__
+#define RAD_ALIGN_ADD_TYPE(var) RAD_ALIGN_TYPE var##align = RAD_ALIGN_DEF
 
-        // Unfortunately dolphin\types.h typedefs the
-        // same types that we use.
-        // So we use the typedefs for this platform.
+// Each commented out line is required for our build
 
-        #include <dolphin.h>
+// #define S8 signed char
+// #define U8 unsigned char
+// #define U32 unsigned long
+// #define S32 signed long
+// #define F32 float
+// #define F64 double
 
-      #else
+#if defined(__MWERKS__) || defined(__MRC__) || defined(GEKKO)
+// #define U64 unsigned long long
+// #define S64 signed long long
+// #else
+// #define U64 unsigned __int64
+// #define S64 signed __int64
+#endif
 
-        #define u8 U8
-        #define s8 S8
-        #define u16 U16
-        #define s16 S16
-        #define u32 U32
-        #define s32 S32
-        #define u64 U64
-        #define s64 S64
-        #define f32 F32
-        #define f64 F64
+#ifdef __RAD32__
+#define PTR4
+#define U16 unsigned short
+#define S16 signed short
+#else
+#define PTR4 __far
+#define U16 unsigned int
+#define S16 signed int
+#endif
 
-      #endif
+#ifndef RAD_NO_LOWERCASE_TYPES
 
-    #endif
+#ifdef __RADNGC__
 
-  #endif
+#include <dolphin/types.h>
+
+#else
+
+#define u8 U8
+#define s8 S8
+#define u16 U16
+#define s16 S16
+#define u32 U32
+#define s32 S32
+#define u64 U64
+#define s64 S64
+#define f32 F32
+#define f64 F64
+
+#endif
+
+#endif
+
+#endif
 
 #endif
