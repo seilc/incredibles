@@ -2399,7 +2399,7 @@ in/GAME/zIncrediBallEffect.cpp:
 	.sbss       start:0x803D1440 end:0x803D14D8
 	.sdata2     start:0x803D7690 end:0x803D76F8
 
-__va_arg.c:
+Runtime/__va_arg.c:
 	.text       start:0x801FA66C end:0x801FA734
 
 Runtime/global_destructor_chain.c:
@@ -2407,10 +2407,10 @@ Runtime/global_destructor_chain.c:
 	.dtors      start:0x802D16A8 end:0x802D16AC
 	.sbss       start:0x803D14D8 end:0x803D14E0
 
-CPlusLibPPC.cp:
+Runtime/CPlusLibPPC.cp:
 	.text       start:0x801FA77C end:0x801FA7AC
 
-New.cp:
+Runtime/New.cp:
 	extab       start:0x80005600 end:0x80005650
 	extabindex  start:0x80005720 end:0x80005738
 	.text       start:0x801FA7AC end:0x801FA878
@@ -2443,7 +2443,7 @@ Runtime/Gecko_ExceptionPPC.cp:
 	.bss        start:0x803A5B40 end:0x803A5B4C
 	.sdata      start:0x803CE828 end:0x803CE838
 
-GCN_mem_alloc.c:
+Runtime/GCN_mem_alloc.c:
 	.text       start:0x801FCA38 end:0x801FCBA8
 	.text       start:0x801FCBA8 end:0x801FCBA8
 	.rodata     start:0x802ECE78 end:0x802ECEF0
