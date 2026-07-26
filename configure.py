@@ -265,6 +265,8 @@ cflags_incredibles = [
     "-i include/dolphin",
     "-i include/rwsdk",
     "-DGAMECUBE",
+    "-sdata 64",
+    "-sdata2 64",
 ]
 
 config.linker_version = "GC/2.6"
