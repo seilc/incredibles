@@ -270,7 +270,7 @@ cflags_incredibles = [
     "-sdata2 64",
 ]
 
-config.linker_version = "GC/2.7"
+config.linker_version = "GC/2.6"
 
 
 # Helper function for Dolphin libraries
