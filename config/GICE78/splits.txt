@@ -2445,7 +2445,6 @@ Runtime/Gecko_ExceptionPPC.cp:
 
 Runtime/GCN_mem_alloc.c:
 	.text       start:0x801FCA38 end:0x801FCBA8
-	.text       start:0x801FCBA8 end:0x801FCBA8
 	.rodata     start:0x802ECE78 end:0x802ECEF0
 	.data       start:0x8031E750 end:0x8031E758
 
