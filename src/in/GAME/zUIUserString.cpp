@@ -73,9 +73,9 @@ void zUIUserString::DoHandleEvent(xBase* from, U32 toEvent, const F32* toParam,
     }
     case eEventUIAddChar:
     {
-        // Cast to S32 instead of char.
+        // Cast to S32 instead of S8.
         // This generates an extsb instruction.
-        char ch = (S32)toParam[0];
+        S8 ch = (S32)toParam[0];
 
         if (length < maxLength)
         {

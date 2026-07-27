@@ -58,8 +58,7 @@ S32 xSTShutdown()
     return g_straninit;
 }
 
-S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags,
-                      const char* filename)
+S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, const char* filename)
 {
     S32 result;
     STRAN_SCENE* sdata;
@@ -604,7 +603,7 @@ static char* XST_translate_sid(U32 sid, char* exten, bool local)
 
     fname[0] = '\0';
 
-    if (IsPS2Demo() && xglobals->PS2demo->subdir[0] != '\0')
+    if (IsPS2Demo() && (S8)xglobals->PS2demo->subdir[0] != '\0')
     {
         strcat(fname, xglobals->PS2demo->subdir);
         strcat(fname, "\\");
@@ -629,7 +628,7 @@ static char* XST_translate_sid_path(U32 sid, char* exten, bool local)
 
     fname[0] = '\0';
 
-    if (IsPS2Demo() && xglobals->PS2demo->subdir[0] != '\0')
+    if (IsPS2Demo() && (S8)xglobals->PS2demo->subdir[0] != '\0')
     {
         strcat(fname, xglobals->PS2demo->subdir);
         strcat(fname, "\\");

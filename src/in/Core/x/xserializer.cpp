@@ -239,11 +239,11 @@ S32 xSerial::Read(char* buf, S32 elesize, S32 n)
 
             if (bitval)
             {
-                *cptr |= (char)g_tbl_onbit[bidx];
+                *cptr |= (S8)g_tbl_onbit[bidx];
             }
             else
             {
-                *cptr &= (char)g_tbl_clear[bidx];
+                *cptr &= (S8)g_tbl_clear[bidx];
             }
 
             bidx++;
