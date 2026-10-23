@@ -572,7 +572,7 @@ config.libs = [
             Object(NonMatching, "in/Core/x/xSndMgr.cpp"),
             Object(Matching, "in/Core/x/xSoundFX.cpp"),
             Object(NonMatching, "in/Core/x/xSpacePartitionTree.cpp"),
-            Object(NonMatching, "in/Core/x/xSpline.cpp"),
+            Object(Matching, "in/Core/x/xSpline.cpp"),
             Object(NonMatching, "in/Core/x/xSplineAsset.cpp"),
             Object(Matching, "in/Core/x/xstransvc.cpp"),
             Object(NonMatching, "in/Core/x/xString.cpp"),
