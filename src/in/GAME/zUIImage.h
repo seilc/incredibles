@@ -9,17 +9,17 @@ class zUIImage : public zUI
 private:
     struct ImageState
     {
-        float32 rotation;
-        float32 offsetU;
-        float32 offsetV;
+        F32 rotation;
+        F32 offsetU;
+        F32 offsetV;
     };
 
     ImageState currentImage;
     ImageState startMovementImage;
     xTextureHandle texture;
-    uint32 unk0x94;
+    U32 unk0x94;
 };
 
-void zUIImage_Init(xBase& data, xDynAsset& asset, ulong32);
+void zUIImage_Init(xBase& data, xDynAsset& asset, size_t);
 
 #endif

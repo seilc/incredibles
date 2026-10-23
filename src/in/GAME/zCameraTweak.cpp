@@ -170,7 +170,7 @@ void zCameraTweakGlobal_Reset()
     sCamTweakDistMultCur = 1.0f;
 }
 
-void zCameraTweak_Init(xBase& data, xDynAsset& asset, ulong32)
+void zCameraTweak_Init(xBase& data, xDynAsset& asset, size_t)
 {
     zCameraTweak_Init((zCameraTweak*)&data, (CameraTweak_asset*)&asset);
 }

@@ -7,33 +7,33 @@ struct xGridBound;
 
 struct xGrid
 {
-    uint8 ingrid_id;
-    uint8 pad[3];
-    uint16 nx;
-    uint16 nz;
-    float32 minx;
-    float32 minz;
-    float32 maxx;
-    float32 maxz;
-    float32 csizex;
-    float32 csizez;
-    float32 inv_csizex;
-    float32 inv_csizez;
-    float32 maxr;
+    U8 ingrid_id;
+    U8 pad[3];
+    U16 nx;
+    U16 nz;
+    F32 minx;
+    F32 minz;
+    F32 maxx;
+    F32 maxz;
+    F32 csizex;
+    F32 csizez;
+    F32 inv_csizex;
+    F32 inv_csizez;
+    F32 maxr;
     xGridBound** cells;
     xGridBound* other;
-    int32 iter_active;
+    S32 iter_active;
 };
 
 struct xGridBound
 {
     void* data;
-    uint16 gx;
-    uint16 gz;
-    uint8 oversize;
-    uint8 deleted;
-    uint8 gpad;
-    uint8 pad;
+    U16 gx;
+    U16 gz;
+    U8 oversize;
+    U8 deleted;
+    U8 gpad;
+    U8 pad;
     xGrid* grid;
     xGridBound** head;
     xGridBound* next;
@@ -41,7 +41,7 @@ struct xGridBound
 
 struct xEnt;
 
-int32 xGridAdd(xGrid* grid, xEnt* ent);
-int32 xGridRemove(xGridBound* gridb);
+S32 xGridAdd(xGrid* grid, xEnt* ent);
+S32 xGridRemove(xGridBound* gridb);
 
 #endif

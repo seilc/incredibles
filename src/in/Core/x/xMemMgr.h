@@ -8,14 +8,14 @@
 struct xMemPool
 {
     void* FreeList;
-    uint16 NextOffset;
-    uint16 Flags;
+    U16 NextOffset;
+    U16 Flags;
     void* UsedList;
     void (*InitCB)(xMemPool*, void*);
     void* Buffer;
-    uint16 Size;
-    uint16 NumRealloc;
-    uint32 Total;
+    U16 Size;
+    U16 NumRealloc;
+    U32 Total;
 };
 
 enum xMemStaticType
@@ -23,17 +23,17 @@ enum xMemStaticType
     eMemStaticTypeUnk0
 };
 
-extern uint32 gActiveHeap;
+extern U32 gActiveHeap;
 
-void* xMemAlloc(uint32 heapID, uint32 size, int32 align);
-void* xMemGrowAlloc(uint32 heapID, uint32 size);
-void* xMemPushTemp(uint32 size);
-int32 xMemPushBase();
-int32 xMemPopBase(int32 depth);
-int32 xMemGetBase();
+void* xMemAlloc(U32 heapID, U32 size, S32 align);
+void* xMemGrowAlloc(U32 heapID, U32 size);
+void* xMemPushTemp(U32 size);
+S32 xMemPushBase();
+S32 xMemPopBase(S32 depth);
+S32 xMemGetBase();
 
-void* operator new(size_t, xMemStaticType, uint32);
-void* operator new[](size_t, xMemStaticType, uint32);
+void* operator new(size_t, xMemStaticType, U32);
+void* operator new[](size_t, xMemStaticType, U32);
 
 #define xMEMALLOC(size) xMemAlloc(gActiveHeap, (size), 0)
 #define xMEMALLOCALIGN(size, align) xMemAlloc(gActiveHeap, (size), (align))

@@ -88,18 +88,18 @@ enum eIntroState
     eIntroState_Count
 };
 
-extern int32 gGameState;
+extern S32 gGameState;
 extern eGameMode gGameMode;
 extern _GameOstrich gGameOstrich;
 
-int32 zGameStateGet();
-int32 zGameModeGet();
+S32 zGameStateGet();
+S32 zGameModeGet();
 GameOstrich zGameGetOstrich();
 void zGameSetOstrich(GameOstrich o);
-bool32 zGameStateFindEvent(uint32* eventList, int32 eventCount, int32 targetMode, int32 targetEvent,
-                           int32* new_mode, int32* new_state);
-void zGameStateSwitchEvent(int32 event);
-void zGameStateSwitch(int32 theNewState);
+S32 zGameStateFindEvent(U32* eventList, S32 eventCount, S32 targetMode, S32 targetEvent,
+                           S32* new_mode, S32* new_state);
+void zGameStateSwitchEvent(S32 event);
+void zGameStateSwitch(S32 theNewState);
 void zGameModeSwitch(eGameMode modeNew);
 
 #endif

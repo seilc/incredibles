@@ -27,7 +27,7 @@ void xEnvLoadJSPList(xEnv* env, S32 dataType)
 
             xSTGetAssetInfoByType('JSP ', i, &info);
 
-            bool32 rc = iEnvLoadJSP(env->geom, info.aid, buf, bufsize, dataType, index);
+            S32 rc = iEnvLoadJSP(env->geom, info.aid, buf, bufsize, dataType, index);
 
             if (rc)
             {

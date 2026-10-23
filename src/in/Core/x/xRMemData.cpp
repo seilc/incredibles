@@ -8,7 +8,7 @@ void* RyzMemData::operator new(size_t amt, S32, RyzMemGrow* growCtxt)
 {
     void* mem;
 
-    bool32 dogrow = TRUE;
+    S32 dogrow = TRUE;
 
     if (!growCtxt)
     {

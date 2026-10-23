@@ -25,33 +25,33 @@ typedef enum en_FIOERRCODES
 typedef struct st_FILELOADINFO
 {
     void (*destroy)(st_FILELOADINFO*);
-    int32 (*readBytes)(st_FILELOADINFO*, char*, int32);
-    int32 (*readMShorts)(st_FILELOADINFO*, int16*, int32);
-    int32 (*readMLongs)(st_FILELOADINFO*, int32*, int32);
-    int32 (*readMFloats)(st_FILELOADINFO*, float32*, int32);
-    int32 (*readMDoubles)(st_FILELOADINFO*, float64*, int32);
-    int32 (*readIShorts)(st_FILELOADINFO*, int16*, int32);
-    int32 (*readILongs)(st_FILELOADINFO*, int32*, int32);
-    int32 (*readIFloats)(st_FILELOADINFO*, float32*, int32);
-    int32 (*readIDoubles)(st_FILELOADINFO*, float64*, int32);
-    int32 (*skipBytes)(st_FILELOADINFO*, int32);
-    int32 (*seekSpot)(st_FILELOADINFO*, int32);
-    void (*setDoubleBuf)(st_FILELOADINFO*, char*, int32);
+    S32 (*readBytes)(st_FILELOADINFO*, char*, S32);
+    S32 (*readMShorts)(st_FILELOADINFO*, S16*, S32);
+    S32 (*readMLongs)(st_FILELOADINFO*, S32*, S32);
+    S32 (*readMFloats)(st_FILELOADINFO*, F32*, S32);
+    S32 (*readMDoubles)(st_FILELOADINFO*, F64*, S32);
+    S32 (*readIShorts)(st_FILELOADINFO*, S16*, S32);
+    S32 (*readILongs)(st_FILELOADINFO*, S32*, S32);
+    S32 (*readIFloats)(st_FILELOADINFO*, F32*, S32);
+    S32 (*readIDoubles)(st_FILELOADINFO*, F64*, S32);
+    S32 (*skipBytes)(st_FILELOADINFO*, S32);
+    S32 (*seekSpot)(st_FILELOADINFO*, S32);
+    void (*setDoubleBuf)(st_FILELOADINFO*, char*, S32);
     void (*discardDblBuf)(st_FILELOADINFO*);
-    int32 (*asyncIRead)(st_FILELOADINFO*, int32, char*, int32, int32);
-    int32 (*asyncMRead)(st_FILELOADINFO*, int32, char*, int32, int32);
+    S32 (*asyncIRead)(st_FILELOADINFO*, S32, char*, S32, S32);
+    S32 (*asyncMRead)(st_FILELOADINFO*, S32, char*, S32, S32);
     BIO_ASYNC_ERRCODES (*asyncReadStatus)(st_FILELOADINFO*);
-    uint32 lockid;
+    U32 lockid;
     FIOERRCODES error;
-    uint32 basesector;
+    U32 basesector;
     void* privdata;
     void* xtradata;
     void* asyndata;
-    int32 filesize;
-    int32 remain;
-    int32 position;
+    S32 filesize;
+    S32 remain;
+    S32 position;
 } FILELOADINFO;
 
-FILELOADINFO* xBinioLoadCreate(const char* filename, int32 fileflags);
+FILELOADINFO* xBinioLoadCreate(const char* filename, S32 fileflags);
 
 #endif

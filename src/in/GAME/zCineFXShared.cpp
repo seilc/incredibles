@@ -1,6 +1,6 @@
 #include "zCineFXShared.h"
 
-void zCinFX_CycleOnce_Upd(const zCutsceneMgr*, NCINEntry* fxrec, bool32 killit)
+void zCinFX_CycleOnce_Upd(const zCutsceneMgr*, NCINEntry* fxrec, S32 killit)
 {
     if (killit)
     {

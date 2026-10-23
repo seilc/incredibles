@@ -3,6 +3,6 @@
 
 #include "zUI.h"
 
-void zUIMgrSortList(zUI** list, int32 count);
+void zUIMgrSortList(zUI** list, S32 count);
 
 #endif

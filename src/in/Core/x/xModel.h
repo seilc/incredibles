@@ -10,10 +10,10 @@
 
 struct xModelPipe
 {
-    uint32 Flags;
-    uint8 Layer;
-    uint8 AlphaDiscard;
-    uint16 PipePad;
+    U32 Flags;
+    U8 Layer;
+    U8 AlphaDiscard;
+    U16 PipePad;
 };
 
 struct xModelPool;
@@ -27,31 +27,31 @@ struct xModelInstance
     xAnimPlay* Anim;
     RpAtomic* Data;
     xModelPipe Pipe;
-    uint8 InFrustum;
-    uint8 TrueClip;
-    int8 sortBias;
-    uint8 modelpad;
-    float32 RedMultiplier;
-    float32 GreenMultiplier;
-    float32 BlueMultiplier;
-    float32 Alpha;
-    float32 FadeStart;
-    float32 FadeEnd;
+    U8 InFrustum;
+    U8 TrueClip;
+    S8 sortBias;
+    U8 modelpad;
+    F32 RedMultiplier;
+    F32 GreenMultiplier;
+    F32 BlueMultiplier;
+    F32 Alpha;
+    F32 FadeStart;
+    F32 FadeEnd;
     xSurface* Surf;
     xModelBucket** Bucket;
     xModelInstance* BucketNext;
     xLightKit* LightKit;
     void* Object;
-    uint16 Flags;
-    uint8 BoneCount;
-    uint8 BoneIndex;
-    uint8* BoneRemap;
+    U16 Flags;
+    U8 BoneCount;
+    U8 BoneIndex;
+    U8* BoneRemap;
     RwMatrix* Mat;
     xVec3 Scale;
     xBox animBound;
     xBox combinedAnimBound;
-    uint32 modelID;
-    uint32 shadowID;
+    U32 modelID;
+    U32 shadowID;
     RpAtomic* shadowmapAtomic;
     struct
     {
@@ -62,36 +62,36 @@ struct xModelInstance
 struct xModelPool
 {
     xModelPool* Next;
-    uint32 NumMatrices;
+    U32 NumMatrices;
     xModelInstance* List;
 };
 
 struct xModelTag
 {
     xVec3 v;
-    uint32 matidx;
-    float32 wt[4];
+    U32 matidx;
+    F32 wt[4];
 };
 
 struct xModelAssetInfo
 {
-    uint32 Magic;
-    uint32 NumModelInst;
-    uint32 AnimTableID;
-    uint32 CombatID;
-    uint32 BrainID;
+    U32 Magic;
+    U32 NumModelInst;
+    U32 AnimTableID;
+    U32 CombatID;
+    U32 BrainID;
 };
 
 struct xModelAssetParam
 {
-    uint32 HashID;
-    uint8 WordLength;
-    uint8 String[3];
+    U32 HashID;
+    U8 WordLength;
+    U8 String[3];
 };
 
-void xModelUpdate(xModelInstance* modelInst, float32 timeDelta);
+void xModelUpdate(xModelInstance* modelInst, F32 timeDelta);
 void xModelEval(xModelInstance* modelInst);
-bool32 xModelCullSingle(xModelInstance* minst);
+S32 xModelCullSingle(xModelInstance* minst);
 void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
 
 xMat4x3* xModelGetFrame(xModelInstance* minst);

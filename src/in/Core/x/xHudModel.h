@@ -9,7 +9,7 @@ namespace xhud
     class model_widget : public widget
     {
     public:
-        static void load(xBase& data, xDynAsset& asset, ulong32);
+        static void load(xBase& data, xDynAsset& asset, size_t);
 
         model_widget(const model_asset& a);
 

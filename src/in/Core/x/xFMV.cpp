@@ -10,7 +10,7 @@ typedef void (*xFMVPauseSoundCB)(bool doPause);
 
 static void DefaultFMVPauseSoundCB(bool doPause);
 
-static float32 sFMVVolumeScale = 1.0f;
+static F32 sFMVVolumeScale = 1.0f;
 static xFMVPauseSoundCB sxFMVPauseSoundCB = DefaultFMVPauseSoundCB;
 
 void xFMVPauseSound(bool doPause)
@@ -40,14 +40,14 @@ static void DefaultFMVPauseSoundCB(bool doPause)
     }
 }
 
-int32 xFMVGetBinkCompliantVolume()
+S32 xFMVGetBinkCompliantVolume()
 {
-    int32 volume = (int32)(32768.0f * xSndMgrGetDampedVolume(4) * sFMVVolumeScale);
+    S32 volume = (S32)(32768.0f * xSndMgrGetDampedVolume(4) * sFMVVolumeScale);
     return volume;
 }
 
-RwTexture* xFMVGetTexture(MOVIE* pMovie, uint16 looping, uint16 freezeframed, uint32 startframe,
-                          uint32 endframe, uint32)
+RwTexture* xFMVGetTexture(MOVIE* pMovie, U16 looping, U16 freezeframed, U32 startframe,
+                          U32 endframe, U32)
 {
     if (!pMovie)
     {
@@ -75,7 +75,7 @@ RwTexture* xFMVGetTexture(MOVIE* pMovie, uint16 looping, uint16 freezeframed, ui
     {
         BinkDoFrame(pMovie->hBink);
 
-        uint8* pBits = RwRasterLock(raster, 0, rwRASTERLOCKWRITE | rwRASTERLOCKRAW);
+        U8* pBits = RwRasterLock(raster, 0, rwRASTERLOCKWRITE | rwRASTERLOCKRAW);
 
         BinkCopyToBuffer(pMovie->hBink, pBits, RwRasterGetStride(raster), RwRasterGetHeight(raster),
                          0, 0, BINKCOPYALL | BINKSURFACE32);

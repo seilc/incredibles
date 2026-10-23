@@ -34,9 +34,9 @@ union EGGData
 
 struct EGGItem
 {
-    bool32 (*fun_check)(EGGItem*);
+    S32 (*fun_check)(EGGItem*);
     EGGItemFuncs* funcs;
-    bool32 enabled;
+    S32 enabled;
     EGGData eggdata;
 };
 
@@ -48,12 +48,12 @@ struct GECheat
     S32 flg_mode;
 };
 
-static bool32 EGG_check_ExtrasFlags(EGGItem*);
+static S32 EGG_check_ExtrasFlags(EGGItem*);
 static void GEC_cb_TestCheats();
 static void GEC_cb_SwapCCLR();
 static void GEC_cb_SwapCCUD();
 
-static bool32 g_enableGameExtras = FALSE;
+static S32 g_enableGameExtras = FALSE;
 static S32 g_currDay = 0;
 static S32 g_currMonth = 0;
 static S32 g_gameExtraFlags = 0;
@@ -274,7 +274,7 @@ void zGameExtras_SceneUpdate(F32 dt)
     }
 }
 
-static bool32 EGG_check_ExtrasFlags(EGGItem*)
+static S32 EGG_check_ExtrasFlags(EGGItem*)
 {
     switch (g_currMonth)
     {
@@ -434,7 +434,7 @@ void zGameExtras_Load(xSerial* xser)
     g_flg_chEnabled |= keepers;
 }
 
-static bool32 TestCheat(U32* r3)
+static S32 TestCheat(U32* r3)
 {
     S32 r4 = CHEAT_COUNT - 1;
 
@@ -488,7 +488,7 @@ void zGameCheatsUpdate(F32 dt)
         return;
     }
 
-    bool32 startover = FALSE;
+    S32 startover = FALSE;
 
     if ((globals.pad0->pressed & ~0x61100) || (globals.pad0->on & ~0x61100))
     {

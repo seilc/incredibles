@@ -32,6 +32,6 @@ struct xSweptSphere
 };
 
 void xSweptSphereResetCollision(xSweptSphere* sws);
-bool32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph);
+S32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph);
 
 #endif

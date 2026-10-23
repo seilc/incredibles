@@ -139,7 +139,7 @@ namespace xhud
         ~widget() {}
         // END RESTORED
 
-        static void init_base(xBase& data, const xBaseAsset& asset, ulong32 chunk_size);
+        static void init_base(xBase& data, const xBaseAsset& asset, size_t chunk_size);
 
         void enable();
         void disable();

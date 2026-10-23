@@ -55,7 +55,7 @@ zTrainPathJunction* zTrainPathJunction::GetPathEnd(x::NURBS* curve, bool along_i
     return NULL;
 }
 
-void zTrainPathJunction::Init(xBase& data, xDynAsset& asset, ulong32)
+void zTrainPathJunction::Init(xBase& data, xDynAsset& asset, size_t)
 {
     ((zTrainPathJunction&)data).Init((zTrainPathJunctionAsset*)&asset);
 }

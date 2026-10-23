@@ -20,27 +20,27 @@ enum ePlayerType
 
 struct testerPlayer
 {
-    int32 firstParam;
-    float32 secondParam;
+    S32 firstParam;
+    F32 secondParam;
 };
 
 class xOneLiner
 {
 private:
-    uint32 m_soundGroupNameHash;
-    float32 m_fSoundStartDelay;
-    float32 m_fTimeSpan;
-    float32 m_fTimeLastPlayed;
-    uint32 m_uNumPlays;
-    float32 m_fDelayBetweenPlays;
-    float32 m_fProbability;
-    float32 m_fDefaultDuration;
-    float32 m_fLastDuration;
-    uint32 m_uMaxPlays;
+    U32 m_soundGroupNameHash;
+    F32 m_fSoundStartDelay;
+    F32 m_fTimeSpan;
+    F32 m_fTimeLastPlayed;
+    U32 m_uNumPlays;
+    F32 m_fDelayBetweenPlays;
+    F32 m_fProbability;
+    F32 m_fDefaultDuration;
+    F32 m_fLastDuration;
+    U32 m_uMaxPlays;
     iSndGroupHandle m_soundGroupHandle;
     xOneLinerManager* m_pOLManager;
-    int16 m_eventType;
-    int16 m_bPlaysInMusicChannel;
+    S16 m_eventType;
+    S16 m_bPlaysInMusicChannel;
     BasicInform* m_pData;
     ePlayerType m_playerType;
     testerPlayer m_testerData;

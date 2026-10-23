@@ -176,9 +176,9 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
     return result;
 }
 
-bool32 xSTQueueSceneAssets(U32 sid, S32 flg_hiphop)
+S32 xSTQueueSceneAssets(U32 sid, S32 flg_hiphop)
 {
-    bool32 result = TRUE;
+    S32 result = TRUE;
     STRAN_SCENE* sdata = XST_find_bySID(sid, flg_hiphop);
 
     if (!sdata)
@@ -292,7 +292,7 @@ void xSTUnLoadSceneMany(U32 sceneID, S32 type)
 F32 xSTLoadStep(U32)
 {
     F32 pct;
-    bool32 rc;
+    S32 rc;
 
     rc = PKRLoadStep(0);
 
@@ -323,10 +323,10 @@ void xSTDisconnect(U32 sid, S32 flg_hiphop)
     }
 }
 
-bool32 xSTSwitchScene(U32 sid, void* userdata, S32 (*progmon)(void*, F32))
+S32 xSTSwitchScene(U32 sid, void* userdata, S32 (*progmon)(void*, F32))
 {
     STRAN_SCENE* sdata;
-    bool32 rc = FALSE;
+    S32 rc = FALSE;
     S32 i;
     const S32 types[3] = { XST_HIP, XST_HOP, XST_HIPHOP };
 
@@ -488,13 +488,13 @@ void* xSTFindAssetByType(U32 type, S32 idx, U32* size)
     return memptr;
 }
 
-bool32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
+S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
 {
-    bool32 found = FALSE;
+    S32 found = FALSE;
     S32 cnt;
     STRAN_SCENE* sdata;
     S32 i;
-    bool32 rc;
+    S32 rc;
 
     cnt = XST_cnt_locked();
 
@@ -513,15 +513,15 @@ bool32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
     return found;
 }
 
-bool32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo)
+S32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo)
 {
-    bool32 found = FALSE;
+    S32 found = FALSE;
     S32 sum = 0;
     S32 cnt;
     STRAN_SCENE* sdata;
     S32 asscnt;
     S32 i;
-    bool32 rc;
+    S32 rc;
 
     cnt = XST_cnt_locked();
 
@@ -557,7 +557,7 @@ const char* xST_xAssetID_HIPFullPath(U32 aid, U32* sceneID)
     const char* da_hipname = NULL;
     S32 cnt;
     STRAN_SCENE* sdata;
-    bool32 rc;
+    S32 rc;
     S32 i;
 
     cnt = XST_cnt_locked();

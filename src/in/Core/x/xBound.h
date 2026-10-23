@@ -8,8 +8,8 @@
 struct xBound
 {
     xQCData qcd;
-    uint8 type;
-    uint8 pad[3];
+    U8 type;
+    U8 pad[3];
     union
     {
         xSphere sph;
@@ -35,7 +35,7 @@ void xRayHitsBound(const xRay3* r, const xBound* b, xCollis* c);
 void xSphereHitsBound(const xSphere* o, const xBound* b, xCollis* c);
 bool xBoundHitsBound(const xBound& a, const xBound& b);
 bool xRayHitsBound(const xRay3& r, const xBound& b);
-bool xSphereHitsBound(const xVec3& c, float32 r, const xBound& b);
+bool xSphereHitsBound(const xVec3& c, F32 r, const xBound& b);
 bool xOBBHitsBound(const xBox& box, const xMat4x3& mat, const xBound& b);
 void xBoundGetCenter(const xBound* b, xVec3* center);
 xVec3* xBoundCenter(xBound* b);

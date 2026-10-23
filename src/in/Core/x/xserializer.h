@@ -5,57 +5,57 @@
 
 typedef struct st_SERIAL_CLIENTINFO
 {
-    uint32 idtag;
-    int32* membuf;
-    int32 trueoff;
-    int32 actsize;
+    U32 idtag;
+    S32* membuf;
+    S32 trueoff;
+    S32 actsize;
 } SERIAL_CLIENTINFO;
 
 typedef struct st_SERIAL_PERCID_SIZE
 {
-    uint32 idtag;
-    int32 needsize;
+    U32 idtag;
+    S32 needsize;
 } SERIAL_PERCID_SIZE;
 
 struct xSerial
 {
-    uint32 idtag;
-    int32 baseoff;
+    U32 idtag;
+    S32 baseoff;
     SERIAL_CLIENTINFO* ctxtdata;
-    bool32 warned;
-    int32 curele;
-    int32 bitidx;
-    int32 bittally;
+    S32 warned;
+    S32 curele;
+    S32 bitidx;
+    S32 bittally;
 
     ~xSerial();
 
-    void setClient(uint32 idtag);
-    int32 Write(char* data, int32 elesize, int32 n);
-    int32 Write_b1(int32 bits);
-    int32 Write_b1(uint32 bits);
-    int32 Write(uint8 data);
-    int32 Write(int16 data);
-    int32 Write(int32 data);
-    int32 Write(uint32 data);
-    int32 Write(float32 data);
-    int32 Read(char* buf, int32 elesize, int32 n);
-    int32 Read_b1(int32* bits);
-    int32 Read(uint8* buf);
-    int32 Read(int16* buf);
-    int32 Read(int32* buf);
-    int32 Read(uint32* buf);
-    int32 Read(float32* buf);
-    void wrbit(bool32 is_on);
-    bool32 rdbit();
-    void prepare(uint32 clientID);
+    void setClient(U32 idtag);
+    S32 Write(char* data, S32 elesize, S32 n);
+    S32 Write_b1(S32 bits);
+    S32 Write_b1(U32 bits);
+    S32 Write(U8 data);
+    S32 Write(S16 data);
+    S32 Write(S32 data);
+    S32 Write(U32 data);
+    S32 Write(F32 data);
+    S32 Read(char* buf, S32 elesize, S32 n);
+    S32 Read_b1(S32* bits);
+    S32 Read(U8* buf);
+    S32 Read(S16* buf);
+    S32 Read(S32* buf);
+    S32 Read(U32* buf);
+    S32 Read(F32* buf);
+    void wrbit(S32 is_on);
+    S32 rdbit();
+    void prepare(U32 clientID);
 };
 
-typedef bool32 (*xSerialTraverseCallback)(uint32 clientID, xSerial* xser);
+typedef S32 (*xSerialTraverseCallback)(U32 clientID, xSerial* xser);
 
-int32 xSerialStartup(int32 count, SERIAL_PERCID_SIZE* sizeinfo);
-int32 xSerialShutdown();
+S32 xSerialStartup(S32 count, SERIAL_PERCID_SIZE* sizeinfo);
+S32 xSerialShutdown();
 void xSerialTraverse(xSerialTraverseCallback func);
 void xSerialWipeMainBuffer();
-bool32 xSerial_svgame_register(XSAVEGAME_DATA* sgctxt, SAVEGAME_MODE mode);
+S32 xSerial_svgame_register(XSAVEGAME_DATA* sgctxt, SAVEGAME_MODE mode);
 
 #endif

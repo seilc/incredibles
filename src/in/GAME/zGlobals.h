@@ -10,20 +10,20 @@ struct zAssetPickupTable;
 
 struct zGlobalSettings
 {
-    uint16 AnalogMin;
-    uint16 AnalogMax;
-    uint32 TakeDamage;
-    uint32 Initial_Specials;
-    float32 DamageInvincibility;
-    float32 Gravity;
-    uint8 AttractModeDuringGameplay;
+    U16 AnalogMin;
+    U16 AnalogMax;
+    U32 TakeDamage;
+    U32 Initial_Specials;
+    F32 DamageInvincibility;
+    F32 Gravity;
+    U8 AttractModeDuringGameplay;
 };
 
 struct zCheckPoint
 {
     xVec3 pos;
-    float32 rot;
-    uint32 initCamID;
+    F32 rot;
+    U32 initCamID;
     bool* jsp_active;
     xSndEffect currentEffect;
 };
@@ -31,28 +31,28 @@ struct zCheckPoint
 struct zPlayerGlobals
 {
     zGlobalSettings g;
-    int32 Teeter;
-    float32 SlipFadeTimer;
-    int32 Slide;
-    float32 SlideTimer;
-    int32 Stepping;
-    int32 JumpState;
-    int32 LastJumpState;
-    float32 JumpTimer;
-    uint32 LastProjectile;
-    float32 ControlOffTimer;
-    float32 ControlOnTime;
-    float32 ForceSlipperyTimer;
-    float32 ForceSlipperyFriction;
-    float32 ShockRadius;
-    float32 ShockRadiusOld;
-    uint32 ControlOff;
-    uint32 ControlOnEvent;
+    S32 Teeter;
+    F32 SlipFadeTimer;
+    S32 Slide;
+    F32 SlideTimer;
+    S32 Stepping;
+    S32 JumpState;
+    S32 LastJumpState;
+    F32 JumpTimer;
+    U32 LastProjectile;
+    F32 ControlOffTimer;
+    F32 ControlOnTime;
+    F32 ForceSlipperyTimer;
+    F32 ForceSlipperyFriction;
+    F32 ShockRadius;
+    F32 ShockRadiusOld;
+    U32 ControlOff;
+    U32 ControlOnEvent;
     zCheckPoint checkpoint;
     xVec3 turnToFace;
     zGrapplePoint* Grapple;
-    uint8 bCheatMode;
-    uint8 bHasBeenHit;
+    U8 bCheatMode;
+    U8 bHasBeenHit;
 };
 
 enum zGlobalDemoType
@@ -66,18 +66,18 @@ enum zGlobalDemoType
 
 struct zGlobals : xGlobals
 {
-    uint32 playerTag;
+    U32 playerTag;
     bool playerLoaded;
     bool invertJoystick;
     bool invertCameraX;
     bool invertCameraY;
-    float32 timeMultiplier;
+    F32 timeMultiplier;
     zPlayerGlobals player;
     zAssetPickupTable* pickupTable;
     zCutsceneMgr* cmgr;
     char startDebugMode[32];
-    uint32 noMovies;
-    uint32 boundUpdateTime;
+    U32 noMovies;
+    U32 boundUpdateTime;
     bool draw_player_after_fx;
     bool bAllowMasterCheats;
     zGlobalDemoType demoType;

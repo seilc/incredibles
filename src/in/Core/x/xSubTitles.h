@@ -5,23 +5,23 @@
 
 struct xSubtitleLine
 {
-    float32 fStartTime;
-    float32 fStopTime;
-    uint32 uStringOffset;
+    F32 fStartTime;
+    F32 fStopTime;
+    U32 uStringOffset;
 };
 
 struct xSubtitlesAsset : xBaseAsset
 {
-    uint16 m_uAssetNumLines;
-    uint16 m_uAssetByteCount;
+    U16 m_uAssetNumLines;
+    U16 m_uAssetByteCount;
     xSubtitleLine m_paSubtitleLines[0];
 };
 
 void xSubTitlesInit();
-void* xSubTitlesRead(void*, uint32, void* indata, uint32 insize, uint32* outsize);
-void xSubTitlesUnloaded(void*, uint32);
-bool xSubTitlesRender(uint32 aid, float32 fTime);
-void xSubTitlesSetSize(float32 size);
-float32 xSubTitlesGetSize();
+void* xSubTitlesRead(void*, U32, void* indata, U32 insize, U32* outsize);
+void xSubTitlesUnloaded(void*, U32);
+bool xSubTitlesRender(U32 aid, F32 fTime);
+void xSubTitlesSetSize(F32 size);
+F32 xSubTitlesGetSize();
 
 #endif

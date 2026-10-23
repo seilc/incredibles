@@ -11,30 +11,30 @@ struct xShadowSimplePoly
 
 struct xShadowSimpleCache
 {
-    uint16 flags;
-    uint8 alpha;
-    uint8 pad;
-    uint32 collPriority;
+    U16 flags;
+    U8 alpha;
+    U8 pad;
+    U32 collPriority;
     xVec3 pos;
     xVec3 at;
-    float32 tol_movement;
-    float32 radiusOptional;
+    F32 tol_movement;
+    F32 radiusOptional;
     xEnt* castOnEnt;
     xShadowSimplePoly poly;
-    float32 envHeight;
-    float32 shadowHeight;
+    F32 envHeight;
+    F32 shadowHeight;
     union
     {
-        uint32 raster;
+        U32 raster;
         RwRaster* ptr_raster;
     };
-    float32 dydx;
-    float32 dydz;
+    F32 dydx;
+    F32 dydz;
     xVec3 corner[4];
     void* collSkipsItem;
 };
 
-void xShadowSimple_CacheInit(xShadowSimpleCache* cache, xEnt* ent, uint8 alpha);
-void xShadowSimple_Add(xShadowSimpleCache* cache, xEnt* ent, float32 radius, float32 ecc);
+void xShadowSimple_CacheInit(xShadowSimpleCache* cache, xEnt* ent, U8 alpha);
+void xShadowSimple_Add(xShadowSimpleCache* cache, xEnt* ent, F32 radius, F32 ecc);
 
 #endif

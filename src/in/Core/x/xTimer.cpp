@@ -40,7 +40,7 @@ void xTimerInit(void* b, void* tasset)
     xTimerInit((xBase*)b, (xTimerAsset*)tasset);
 }
 
-static bool32 xTimer_ObjIDIsPauseTimer(U32 id)
+static S32 xTimer_ObjIDIsPauseTimer(U32 id)
 {
     if (id == 0xCB3F6340)
     {
@@ -52,7 +52,7 @@ static bool32 xTimer_ObjIDIsPauseTimer(U32 id)
         return TRUE;
     }
 
-    bool32 bar = (id <= 0xBC345AA4);
+    S32 bar = (id <= 0xBC345AA4);
 
     if (id >= 0xBC345600 && bar)
     {

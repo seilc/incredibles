@@ -6,16 +6,16 @@
 
 struct xClumpCollBSPBranchNode
 {
-    uint32 leftInfo;
-    uint32 rightInfo;
-    float32 leftValue;
-    float32 rightValue;
+    U32 leftInfo;
+    U32 rightInfo;
+    F32 leftValue;
+    F32 rightValue;
 };
 
 struct xClumpCollBSPVertInfo
 {
-    uint16 atomIndex;
-    uint16 meshVertIndex;
+    U16 atomIndex;
+    U16 meshVertIndex;
 };
 
 struct xClumpCollBSPTriangle
@@ -23,19 +23,19 @@ struct xClumpCollBSPTriangle
     union
     {
         xClumpCollBSPVertInfo i;
-        uint32 rawIdx;
+        U32 rawIdx;
         RwV3d* p;
     } v;
-    uint8 flags;
-    uint8 detailed_info_cache_index;
-    uint16 matIndex;
+    U8 flags;
+    U8 detailed_info_cache_index;
+    U16 matIndex;
 };
 
 struct xClumpCollBSPTree
 {
-    int32 numBranchNodes;
+    S32 numBranchNodes;
     xClumpCollBSPBranchNode* branchNodes;
-    int32 numTriangles;
+    S32 numTriangles;
     xClumpCollBSPTriangle* triangles;
 };
 

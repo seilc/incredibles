@@ -46,6 +46,6 @@ struct xFunctionGenerator : xBase
 #define XFUNCTIONGENERATOR_STATE_0 0
 #define XFUNCTIONGENERATOR_STATE_1 1
 
-void xFunctionGenerator_Init(xBase& data, xDynAsset& asset, ulong32);
+void xFunctionGenerator_Init(xBase& data, xDynAsset& asset, size_t);
 
 #endif

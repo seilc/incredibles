@@ -17,7 +17,7 @@ struct RyzMemGrow
     char* ptr_last;
     xBase* user_last;
 
-    bool32 IsEnabled()
+    S32 IsEnabled()
     {
         return flg_grow & RYZMEMGROW_ENABLED;
     }

@@ -7,12 +7,12 @@
 struct iFogParams
 {
     RwFogType type;
-    float32 start;
-    float32 stop;
-    float32 density;
+    F32 start;
+    F32 stop;
+    F32 density;
     RwRGBA fogcolor;
     RwRGBA bgcolor;
-    uint8* table;
+    U8* table;
 };
 
 #endif

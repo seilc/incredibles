@@ -8,20 +8,20 @@
 struct xAnimPhysicsData
 {
     xVec3* tranTable;
-    float32* yawTable;
-    int32 tranCount;
+    F32* yawTable;
+    S32 tranCount;
 };
 
 struct xAnimFile
 {
     xAnimFile* Next;
     const char* Name;
-    uint32 ID;
-    uint32 FileFlags;
-    float32 Duration;
-    float32 TimeOffset;
-    uint16 BoneCount;
-    uint8 NumAnims[2];
+    U32 ID;
+    U32 FileFlags;
+    F32 Duration;
+    F32 TimeOffset;
+    U16 BoneCount;
+    U8 NumAnims[2];
     void** RawData;
     xAnimPhysicsData* PhysicsData;
 };
@@ -32,11 +32,11 @@ struct xAnimSingle;
 struct xAnimEffect
 {
     xAnimEffect* Next;
-    uint16 Flags;
-    uint16 Probability;
-    float32 StartTime;
-    float32 EndTime;
-    uint32 (*Callback)(uint32, xAnimActiveEffect*, xAnimSingle*, void*);
+    U16 Flags;
+    U16 Probability;
+    F32 StartTime;
+    F32 EndTime;
+    U32 (*Callback)(U32, xAnimActiveEffect*, xAnimSingle*, void*);
 };
 
 struct xAnimActiveEffect
@@ -44,19 +44,19 @@ struct xAnimActiveEffect
     xAnimEffect* Effect;
     union
     {
-        uint32 Handle;
+        U32 Handle;
         iSndHandle SndHandle;
     };
 };
 
 struct xAnimMultiFileBase
 {
-    uint32 Count;
+    U32 Count;
 };
 
 struct xAnimMultiFileEntry
 {
-    uint32 ID;
+    U32 ID;
     xAnimFile* File;
 };
 
@@ -72,39 +72,39 @@ struct xAnimState
 {
     xAnimState* Next;
     const char* Name;
-    uint32 ID;
-    uint32 Flags;
-    uint32 UserFlags;
-    float32 Speed;
+    U32 ID;
+    U32 Flags;
+    U32 UserFlags;
+    F32 Speed;
     xAnimFile* Data;
     xAnimEffect* Effects;
     xAnimTransitionList* Default;
     xAnimTransitionList* List;
-    float32* BoneBlend;
-    float32* TimeSnap;
-    float32 FadeRecip;
-    uint16* FadeOffset;
+    F32* BoneBlend;
+    F32* TimeSnap;
+    F32 FadeRecip;
+    U16* FadeOffset;
     void* CallbackData;
     xAnimMultiFile* MultiFile;
     void (*BeforeEnter)(xAnimPlay*, xAnimState*, void*);
     void (*StateCallback)(xAnimState*, xAnimSingle*, void*);
-    void (*BeforeAnimMatrices)(xAnimPlay*, xQuat*, xVec3*, int32);
+    void (*BeforeAnimMatrices)(xAnimPlay*, xQuat*, xVec3*, S32);
 };
 
 struct xAnimTransition
 {
     xAnimTransition* Next;
     xAnimState* Dest;
-    uint32 (*Conditional)(xAnimTransition*, xAnimSingle*, void*);
-    uint32 (*Callback)(xAnimTransition*, xAnimSingle*, void*);
-    uint32 Flags;
-    uint32 UserFlags;
-    float32 SrcTime;
-    float32 DestTime;
-    uint16 Priority;
-    uint16 QueuePriority;
-    float32 BlendRecip;
-    uint16* BlendOffset;
+    U32 (*Conditional)(xAnimTransition*, xAnimSingle*, void*);
+    U32 (*Callback)(xAnimTransition*, xAnimSingle*, void*);
+    U32 Flags;
+    U32 UserFlags;
+    F32 SrcTime;
+    F32 DestTime;
+    U16 Priority;
+    U16 QueuePriority;
+    F32 BlendRecip;
+    U16* BlendOffset;
 };
 
 struct xAnimTransitionList
@@ -118,30 +118,30 @@ struct xAnimTable
     const char* Name;
     xAnimTransition* TransitionList;
     xAnimState* StateList;
-    uint32 AnimIndex;
-    uint32 MorphIndex;
-    uint32 UserFlags;
+    U32 AnimIndex;
+    U32 MorphIndex;
+    U32 UserFlags;
 };
 
 struct xAnimSingle
 {
-    uint32 SingleFlags;
+    U32 SingleFlags;
     xAnimState* State;
-    float32 Time;
-    float32 CurrentSpeed;
-    float32 BilinearLerp[2];
+    F32 Time;
+    F32 CurrentSpeed;
+    F32 BilinearLerp[2];
     xAnimEffect* Effect;
-    uint32 ActiveCount;
-    float32 LastTime;
+    U32 ActiveCount;
+    F32 LastTime;
     xAnimActiveEffect* ActiveList;
     xAnimPlay* Play;
     xAnimTransition* Sync;
     xAnimTransition* Tran;
     xAnimSingle* Blend;
-    float32 BlendFactor;
+    F32 BlendFactor;
     xVec3 PhysDisp;
-    float32 YawDisp;
-    uint32 pad[1];
+    F32 YawDisp;
+    U32 pad[1];
 };
 
 struct xModelInstance;
@@ -149,19 +149,19 @@ struct xModelInstance;
 struct xAnimPlay
 {
     xAnimPlay* Next;
-    uint16 NumSingle;
-    uint16 BoneCount;
+    U16 NumSingle;
+    U16 BoneCount;
     xAnimSingle* Single;
     void* Object;
     xAnimTable* Table;
     xMemPool* Pool;
     xModelInstance* ModelInst;
-    void (*BeforeAnimMatrices)(xAnimPlay*, xQuat*, xVec3*, int32);
+    void (*BeforeAnimMatrices)(xAnimPlay*, xQuat*, xVec3*, S32);
 };
 
 xAnimTransition* xAnimTempTransitionAlloc(const xAnimTransition* source);
 xAnimState* xAnimTableGetState(xAnimTable* table, const char* name);
-void xAnimPlaySetState(xAnimSingle* single, xAnimState* state, float32 startTime);
+void xAnimPlaySetState(xAnimSingle* single, xAnimState* state, F32 startTime);
 void xAnimPlayStartTransition(xAnimPlay* play, xAnimTransition* transition);
 
 #endif

@@ -2,7 +2,7 @@
 
 #include "xEvent.h"
 
-void zCameraFly_Init(xBase& data, xDynAsset& asset, ulong32)
+void zCameraFly_Init(xBase& data, xDynAsset& asset, size_t)
 {
     zCameraFly_Init((zCameraFly*)&data, (CameraFly_asset*)&asset);
 }

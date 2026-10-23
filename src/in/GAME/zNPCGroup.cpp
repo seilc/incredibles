@@ -8,7 +8,7 @@ namespace zNPC
         ((group*)to)->handle_event(from, to, toEvent, toParam, toParamWidget, toParamWidgetID);
     }
 
-    void group::init(xBase& data, xDynAsset& asset, ulong32)
+    void group::init(xBase& data, xDynAsset& asset, size_t)
     {
         group* new_group = (group*)&data;
 

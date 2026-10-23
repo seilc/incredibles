@@ -3,7 +3,7 @@
 #include "zScene.h"
 #include "xEvent.h"
 
-void zReferenceInit(xBase& data, xDynAsset& asset, ulong32)
+void zReferenceInit(xBase& data, xDynAsset& asset, size_t)
 {
     zReferenceInit((zReference*)&data, (zReferenceAsset*)&asset);
 }

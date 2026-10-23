@@ -13,51 +13,51 @@ union xVec3
 
     struct
     {
-        float32 x;
-        float32 y;
-        float32 z;
+        F32 x;
+        F32 y;
+        F32 z;
     };
 
-    float32 a[3];
+    F32 a[3];
 
     static const xVec3 m_Null;
     static const xVec3 m_UnitAxisX;
     static const xVec3 m_UnitAxisY;
     static const xVec3 m_UnitAxisZ;
 
-    float32 length() const;
-    float32 length2() const;
+    F32 length() const;
+    F32 length2() const;
     void up_normalize();
 
-    void assign(float32 x, float32 y, float32 z)
+    void assign(F32 x, F32 y, F32 z)
     {
         this->x = x;
         this->y = y;
         this->z = z;
     }
 
-    void assign(float32 xyz)
+    void assign(F32 xyz)
     {
         assign(xyz, xyz, xyz);
     }
 
     xVec3 operator-(const xVec3& v) const;
-    xVec3 operator*(float32 s) const;
+    xVec3 operator*(F32 s) const;
     xVec3& operator+=(const xVec3& v);
-    xVec3& operator*=(float32 s);
+    xVec3& operator*=(F32 s);
 };
 
-float32 xVec3Normalize(xVec3* o, const xVec3* v);
+F32 xVec3Normalize(xVec3* o, const xVec3* v);
 void xVec3Copy(xVec3* o, const xVec3* v);
-float32 xVec3Dot(const xVec3* a, const xVec3* b);
-float32 xVec3Length(const xVec3* v);
-float32 xVec3Length(float32 x, float32 y, float32 z);
+F32 xVec3Dot(const xVec3* a, const xVec3* b);
+F32 xVec3Length(const xVec3* v);
+F32 xVec3Length(F32 x, F32 y, F32 z);
 void xVec3Cross(xVec3* o, const xVec3* a, const xVec3* b);
-void xVec3SMul(xVec3* o, const xVec3* v, float32 s);
+void xVec3SMul(xVec3* o, const xVec3* v, F32 s);
 void xVec3Sub(xVec3* o, const xVec3* a, const xVec3* b);
-void xVec3AddScaled(xVec3* o, const xVec3* v, float32 s);
-void xVec3Init(xVec3* o, float32 x, float32 y, float32 z);
-void xVec3Init(xVec3& o, float32 x, float32 y, float32 z);
+void xVec3AddScaled(xVec3* o, const xVec3* v, F32 s);
+void xVec3Init(xVec3* o, F32 x, F32 y, F32 z);
+void xVec3Init(xVec3& o, F32 x, F32 y, F32 z);
 void xVec3AddTo(xVec3& o, const xVec3& v);
 void xVec3AddTo(xVec3* o, const xVec3* v);
 void xVec3Inv(xVec3* o, const xVec3* v);
@@ -71,8 +71,8 @@ inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)
 
 #define xVec3NormalizeMacro(outlen, o, v)                                                          \
     {                                                                                              \
-        float32 len = 1.0f;                                                                        \
-        float32 len2 = SQR((v)->x) + SQR((v)->y) + SQR((v)->z);                                    \
+        F32 len = 1.0f;                                                                        \
+        F32 len2 = SQR((v)->x) + SQR((v)->y) + SQR((v)->z);                                    \
                                                                                                    \
         if (APPROX_EQUAL(len2, 1.0f))                                                              \
         {                                                                                          \
@@ -92,7 +92,7 @@ inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)
         {                                                                                          \
             len = xsqrt(len2);                                                                     \
                                                                                                    \
-            float32 len_inv = 1.0f / len;                                                          \
+            F32 len_inv = 1.0f / len;                                                          \
                                                                                                    \
             (o)->x = (v)->x * len_inv;                                                             \
             (o)->y = (v)->y * len_inv;                                                             \

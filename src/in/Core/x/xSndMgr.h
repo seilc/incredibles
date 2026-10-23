@@ -13,26 +13,26 @@ enum xSndEffect
 
 struct xSndGroupHeader : xBaseAsset
 {
-    uint32 uPlayedMask;
-    uint8 uInfoCount;
-    uint8 uSetBits;
-    int8 nMaxPlays;
-    uint8 uPriority;
-    uint8 uFlags;
-    uint8 eSoundCategory;
-    uint8 ePlayRule;
-    uint8 uInfoPad0;
-    float32 fInnerRadius;
-    float32 fOuterRadius;
+    U32 uPlayedMask;
+    U8 uInfoCount;
+    U8 uSetBits;
+    S8 nMaxPlays;
+    U8 uPriority;
+    U8 uFlags;
+    U8 eSoundCategory;
+    U8 ePlayRule;
+    U8 uInfoPad0;
+    F32 fInnerRadius;
+    F32 fOuterRadius;
     const char* pszGroupName;
 };
 
 struct xSndGroupInfo
 {
-    uint32 uSoundNameHash;
-    float32 fVolume;
-    float32 fMinPitchMult;
-    float32 fMaxPitchMult;
+    U32 uSoundNameHash;
+    F32 fVolume;
+    F32 fMinPitchMult;
+    F32 fMaxPitchMult;
 };
 
 struct xSndGroup
@@ -44,14 +44,14 @@ struct xSndGroup
 void xSndMgrSetEffect(xSndEffect Effect);
 xSndEffect xSndMgrGetEffect();
 void xSndMgrUpdate();
-void xSndMgrStopSounds(int16 eSoundCategory, bool bSkipPaused);
-void xSndMgrPauseSounds(int16 eSoundCategory, bool bPaused, bool bPauseFutureSoundsOfThisType);
-float32 xSndMgrGetDampedVolume(int16 eSoundCategory);
-iSndGroupHandle xSndMgrGetSoundGroup(uint32 uSoundGroupNameHash);
-iSndHandle xSndMgrPlay(iSndGroupHandle hSoundToPlay, uint32 uFlags, const xVec3* pPos_WS = NULL,
+void xSndMgrStopSounds(S16 eSoundCategory, bool bSkipPaused);
+void xSndMgrPauseSounds(S16 eSoundCategory, bool bPaused, bool bPauseFutureSoundsOfThisType);
+F32 xSndMgrGetDampedVolume(S16 eSoundCategory);
+iSndGroupHandle xSndMgrGetSoundGroup(U32 uSoundGroupNameHash);
+iSndHandle xSndMgrPlay(iSndGroupHandle hSoundToPlay, U32 uFlags, const xVec3* pPos_WS = NULL,
                        const xVec3* pVel = NULL, xEnt* pParentEnt = NULL,
-                       const float32* pfOverrideVolume = NULL,
-                       const float32* pfOverridePitch = NULL);
+                       const F32* pfOverrideVolume = NULL,
+                       const F32* pfOverridePitch = NULL);
 void xSndMgrStop(iSndHandle& hSound);
 xSndGroup* xSndMgr_GetGroup(iSndGroupHandle hSound);
 

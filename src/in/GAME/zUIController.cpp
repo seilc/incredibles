@@ -16,7 +16,7 @@ void zUIController::DoRender() const
 {
 }
 
-void zUIController_Init(xBase& data, xDynAsset& asset, ulong32)
+void zUIController_Init(xBase& data, xDynAsset& asset, size_t)
 {
     zUIController_Init((zUIController*)&data, (zUIControllerAsset*)&asset);
 }

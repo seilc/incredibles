@@ -31,23 +31,23 @@ enum sceDemoEndReason
 
 struct PS2DemoGlobals
 {
-    uint16 language;
-    uint16 aspect;
-    uint16 play_mode;
-    uint16 inactive_timeout;
-    uint16 gameplay_timeout;
+    U16 language;
+    U16 aspect;
+    U16 play_mode;
+    U16 inactive_timeout;
+    U16 gameplay_timeout;
     sceDemoEndReason exit_code;
     struct
     {
-        uint32 FMV_playing : 1;
-        uint32 more_padding : 31;
+        U32 FMV_playing : 1;
+        U32 more_padding : 31;
     };
-    float32 bail_timer;
-    float32 inactive_timer;
-    float32 gameplay_timer;
+    F32 bail_timer;
+    F32 inactive_timer;
+    F32 gameplay_timer;
     char subdir[16];
-    uint16 quit;
-    uint16 vmode;
+    U16 quit;
+    U16 vmode;
 };
 
 struct xGlobals
@@ -60,10 +60,10 @@ struct xGlobals
     xPad* pad2;
     xPad* pad3;
     //xPad* pad[4]; removed in ship
-    int32 profile;
+    S32 profile;
     char profFunc[128][6];
     xUpdateCullMgr* updateMgr;
-    int32 sceneFirst;
+    S32 sceneFirst;
     char sceneStart[32];
     RpWorld* currWorld;
     iFogParams fog;
@@ -71,36 +71,36 @@ struct xGlobals
     iFogParams fogB;
     iTime fog_t0;
     iTime fog_t1;
-    int32 option_vibration;
-    int32 option_subtitles;
-    uint32 slowdown;
-    float32 update_dt;
-    int16 ForceCinematic;
-    int32 useHIPHOP;
-    uint8 NoMusic;
-    uint8 NoCutscenes;
-    uint8 NoPadCheck;
-    int8 currentActivePad;
-    uint8 firstStartPressed;
-    uint8 fromLauncher;
-    uint8 FlashWIP;
-    uint8 inLoadingScreen;
-    uint8 LoadingScene;
-    uint8 InitializingLoadingScreen;
-    uint8 ForceMono;
-    uint32 minVSyncCnt;
-    uint8 dontShowPadMessageDuringLoadingOrCutScene;
-    uint8 autoSaveFeature;
-    int32 asyncLoadingScreen;
-    int32 asyncLoadingFlags;
+    S32 option_vibration;
+    S32 option_subtitles;
+    U32 slowdown;
+    F32 update_dt;
+    S16 ForceCinematic;
+    S32 useHIPHOP;
+    U8 NoMusic;
+    U8 NoCutscenes;
+    U8 NoPadCheck;
+    S8 currentActivePad;
+    U8 firstStartPressed;
+    U8 fromLauncher;
+    U8 FlashWIP;
+    U8 inLoadingScreen;
+    U8 LoadingScene;
+    U8 InitializingLoadingScreen;
+    U8 ForceMono;
+    U32 minVSyncCnt;
+    U8 dontShowPadMessageDuringLoadingOrCutScene;
+    U8 autoSaveFeature;
+    S32 asyncLoadingScreen;
+    S32 asyncLoadingFlags;
     char fromLauncherUser[32];
     zPlayer* ___player_ent_dont_use_directly;
     zScene* sceneCur;
     zScene* scenePreload;
     PS2DemoGlobals* PS2demo;
     char watermark[127];
-    uint8 watermarkAlpha;
-    float32 watermarkSize;
+    U8 watermarkAlpha;
+    F32 watermarkSize;
 };
 
 extern xGlobals* xglobals;

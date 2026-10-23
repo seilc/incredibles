@@ -33,7 +33,7 @@ private:
     S32 maxLength;
 };
 
-void zUIUserString_Init(xBase& data, xDynAsset& asset, ulong32);
+void zUIUserString_Init(xBase& data, xDynAsset& asset, size_t);
 void zUIUserString_Init(zUIUserString* ui, zUIUserStringAsset* asset);
 
 #endif

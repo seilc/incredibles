@@ -5,7 +5,7 @@
 
 void xSkyDome_EmptyRender(xEnt*);
 void xSkyDome_Setup();
-void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, bool32 lockY, bool32 lockXZ);
+void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, S32 lockY, S32 lockXZ);
 void xSkyDome_Render();
 
 bool xSkyDome_EntityIsSkyDome(const xEnt* ent);

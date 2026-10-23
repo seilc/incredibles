@@ -24,7 +24,7 @@ struct zJSPExtraData : xBase
 
     static void ShowAssociatedGroup(U32 jspAssetId, bool show);
     static void AddPair(U32 jspID, U32 groupID, zJSPExtraData* data);
-    static void Load(xBase& data, xDynAsset& asset, ulong32);
+    static void Load(xBase& data, xDynAsset& asset, size_t);
 
     void LoadPrivate(const zJSPExtraDataAsset& asset);
 };

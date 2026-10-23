@@ -53,7 +53,7 @@ static zFMVFile zFMVFileTable[] =
 
 zFMVFile* zFMVFileGetFile(eFMVFile fmvId)
 {
-    for (int32 i = 0; i < ARRAYSIZE(zFMVFileTable); i++)
+    for (S32 i = 0; i < ARRAYSIZE(zFMVFileTable); i++)
     {
         if (fmvId == zFMVFileTable[i].fmvCode)
         {
@@ -76,16 +76,16 @@ const char* zFMVFileGetName(eFMVFile fmvId)
     return file->fileName;
 }
 
-uint32 zFMVPlay(const char* name, uint32 buttons, float32 time, uint32 uSubtitlesAID,
+U32 zFMVPlay(const char* name, U32 buttons, F32 time, U32 uSubtitlesAID,
                 bool skippable, bool lockController, bool r8)
 {
-    uint32 retval = 0;
+    U32 retval = 0;
 
     if (!globals.noMovies)
     {
         zMenuPause(true);
 
-        float32 oldSubtitlesSize = xSubTitlesGetSize();
+        F32 oldSubtitlesSize = xSubTitlesGetSize();
 
         xSubTitlesSetSize(0.18f);
 

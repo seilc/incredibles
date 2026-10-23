@@ -5,14 +5,14 @@
 
 typedef struct tag_iFile
 {
-    uint32 flags;
+    U32 flags;
     char path[128];
-    int32 fd;
-    int32 offset;
-    int32 length;
+    S32 fd;
+    S32 offset;
+    S32 length;
 } iFile;
 
-bool iFileExists(const char* name, int32);
+bool iFileExists(const char* name, S32);
 void iFileAsyncService();
 
 #endif

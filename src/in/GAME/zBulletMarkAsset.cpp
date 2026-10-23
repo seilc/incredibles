@@ -2,7 +2,7 @@
 
 zBulletMarkAssetMgr bulletmark_mgr;
 
-void zBulletMarkAsset_Init(xBase& data, xDynAsset& asset, ulong32)
+void zBulletMarkAsset_Init(xBase& data, xDynAsset& asset, size_t)
 {
     xBaseInit(&data, &asset);
 

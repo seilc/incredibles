@@ -14,7 +14,7 @@ struct xEnv
 
 extern xEnv* gCurXEnv;
 
-void xEnvLoadJSPList(xEnv* env, int32 dataType);
+void xEnvLoadJSPList(xEnv* env, S32 dataType);
 void xEnvSetup(xEnv* env);
 void xEnvFree(xEnv* env);
 void xEnvRender(xEnv* env, bool alpha);

@@ -161,7 +161,7 @@ U32 zUIUserString::GetSortKey() const
     return GetAsset()->id;
 }
 
-void zUIUserString_Init(xBase& data, xDynAsset& asset, ulong32)
+void zUIUserString_Init(xBase& data, xDynAsset& asset, size_t)
 {
     zUIUserString_Init((zUIUserString*)&data, (zUIUserStringAsset*)&asset);
 }

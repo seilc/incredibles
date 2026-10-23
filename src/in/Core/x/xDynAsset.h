@@ -2,12 +2,14 @@
 #define XDYNASSET_H
 
 #include "xBase.h"
+#include "xstransvc.h"
+#include "xString.h"
 
 struct xDynAsset : xBaseAsset
 {
-    uint32 type;
-    uint16 version;
-    uint16 handle;
+    U32 type;
+    U16 version;
+    U16 handle;
 };
 
 #define xDynAssetValidate(line, asset, T, type_name)                                              \

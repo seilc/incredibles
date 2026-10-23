@@ -66,7 +66,7 @@ void xScreenFade::reset()
     ScreenFade::GlobalData::cnt_fadesInProgress = 0;
 }
 
-void xScreenFade::load(xBase& data, xDynAsset& asset, ulong32)
+void xScreenFade::load(xBase& data, xDynAsset& asset, size_t)
 {
     ((xScreenFade&)data).load((asset_type&)asset);
 }

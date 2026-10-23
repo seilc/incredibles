@@ -3,8 +3,8 @@
 
 #include <types.h>
 
-extern uint32 startPressed;
+extern U32 startPressed;
 
-bool32 zGameIsPaused();
+S32 zGameIsPaused();
 
 #endif

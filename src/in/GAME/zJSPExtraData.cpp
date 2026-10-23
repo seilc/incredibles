@@ -54,7 +54,7 @@ void zJSPExtraData::AddPair(U32 jspID, U32 groupID, zJSPExtraData* data)
     sNumPairs++;
 }
 
-void zJSPExtraData::Load(xBase& data, xDynAsset& asset, ulong32)
+void zJSPExtraData::Load(xBase& data, xDynAsset& asset, size_t)
 {
     ((zJSPExtraData&)data).LoadPrivate((zJSPExtraDataAsset&)asset);
 }

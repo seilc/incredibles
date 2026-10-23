@@ -33,8 +33,8 @@
 //
 //     #include "xMath.h"
 //
-//     extern float64 _771_1;
-//     extern float64 _778_0;
+//     extern F64 _771_1;
+//     extern F64 _778_0;
 
 #ifndef SDATA2_PI
 #define SDATA2_PI 3.14159265359
@@ -44,21 +44,21 @@
 #define SDATA2_180 180.0
 #endif
 
-#define DEG2RAD(x) (float32)((SDATA2_PI) * (x) / (SDATA2_180))
-#define RAD2DEG(x) (float32)((SDATA2_180) * (x) / (SDATA2_PI))
+#define DEG2RAD(x) (F32)((SDATA2_PI) * (x) / (SDATA2_180))
+#define RAD2DEG(x) (F32)((SDATA2_180) * (x) / (SDATA2_PI))
 
-float32 xatof(const char* x);
-float32 xsqrt(float32 x);
-float32 xexp(float32 x);
-float32 xasin(float32 x);
-float32 xatan2(float32 y, float32 x);
+F32 xatof(const char* x);
+F32 xsqrt(F32 x);
+F32 xexp(F32 x);
+F32 xasin(F32 x);
+F32 xatan2(F32 y, F32 x);
 
 inline F32 xfmod(F32 x, F32 y)
 {
     return std::fmodf(x, y);
 }
 
-inline void xsqrtfast(float32& out, register float32 x)
+inline void xsqrtfast(F32& out, register F32 x)
 {
     if (x <= 0.0f)
     {

@@ -5,7 +5,7 @@
 
 typedef struct _tagiPad
 {
-    int32 port;
+    S32 port;
 } iPad;
 
 #endif

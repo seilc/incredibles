@@ -8,7 +8,7 @@
 #include "xString.h"
 #include "xPointer.h"
 
-void zCamPreset::load(xBase& data, xDynAsset& asset, ulong32)
+void zCamPreset::load(xBase& data, xDynAsset& asset, size_t)
 {
     ((zCamPreset&)data).load((const asset_type&)asset);
 }

@@ -9,7 +9,7 @@
 static zGrapplePoint* sGrapplePoints = NULL;
 static S32 sNumGrapplePoints = 0;
 
-void zGrapple_Init(xBase& data, xDynAsset& asset, ulong32)
+void zGrapple_Init(xBase& data, xDynAsset& asset, size_t)
 {
     zGrapple_Init((zGrapple*)&data, (zGrappleAsset*)&asset);
 }

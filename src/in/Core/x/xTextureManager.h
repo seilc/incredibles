@@ -8,15 +8,15 @@
 
 struct xInternalMovieNode
 {
-    uint32 hash_id;
+    U32 hash_id;
     PKRAssetTOCInfo info;
     MOVIE* pMovie;
     RwTexture* pTexture;
-    uint8 used;
-    uint8 m_looping;
-    uint16 m_freezeframed;
-    uint32 m_startframe;
-    uint32 m_endframe;
+    U8 used;
+    U8 m_looping;
+    U16 m_freezeframed;
+    U32 m_startframe;
+    U32 m_endframe;
 };
 
 struct xInternalTextureNode
@@ -24,9 +24,9 @@ struct xInternalTextureNode
     PKRAssetTOCInfo info;
     void* pAssetMemory;
     RwTexture* pTexture;
-    uint16 LRU;
-    uint8 refCount;
-    int8 used;
+    U16 LRU;
+    U8 refCount;
+    S8 used;
 };
 
 class xTextureHandle
@@ -46,13 +46,13 @@ public:
     void FreeMemory();
 
 private:
-    uint32 m_maxPoolSize;
-    uint32 m_currentPoolSize;
-    int32 m_lru;
+    U32 m_maxPoolSize;
+    U32 m_currentPoolSize;
+    S32 m_lru;
     xInternalTextureNode m_texture_nodes[128];
     xInternalMovieNode m_movie_nodes[4];
     xFile m_files[8];
-    uint32 m_clearIDs[8];
+    U32 m_clearIDs[8];
 };
 
 #endif

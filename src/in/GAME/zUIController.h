@@ -15,7 +15,7 @@ public:
         return (zUIControllerAsset*)zUI::GetAsset();
     }
 
-    uint32 GetSortKey() const
+    U32 GetSortKey() const
     {
         return GetAsset()->id;
     }
@@ -24,7 +24,7 @@ public:
     void DoRender() const;
 };
 
-void zUIController_Init(xBase& data, xDynAsset& asset, ulong32);
+void zUIController_Init(xBase& data, xDynAsset& asset, size_t);
 void zUIController_Init(zUIController* ui, zUIControllerAsset* asset);
 
 #endif

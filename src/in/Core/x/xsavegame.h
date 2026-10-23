@@ -20,80 +20,80 @@ typedef struct st_XSAVEGAME_WRITECONTEXT
 {
 } XSAVEGAME_WRITECONTEXT;
 
-typedef bool32 (*XSAVEGAME_CLIENT_SAVEINFO)(void* cltdata, XSAVEGAME_DATA* xsg, int32* cur_space,
-                                            int32* max_fullgame);
-typedef bool32 (*XSAVEGAME_CLIENT_SAVEPROC)(void* cltdata, XSAVEGAME_DATA* xsg,
+typedef S32 (*XSAVEGAME_CLIENT_SAVEINFO)(void* cltdata, XSAVEGAME_DATA* xsg, S32* cur_space,
+                                            S32* max_fullgame);
+typedef S32 (*XSAVEGAME_CLIENT_SAVEPROC)(void* cltdata, XSAVEGAME_DATA* xsg,
                                             XSAVEGAME_WRITECONTEXT* wctxt);
-typedef bool32 (*XSAVEGAME_CLIENT_LOADPROC)(void* cltdata, XSAVEGAME_DATA* xsg,
-                                            XSAVEGAME_READCONTEXT* rctxt, uint32 idtag, int32);
+typedef S32 (*XSAVEGAME_CLIENT_LOADPROC)(void* cltdata, XSAVEGAME_DATA* xsg,
+                                            XSAVEGAME_READCONTEXT* rctxt, U32 idtag, S32);
 
 typedef struct st_XSAVEGAME_CLIENT
 {
-    uint32 idtag;
+    U32 idtag;
     XSAVEGAME_CLIENT_SAVEINFO cltinfo;
     XSAVEGAME_CLIENT_SAVEPROC cltproc;
     XSAVEGAME_CLIENT_LOADPROC cltload;
     void* cltdata;
-    int32 needamt;
-    int32 maxamt;
-    int32 realamt;
+    S32 needamt;
+    S32 maxamt;
+    S32 realamt;
     char* buf_sizepos;
     char* buf_maxpos;
-    int32 blokact;
-    int32 blokmax;
+    S32 blokact;
+    S32 blokmax;
     char* blokpos;
     char* readpos;
-    int32 readamt;
-    int32 readremain;
+    S32 readamt;
+    S32 readremain;
 } XSAVEGAME_CLIENT;
 
 struct st_XSAVEGAME_DATA
 {
-    int32 gfile_idx;
+    S32 gfile_idx;
     SAVEGAME_MODE mode;
-    uint32 stage;
-    int32 gslot;
+    U32 stage;
+    S32 gslot;
     char label[64];
-    int32 progress;
-    int32 thumbIconIdx;
+    S32 progress;
+    S32 thumbIconIdx;
     iTime playtime;
     char* membuf;
-    int32 memsize;
+    S32 memsize;
     char* buf_curpos;
     char* buf_sizespot;
     char* buf_cksmspot;
-    int32 totamt;
-    uint32 chksum;
-    uint32 upd_tally;
-    int32 cltneed;
-    int32 cltmax;
-    int32 chdrneed;
-    int32 stkcnt;
+    S32 totamt;
+    U32 chksum;
+    U32 upd_tally;
+    S32 cltneed;
+    S32 cltmax;
+    S32 chdrneed;
+    S32 stkcnt;
     XSAVEGAME_CLIENT cltstk[128];
     XSAVEGAME_CLIENT dfltloadclt;
-    uint32 file_chksum;
-    uint32 read_chksum;
-    int32 readsize;
+    U32 file_chksum;
+    U32 read_chksum;
+    S32 readsize;
     char* loadbuf;
-    int32 loadsize;
+    S32 loadsize;
     char* walkpos;
-    int32 walkremain;
+    S32 walkremain;
     ISGSESSION* isgsess;
 };
 
-int32 xSGAddSaveClient(XSAVEGAME_DATA* xsgdata, uint32 clttag, void* cltdata,
+S32 xSGAddSaveClient(XSAVEGAME_DATA* xsgdata, U32 clttag, void* cltdata,
                        XSAVEGAME_CLIENT_SAVEINFO infofunc, XSAVEGAME_CLIENT_SAVEPROC procfunc);
-int32 xSGAddLoadClient(XSAVEGAME_DATA* xsgdata, uint32 clttag, void* cltdata,
+S32 xSGAddLoadClient(XSAVEGAME_DATA* xsgdata, U32 clttag, void* cltdata,
                        XSAVEGAME_CLIENT_LOADPROC loadfunc);
-int32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, char* data, int32 elesiz,
-                   int32 n);
-int32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, char* data, int32 n);
-int32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, int32* data, int32 n);
-int32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, float32* data, int32 n);
-int32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, char* buff, int32 elesiz,
-                  int32 n);
-int32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, char* buff, int32 n);
-int32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, int32* buff, int32 n);
-int32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, float32* buff, int32 n);
+S32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, char* data, S32 elesiz,
+                   S32 n);
+S32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, char* data, S32 n);
+S32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, S32* data, S32 n);
+S32 xSGWriteData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_WRITECONTEXT* wctxt, F32* data, S32 n);
+S32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, char* buff, S32 elesiz,
+                  S32 n);
+S32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, char* buff, S32 n);
+S32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, S32* buff, S32 n);
+S32 xSGReadData(XSAVEGAME_DATA* xsgdata, XSAVEGAME_READCONTEXT* rctxt, F32* buff, S32 n);
 
 #endif

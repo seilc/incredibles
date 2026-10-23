@@ -8,9 +8,9 @@ struct zEnt : xEnt
     xAnimTable* atbl;
 };
 
-void zEntEventAllOfType(uint32 toEvent, uint32 type);
-void zEntParseModelInfo(xEnt* ent, uint32 assetID);
-xModelAssetParam* zEntGetModelParams(uint32 assetID, uint16* size);
-const char* zParamGetString(xModelAssetParam* param, uint32 size, const char* tok, const char* def);
+void zEntEventAllOfType(U32 toEvent, U32 type);
+void zEntParseModelInfo(xEnt* ent, U32 assetID);
+xModelAssetParam* zEntGetModelParams(U32 assetID, U16* size);
+const char* zParamGetString(xModelAssetParam* param, U32 size, const char* tok, const char* def);
 
 #endif

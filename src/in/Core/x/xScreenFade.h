@@ -34,7 +34,7 @@ struct xScreenFade : xBase
     void StartFade();
     void reset();
 
-    static void load(xBase& data, xDynAsset& asset, ulong32);
+    static void load(xBase& data, xDynAsset& asset, size_t);
     static void cb_dispatch(xBase* from, xBase* to, U32 event, const F32*, xBase*, U32);
 };
 

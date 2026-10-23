@@ -12,7 +12,7 @@ static const char* unused_string_2 = "Idle01";
 
 namespace xhud
 {
-    void model_widget::load(xBase& data, xDynAsset& asset, ulong32)
+    void model_widget::load(xBase& data, xDynAsset& asset, size_t)
     {
         init_base(data, asset, sizeof(xBase) + sizeof(model_widget));
 

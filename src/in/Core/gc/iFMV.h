@@ -11,12 +11,12 @@ struct MOVIE
 #if 0
     HBINK hBink;
     RwRaster* pBinkRaster;
-    int32 asyncReadKey;
+    S32 asyncReadKey;
     RwTexture* pBinkTexture;
-    uint8* pPreBuffer;
-    uint8* pPreBufferAligned;
-    uint32 PreBufferSize;
-    int32 FileOffset;
+    U8* pPreBuffer;
+    U8* pPreBufferAligned;
+    U32 PreBufferSize;
+    S32 FileOffset;
     xFile* pFile;
 #else
     char unk0x00[0x04];
@@ -27,7 +27,7 @@ struct MOVIE
 #endif
 };
 
-uint32 iFMVPlay(const char* filename, uint32 buttons, float32 time, uint32 uSubtitlesAID,
+U32 iFMVPlay(const char* filename, U32 buttons, F32 time, U32 uSubtitlesAID,
                 bool skippable, bool lockController, bool r8);
 
 #endif

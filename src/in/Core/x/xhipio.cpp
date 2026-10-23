@@ -5,7 +5,7 @@
 static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags);
 static void HIPLDestroy(HIPLOADDATA* lddata);
 static U32 HIPLBaseSector(HIPLOADDATA* lddata);
-static bool32 HIPLSetBypass(HIPLOADDATA* lddata, bool32 enable, bool32 use_async);
+static S32 HIPLSetBypass(HIPLOADDATA* lddata, S32 enable, S32 use_async);
 static void HIPLSetSpot(HIPLOADDATA* lddata, S32 spot);
 static U32 HIPLBlockEnter(HIPLOADDATA* lddata);
 static void HIPLBlockExit(HIPLOADDATA* lddata);
@@ -134,7 +134,7 @@ static U32 HIPLBaseSector(HIPLOADDATA* lddata)
     return lddata->base_sector;
 }
 
-static bool32 HIPLSetBypass(HIPLOADDATA* lddata, bool32 enable, bool32 use_async)
+static S32 HIPLSetBypass(HIPLOADDATA* lddata, S32 enable, S32 use_async)
 {
     lddata->fli->discardDblBuf(lddata->fli);
 
@@ -231,7 +231,7 @@ static S32 HIPLBlockRead(HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
     HIPLOADBLOCK* top;
     S32 got = 0;
     S32 left = 0;
-    bool32 head = FALSE;
+    S32 head = FALSE;
 
     if (lddata->bypass)
     {

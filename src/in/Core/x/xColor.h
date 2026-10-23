@@ -8,7 +8,7 @@ typedef union xColor_tag
 {
     struct
     {
-        uint8 r, g, b, a;
+        U8 r, g, b, a;
     };
 
     RwRGBA rgba;
@@ -16,10 +16,10 @@ typedef union xColor_tag
 
 typedef struct _xFColor
 {
-    float32 r;
-    float32 g;
-    float32 b;
-    float32 a;
+    F32 r;
+    F32 g;
+    F32 b;
+    F32 a;
 } xFColor;
 
 extern const xColor g_RED;

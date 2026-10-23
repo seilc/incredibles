@@ -6,24 +6,24 @@
 
 struct xBase;
 
-typedef void (*xBaseEventCB)(xBase*, xBase*, uint32, const float32*, xBase*, uint32);
+typedef void (*xBaseEventCB)(xBase*, xBase*, U32, const F32*, xBase*, U32);
 
 struct xBase
 {
-    uint32 id;
-    uint8 baseType;
-    uint8 linkCount;
-    uint16 baseFlags;
+    U32 id;
+    U8 baseType;
+    U8 linkCount;
+    U16 baseFlags;
     xLinkAsset* link;
     xBaseEventCB eventFunc;
 };
 
 struct xBaseAsset
 {
-    uint32 id;
-    uint8 baseType;
-    uint8 linkCount;
-    uint16 baseFlags;
+    U32 id;
+    U8 baseType;
+    U8 linkCount;
+    U16 baseFlags;
 };
 
 #define XBASE_ENABLED 0x1

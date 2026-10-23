@@ -17,7 +17,7 @@ namespace zNPC
 
         static void EventCB(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
                             xBase* toParamWidget, U32 toParamWidgetID);
-        static void init(xBase& data, xDynAsset& asset, ulong32);
+        static void init(xBase& data, xDynAsset& asset, size_t);
 
         void handle_event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
                           xBase* toParamWidget, U32 toParamWidgetID);

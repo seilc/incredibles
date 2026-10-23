@@ -11,12 +11,12 @@ public:
     XCSNNosey();
 
     virtual void CanRenderNow();
-    virtual void UpdatedAnimated(RpAtomic* model, RwMatrix* animMat, uint32 animIndex,
-                                 uint32 dataIndex, uint32&);
+    virtual void UpdatedAnimated(RpAtomic* model, RwMatrix* animMat, U32 animIndex,
+                                 U32 dataIndex, U32&);
 
 private:
     void* userdata;
-    int32 flg_nosey;
+    S32 flg_nosey;
 };
 
 #endif

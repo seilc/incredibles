@@ -52,12 +52,12 @@ struct zFMVFile
 {
     eFMVFile fmvCode;
     const char* fileName;
-    uint32 subtitleID;
+    U32 subtitleID;
 };
 
 zFMVFile* zFMVFileGetFile(eFMVFile fmvId);
 const char* zFMVFileGetName(eFMVFile fmvId);
-uint32 zFMVPlay(const char* name, uint32 buttons, float32 time, uint32 uSubtitlesAID,
+U32 zFMVPlay(const char* name, U32 buttons, F32 time, U32 uSubtitlesAID,
                 bool skippable, bool lockController, bool r8);
 
 #endif

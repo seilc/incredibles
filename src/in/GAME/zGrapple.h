@@ -28,7 +28,7 @@ struct zGrapplePoint
 
 struct zScene;
 
-void zGrapple_Init(xBase& data, xDynAsset& asset, ulong32);
+void zGrapple_Init(xBase& data, xDynAsset& asset, size_t);
 void zGrapple_Init(zGrapple* grapple, zGrappleAsset* asset);
 S32 zGrapple_Recurse(U32 id, zGrapplePoint* gpList, zGrapple* grapple);
 void zGrapple_SceneInit(zScene* zsc);

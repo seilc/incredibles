@@ -6,10 +6,10 @@
 
 typedef struct st_STRAN_SCENE
 {
-    uint32 scnid;
-    int32 lockid;
+    U32 scnid;
+    S32 lockid;
     PACKER_READ_DATA* spkg;
-    int32 flgHipHop;
+    S32 flgHipHop;
     void* userdata;
     char fnam[256];
 } STRAN_SCENE;
@@ -19,7 +19,7 @@ typedef struct st_STRAN_SCENE
 typedef struct st_STRAN_DATA
 {
     STRAN_SCENE hipscn[STRAN_SCENE_COUNT];
-    uint32 loadlock;
+    U32 loadlock;
 } STRAN_DATA;
 
 #define XST_HIP 0x1
@@ -32,17 +32,17 @@ typedef struct st_STRAN_DATA
 #define XSTUNLOAD_ALL (XSTUNLOAD_HIP | XSTUNLOAD_HOP | XSTUNLOAD_HIPHOP)
 
 bool xSTIsLoaded();
-int32 xSTStartup(PKRAssetType* handlers);
-int32 xSTShutdown();
-void xSTUnLoadSceneMany(uint32 sceneID, int32 type);
-const char* xSTAssetName(uint32 aid);
-void* xSTFindAsset(uint32 aid, uint32* size = NULL);
-int32 xSTAssetCountByType(uint32 type);
-void* xSTFindAssetByType(uint32 type, int32 idx, uint32* size = NULL);
-int32 xSTGetAssetInfo(uint32 aid, PKRAssetTOCInfo* tocainfo);
-int32 xSTGetAssetInfoByType(uint32 type, int32 idx, PKRAssetTOCInfo* tocainfo);
-const char* xST_xAssetID_HIPFullPath(uint32 aid);
-const char* xST_xAssetID_HIPFullPath(uint32 aid, uint32* sceneID);
+S32 xSTStartup(PKRAssetType* handlers);
+S32 xSTShutdown();
+void xSTUnLoadSceneMany(U32 sceneID, S32 type);
+const char* xSTAssetName(U32 aid);
+void* xSTFindAsset(U32 aid, U32* size = NULL);
+S32 xSTAssetCountByType(U32 type);
+void* xSTFindAssetByType(U32 type, S32 idx, U32* size = NULL);
+S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo);
+S32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo);
+const char* xST_xAssetID_HIPFullPath(U32 aid);
+const char* xST_xAssetID_HIPFullPath(U32 aid, U32* sceneID);
 void xSTSetLocalizationCode(const char* code);
 const char* xSTGetLocalizationCode();
 xRegion xSTGetLocalizationEnum();

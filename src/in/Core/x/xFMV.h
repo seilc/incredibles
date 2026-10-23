@@ -4,8 +4,8 @@
 #include "iFMV.h"
 
 void xFMVPauseSound(bool doPause);
-int32 xFMVGetBinkCompliantVolume();
-RwTexture* xFMVGetTexture(MOVIE* pMovie, uint16 looping, uint16 freezeframed, uint32 startframe,
-                          uint32 endframe, uint32);
+S32 xFMVGetBinkCompliantVolume();
+RwTexture* xFMVGetTexture(MOVIE* pMovie, U16 looping, U16 freezeframed, U32 startframe,
+                          U32 endframe, U32);
 
 #endif

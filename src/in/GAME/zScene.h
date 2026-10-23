@@ -9,33 +9,33 @@
 
 struct zSceneParameters : xDynAsset
 {
-    uint32 idle03ExtraCount;
+    U32 idle03ExtraCount;
     xAnimFile** idle03Extras;
-    uint32 idle04ExtraCount;
+    U32 idle04ExtraCount;
     xAnimFile** idle04Extras;
-    uint8 bombCount;
-    uint8 extraIdleDelay;
-    uint8 hdrGlow;
-    uint8 hdrDarken;
-    uint32 uDefaultMusicHash;
-    uint32 flags;
-    float32 waterTileWidth;
-    float32 lodFadeDistance;
-    uint32 pad[4];
+    U8 bombCount;
+    U8 extraIdleDelay;
+    U8 hdrGlow;
+    U8 hdrDarken;
+    U32 uDefaultMusicHash;
+    U32 flags;
+    F32 waterTileWidth;
+    F32 lodFadeDistance;
+    U32 pad[4];
 };
 
 struct zScene : xScene
 {
     _zPortal* pendingPortal;
-    int32 num_base;
+    S32 num_base;
     xBase** base;
-    uint32 num_update_base;
+    U32 num_update_base;
     xBase** update_base;
-    int32 baseCount[eBaseTypeCount];
+    S32 baseCount[eBaseTypeCount];
     xBase* baseList[eBaseTypeCount];
     _zEnv* zen;
     zSceneParameters* parameters;
-    uint8 enableDrawing;
+    U8 enableDrawing;
 };
 
 typedef xBase* (*zSceneForAllBaseCallback)(xBase*, zScene*, void*);
@@ -43,10 +43,10 @@ typedef xBase* (*zSceneForAllBaseCallback)(xBase*, zScene*, void*);
 #define ZSCENE_LOAD_HIP 0x1
 #define ZSCENE_LOAD_HOP 0x2
 
-void zSceneSwitch(_zPortal* p, bool32 forceSameScene);
-xBase* zSceneFindObject(uint32 gameID);
-void zSceneForAllBase(zSceneForAllBaseCallback func, int32 baseType, void* data);
-bool zSceneLoadPackFile(uint32 id, int32 options, bool noLocalized = false,
+void zSceneSwitch(_zPortal* p, S32 forceSameScene);
+xBase* zSceneFindObject(U32 gameID);
+void zSceneForAllBase(zSceneForAllBaseCallback func, S32 baseType, void* data);
+bool zSceneLoadPackFile(U32 id, S32 options, bool noLocalized = false,
                         const char* filename = NULL);
 
 #endif

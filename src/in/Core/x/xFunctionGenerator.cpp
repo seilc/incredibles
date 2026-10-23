@@ -196,7 +196,7 @@ void xFunctionGenerator::Reset()
     started = false;
 }
 
-void xFunctionGenerator_Init(xBase& data, xDynAsset& asset, ulong32)
+void xFunctionGenerator_Init(xBase& data, xDynAsset& asset, size_t)
 {
     new (&data) xFunctionGenerator((xFunctionGeneratorAsset*)&asset);
 }

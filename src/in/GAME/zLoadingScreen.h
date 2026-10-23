@@ -10,18 +10,18 @@ public:
     static void UnSetShowStats();
 
     void Init();
-    void Update(float32 dt);
+    void Update(F32 dt);
     void Render();
     void Exit();
-    void* CustomAllocate(uint32 size);
-    void CustomSignal(zUI* from, uint32 dest, uint32 event, const float32* param,
-                      xBase* paramWidget, uint32 paramWidgetID);
+    void* CustomAllocate(U32 size);
+    void CustomSignal(zUI* from, U32 dest, U32 event, const F32* param,
+                      xBase* paramWidget, U32 paramWidgetID);
 
 private:
     zUI* controls[16];
-    int32 controlCount;
+    S32 controlCount;
     void* allocations[32];
-    int32 allocationCount;
+    S32 allocationCount;
 };
 
 #endif

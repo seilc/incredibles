@@ -4,7 +4,7 @@
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
-void XOrdInit(XORDEREDARRAY* array, S32 size, bool32 tempAlloc)
+void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc)
 {
     size = MAX(size, 1);
 
@@ -27,7 +27,7 @@ void XOrdInit(XORDEREDARRAY* array, S32 size, bool32 tempAlloc)
     }
 }
 
-void XOrdDone(XORDEREDARRAY* array, bool32 wasTempAlloc)
+void XOrdDone(XORDEREDARRAY* array, S32 wasTempAlloc)
 {
     if (array->max && wasTempAlloc)
     {

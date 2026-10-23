@@ -6,8 +6,8 @@
 
 typedef struct _tagPadAnalog
 {
-    int8 x;
-    int8 y;
+    S8 x;
+    S8 y;
 } PadAnalog;
 
 typedef enum _tagPadState
@@ -25,30 +25,30 @@ typedef struct _tagxPad
     {
         xVec2 offset;
         xVec2 dir;
-        float32 mag;
-        float32 ang;
+        F32 mag;
+        F32 ang;
     };
 
-    uint8 value[22];
-    uint8 last_value[22];
-    uint32 on;
-    uint32 pressed;
-    uint32 released;
+    U8 value[22];
+    U8 last_value[22];
+    U32 on;
+    U32 pressed;
+    U32 released;
     PadAnalog analog1;
     PadAnalog analog2;
     PadState state;
-    uint32 flags;
-    int16 port;
-    int16 slot;
+    U32 flags;
+    S16 port;
+    S16 slot;
     iPad context;
-    float32 al2d_timer;
-    float32 ar2d_timer;
-    float32 d_timer;
-    float32 up_tmr[22];
-    float32 down_tmr[22];
+    F32 al2d_timer;
+    F32 ar2d_timer;
+    F32 d_timer;
+    F32 up_tmr[22];
+    F32 down_tmr[22];
     analog_data analog[2];
 } xPad;
 
-int32 xPadUpdate(int32 idx, float32 time_passed);
+S32 xPadUpdate(S32 idx, F32 time_passed);
 
 #endif

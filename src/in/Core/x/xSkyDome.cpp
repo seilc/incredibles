@@ -8,8 +8,8 @@ struct SkyDomeInfo
 {
     xEnt* ent;
     S32 sortorder;
-    bool32 lockXZ;
-    bool32 lockY;
+    S32 lockXZ;
+    S32 lockY;
 };
 
 static SkyDomeInfo sSkyList[8];
@@ -26,7 +26,7 @@ void xSkyDome_Setup()
 
 #ifndef NON_MATCHING
 #else
-void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, bool32 lockY, bool32 lockXZ)
+void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, S32 lockY, S32 lockXZ)
 {
     S32 i, j;
 

@@ -5,26 +5,6 @@
 // Don't include this in any RenderWare, system, bink, etc. files
 
 #ifdef GAMECUBE
-// OLD TYPES
-typedef signed char int8;
-typedef signed short int16;
-typedef signed int int32;
-typedef signed long long int64;
-
-typedef unsigned char uint8;
-typedef unsigned short uint16;
-typedef unsigned int uint32;
-typedef unsigned long long uint64;
-
-typedef float float32;
-typedef double float64;
-
-typedef signed long long32;
-typedef unsigned long ulong32;
-
-typedef int32 bool32;
-
-// NEW TYPES
 typedef signed char S8;
 typedef signed short S16;
 typedef signed int S32;

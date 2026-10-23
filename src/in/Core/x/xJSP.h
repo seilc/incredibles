@@ -14,41 +14,41 @@ struct xJSPMiniLightTie
 
 struct xJSPNodeInfo
 {
-    int32 originalMatIndex;
-    uint16 nodeFlags;
-    int16 sortOrder;
+    S32 originalMatIndex;
+    U16 nodeFlags;
+    S16 sortOrder;
 };
 
 struct xJSPNodeTreeBranch
 {
-    uint16 leftNode;
-    uint16 rightNode;
-    uint8 leftType;
-    uint8 rightType;
-    uint16 coord;
-    float32 leftValue;
-    float32 rightValue;
+    U16 leftNode;
+    U16 rightNode;
+    U8 leftType;
+    U8 rightType;
+    U16 coord;
+    F32 leftValue;
+    F32 rightValue;
 };
 
 struct xJSPNodeTreeLeaf
 {
-    int32 nodeIndex;
-    int32 leafCount;
+    S32 nodeIndex;
+    S32 leafCount;
     RwBBox box;
 };
 
 struct xJSPNodeTree
 {
-    int32 numBranchNodes;
+    S32 numBranchNodes;
     xJSPNodeTreeBranch* branchNodes;
-    int32 numLeafNodes;
+    S32 numLeafNodes;
     xJSPNodeTreeLeaf* leafNodes;
 };
 
 struct xJSPNodeLight
 {
     RpAtomic* atomic;
-    int32 lightCount;
+    S32 lightCount;
     RpTie dummyTie;
     RpWorldSector dummySector;
     xJSPMiniLightTie dummyLightTie[16];
@@ -57,15 +57,15 @@ struct xJSPNodeLight
 struct xJSPHeader
 {
     char idtag[4];
-    uint32 version;
-    uint32 jspNodeCount;
+    U32 version;
+    U32 jspNodeCount;
     RpClump* clump;
     xClumpCollBSPTree* colltree;
     xJSPNodeInfo* jspNodeList;
-    uint32 stripVecCount;
+    U32 stripVecCount;
     RwV3d* stripVecList;
-    uint16 vertDataFlags;
-    uint16 vertDataStride;
+    U16 vertDataFlags;
+    U16 vertDataStride;
     xJSPNodeTree* nodetree;
     xJSPNodeLight* nodelight;
 };

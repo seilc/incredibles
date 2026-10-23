@@ -23,7 +23,7 @@ struct zCamPreset : xBase
     const asset_type* asset;
     S32 flags;
 
-    static void load(xBase& data, xDynAsset& asset, ulong32);
+    static void load(xBase& data, xDynAsset& asset, size_t);
     static void update_all(F32);
     static void apply_on_scene_prepare();
     static void apply_on_reset();

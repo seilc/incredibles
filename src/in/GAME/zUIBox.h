@@ -8,9 +8,9 @@ class zUIBox : public zUI
 {
 private:
     xTextureHandle textures[9];
-    float32 curRotation;
+    F32 curRotation;
 };
 
-void zUIBox_Init(xBase& data, xDynAsset& asset, ulong32);
+void zUIBox_Init(xBase& data, xDynAsset& asset, size_t);
 
 #endif

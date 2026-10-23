@@ -3,7 +3,7 @@
 #include "zBase.h"
 #include "xEvent.h"
 
-void zWaterBody::load(xBase& data, xDynAsset& asset, ulong32)
+void zWaterBody::load(xBase& data, xDynAsset& asset, size_t)
 {
     ((zWaterBody&)data).load((asset_type&)asset);
 }

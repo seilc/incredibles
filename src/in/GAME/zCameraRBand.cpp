@@ -8,7 +8,7 @@
 zSlideCam* rbCam = NULL;
 bool zRBAND_CAMERA_ACTIVE = false;
 
-void zCameraRBandAsset_Init(xBase& data, xDynAsset& asset, ulong32)
+void zCameraRBandAsset_Init(xBase& data, xDynAsset& asset, size_t)
 {
     zCameraRBandAsset_Init((zCameraRBandObject*)&data, (zCameraRBandAsset*)&asset);
 }

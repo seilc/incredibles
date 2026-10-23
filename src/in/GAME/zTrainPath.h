@@ -28,7 +28,7 @@ struct zTrainPathJunction : xBase
     static void AddJunction(zTrainPathJunction* junction);
     static void InitDone();
     static zTrainPathJunction* GetPathEnd(x::NURBS* curve, bool along_increasing_u);
-    static void Init(xBase& data, xDynAsset& asset, ulong32);
+    static void Init(xBase& data, xDynAsset& asset, size_t);
     static void Event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
                       xBase* toParamWidget, U32 toParamWidgetID);
     static void Reset();
