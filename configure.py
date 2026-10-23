@@ -795,7 +795,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xLightVolume.cpp"),
             Object(NonMatching, "in/GAME/zUICustom.cpp"),
             Object(NonMatching, "in/GAME/zUIIncredibles.cpp"),
-            Object(NonMatching, "in/Core/x/xMemoryManager.cpp"),
+            Object(Matching, "in/Core/x/xMemoryManager.cpp"),
             Object(Matching, "in/Core/x/xMemoryManagerFixed.cpp"),
             Object(NonMatching, "in/Core/x/xMemoryManagerGeneral.cpp"),
             Object(Matching, "in/Core/gc/iException.cpp"),
