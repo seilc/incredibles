@@ -5,6 +5,8 @@
 
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define xmin(a,b) ((a) < (b) ? (a) : (b))
+#define xmax(a,b) ((a) > (b) ? (a) : (b))
 
 #define SQR(x) ((x) * (x))
 

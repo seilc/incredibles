@@ -1,6 +1,7 @@
 #ifndef XDEBUG_H
 #define XDEBUG_H
 
+#include "iDebug.h"
 #include "xString.h"
 
 #if DEBUG || RELEASE

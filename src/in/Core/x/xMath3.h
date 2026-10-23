@@ -3,6 +3,7 @@
 
 #include "xMath.h"
 #include "xVec3.h"
+#include "xDebug.h"
 
 struct xVec4
 {
@@ -40,6 +41,12 @@ struct xRot
     float32 angle;
 };
 
+struct xLine3
+{
+    xVec3 p1;
+    xVec3 p2;
+};
+
 struct xBox
 {
     xVec3 upper;
@@ -70,6 +77,9 @@ struct xPlane
     xVec3 norm;
     float32 d;
 };
+
+#define XRAY3_USE_MIN (1<<10)
+#define XRAY3_USE_MAX (1<<11)
 
 struct xRay3
 {

@@ -5,45 +5,56 @@
 
 struct xQCControl
 {
-    float32 world_xmin;
-    float32 world_ymin;
-    float32 world_zmin;
-    float32 world_xmax;
-    float32 world_ymax;
-    float32 world_zmax;
-    float32 world_xsz;
-    float32 world_ysz;
-    float32 world_zsz;
-    float32 scale_x;
-    float32 scale_y;
-    float32 scale_z;
-    float32 center_x;
-    float32 center_y;
-    float32 center_z;
+    F32 world_xmin;
+    F32 world_ymin;
+    F32 world_zmin;
+    F32 world_xmax;
+    F32 world_ymax;
+    F32 world_zmax;
+    F32 world_xsz;
+    F32 world_ysz;
+    F32 world_zsz;
+    F32 scale_x;
+    F32 scale_y;
+    F32 scale_z;
+    F32 center_x;
+    F32 center_y;
+    F32 center_z;
 };
 
 struct xQCData
 {
-    int8 xmin;
-    int8 ymin;
-    int8 zmin;
-    int8 zmin_dup;
-    int8 xmax;
-    int8 ymax;
-    int8 zmax;
-    int8 zmax_dup;
+    S8 xmin;
+    S8 ymin;
+    S8 zmin;
+    S8 zmin_dup;
+    S8 xmax;
+    S8 ymax;
+    S8 zmax;
+    S8 zmax_dup;
     xVec3 min;
     xVec3 max;
 };
 
-struct xBound;
-
 extern xQCControl xqc_def_ctrl;
 
-bool32 xQuickCullIsects(const xQCData* a, const xQCData* b);
+struct xBound;
+
+void xQuickCullInit(xQCControl* ctrl, F32 xmin, F32 ymin, F32 zmin, F32 xmax, F32 ymax, F32 zmax);
+void xQuickCullInit(xQCControl* ctrl, const xBox* box);
+S32 xQuickCullIsects(const xQCData* a, const xQCData* b);
 void xQuickCullForBound(xQCControl* ctrl, xQCData* q, const xBound* b);
+void xQuickCullForLine(xQCControl* ctrl, xQCData* q, const xLine3* ln);
+void xQuickCullForRay(xQCControl* ctrl, xQCData* q, const xRay3* r);
 void xQuickCullForSphere(xQCControl* ctrl, xQCData* q, const xSphere* s);
+void xQuickCullForBox(xQCControl* ctrl, xQCData* q, const xBox* box);
+void xQuickCullForOBB(xQCControl* ctrl, xQCData* q, const xBox* b, const xMat4x3* m);
 void xQuickCullForEverything(xQCData* q);
+
+inline void xQuickCullForLine(xQCData* q, const xLine3* r)
+{
+    xQuickCullForLine(&xqc_def_ctrl, q, r);
+}
 
 inline void xQuickCullForBound(xQCData* q, const xBound* b)
 {
@@ -54,5 +65,11 @@ inline void xQuickCullForSphere(xQCData* q, const xSphere* s)
 {
     xQuickCullForSphere(&xqc_def_ctrl, q, s);
 }
+
+#if DEBUG
+void xQuickCullDebugCB();
+void xQuickCullDebugUpdate();
+void xQuickCullDebugRegister(const xQCData* q);
+#endif
 
 #endif
