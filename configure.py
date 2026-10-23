@@ -548,7 +548,7 @@ config.libs = [
             Object(NonMatching, "in/Core/x/xModel.cpp"),
             Object(NonMatching, "in/Core/x/xModelBucket.cpp"),
             Object(Matching, "in/Core/x/xMorph.cpp"),
-            Object(NonMatching, "in/Core/x/xMovePoint.cpp"),
+            Object(Matching, "in/Core/x/xMovePoint.cpp"),
             Object(NonMatching, "in/Core/x/xNavigationMeshAsset.cpp"),
             Object(NonMatching, "in/Core/x/xOneLinerManager.cpp"),
             Object(NonMatching, "in/Core/x/xOneLinerPlayer.cpp"),

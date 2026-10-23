@@ -2,24 +2,9 @@
 #define XMOVEPOINT_H
 
 #include "xBase.h"
-#include "xMath3.h"
-#include "xSpline.h"
+#include "xMovePointAsset.h"
 
-struct xScene;
-
-struct xMovePointAsset : xBaseAsset
-{
-    xVec3 pos;
-    U16 wt;
-    U8 on;
-    U8 bezIndex;
-    U8 flg_props;
-    U8 pad;
-    U16 numPoints;
-    F32 delay;
-    F32 zoneRadius;
-    F32 arenaRadius;
-};
+struct xSpline3;
 
 struct xMovePoint : xBase
 {
@@ -28,17 +13,26 @@ struct xMovePoint : xBase
     xMovePoint** nodes;
     xMovePoint* prev;
     U32 node_wt_sum;
-    bool on;
+    U8 on;
     U8 pad[3];
+#if DEBUG || RELEASE
+    U32 start_point_of_id;
+#endif
     F32 delay;
     xSpline3* spl;
 };
+
+struct xScene;
 
 void xMovePointInit(xMovePoint* m, xMovePointAsset* asset);
 void xMovePointSave(xMovePoint* ent, xSerial* s);
 void xMovePointLoad(xMovePoint* ent, xSerial* s);
 void xMovePointReset(xMovePoint* m);
 void xMovePointSetup(xMovePoint* m, xScene* sc);
+void xMovePointSplineSetup(xMovePoint* m);
+void xMovePointSplineDestroy(xMovePoint* m);
+F32 xMovePointGetNext(const xMovePoint* m, const xMovePoint* prev, xMovePoint** next, xVec3* hdng);
 xVec3* xMovePointGetPos(const xMovePoint* m);
+S32 xMovePointGetAllLinked(xMovePoint** mps, S32 mps_max, xMovePoint* mp, S32 mps_used); // RESTORED
 
 #endif

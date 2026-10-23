@@ -1,6 +1,7 @@
 #ifndef XBASE_H
 #define XBASE_H
 
+#include "xBaseAsset.h"
 #include "xLinkAsset.h"
 #include "xserializer.h"
 
@@ -16,14 +17,6 @@ struct xBase
     U16 baseFlags;
     xLinkAsset* link;
     xBaseEventCB eventFunc;
-};
-
-struct xBaseAsset
-{
-    U32 id;
-    U8 baseType;
-    U8 linkCount;
-    U16 baseFlags;
 };
 
 #define k_XBASE_IS_ENABLED ((U16)(1 << 0))

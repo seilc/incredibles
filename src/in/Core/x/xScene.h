@@ -34,4 +34,6 @@ struct xScene
     const char* (*id2Name)(U32);
 };
 
+xBase* xSceneResolvID(xScene* sc, U32 id);
+
 #endif
