@@ -1,0 +1,65 @@
+name: Discord
+
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  notify:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Forward push event to Discord
+        env:
+          HOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::No DISCORD_WEBHOOK secret, skipped"
+            exit 0
+          fi
+          curl -fsS -H "Content-Type: application/json" -H "X-GitHub-Event: push" \
+            --data-binary @"$GITHUB_EVENT_PATH" "$HOOK"
+
+  progress:
+    if: >-
+      github.event_name == 'workflow_run' && github.event.workflow_run.event == 'push'
+      && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          gh run download "$RUN_ID" -R "$GITHUB_REPOSITORY" -p '*_report' -D cur
+          prev=$(gh run list -R "$GITHUB_REPOSITORY" -w Build -b main -e push -s success -L 20 \
+              --json databaseId --jq "[.[] | select(.databaseId != $RUN_ID)][0].databaseId // empty")
+          if [ -n "$prev" ] && gh run download "$prev" -R "$GITHUB_REPOSITORY" -p '*_report' -D prev; then
+            echo "PREV=prev" >> "$GITHUB_ENV"
+          fi
+
+      - name: Post progress to Discord
+        env:
+          HOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then
+            echo "::warning::No DISCORD_PROGRESS_WEBHOOK secret, skipped"
+            exit 0
+          fi
+          python3 .github/progress.py cur $PREV > payload.json
+          if [ ! -s payload.json ]; then
+            echo "No progress change, skipped"
+            exit 0
+          fi
+          curl -fsS -H "Content-Type: application/json" --data-binary @payload.json "$HOOK"
