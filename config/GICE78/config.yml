@@ -1,0 +1,88 @@
+# See config.example.yml for documentation.
+object_base: orig/GICE78
+object: sys/main.dol
+hash: c7413be2fba5b8cc47b7506ecb7785677a4a1c12
+symbols: config/GICE78/symbols.txt
+splits: config/GICE78/splits.txt
+# Change this to match the linker version.
+# See config.example.yml for a list.
+ldscript_template: config/GICE78/ldscript.tpl
+
+# Pool references taken minus 4 that dtk attributes to the previous object.
+add_relocations:
+- source: .text:0x8000E008
+  type: sda21
+  target: "@902!.sbss2:0x803D8498"
+  addend: -4
+- source: .text:0x8001D6F4
+  type: sda21
+  target: "@1342!.sbss2:0x803D8610"
+  addend: -4
+- source: .text:0x80052538
+  type: sda21
+  target: "@1593!.sbss2:0x803D8760"
+  addend: -4
+- source: .text:0x80057340
+  type: sda21
+  target: "@1009!.sdata2:0x803D2948"
+  addend: -4
+- source: .text:0x8005740C
+  type: sda21
+  target: "@1015!.sbss2:0x803D87E0"
+  addend: -4
+- source: .text:0x800605D4
+  type: sda21
+  target: "@1140!.sbss2:0x803D88A0"
+  addend: -4
+- source: .text:0x80073F58
+  type: sda21
+  target: "@989!.sdata2:0x803D2E18"
+  addend: -4
+- source: .text:0x80076284
+  type: sda21
+  target: "@806!.sbss2:0x803D8940"
+  addend: -4
+- source: .text:0x80079378
+  type: sda21
+  target: "@1056!.sdata2:0x803D2E98"
+  addend: -4
+- source: .text:0x8007CC00
+  type: sda21
+  target: "@1377!.sbss2:0x803D8988"
+  addend: -4
+- source: .text:0x800B31F8
+  type: sda21
+  target: "@2177!.sbss2:0x803D8B78"
+  addend: -4
+- source: .text:0x800CC4E4
+  type: sda21
+  target: "@1174!.sbss2:0x803D8C30"
+  addend: -4
+- source: .text:0x80106B20
+  type: sda21
+  target: "@1484!.sbss2:0x803D8D78"
+  addend: -4
+- source: .text:0x80153D3C
+  type: sda21
+  target: "@1935!.sbss2:0x803D9098"
+  addend: -4
+- source: .text:0x8016E114
+  type: sda21
+  target: "@1001!.sbss2:0x803D9108"
+  addend: -4
+- source: .text:0x801713FC
+  type: sda21
+  target: "@693!.sbss2:0x803D9168"
+  addend: -4
+- source: .text:0x80174948
+  type: sda21
+  target: "@964!.sdata2:0x803D5A18"
+  addend: -4
+- source: .text:0x801D7DC4
+  type: sda21
+  target: "@288!.sdata2:0x803D6EF0"
+  addend: -4
+- source: .text:0x801E5BF4
+  type: sda21
+  target: "@1435!.sbss2:0x803D9448"
+  addend: -4
