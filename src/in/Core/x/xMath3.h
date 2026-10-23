@@ -115,6 +115,16 @@ void xMat3x3MulScale(xMat3x3*, const xMat3x3*, xVec3*);
 void xMat3x3Euler(xMat3x3* m, const xVec3* ypr);
 void xRotCopy(xRot* o, const xRot* r);
 
+inline void xMat3x3Copy(xMat3x3* o, const xMat3x3* m)
+{
+    *o = *m;
+}
+
+inline void xMat3x3Identity(xMat3x3* m)
+{
+    xMat3x3Copy(m, &g_I3);
+}
+
 inline static void xMat3x3RMulVec(xVec3* o, const xMat3x3* m, const xVec3* v)
 {
     float32 x = m->right.x * v->x + m->up.x * v->y + m->at.x * v->z;
