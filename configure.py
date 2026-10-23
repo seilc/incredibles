@@ -423,7 +423,7 @@ cflags_incredibles = [
     "-i include/bink",
     "-i include/CodeWarrior",
     "-i include/dolphin",
-    "-i include/rwsdk",
+    "-i src/rwsdk/include",
     "-DGAMECUBE",
     "-sdata 64",
     "-sdata2 64",

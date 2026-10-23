@@ -52,14 +52,8 @@ static void RenderActionLine(ActionLine* l)
 
     for (S32 i = 0; i < 4; i++, vert++)
     {
-        RwRGBA* _col = &vert->color;
-        F32 x = l->pos[i].x;
-        F32 y = l->pos[i].y;
-        F32 z = l->pos[i].z;
-
-        RwIm3DVertexSetPos(vert, x, y, z);
-        RwIm3DVertexSetU(vert, 0.0f);
-        RwIm3DVertexSetV(vert, 0.0f);
+        RwIm3DVertexSetPos(vert, l->pos[i].x, l->pos[i].y, l->pos[i].z);
+        RwIm3DVertexSetUV(vert, 0.0f, 0.0f);
         RwIm3DVertexSetRGBA(vert, 255, 255, 255, 128);
     }
 
