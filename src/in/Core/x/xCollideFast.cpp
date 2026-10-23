@@ -27,12 +27,7 @@ U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
         return 0;
     }
 
-    if (SQR(f1) >= c)
-    {
-        return 1;
-    }
-
-    return 0;
+    return (SQR(f1) >= c);
 }
 
 U32 xRayHitsBoxFast(const xRay3* r, const xBox* b)
