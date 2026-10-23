@@ -252,7 +252,6 @@ cflags_incredibles = [
     *cflags_base,
     "-lang=C++",
     "-common on",
-    "-char unsigned",
     "-str reuse,pool,readonly",
     "-use_lmw_stmw on",
     '-pragma "cpp_extensions on"',
