@@ -1375,7 +1375,7 @@ in/GAME/zShrapnel.cpp:
 	.data       start:0x803104E8 end:0x80310570
 	.bss        start:0x80383F70 end:0x803897E0
 	.sdata      start:0x803CD438 end:0x803CD448
-	.sbss       start:0x803D0330 end:0x803D03B8
+	.sbss       start:0x803D0330 end:0x803D03B8 align:16
 	.sdata2     start:0x803D5588 end:0x803D55E8
 
 in/GAME/zSlideCamera.cpp:
