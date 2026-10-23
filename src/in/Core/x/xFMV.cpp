@@ -40,14 +40,11 @@ static void DefaultFMVPauseSoundCB(bool doPause)
     }
 }
 
-#ifndef NON_MATCHING
-#else
 int32 xFMVGetBinkCompliantVolume()
 {
-    // non-matching: scheduling
-    return 32768 * xSndMgrGetDampedVolume(4) * sFMVVolumeScale;
+    int32 volume = (int32)(32768.0f * xSndMgrGetDampedVolume(4) * sFMVVolumeScale);
+    return volume;
 }
-#endif
 
 RwTexture* xFMVGetTexture(MOVIE* pMovie, uint16 looping, uint16 freezeframed, uint32 startframe,
                           uint32 endframe, uint32)

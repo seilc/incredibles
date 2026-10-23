@@ -349,7 +349,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xEvent.cpp"),
             Object(Matching, "in/Core/x/xFactory.cpp"),
             Object(NonMatching, "in/Core/x/xFFX.cpp"),
-            Object(NonMatching, "in/Core/x/xFMV.cpp"),
+            Object(Matching, "in/Core/x/xFMV.cpp"),
             Object(Matching, "in/Core/x/xFog.cpp"),
             Object(NonMatching, "in/Core/x/xFont.cpp"),
             Object(NonMatching, "in/Core/x/xFX.cpp"),
