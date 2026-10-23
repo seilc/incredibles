@@ -3,6 +3,7 @@
 
 #include "xBase.h"
 
+#include <stddef.h>
 #include <new>
 
 #define RMEM_GROW_ENABLED (1<<0)

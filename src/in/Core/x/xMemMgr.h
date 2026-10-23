@@ -3,6 +3,7 @@
 
 #include "iMemMgr.h"
 
+#include <stddef.h>
 #include <new>
 
 struct xMemPool

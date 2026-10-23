@@ -2,7 +2,6 @@
 #define IMATH_H
 
 #include <types.h>
-#include <intrin.h>
 
 #define iabs(x) ((F32)__fabs((x)))
 

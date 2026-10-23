@@ -22,6 +22,8 @@ extern double cos(double);
 extern double sin(double);
 extern double sqrt(double);
 extern double ceil(double);
+extern double tan(double);
+extern double fmod(double, double);
 
 extern float cosf(float);
 extern float sinf(float);

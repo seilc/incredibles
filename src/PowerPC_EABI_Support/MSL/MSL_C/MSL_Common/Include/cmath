@@ -5,10 +5,13 @@
 
 namespace std {
 
-float cosf(float);
 float floorf(float);
 
+inline float sinf(float x) { return sin(x); }
+inline float cosf(float x) { return cos(x); }
+inline float tanf(float x) { return tan(x); }
 inline float ceilf(float x) { return ceil(x); }
+inline float fmodf(float x, float y) { return fmod(x, y); }
 
 }
 
