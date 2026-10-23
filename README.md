@@ -1,92 +1,67 @@
-# The Incredibles
+The Incredibles (GameCube)  
+[![Build Status]][actions] <!--[![Code Progress]][progress] [![Data Progress]][progress]--> [![Discord Badge]][discord]
+=============
 
-<a href="https://seilweiss.github.io/incredibles/progress" alt="Percentage Decompiled">
-<img src="https://img.shields.io/badge/dynamic/json?color=blue&label=decompiled&query=linesPercent&url=https%3A%2F%2Fseilweiss.github.io%2Fincredibles%2Fapi.json" />
-</a>
-<a href="https://discord.gg/9eAE6UB">
-<img src="https://img.shields.io/discord/446321271635050506?logo=discord"
-            alt="chat on Discord"></a>
+[Build Status]: https://github.com/seilc/incredibles/actions/workflows/build.yml/badge.svg
+[actions]: https://github.com/seilc/incredibles/actions/workflows/build.yml
+<!--
+decomp.dev progress badges (hidden until the project is registered on decomp.dev)
+See https://decomp.dev/api for an API overview.
+-->
+[Code Progress]: https://decomp.dev/seilc/incredibles.svg?mode=shield&measure=code&label=Code
+[Data Progress]: https://decomp.dev/seilc/incredibles.svg?mode=shield&measure=data&label=Data
+[progress]: https://decomp.dev/seilc/incredibles
+[Discord Badge]: https://img.shields.io/discord/829152115322257436?color=%237289DA&logo=discord&logoColor=%23FFFFFF
+[discord]: https://discord.gg/dVbGFdYU6A
 
-This repo contains a WIP decompilation of The Incredibles (US) for Nintendo GameCube.
+A work-in-progress matching decompilation of *The Incredibles* for the GameCube (USA, `GICE78`), built on Heavy
+Iron's EvilEngine. Much of the engine is shared with the [Ratatouille prototype decomp](https://github.com/seilc/rat)
+and the [Rise of the Underminer decomp](https://github.com/seilc/rotu), which this project ports matched code from.
 
-It builds the following DOL:
+This repository does **not** contain any game assets or assembly whatsoever. An existing copy of the game is required.
 
-- main.dol (`sha1: c7413be2fba5b8cc47b7506ecb7785677a4a1c12`)
+Full disclosure: this project is AI-assisted since October 23, 2026. The code matched before then was decompiled by
+hand by the contributors below. Since then, an LLM has finished the move to decomp-toolkit, and new code is ported
+or decompiled with its help, then reviewed and checked against the original binary. Matching code is
+byte-identical to the original, but names, types and source structure beyond what the binary and its debug info
+prove may be guesses.
 
-## Progress
+Supported versions:
 
-View our progress and answers to frequently asked questions on the [project tracking website](https://seilweiss.github.io/incredibles/progress).
+- `GICE78` - The Incredibles (USA), retail `main.dol`
 
-Join the discussion on the [Heavy Iron Modding Discord](https://discord.gg/dVbGFdYU6A) and [GC/Wii Decompilation Discord](https://discord.gg/hKx3FJJgrV).
+Building
+========
 
-## Building
+- Install Python 3 and ninja (on Linux/macOS also [wibo](https://github.com/decompals/wibo) or wine; `configure.py`
+  downloads wibo automatically).
+- Copy `sys/main.dol` from the disc to `orig/GICE78/sys/main.dol` (SHA-1 `c7413be2fba5b8cc47b7506ecb7785677a4a1c12`).
+- Run `python configure.py`, then `ninja`.
 
-### Requirements
+The project is built with [decomp-toolkit](https://github.com/encounter/decomp-toolkit) on the
+[dtk-template](https://github.com/encounter/dtk-template) layout; [objdiff](https://github.com/encounter/objdiff)
+reads the generated `objdiff.json`.
 
-- [devkitPro](https://devkitpro.org/wiki/Getting_Started)
-  - During installation, only the 'GameCube Development' component is required.
-- Python3 (`pacman -S msys/python3`)
-- gcc (`pacman -S gcc`)
-- Metrowerks CodeWarrior 2.7 compiler and linker for Embedded PowerPC: [GC_WII_COMPILERS.zip](https://cdn.discordapp.com/attachments/727918646525165659/917185027656286218/GC_WII_COMPILERS.zip)
-- Original `main.dol` for The Incredibles (optional)
-  - This is used to display a diff if the build doesn't OK.
-  - See [this guide](https://heavyironmodding.org/wiki/Setting_up_Dolphin_for_modding) for instructions on extracting the original GameCube disc. Once extracted, you can find `main.dol` in the `sys` folder.
+Special Thanks
+==============
 
-### Instructions
-
-1. Extract [GC_WII_COMPILERS.zip](https://cdn.discordapp.com/attachments/727918646525165659/917185027656286218/GC_WII_COMPILERS.zip) to `tools/mwcc_compiler`.
-2. (Optional) Copy your original `main.dol` for The Incredibles to the base directory and rename it `baserom.dol`.
-3. Run the `make` command.
-
-## Project Structure
-
-    incredibles
-    ├── .github/workflows: build script for the website and CI
-    ├── asm: disassembled source code and linker code
-    │   ├── CodeWarrior: Metrowerks Standard Library and C/C++ Runtime
-    │   ├── Core: asm for src/Core
-    │   ├── GAME: asm for src/Game
-    │   ├── bink: Bink SDK
-    │   ├── dolphin: Dolphin SDK
-    │   ├── fmod: FMOD SDK
-    │   └── rwsdk: RenderWare SDK
-    ├── dwarf: C++ definitions generated from the PS2 Incredibles prototype executable
-    ├── include: global include headers
-    │   ├── CodeWarrior: C/C++ standard library
-    │   ├── dolphin: Dolphin SDK
-    │   └── rwsdk: RenderWare SDK
-    ├── src: decompiled C/C++ source code for The Incredibles
-    │   ├── Core: core game engine code
-    │   │   ├── p2: platform-specific code
-    │   │   └── x: game engine code
-    │   └── GAME: game-specific code
-    ├── tools: helper scripts and tools
-    │   ├── inlineasm: inserts raw assembly into C++ source code
-    └   └── mwcc_compiler: Metrowerks compiler and linker
-
-## Contributions
-
-Contributions and PRs are welcome.
-
-We recommend joining the [Heavy Iron Modding Discord](https://discord.gg/dVbGFdYU6A) as most of our discussion about this project occurs there. It's also the best place to get help if you need it. Also check out the [GC/Wii Decompilation Discord](https://discord.gg/hKx3FJJgrV) for more general discussion and help.
-
-The [BFBB Decompilation project](https://github.com/bfbbdecomp/bfbb) also has some helpful [documentation](https://github.com/bfbbdecomp/bfbb/blob/master/docs/WalkthroughAndTips.md).
-
-## Special Thanks
-
-**[@Seil](https://github.com/seilweiss)** -
+**[@seilc](https://github.com/seilc)** -
 Starting the project, working on tools, decompilation.
 
+**[@bluisblu](https://github.com/bluisblu)** -
+Porting the project to decomp-toolkit.
+
 **[@mattbruv](https://github.com/mattbruv)** -
-Creating the [project tracking website](https://seilweiss.github.io/incredibles/progress), [inlineasm](tools/inlineasm/README.md), decompilation.
+The original project tracking website and inlineasm tool, decompilation.
 
 **[@DarkRTA](https://github.com/DarkRTA)** -
 Creating the formatting rules, improving the build process, decompilation.
 
 **[@stravant](https://github.com/stravant)** -
-writing [documentation](https://github.com/bfbbdecomp/bfbb/blob/master/docs/WalkthroughAndTips.md).
+Writing [documentation](https://github.com/bfbbdecomp/bfbb/blob/master/docs/WalkthroughAndTips.md).
 
 **[@mkst](https://github.com/mkst)** ([conker](https://github.com/mkst/conker)) -
-Continuous Integration.
+Continuous Integration for the original build.
 
-And to [everyone else](https://github.com/seilweiss/incredibles/graphs/contributors) who has contributed to the project in any way.
+And to [everyone else](https://github.com/seilc/incredibles/graphs/contributors) who has contributed to the project
+in any way.
