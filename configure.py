@@ -579,7 +579,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xSpline.cpp"),
             Object(NonMatching, "in/Core/x/xSplineAsset.cpp"),
             Object(Matching, "in/Core/x/xstransvc.cpp"),
-            Object(NonMatching, "in/Core/x/xString.cpp"),
+            Object(Matching, "in/Core/x/xString.cpp"),
             Object(Matching, "in/Core/x/xSubTitles.cpp"),
             Object(Matching, "in/Core/x/xSurface.cpp"),
             Object(Matching, "in/Core/x/xTextAsset.cpp"),
