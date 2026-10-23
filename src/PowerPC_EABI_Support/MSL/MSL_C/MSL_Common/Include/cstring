@@ -1,0 +1,15 @@
+#ifndef _MSL_CSTRING
+#define _MSL_CSTRING
+
+#include <string.h>
+
+namespace std {
+
+inline char* strstr(char* s1, const char* s2)
+{
+    return ::strstr(static_cast<const char*>(s1), s2);
+}
+
+}
+
+#endif

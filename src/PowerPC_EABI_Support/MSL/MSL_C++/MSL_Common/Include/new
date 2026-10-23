@@ -1,0 +1,10 @@
+#ifndef _NEW
+#define _NEW
+
+#include <cstddef>
+
+void* operator new(size_t size);
+
+inline void* operator new(size_t, void* ptr) { return ptr; }
+
+#endif
