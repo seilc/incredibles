@@ -3,8 +3,11 @@
 
 #include <types.h>
 
+#include <cmath>
+
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define xfeq0(x) (((x) >= -EPSILON) && ((x) <= EPSILON))
 #define xmin(a,b) ((a) < (b) ? (a) : (b))
 #define xmax(a,b) ((a) > (b) ? (a) : (b))
 
@@ -47,6 +50,11 @@ float32 xsqrt(float32 x);
 float32 xexp(float32 x);
 float32 xasin(float32 x);
 float32 xatan2(float32 y, float32 x);
+
+inline F32 xfmod(F32 x, F32 y)
+{
+    return std::fmodf(x, y);
+}
 
 inline void xsqrtfast(float32& out, register float32 x)
 {

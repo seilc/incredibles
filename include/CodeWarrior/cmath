@@ -21,6 +21,11 @@ namespace std
     {
         return tan(x);
     }
+
+    inline float fmodf(float x, float y)
+    {
+        return fmod(x, y);
+    }
 } // namespace std
 
 #endif
