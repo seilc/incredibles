@@ -31,6 +31,7 @@ struct xBaseAsset
 #define XBASE_VALID 0x4
 #define XBASE_UNK10 0x10
 #define XBASE_IS_ENT 0x20
+#define k_XBASE_UNK_0x80 ((U16)(1 << 7))
 
 void xBaseInit(xBase* xb, const xBaseAsset* asset);
 void xBaseSetup(xBase*);
