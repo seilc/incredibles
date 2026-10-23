@@ -2,19 +2,10 @@
 #define XHUDMODEL_H
 
 #include "xHud.h"
+#include "xHudAsset.h"
 
 namespace xhud
 {
-    struct model_asset : asset
-    {
-        U32 model;
-
-        static const char* type_name()
-        {
-            return "hud:model";
-        }
-    };
-
     class model_widget : public widget
     {
     public:

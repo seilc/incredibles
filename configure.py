@@ -532,7 +532,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xhipio.cpp"),
             Object(NonMatching, "in/Core/x/xHud.cpp"),
             Object(NonMatching, "in/Core/x/xHudFontMeter.cpp"),
-            Object(NonMatching, "in/Core/x/xHudMeter.cpp"),
+            Object(Matching, "in/Core/x/xHudMeter.cpp"),
             Object(Matching, "in/Core/x/xHudModel.cpp"),
             Object(NonMatching, "in/Core/x/xHudUnitMeter.cpp"),
             Object(NonMatching, "in/Core/x/xIni.cpp"),

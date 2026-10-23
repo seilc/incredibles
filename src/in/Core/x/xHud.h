@@ -8,6 +8,11 @@
 
 namespace xhud
 {
+    struct render_context;
+    struct font_context;
+    struct motive;
+    struct motive_node;
+    struct asset;
     class widget;
 
     struct render_context
@@ -21,10 +26,17 @@ namespace xhud
         F32 a;
     };
 
-    struct asset : xDynAsset
+    struct font_context
     {
-        xVec3 loc;
-        xVec3 size;
+        U32 id;
+        S32 justify;
+        F32 w;
+        F32 h;
+        F32 space;
+        F32 drop_x;
+        F32 drop_y;
+        xColor c;
+        xColor drop_c;
     };
 
     struct motive
@@ -121,17 +133,23 @@ namespace xhud
 
         widget(const asset& a);
 
+        // RESTORED: speculative
+        ~widget() {}
+        // END RESTORED
+
         static void init_base(xBase& data, const xBaseAsset& asset, ulong32 chunk_size);
 
         void enable();
         void disable();
         void destruct();
+        void presetup();
         void updater(F32 dt);
         void show(move_direction dir, bool clearmotives, bool bSkipShowMotive);
         void hide(move_direction d, bool clearmotives, bool bSkipHideMotive);
         void clear_motives();
         bool active();
-        bool visible() const;
+        bool enabled() const { return flag.enabled; }
+        bool visible() const { return flag.visible && enabled(); }
 
         virtual void destroy();
         virtual U32 type() const;

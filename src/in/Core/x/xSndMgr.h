@@ -55,6 +55,46 @@ iSndHandle xSndMgrPlay(iSndGroupHandle hSoundToPlay, uint32 uFlags, const xVec3*
 void xSndMgrStop(iSndHandle& hSound);
 xSndGroup* xSndMgr_GetGroup(iSndGroupHandle hSound);
 
+template <S32 unknown>
+class sound_queue
+{
+public:
+    sound_queue()
+    {
+        head = 0;
+        tail = 0;
+    }
+
+    void play(iSndGroupHandle hSoundToPlay, U32 uFlags, const xVec3* pPos_WS, const xVec3* pVel, xEnt* pParentEnt, F32* pfOverrideVolume, F32* pfOverridePitch)
+    {
+        iSndHandle handle = xSndMgrPlay(hSoundToPlay, uFlags, pPos_WS, pVel, pParentEnt, pfOverrideVolume, pfOverridePitch);
+        push(handle);
+    }
+
+    void push(iSndHandle handle)
+    {
+        _playing[tail] = handle;
+
+        S32 begin = head;
+        S32 end = tail+1;
+        if (end <= begin) end += unknown+1;
+
+        S32 len = end - begin;
+        if (len > unknown) {
+            xSndMgrStop(_playing[begin]);
+            begin++;
+            head = begin % (unknown+1);
+        }
+
+        tail = end % (unknown+1);
+    }
+
+private:
+    iSndHandle _playing[unknown+1];
+    S32 head;
+    S32 tail;
+};
+
 inline bool xSndMgrIsEnvironmentalStream(iSndGroupHandle hSound)
 {
     if (hSound == ISNDGROUPHANDLE_INVALID)
