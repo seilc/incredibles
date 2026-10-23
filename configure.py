@@ -560,7 +560,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xpkrsvc.cpp"),
             Object(NonMatching, "in/Core/x/xPtankPool.cpp"),
             Object(Matching, "in/Core/x/xQuickCull.cpp"),
-            Object(NonMatching, "in/Core/x/xRand.cpp"),
+            Object(Matching, "in/Core/x/xRand.cpp"),
             Object(Matching, "in/Core/x/xRegionSupport.cpp"),
             Object(Matching, "in/Core/x/xRenderState.cpp"),
             Object(Matching, "in/Core/x/xRMemData.cpp"),

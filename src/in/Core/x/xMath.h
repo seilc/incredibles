@@ -29,6 +29,14 @@ inline F32 xfmod(F32 x, F32 y)
     return std::fmodf(x, y);
 }
 
+inline F32 xrmod(F32 ang)
+{
+    F32 frac = (1.0f / (2.0f * PI)) * ang;
+    if (frac < 0.0f) return 2.0f * PI * (1.0f + (frac - std::ceilf(frac)));
+    else if (frac >= 1.0f) return 2.0f * PI * (frac - std::floorf(frac));
+    return ang;
+}
+
 inline void xsqrtfast(F32& out, register F32 x)
 {
     if (x <= 0.0f)

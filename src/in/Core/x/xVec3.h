@@ -7,18 +7,17 @@
 #include <rwcore.h>
 #include <types.h>
 
-union xVec3
+struct xVec3
 {
-    RwV3d m_RwV3d;
-
-    struct
+    union
     {
-        F32 x;
-        F32 y;
-        F32 z;
+        RwV3d m_RwV3d;
+        struct
+        {
+            F32 x, y, z;
+        };
+        F32 a[3];
     };
-
-    F32 a[3];
 
     static const xVec3 m_Null;
     static const xVec3 m_UnitAxisX;
