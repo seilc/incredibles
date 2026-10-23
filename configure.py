@@ -536,7 +536,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xHudMeter.cpp"),
             Object(Matching, "in/Core/x/xHudModel.cpp"),
             Object(Matching, "in/Core/x/xHudUnitMeter.cpp"),
-            Object(NonMatching, "in/Core/x/xIni.cpp"),
+            Object(Matching, "in/Core/x/xIni.cpp"),
             Object(Matching, "in/Core/x/xJaw.cpp"),
             Object(NonMatching, "in/Core/x/xJSP.cpp"),
             Object(NonMatching, "in/Core/x/xLaserBolt.cpp"),
