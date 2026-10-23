@@ -773,7 +773,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zNPCSenses.cpp"),
             Object(NonMatching, "in/GAME/zBomb.cpp"),
             Object(Matching, "in/GAME/zProgressScript.cpp"),
-            Object(NonMatching, "in/Core/x/xHudText.cpp"),
+            Object(Matching, "in/Core/x/xHudText.cpp"),
             Object(NonMatching, "in/GAME/zFlameThrower.cpp"),
             Object(NonMatching, "in/GAME/zNPCFlyShooter.cpp"),
             Object(NonMatching, "in/GAME/zRocket.cpp"),

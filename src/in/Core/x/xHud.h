@@ -44,36 +44,36 @@ namespace xhud
         union
         {
             F32* value;
-            xColor* value_color;
+            F32 time_to_blink;
         };
         union
         {
             F32 delta;
-            F32 on_time;
+            F32 start_blink_period;
         };
         union
         {
             F32 max_offset;
-            F32 total_time;
             F32 begin_scale;
+            F32 end_blink_period;
         };
         union
         {
             F32 accel;
-            F32 fade_time;
             F32 final_scale;
+            F32 fade_blink_time;
         };
         union
         {
             void* context;
-            xColor on_color;
             F32 begin_alpha;
+            xColor on_blink_color;
         };
         union
         {
             F32 period;
-            xColor off_color;
             F32 end_alpha;
+            xColor off_blink_color;
         };
         union
         {
@@ -84,16 +84,18 @@ namespace xhud
         {
             F32 offset;
             F32 current_scale;
+            F32 current_blink_time;
         };
-        U8 (*fp_update)(widget&, motive&, F32);
-        U8 (*fp_finish)(widget&, motive&);
+        bool(*fp_update)(widget&, motive&, F32);
+        bool(*fp_finish)(widget&, motive&);
         union
         {
             F32 start_delta;
             F32 orig_height;
+            F32 period_blink_time;
         };
-        U8 hold;
-        U8 inverse;
+        bool hold;
+        bool inverse;
     };
 
     struct motive_node
@@ -177,6 +179,8 @@ namespace xhud
     void render();
     xModelInstance* load_model(U32 id);
     void render_model(xModelInstance& m, const render_context& rc);
+
+    inline void widget::disable() { flag.enabled = false; }
 } // namespace xhud
 
 #endif

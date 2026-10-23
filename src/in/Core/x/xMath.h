@@ -10,6 +10,7 @@
 #define xfeq0(x) (((x) >= -EPSILON) && ((x) <= EPSILON))
 #define xmin(a,b) ((a) < (b) ? (a) : (b))
 #define xmax(a,b) ((a) > (b) ? (a) : (b))
+#define xclamp(x,a,b) xmax((a), xmin((x), (b)))
 
 #define SQR(x) ((x) * (x))
 
