@@ -42,6 +42,7 @@
 
 float32 xatof(const char* x);
 float32 xsqrt(float32 x);
+float32 xexp(float32 x);
 float32 xasin(float32 x);
 float32 xatan2(float32 y, float32 x);
 
