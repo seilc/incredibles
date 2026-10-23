@@ -84,7 +84,7 @@ U32 zConditional_GetCount(_zConditional* c)
 
     if (temp >= 1 && temp <= 20)
     {
-        return eEventCountStart + temp;
+        return eEventCount1 + (temp - 1);
     }
 
     if (temp == 0)
