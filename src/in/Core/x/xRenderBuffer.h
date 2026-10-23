@@ -3,13 +3,15 @@
 
 #include "xMath3.h"
 
-#define IRENDER_VERTEX_COUNT 480
+#define IRENDER_NUM_INDEX 960
+#define IRENDER_NUM_VERTEX 480
+#define IRENDER_NUM_VERTEXTZ 480
 
 struct tagiRenderArrays
 {
-    U16 m_index[IRENDER_VERTEX_COUNT * 2];
-    RwIm3DVertex m_vertex[IRENDER_VERTEX_COUNT];
-    F32 m_vertexTZ[IRENDER_VERTEX_COUNT];
+    U16 m_index[IRENDER_NUM_INDEX];
+    RwIm3DVertex m_vertex[IRENDER_NUM_VERTEX];
+    F32 m_vertexTZ[IRENDER_NUM_VERTEXTZ];
 };
 
 struct tagiRenderInput

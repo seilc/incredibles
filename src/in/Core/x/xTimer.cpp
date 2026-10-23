@@ -86,7 +86,7 @@ void xTimerInit(xBase* b, xTimerAsset* tasset)
         t->link = NULL;
     }
 
-    t->state = XTIMER_STATE_STOPPED;
+    t->state = 0;
     t->secondsLeft = GetRandomizedTime(tasset);
     t->runsInPause = xTimer_ObjIDIsPauseTimer(t->id);
     t->flags = 0;
@@ -96,7 +96,7 @@ void xTimerReset(xTimer* t)
 {
     xBaseReset(t, t->tasset);
 
-    t->state = XTIMER_STATE_STOPPED;
+    t->state = 0;
     t->secondsLeft = GetRandomizedTime(t->tasset);
     t->flags = 0;
 }
@@ -125,14 +125,14 @@ void xTimerEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U
     {
     case eEventRun:
     {
-        t->state = XTIMER_STATE_RUNNING;
+        t->state = 1;
         break;
     }
     case eEventStop:
     {
-        if (xTimerIsRunning(t))
+        if (t->state == 1)
         {
-            t->state = XTIMER_STATE_STOPPED;
+            t->state = 0;
         }
 
         break;
@@ -144,7 +144,7 @@ void xTimerEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U
     }
     case eEventExpired:
     {
-        t->state = XTIMER_STATE_STOPPED;
+        t->state = 0;
         break;
     }
     case eEventTimerSet:
@@ -164,9 +164,9 @@ void xTimerUpdate(xBase* to, xScene*, F32 dt)
 {
     xTimer* t = (xTimer*)to;
 
-    if (xTimerIsRunning(t))
+    if (t->state == 1)
     {
-        if (!xTimerIsUnk0x1(t) || !globals.player.ControlOff || !ztalkbox::get_active())
+        if (!(t->flags & 0x1) || !globals.player.ControlOff || !ztalkbox::get_active())
         {
             t->secondsLeft -= dt;
 

@@ -8,10 +8,10 @@
 
 F32 zcam_near_d = 3.0f;
 F32 zcam_near_h = 1.8f;
-F32 zcam_near_pitch = DEG2RAD(10.0f);
+F32 zcam_near_pitch = 10.0f * (PI/180.0f);
 F32 zcam_far_d = 5.0f;
 F32 zcam_far_h = 3.0f;
-F32 zcam_far_pitch = DEG2RAD(15.0f);
+F32 zcam_far_pitch = 15.0f * (PI/180.0f);
 
 struct zCamTweak
 {
@@ -97,9 +97,9 @@ void zCameraTweakGlobal_Add(U32 owner, F32 priority, F32 time, F32 pitch,
 
     sCamTweakList[i].owner = owner;
     sCamTweakList[i].priority = priority;
-    sCamTweakList[i].time = MAX(time, 0.001f);
-    sCamTweakList[i].pitch = DEG2RAD(1.0f) * pitch;
-    sCamTweakList[i].distMult = MAX(distMult, 0.001f);
+    sCamTweakList[i].time = xmax(time, 0.001f);
+    sCamTweakList[i].pitch = pitch * (PI/180.0f);
+    sCamTweakList[i].distMult = xmax(distMult, 0.001f);
 
     sCamTweakCount++;
 

@@ -64,8 +64,8 @@ void xModelWarpSphereMapUVsByNormals(xVec2* uv, S32 verts_size, const xVec3* nor
 
     while (uv != end_uv)
     {
-        uv->x = INVERSEPI * xasin(norm->x) + 0.5f;
-        uv->y = -(INVERSEPI * xasin(norm->y) + 0.5f);
+        uv->x = xasin(norm->x) * (1/PI) + 0.5f;
+        uv->y = -(xasin(norm->y) * (1/PI) + 0.5f);
 
         uv++;
         norm++;

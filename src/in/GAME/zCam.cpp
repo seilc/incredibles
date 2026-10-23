@@ -46,7 +46,7 @@ void zCamSceneEnter(zScene& scene, const xMat4x3& mat)
     globals.screen = &global_screen;
     globals.screen->create(FB_XRES, FB_YRES);
     globals.screen->set_scene(scene);
-    globals.screen->set_fov(DEG2RAD(75.0f));
+    globals.screen->set_fov(75.0f * (PI/180.0f));
 
     globals.cam = &global_cam;
     globals.cam->create();

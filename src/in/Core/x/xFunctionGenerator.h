@@ -21,7 +21,7 @@ struct xFunctionGenerator : xBase
 {
     const xFunctionGeneratorAsset* asset;
     bool started;
-    U8 currentState;
+    bool currentState;
     bool override;
     F32 currentCycleWidth;
     F32 currentPulseWidth;
@@ -33,7 +33,7 @@ struct xFunctionGenerator : xBase
 
     bool IsEnabled() const
     {
-        return (baseFlags & XBASE_ENABLED) && started;
+        return (baseFlags & k_XBASE_IS_ENABLED) && started;
     }
 
     void Update(F32 dt);
@@ -42,9 +42,6 @@ struct xFunctionGenerator : xBase
     void Stop();
     void Reset();
 };
-
-#define XFUNCTIONGENERATOR_STATE_0 0
-#define XFUNCTIONGENERATOR_STATE_1 1
 
 void xFunctionGenerator_Init(xBase& data, xDynAsset& asset, size_t);
 

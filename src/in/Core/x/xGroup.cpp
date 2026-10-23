@@ -40,7 +40,7 @@ void xGroupInit(xBase* b, xGroupAsset* asset)
 
 void xGroupSetup(xGroup* g)
 {
-    if (!(g->flg_group & XGROUP_IS_SETUP))
+    if (!(g->flg_group & 0x1))
     {
         U32 count = xGroupGetCount(g);
 
@@ -52,7 +52,7 @@ void xGroupSetup(xGroup* g)
 
             if (g->item[i])
             {
-                g->flg_group |= XGROUP_HAS_BASES;
+                g->flg_group |= XGRP_FLG_HASWIDGET;
             }
             else
             {
@@ -60,12 +60,12 @@ void xGroupSetup(xGroup* g)
 
                 if (g->item[i])
                 {
-                    g->flg_group |= XGROUP_HAS_ASSETS;
+                    g->flg_group |= XGRP_FLG_HASASSET;
                 }
             }
         }
 
-        g->flg_group |= XGROUP_IS_SETUP;
+        g->flg_group |= 0x1;
     }
 }
 
@@ -101,7 +101,7 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
 
     S32 rand = -1;
 
-    if (g->asset->groupFlags & XGROUPASSET_RANDOM)
+    if (g->asset->groupFlags & 0x1)
     {
         rand = xrand_RandomChoice(g->asset->itemCount);
     }
@@ -139,7 +139,7 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
 
                 if (b)
                 {
-                    if (b->baseFlags & XBASE_IS_ENT)
+                    if (b->baseFlags & k_XBASE_IS_ENTITY)
                     {
                         if (xBaseIsEnabled(b))
                         {
@@ -181,7 +181,7 @@ U32 xGroupGetCount(xGroup* g)
 
 xBase* xGroupGetItemPtr(xGroup* g, U32 index)
 {
-    if (!(g->flg_group & XGROUP_IS_SETUP))
+    if (!(g->flg_group & 0x1))
     {
         xGroupSetup(g);
     }

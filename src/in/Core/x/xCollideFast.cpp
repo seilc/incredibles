@@ -8,7 +8,7 @@ U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
 
     xVec3Sub(&v, &r->origin, &s->center);
 
-    F32 c = xVec3Dot(&v, &v) - SQR(s->r);
+    F32 c = xVec3Dot(&v, &v) - s->r * s->r;
 
     if (c <= 0.0f)
     {
@@ -27,7 +27,7 @@ U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
         return 0;
     }
 
-    return (SQR(f1) >= c);
+    return (f1 * f1 >= c);
 }
 
 U32 xRayHitsBoxFast(const xRay3* r, const xBox* b)

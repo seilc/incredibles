@@ -84,7 +84,7 @@ void zPlayerUnloadHIP()
 {
     ZPLAYER->Exit();
 
-    xSTUnLoadSceneMany(globals.playerTag, XSTUNLOAD_HIP | XSTUNLOAD_HIPHOP);
+    xSTUnLoadSceneMany(globals.playerTag, 0x1 | 0x4);
     iSndSceneExit();
     xUtil_idtag2string(globals.playerTag);
     xMemPopBase(sMemDepthJustHIPStartPlayer);

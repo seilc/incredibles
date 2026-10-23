@@ -16,10 +16,6 @@ struct xLightKitLight
     RpLight* platLight;
 };
 
-#define XLIGHTKIT_AMBIENT 1
-#define XLIGHTKIT_DIRECTIONAL 2
-#define XLIGHTKIT_POINT 3
-#define XLIGHTKIT_SPOT 4
 
 struct xLightKit
 {

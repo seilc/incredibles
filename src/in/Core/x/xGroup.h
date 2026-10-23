@@ -9,7 +9,6 @@ struct xGroupAsset : xBaseAsset
     U16 groupFlags;
 };
 
-#define XGROUPASSET_RANDOM 0x1
 
 struct xGroup : xBase
 {
@@ -21,9 +20,8 @@ struct xGroup : xBase
     U32 get_any();
 };
 
-#define XGROUP_IS_SETUP 0x1
-#define XGROUP_HAS_BASES 0x2
-#define XGROUP_HAS_ASSETS 0x4
+#define XGRP_FLG_HASWIDGET (1<<1)
+#define XGRP_FLG_HASASSET (1<<2)
 
 void xGroupInit(void* b, void* asset);
 void xGroupInit(xBase* b, xGroupAsset* asset);

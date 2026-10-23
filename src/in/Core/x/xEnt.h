@@ -139,7 +139,6 @@ struct xEnt : xBase
     void* user_data;
 };
 
-#define XENT_VIS_CULL 0x4
 
 typedef void (*xEntVisHandler)(xEnt* ent);
 
@@ -163,7 +162,7 @@ bool xBaseIsEntity(xBase* base);
 
 inline void xEntVisibilityCullOn(xEnt* ent)
 {
-    ent->flags |= XENT_VIS_CULL;
+    ent->flags |= (U8)0x4;
 
     if (ent->visUpdate)
     {
@@ -173,7 +172,7 @@ inline void xEntVisibilityCullOn(xEnt* ent)
 
 inline void xEntVisibilityCullOff(xEnt* ent)
 {
-    ent->flags &= (U8)~XENT_VIS_CULL;
+    ent->flags &= (U8)~0x4;
 
     if (ent->visUpdate)
     {

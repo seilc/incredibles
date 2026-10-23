@@ -10,9 +10,9 @@ F32 xCurveAssetEvaluate(const xCurveAsset* curve_asset, F32 t)
 
     if (curve_asset->clamp == xCC_CONSTANT)
     {
-        F32 curve_length = MIN(t, max_t);
+        F32 curve_length = xmin(t, max_t);
 
-        t = MAX(curve_length, 0.0f);
+        t = xmax(curve_length, 0.0f);
     }
     else
     {

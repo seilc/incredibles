@@ -22,14 +22,10 @@ typedef struct st_STRAN_DATA
     U32 loadlock;
 } STRAN_DATA;
 
-#define XST_HIP 0x1
-#define XST_HOP 0x2
-#define XST_HIPHOP (XST_HIP | XST_HOP)
-
-#define XSTUNLOAD_HIP 0x1
-#define XSTUNLOAD_HOP 0x2
-#define XSTUNLOAD_HIPHOP 0x4
-#define XSTUNLOAD_ALL (XSTUNLOAD_HIP | XSTUNLOAD_HOP | XSTUNLOAD_HIPHOP)
+#define XST_OPTS_HIP (1<<0)
+#define XST_OPTS_HOP (1<<1)
+#define XST_OPTS_LOCAL (3<<0)
+#define XST_OPTS_MASKHH (3<<0)
 
 bool xSTIsLoaded();
 S32 xSTStartup(PKRAssetType* handlers);

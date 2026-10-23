@@ -2,11 +2,10 @@
 
 #include "xMemMgr.h"
 
-#define MAX(a, b) ((a) < (b)) ? (b) : (a)
 
 void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc)
 {
-    size = MAX(size, 1);
+    size = (size<1) ? 1 : size;
 
     if (tempAlloc)
     {
@@ -23,7 +22,7 @@ void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc)
 
     if (array->warnlvl == array->max)
     {
-        array->warnlvl = MAX(array->max - 1, 0);
+        array->warnlvl = (array->max-1 < 0) ? 0 : array->max-1;
     }
 }
 

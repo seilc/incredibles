@@ -91,7 +91,7 @@ void xBoundGetCylinder(xCylinder& o, const xBound& bound)
         const xMat4x3& mat = *bound.mat;
         xVec3 v = (bound.box.box.upper - bound.box.box.lower) * 0.5f;
 
-        o.r = xsqrt(SQR(v.x) * mat.right.length2() + SQR(v.z) * mat.at.length2());
+        o.r = xsqrt(v.x * v.x * mat.right.length2() + v.z * v.z * mat.at.length2());
         o.center = mat.pos;
         o.center.y += bound.box.box.upper.y - bound.box.box.lower.y;
         o.h = v.y;
@@ -120,8 +120,8 @@ void xBoundGetSphere(xSphere& o, const xBound& bound)
         const xMat4x3& mat = *bound.mat;
         xVec3 v = (bound.box.box.upper - bound.box.box.lower) * 0.5f;
 
-        o.r = xsqrt(SQR(v.x) * mat.right.length2() + SQR(v.y) * mat.up.length2() +
-                    SQR(v.z) * mat.at.length2());
+        o.r = xsqrt(v.x * v.x * mat.right.length2() + v.y * v.y * mat.up.length2() +
+                    v.z * v.z * mat.at.length2());
         o.center = bound.box.center;
 
         break;

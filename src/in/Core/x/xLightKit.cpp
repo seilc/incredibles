@@ -30,9 +30,9 @@ xLightKit* xLightKit_Prepare(void* data)
             currlight->color.blue > 1.0f)
         {
             F32 s =
-                MAX(MAX(currlight->color.red, currlight->color.green), currlight->color.blue);
+                xmax3(currlight->color.red, currlight->color.green, currlight->color.blue);
 
-            s = 1.0f / MAX(s, 0.00001f);
+            s = 1.0f / xmax(s, 0.00001f);
 
             currlight->color.red *= s;
             currlight->color.green *= s;
@@ -41,23 +41,23 @@ xLightKit* xLightKit_Prepare(void* data)
 
         switch (currlight->type)
         {
-        case XLIGHTKIT_AMBIENT:
+        case 1:
             currlight->platLight = RpLightCreate(rpLIGHTAMBIENT);
             break;
-        case XLIGHTKIT_DIRECTIONAL:
+        case 2:
             currlight->platLight = RpLightCreate(rpLIGHTDIRECTIONAL);
             break;
-        case XLIGHTKIT_POINT:
+        case 3:
             currlight->platLight = RpLightCreate(rpLIGHTPOINT);
             break;
-        case XLIGHTKIT_SPOT:
+        case 4:
             currlight->platLight = RpLightCreate(rpLIGHTSPOTSOFT);
             break;
         }
 
         RpLightSetColor(currlight->platLight, &currlight->color);
 
-        if (currlight->type >= XLIGHTKIT_DIRECTIONAL)
+        if (currlight->type >= 2)
         {
             RwFrame* frame = RwFrameCreate();
 
@@ -86,12 +86,12 @@ xLightKit* xLightKit_Prepare(void* data)
             RpLightSetFrame(currlight->platLight, frame);
         }
 
-        if (currlight->type >= XLIGHTKIT_POINT)
+        if (currlight->type >= 3)
         {
             RpLightSetRadius(currlight->platLight, currlight->radius);
         }
 
-        if (currlight->type >= XLIGHTKIT_SPOT)
+        if (currlight->type >= 4)
         {
             RpLightSetConeAngle(currlight->platLight, currlight->angle);
         }

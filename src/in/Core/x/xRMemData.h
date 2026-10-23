@@ -5,7 +5,7 @@
 
 #include <new>
 
-#define RYZMEMGROW_ENABLED 0x1
+#define RMEM_GROW_ENABLED (1<<0)
 
 struct RyzMemGrow
 {
@@ -19,7 +19,7 @@ struct RyzMemGrow
 
     S32 IsEnabled()
     {
-        return flg_grow & RYZMEMGROW_ENABLED;
+        return flg_grow & RMEM_GROW_ENABLED;
     }
 };
 

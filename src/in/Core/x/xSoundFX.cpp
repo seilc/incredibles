@@ -42,7 +42,7 @@ void xSoundFXInit(xSoundFX* t, xSoundFXAsset* asset)
     {
         t->asset->soundAsset = xSndMgrGetSoundGroup(t->asset->soundAssetID);
 
-        if (asset->soundAsset != ISNDGROUPHANDLE_INVALID)
+        if (asset->soundAsset != ISND_INVALID_SND_GROUP_HANDLE)
         {
             xSoundFXSetHandleSet(asset, true);
         }

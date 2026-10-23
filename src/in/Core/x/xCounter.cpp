@@ -42,7 +42,7 @@ void xCounterInit(xBase* b, xCounterAsset* asset)
         t->link = NULL;
     }
 
-    t->state = XCOUNTER_STATE_ACTIVE;
+    t->state = 0;
     t->count = asset->count;
 
     add_tweaks(*t);
@@ -64,7 +64,7 @@ void xCounterReset(xBase* b)
     }
 
     t->count = t->asset->count;
-    t->state = XCOUNTER_STATE_ACTIVE;
+    t->state = 0;
 }
 
 void xCounterSave(_xCounter* ent, xSerial* s)
@@ -92,7 +92,7 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
     {
     case eEventDecrement:
     {
-        if (!xCounterIsExpired(t))
+        if (t->state != 1)
         {
             t->count--;
 
@@ -110,7 +110,7 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
     }
     case eEventIncrement:
     {
-        if (!xCounterIsExpired(t))
+        if (t->state != 1)
         {
             t->count++;
 
@@ -128,19 +128,19 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
     }
     case eEventReset:
     {
-        t->state = XCOUNTER_STATE_ACTIVE;
+        t->state = 0;
         t->count = t->asset->count;
         break;
     }
     case eEventExpired:
     {
         t->count = 0;
-        t->state = XCOUNTER_STATE_EXPIRED;
+        t->state = 1;
         break;
     }
     case eEventSetCount:
     {
-        if (!xCounterIsExpired(t))
+        if (t->state != 1)
         {
             if (toParamWidget && toParamWidget->baseType == eBaseTypeCounter)
             {
@@ -156,7 +156,7 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
     }
     default:
     {
-        if (!xCounterIsExpired(t))
+        if (t->state != 1)
         {
             if (toEvent >= eEventCount1 && toEvent <= eEventCount20)
             {

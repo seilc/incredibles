@@ -3,14 +3,14 @@
 #include "xMemMgr.h"
 #include "iModel.h"
 
-#define ACTIVITY_MAX 64
+#define MAX_ACTIVE 64
 
 xLightVolume::activity_type* xLightVolume::activities = NULL;
 S32 xLightVolume::activities_used = 0;
 
 void xLightVolume::scene_enter()
 {
-    activities = new (eMemStaticTypeUnk0, 0) activity_type[ACTIVITY_MAX];
+    activities = new (eMemStaticTypeUnk0, 0) activity_type[MAX_ACTIVE];
     activities_used = 0;
 
     reset_all();
@@ -41,7 +41,7 @@ void xLightVolume::create()
 
 bool xLightVolume::activate()
 {
-    if (activities_used >= ACTIVITY_MAX)
+    if (activities_used >= MAX_ACTIVE)
     {
         return false;
     }

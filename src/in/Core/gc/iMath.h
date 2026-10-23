@@ -8,7 +8,6 @@
 
 #define EPSILON 0.00001f
 
-#define APPROX_EQUAL(a, b) (iabs((a) - (b)) <= EPSILON)
 
 F32 isin(F32 x);
 F32 icos(F32 x);

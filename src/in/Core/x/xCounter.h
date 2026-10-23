@@ -16,11 +16,6 @@ struct _xCounter : xBase
     U8 pad;
 };
 
-#define XCOUNTER_STATE_ACTIVE 0
-#define XCOUNTER_STATE_EXPIRED 1
-
-#define xCounterIsExpired(c) ((c)->state == XCOUNTER_STATE_EXPIRED)
-
 void xCounterInit();
 void xCounterInit(void* b, void* asset);
 void xCounterInit(xBase* b, xCounterAsset* asset);

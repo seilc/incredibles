@@ -12,7 +12,7 @@ enum iSndGroupHandle
 };
 
 #define ISNDHANDLE_INVALID ((iSndHandle)-1)
-#define ISNDGROUPHANDLE_INVALID ((iSndGroupHandle)-1)
+#define ISND_INVALID_SND_GROUP_HANDLE ((iSndGroupHandle)0xFFFFFFFF)
 
 void iSndSceneExit();
 

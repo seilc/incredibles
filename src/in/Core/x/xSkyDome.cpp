@@ -69,7 +69,7 @@ void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, S32 lockY, S32 lockXZ)
     ent->user_data = (void*)i;
     ent->render = xSkyDome_EmptyRender;
     ent->model->Flags &= ~0x1;
-    ent->baseFlags &= (U16)~XBASE_UNK10;
+    ent->baseFlags &= (U16)~k_XBASE_RECEIVES_SHADOWS;
 
     zEntEvent(ent, eEventCollisionOff);
     zEntEvent(ent, eEventCameraCollideOff);

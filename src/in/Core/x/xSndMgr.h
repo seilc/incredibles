@@ -97,7 +97,7 @@ private:
 
 inline bool xSndMgrIsEnvironmentalStream(iSndGroupHandle hSound)
 {
-    if (hSound == ISNDGROUPHANDLE_INVALID)
+    if (hSound == ISND_INVALID_SND_GROUP_HANDLE)
     {
         return false;
     }

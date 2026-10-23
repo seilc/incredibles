@@ -58,7 +58,7 @@ void xSphereForModel(xSphere& o, const xModelInstance* model, bool childModels);
 
 inline bool xSphereHitsSphere(const xVec3& sc, F32 sr, const xVec3& cc, F32 cr)
 {
-    return (cc - sc).length2() <= SQR(sr + cr);
+    return (cc - sc).length2() <= (sr + cr) * (sr + cr);
 }
 
 inline bool xSphereHitsSphere(const xSphere& a, const xSphere& b)

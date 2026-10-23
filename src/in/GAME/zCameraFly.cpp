@@ -26,7 +26,7 @@ void zCameraFly_Init(zCameraFly* fly, CameraFly_asset* asset)
 
 void zCameraFly_Setup(zCameraFly* fly)
 {
-    fly->baseFlags |= XBASE_PERSISTENT;
+    fly->baseFlags |= k_XBASE_IS_PERSISTENT;
 }
 
 void zCameraFly_Update(xBase*, xScene*, F32)

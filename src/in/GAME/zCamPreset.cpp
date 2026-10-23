@@ -115,7 +115,7 @@ bool zCamPreset::get_checkpoint(xVec3& loc, F32& yaw) const
     {
         pointer_asset* pointer = (pointer_asset*)checkpoint;
 
-        yaw = DEG2RAD(1.0f) * pointer->yaw;
+        yaw = pointer->yaw * (PI/180.0f);
         loc = pointer->loc;
 
         return true;
@@ -146,7 +146,7 @@ F32 zCamPreset::distance2(const xVec3& loc) const
     F32 dy = loc.y - mat.pos.y;
     F32 dz = loc.z - mat.pos.z;
 
-    return SQR(dx) + SQR(dy) + SQR(dz);
+    return dx * dx + dy * dy + dz * dz;
 }
 
 void zCamPreset::apply()

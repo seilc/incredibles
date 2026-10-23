@@ -24,7 +24,7 @@ xFunctionGenerator::xFunctionGenerator(const xFunctionGeneratorAsset* asset)
     eventFunc = FunctionGeneratorEventWrapper;
     link = (xLinkAsset*)(asset + 1);
     started = false;
-    currentState = XFUNCTIONGENERATOR_STATE_0;
+    currentState = false;
 }
 
 void xFunctionGenerator::Update(F32 dt)
@@ -92,13 +92,13 @@ void xFunctionGenerator::Update(F32 dt)
     {
         bool firedAny = false;
 
-        if (currentState == XFUNCTIONGENERATOR_STATE_0)
+        if (!currentState)
         {
             F32 currentOffWidth = currentCycleWidth - currentPulseWidth;
 
             if (currentTime - lastDownTime > currentOffWidth)
             {
-                currentState = XFUNCTIONGENERATOR_STATE_1;
+                currentState = true;
                 firedAny = true;
 
                 zEntEvent(this, this, eEventTrue);
@@ -112,11 +112,11 @@ void xFunctionGenerator::Update(F32 dt)
             }
         }
 
-        if (currentState != XFUNCTIONGENERATOR_STATE_0)
+        if (currentState)
         {
             if (currentTime - lastUpTime > currentPulseWidth)
             {
-                currentState = XFUNCTIONGENERATOR_STATE_0;
+                currentState = false;
                 firedAny = true;
 
                 zEntEvent(this, this, eEventFalse);
@@ -181,7 +181,7 @@ void xFunctionGenerator::Start()
     currentTime = 0.0f;
     lastUpTime = 0.0f;
     lastDownTime = 0.0f;
-    currentState = XFUNCTIONGENERATOR_STATE_0;
+    currentState = false;
     started = true;
     override = false;
 }

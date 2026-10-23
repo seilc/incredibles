@@ -658,7 +658,7 @@ namespace zNPC
                 else
                 {
                     FloatAndVoid dist;
-                    dist.f = SQR(to_param[0]);
+                    dist.f = xsqr(to_param[0]);
 
                     xUpdateCull_SetCB(globals.updateMgr, this, xUpdateCull_DistanceSquaredCB,
                                       dist.v);
@@ -767,7 +767,7 @@ namespace zNPC
         }
         else
         {
-            if (APPROX_EQUAL(percent, 1.0f))
+            if (xeq(percent, 1.0f, EPSILON))
             {
                 simpShadow->alpha = 80;
             }
@@ -912,7 +912,7 @@ namespace zNPC
     {
         get_parameter("UpdateCullDistance", &cull_distance, 30.0f);
 
-        cull_distance = SQR(cull_distance);
+        cull_distance = xsqr(cull_distance);
 
         if (cull_distance == 0.0f)
         {

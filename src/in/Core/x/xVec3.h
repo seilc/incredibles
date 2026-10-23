@@ -72,15 +72,15 @@ inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)
 #define xVec3NormalizeMacro(outlen, o, v)                                                          \
     {                                                                                              \
         F32 len = 1.0f;                                                                        \
-        F32 len2 = SQR((v)->x) + SQR((v)->y) + SQR((v)->z);                                    \
+        F32 len2 = xsqr((v)->x) + xsqr((v)->y) + xsqr((v)->z);                                 \
                                                                                                    \
-        if (APPROX_EQUAL(len2, 1.0f))                                                              \
+        if (xeq(len2, 1.0f, EPSILON))                                                              \
         {                                                                                          \
             (o)->x = (v)->x;                                                                       \
             (o)->y = (v)->y;                                                                       \
             (o)->z = (v)->z;                                                                       \
         }                                                                                          \
-        else if (APPROX_EQUAL(len2, 0.0f))                                                         \
+        else if (xeq(len2, 0.0f, EPSILON))                                                         \
         {                                                                                          \
             (o)->x = 0.0f;                                                                         \
             (o)->y = 1.0f;                                                                         \

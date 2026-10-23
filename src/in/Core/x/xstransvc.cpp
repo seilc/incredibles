@@ -74,7 +74,7 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
 
     cltver = 0;
 
-    if ((flg_hiphop & XST_HIPHOP) == XST_HOP)
+    if ((flg_hiphop & XST_OPTS_MASKHH) == XST_OPTS_HOP)
     {
         sdata = XST_lock_next();
         sdata->scnid = sid;
@@ -133,7 +133,7 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
             if (!sfile)
             {
                 sfile =
-                    XST_translate_sid_path(sid, ".HIP", (flg_hiphop & XST_HIPHOP) == XST_HIPHOP);
+                    XST_translate_sid_path(sid, ".HIP", (flg_hiphop & XST_OPTS_MASKHH) == XST_OPTS_LOCAL);
             }
 
             if (sfile)
@@ -149,7 +149,7 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
 
         if (cltver == 0)
         {
-            sfile = XST_translate_sid(sid, ".HIP", (flg_hiphop & XST_HIPHOP) == XST_HIPHOP);
+            sfile = XST_translate_sid(sid, ".HIP", (flg_hiphop & XST_OPTS_MASKHH) == XST_OPTS_LOCAL);
 
             if (sfile)
             {
@@ -237,9 +237,9 @@ void xSTUnLoadScene(U32 sid, S32 flg_hiphop)
 
 void xSTUnLoadSceneMany(U32 sceneID, S32 type)
 {
-    if (type & XSTUNLOAD_HIP)
+    if (type & 0x1)
     {
-        STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_HIP);
+        STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_OPTS_HIP);
 
         if (sdata)
         {
@@ -254,9 +254,9 @@ void xSTUnLoadSceneMany(U32 sceneID, S32 type)
         }
     }
 
-    if (type & XSTUNLOAD_HIPHOP)
+    if (type & 0x4)
     {
-        STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_HIPHOP);
+        STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_OPTS_LOCAL);
 
         if (sdata)
         {
@@ -271,9 +271,9 @@ void xSTUnLoadSceneMany(U32 sceneID, S32 type)
         }
     }
 
-    if (type & XSTUNLOAD_HOP)
+    if (type & 0x2)
     {
-        STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_HOP);
+        STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_OPTS_HOP);
 
         if (sdata)
         {
@@ -328,7 +328,7 @@ S32 xSTSwitchScene(U32 sid, void* userdata, S32 (*progmon)(void*, F32))
     STRAN_SCENE* sdata;
     S32 rc = FALSE;
     S32 i;
-    const S32 types[3] = { XST_HIP, XST_HOP, XST_HIPHOP };
+    const S32 types[3] = { XST_OPTS_HIP, XST_OPTS_HOP, XST_OPTS_LOCAL };
 
     for (i = 2; i >= 0; i--)
     {
@@ -777,7 +777,7 @@ static STRAN_SCENE* XST_find_bySID(U32 sid, S32 flagHipHop)
         {
             sdata = &g_xstdata.hipscn[i];
 
-            if (sdata->scnid == sid && (sdata->flgHipHop & XST_HIPHOP) == (flagHipHop & XST_HIPHOP))
+            if (sdata->scnid == sid && (sdata->flgHipHop & XST_OPTS_MASKHH) == (flagHipHop & XST_OPTS_MASKHH))
             {
                 da_sdata = sdata;
                 break;
