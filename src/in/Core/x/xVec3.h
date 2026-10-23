@@ -44,6 +44,7 @@ struct xVec3
     xVec3 operator*(F32 s) const;
     xVec3& operator+=(const xVec3& v);
     xVec3& operator*=(F32 s);
+    F32 dot(const xVec3& c) const;
 };
 
 F32 xVec3Normalize(xVec3* o, const xVec3* v);

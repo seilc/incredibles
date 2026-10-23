@@ -751,7 +751,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zDashCam.cpp"),
             Object(NonMatching, "in/GAME/zNPCRobotBehavior.cpp"),
             Object(NonMatching, "in/GAME/zIncrediSlam.cpp"),
-            Object(NonMatching, "in/Core/x/xScrPulseGlare.cpp"),
+            Object(Matching, "in/Core/x/xScrPulseGlare.cpp"),
             Object(Matching, "in/GAME/zBehavior.cpp"),
             Object(Matching, "in/GAME/zWater.cpp"),
             Object(NonMatching, "in/GAME/zIncrediBallCam.cpp"),

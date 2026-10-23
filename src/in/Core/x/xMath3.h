@@ -135,6 +135,8 @@ inline void xMat3x3Identity(xMat3x3* m)
     xMat3x3Copy(m, &g_I3);
 }
 
+void xMat3x3Rot(xMat3x3* m, const xVec3* a, F32 t);
+
 inline static void xMat3x3RMulVec(xVec3* o, const xMat3x3* m, const xVec3* v)
 {
     F32 x = m->right.x * v->x + m->up.x * v->y + m->at.x * v->z;
