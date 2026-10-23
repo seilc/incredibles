@@ -395,7 +395,7 @@ namespace zNPC
         navigation_behavior = NULL;
         collType = 8;
         collLev = 4;
-        bound.type = XBOUND_TYPE_SPH;
+        bound.type = k_XBOUNDTYPE_SPHERE;
         moreFlags |= 0x10;
         collis = NULL;
         baseFlags |= 0x100;

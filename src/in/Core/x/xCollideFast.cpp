@@ -57,11 +57,11 @@ U32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
 {
     xRay3 lr;
 
-    if (b->type == XBOUND_TYPE_SPH)
+    if (b->type == k_XBOUNDTYPE_SPHERE)
     {
         return xRayHitsSphereFast(r, &b->sph);
     }
-    else if (b->type == XBOUND_TYPE_OBB)
+    else if (b->type == k_XBOUNDTYPE_OBB)
     {
         F32 len = xVec3Length(&b->mat->right);
         xMat3x3 mn;
@@ -76,11 +76,11 @@ U32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
 
         return xRayHitsBoxFast(&lr, &b->box.box);
     }
-    else if (b->type == XBOUND_TYPE_BOX)
+    else if (b->type == k_XBOUNDTYPE_BOX)
     {
         return xRayHitsBoxFast(r, &b->box.box);
     }
-    else if (b->type == XBOUND_TYPE_CYL)
+    else if (b->type == k_XBOUNDTYPE_CYLINDER)
     {
         return xRayHitsCylinderFast(r, &b->cyl);
     }

@@ -15,19 +15,19 @@ static void hack_unused_function()
 
 void xBoundUpdate(xBound* b)
 {
-    if (b->type == XBOUND_TYPE_BOX)
+    if (b->type == k_XBOUNDTYPE_BOX)
     {
         xVec3Add(&b->box.center, &b->box.box.lower, &b->box.box.upper);
         xVec3SMul(&b->box.center, &b->box.center, 0.5f);
     }
-    else if (b->type == XBOUND_TYPE_OBB)
+    else if (b->type == k_XBOUNDTYPE_OBB)
     {
         xVec3Add(&b->box.center, &b->box.box.lower, &b->box.box.upper);
         xVec3SMul(&b->box.center, &b->box.center, 0.5f);
         xMat4x3Toworld(&b->box.center, b->mat, &b->box.center);
     }
 
-    if (b->type != XBOUND_TYPE_NA)
+    if (b->type != k_XBOUNDTYPE_NONE)
     {
         xQuickCullForBound(&b->qcd, b);
     }
@@ -37,7 +37,7 @@ void xBoundGetBox(xBox& box, const xBound& bound)
 {
     switch (bound.type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
     {
         const xSphere& o = bound.sph;
 
@@ -46,13 +46,13 @@ void xBoundGetBox(xBox& box, const xBound& bound)
 
         break;
     }
-    case XBOUND_TYPE_BOX:
+    case k_XBOUNDTYPE_BOX:
         box = bound.box.box;
         break;
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_OBB:
         xBoxInitBoundOBB(&box, &bound.box.box, bound.mat);
         break;
-    case XBOUND_TYPE_CYL:
+    case k_XBOUNDTYPE_CYLINDER:
     {
         const xCylinder& c = bound.cyl;
 
@@ -68,12 +68,12 @@ void xBoundGetCylinder(xCylinder& o, const xBound& bound)
 {
     switch (bound.type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
         o.center = bound.sph.center;
         o.h = bound.sph.r;
         o.r = bound.sph.r;
         break;
-    case XBOUND_TYPE_BOX:
+    case k_XBOUNDTYPE_BOX:
     {
         o.center = bound.box.center;
 
@@ -86,7 +86,7 @@ void xBoundGetCylinder(xCylinder& o, const xBound& bound)
 
         break;
     }
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_OBB:
     {
         const xMat4x3& mat = *bound.mat;
         xVec3 v = (bound.box.box.upper - bound.box.box.lower) * 0.5f;
@@ -98,7 +98,7 @@ void xBoundGetCylinder(xCylinder& o, const xBound& bound)
 
         break;
     }
-    case XBOUND_TYPE_CYL:
+    case k_XBOUNDTYPE_CYLINDER:
         o = bound.cyl;
         break;
     }
@@ -108,14 +108,14 @@ void xBoundGetSphere(xSphere& o, const xBound& bound)
 {
     switch (bound.type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
         o = bound.sph;
         break;
-    case XBOUND_TYPE_BOX:
+    case k_XBOUNDTYPE_BOX:
         o.center = bound.box.center;
         o.r = (bound.box.box.upper - bound.box.center).length();
         break;
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_OBB:
     {
         const xMat4x3& mat = *bound.mat;
         xVec3 v = (bound.box.box.upper - bound.box.box.lower) * 0.5f;
@@ -144,37 +144,37 @@ void xBoundHitsBound(const xBound* a, const xBound* b, xCollis* c)
 
     switch (a->type | (b->type << 3))
     {
-    case XBOUND_TYPE_SPH | (XBOUND_TYPE_SPH << 3):
+    case k_XBOUNDTYPE_SPHERE | (k_XBOUNDTYPE_SPHERE << 3):
         xSphereHitsSphere(&a->sph, &b->sph, c);
         break;
-    case XBOUND_TYPE_SPH | (XBOUND_TYPE_OBB << 3):
+    case k_XBOUNDTYPE_SPHERE | (k_XBOUNDTYPE_OBB << 3):
         xBoundSphereHitsOBB(&a->sph, &b->box.box, b->mat, c);
         break;
-    case XBOUND_TYPE_SPH | (XBOUND_TYPE_BOX << 3):
+    case k_XBOUNDTYPE_SPHERE | (k_XBOUNDTYPE_BOX << 3):
         xSphereHitsBox(&a->sph, &b->box.box, c);
         break;
-    case XBOUND_TYPE_BOX | (XBOUND_TYPE_SPH << 3):
+    case k_XBOUNDTYPE_BOX | (k_XBOUNDTYPE_SPHERE << 3):
         xBoxHitsSphere(&a->box.box, &b->sph, c);
         break;
-    case XBOUND_TYPE_BOX | (XBOUND_TYPE_OBB << 3):
+    case k_XBOUNDTYPE_BOX | (k_XBOUNDTYPE_OBB << 3):
         xBoxHitsObb(&a->box.box, &b->box.box, b->mat, c);
         break;
-    case XBOUND_TYPE_OBB | (XBOUND_TYPE_SPH << 3):
+    case k_XBOUNDTYPE_OBB | (k_XBOUNDTYPE_SPHERE << 3):
         xBoundSphereHitsOBB(&b->sph, &a->box.box, a->mat, c);
         break;
-    case XBOUND_TYPE_OBB | (XBOUND_TYPE_OBB << 3):
+    case k_XBOUNDTYPE_OBB | (k_XBOUNDTYPE_OBB << 3):
         xObbHitsObb(&a->box.box, a->mat, &b->box.box, b->mat, c);
         break;
-    case XBOUND_TYPE_OBB | (XBOUND_TYPE_BOX << 3):
+    case k_XBOUNDTYPE_OBB | (k_XBOUNDTYPE_BOX << 3):
         xBoxHitsObb(&b->box.box, &a->box.box, a->mat, c);
         break;
-    case XBOUND_TYPE_SPH | (XBOUND_TYPE_CYL << 3):
+    case k_XBOUNDTYPE_SPHERE | (k_XBOUNDTYPE_CYLINDER << 3):
         xSphereHitsVCylinder(&a->sph, &b->cyl, c);
         break;
-    case XBOUND_TYPE_CYL | (XBOUND_TYPE_SPH << 3):
-    case XBOUND_TYPE_BOX | (XBOUND_TYPE_BOX << 3):
-    case XBOUND_TYPE_BOX | (XBOUND_TYPE_CYL << 3):
-    case XBOUND_TYPE_OBB | (XBOUND_TYPE_CYL << 3):
+    case k_XBOUNDTYPE_CYLINDER | (k_XBOUNDTYPE_SPHERE << 3):
+    case k_XBOUNDTYPE_BOX | (k_XBOUNDTYPE_BOX << 3):
+    case k_XBOUNDTYPE_BOX | (k_XBOUNDTYPE_CYLINDER << 3):
+    case k_XBOUNDTYPE_OBB | (k_XBOUNDTYPE_CYLINDER << 3):
         xCylinderHitsSphere(&a->cyl, &b->sph, c);
         break;
     }
@@ -214,15 +214,15 @@ void xRayHitsBound(const xRay3* r, const xBound* b, xCollis* c)
 {
     xIsect isect = {};
 
-    if (b->type == XBOUND_TYPE_SPH)
+    if (b->type == k_XBOUNDTYPE_SPHERE)
     {
         iSphereIsectRay(&b->sph, r, &isect);
     }
-    else if (b->type == XBOUND_TYPE_OBB)
+    else if (b->type == k_XBOUNDTYPE_OBB)
     {
         xBoundOBBIsectRay(&b->box.box, b->mat, r, &isect);
     }
-    else if (b->type == XBOUND_TYPE_BOX)
+    else if (b->type == k_XBOUNDTYPE_BOX)
     {
         iBoxIsectRay(&b->box.box, r, &isect);
     }
@@ -242,13 +242,13 @@ void xSphereHitsBound(const xSphere* o, const xBound* b, xCollis* c)
 {
     switch (b->type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
         xSphereHitsSphere(o, &b->sph, c);
         break;
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_OBB:
         xBoundSphereHitsOBB(o, &b->box.box, b->mat, c);
         break;
-    case XBOUND_TYPE_BOX:
+    case k_XBOUNDTYPE_BOX:
         xSphereHitsBox(o, &b->box.box, c);
         break;
     }
@@ -258,23 +258,23 @@ bool xBoundHitsBound(const xBound& a, const xBound& b)
 {
     switch (a.type | (b.type << 3))
     {
-    case XBOUND_TYPE_SPH | (XBOUND_TYPE_SPH << 3):
+    case k_XBOUNDTYPE_SPHERE | (k_XBOUNDTYPE_SPHERE << 3):
         return xSphereHitsSphere(a.sph, b.sph);
-    case XBOUND_TYPE_SPH | (XBOUND_TYPE_OBB << 3):
+    case k_XBOUNDTYPE_SPHERE | (k_XBOUNDTYPE_OBB << 3):
         return xSphereHitsOBB(a.sph, b.box.box, *b.mat);
-    case XBOUND_TYPE_SPH | (XBOUND_TYPE_BOX << 3):
+    case k_XBOUNDTYPE_SPHERE | (k_XBOUNDTYPE_BOX << 3):
         return xSphereHitsBox(a.sph, b.box.box);
-    case XBOUND_TYPE_BOX | (XBOUND_TYPE_SPH << 3):
+    case k_XBOUNDTYPE_BOX | (k_XBOUNDTYPE_SPHERE << 3):
         return xSphereHitsBox(b.sph, a.box.box);
-    case XBOUND_TYPE_BOX | (XBOUND_TYPE_BOX << 3):
+    case k_XBOUNDTYPE_BOX | (k_XBOUNDTYPE_BOX << 3):
         return xBoxHitsBox(a.box.box, b.box.box);
-    case XBOUND_TYPE_BOX | (XBOUND_TYPE_OBB << 3):
+    case k_XBOUNDTYPE_BOX | (k_XBOUNDTYPE_OBB << 3):
         return xOBBHitsOBB(a.box.box, g_I3, b.box.box, *b.mat);
-    case XBOUND_TYPE_OBB | (XBOUND_TYPE_SPH << 3):
+    case k_XBOUNDTYPE_OBB | (k_XBOUNDTYPE_SPHERE << 3):
         return xSphereHitsOBB(b.sph, a.box.box, *a.mat);
-    case XBOUND_TYPE_OBB | (XBOUND_TYPE_OBB << 3):
+    case k_XBOUNDTYPE_OBB | (k_XBOUNDTYPE_OBB << 3):
         return xOBBHitsOBB(a.box.box, *a.mat, b.box.box, *b.mat);
-    case XBOUND_TYPE_OBB | (XBOUND_TYPE_BOX << 3):
+    case k_XBOUNDTYPE_OBB | (k_XBOUNDTYPE_BOX << 3):
         return xOBBHitsOBB(a.box.box, *a.mat, b.box.box, g_I3);
     }
 
@@ -288,13 +288,13 @@ bool xRayHitsBound(const xRay3& r, const xBound& b)
 
     switch (b.type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
         iSphereIsectRay(&b.sph, &r, &isect);
         break;
-    case XBOUND_TYPE_BOX:
+    case k_XBOUNDTYPE_BOX:
         iBoxIsectRay(&b.box.box, &r, &isect);
         break;
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_OBB:
         xBoundOBBIsectRay(&b.box.box, b.mat, &r, &isect);
         break;
     }
@@ -306,11 +306,11 @@ bool xSphereHitsBound(const xVec3& c, F32 r, const xBound& b)
 {
     switch (b.type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
         return xSphereHitsSphere(c, r, b.sph.center, b.sph.r);
-    case XBOUND_TYPE_BOX:
+    case k_XBOUNDTYPE_BOX:
         return xSphereHitsBox(c, r, b.box.box);
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_OBB:
         return xSphereHitsOBB(c, r, b.box.box, *b.mat);
     }
 
@@ -321,11 +321,11 @@ bool xOBBHitsBound(const xBox& box, const xMat4x3& mat, const xBound& b)
 {
     switch (b.type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
         return xSphereHitsOBB(b.sph.center, b.sph.r, box, mat);
-    case XBOUND_TYPE_BOX:
+    case k_XBOUNDTYPE_BOX:
         return xOBBHitsOBB(b.box.box, g_I3, box, mat);
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_OBB:
         return xOBBHitsOBB(b.box.box, *b.mat, box, mat);
     }
 
@@ -336,14 +336,14 @@ void xBoundGetCenter(const xBound* b, xVec3* center)
 {
     switch (b->type)
     {
-    case XBOUND_TYPE_SPH:
+    case k_XBOUNDTYPE_SPHERE:
         *center = b->sph.center;
         break;
-    case XBOUND_TYPE_BOX:
-    case XBOUND_TYPE_OBB:
+    case k_XBOUNDTYPE_BOX:
+    case k_XBOUNDTYPE_OBB:
         *center = b->box.center;
         break;
-    case XBOUND_TYPE_CYL:
+    case k_XBOUNDTYPE_CYLINDER:
         *center = b->cyl.center;
         break;
     }

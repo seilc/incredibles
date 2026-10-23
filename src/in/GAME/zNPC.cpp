@@ -45,7 +45,7 @@ namespace zNPC
         if (!use_bounding_box && get_parameter("BoundCenter", &offset, g_O3) &&
             get_parameter("BoundRadius", &scale, 1.0f))
         {
-            bound.type = XBOUND_TYPE_SPH;
+            bound.type = k_XBOUNDTYPE_SPHERE;
             bound.sph.center = offset;
             bound.sph.r = scale;
         }
@@ -66,7 +66,7 @@ namespace zNPC
 
         if (use_bounding_box)
         {
-            bound.type = XBOUND_TYPE_OBB;
+            bound.type = k_XBOUNDTYPE_OBB;
 
             xBoxForModel(bound.box.box, model, true);
 
@@ -97,7 +97,7 @@ namespace zNPC
         }
         else
         {
-            bound.type = XBOUND_TYPE_SPH;
+            bound.type = k_XBOUNDTYPE_SPHERE;
 
             xSphereForModel(bound.sph, model, true);
 
@@ -115,7 +115,7 @@ namespace zNPC
     {
         switch (bound.type)
         {
-        case XBOUND_TYPE_SPH:
+        case k_XBOUNDTYPE_SPHERE:
         {
             if (bound_bone != -1)
             {
@@ -133,7 +133,7 @@ namespace zNPC
 
             break;
         }
-        case XBOUND_TYPE_BOX:
+        case k_XBOUNDTYPE_BOX:
         {
             bound.box.box.lower += frame->mat.pos - frame->oldmat.pos;
             bound.box.box.upper += frame->mat.pos - frame->oldmat.pos;
@@ -142,7 +142,7 @@ namespace zNPC
 
             break;
         }
-        case XBOUND_TYPE_OBB:
+        case k_XBOUNDTYPE_OBB:
         {
             bound.mat = &frame->mat;
 
@@ -154,7 +154,7 @@ namespace zNPC
         }
         }
 
-        if (bound.type != XBOUND_TYPE_NA)
+        if (bound.type != k_XBOUNDTYPE_NONE)
         {
             xQuickCullForBound(&bound.qcd, &bound);
         }
