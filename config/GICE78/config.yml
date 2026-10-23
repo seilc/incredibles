@@ -6,3 +6,4 @@ symbols: config/GICE78/symbols.txt
 splits: config/GICE78/splits.txt
 # Change this to match the linker version.
 # See config.example.yml for a list.
+ldscript_template: config/GICE78/ldscript.tpl
