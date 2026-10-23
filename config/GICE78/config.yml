@@ -86,3 +86,23 @@ add_relocations:
   type: sda21
   target: "@1435!.sbss2:0x803D9448"
   addend: -4
+- source: .text:0x800FF1D0
+  type: sda21
+  target: "g_I3!.sbss:0x803CEF00"
+  addend: -4
+- source: .text:0x8011452C
+  type: sda21
+  target: "g_I3!.sbss:0x803CEF00"
+  addend: -4
+- source: .text:0x801B93A0
+  type: sda21
+  target: "g_I3!.sbss:0x803CEF00"
+  addend: -4
+- source: .text:0x801F9598
+  type: sda21
+  target: "g_I3!.sbss:0x803CEF00"
+  addend: -4
+- source: .text:0x80122C14
+  type: sda21
+  target: "default_physics_properties__Q21z4bomb!.sdata2:0x803D6208"
+  addend: -4
