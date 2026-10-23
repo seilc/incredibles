@@ -31,4 +31,12 @@ extern const xColor g_CLEAR;
 extern const xColor g_PIMP_GOLD;
 extern const xColor g_CHARTREUSE;
 
+inline void xColorInit(xColor& rToInit, U8 r, U8 g, U8 b, U8 a)
+{
+    rToInit.r = r;
+    rToInit.g = g;
+    rToInit.b = b;
+    rToInit.a = a;
+}
+
 #endif

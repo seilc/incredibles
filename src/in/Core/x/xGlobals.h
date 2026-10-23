@@ -105,4 +105,7 @@ struct xGlobals
 
 extern xGlobals* xglobals;
 
+extern U32 FB_XRES;
+extern U32 FB_YRES;
+
 #endif
