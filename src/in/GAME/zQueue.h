@@ -1,7 +1,7 @@
 #ifndef ZQUEUE_H
 #define ZQUEUE_H
 
-#include <types.h>
+#include "types.h"
 
 template <class T, S32 max_size> class zQueue
 {

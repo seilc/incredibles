@@ -3,6 +3,8 @@
 
 #include "xbinio.h"
 
+#define MAX_OPENBLK 8
+
 typedef enum en_READ_ASYNC_STATUS
 {
     HIP_RDSTAT_NONE = -1,
@@ -33,7 +35,7 @@ typedef struct st_HIPLOADDATA
     S32 pos;
     S32 top;
     S32 readTop;
-    HIPLOADBLOCK stk[8];
+    HIPLOADBLOCK stk[MAX_OPENBLK];
 } HIPLOADDATA;
 
 typedef struct st_HIPLOADFUNCS

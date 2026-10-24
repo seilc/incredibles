@@ -1,7 +1,7 @@
 #ifndef ZLIGHTWEIGHT_H
 #define ZLIGHTWEIGHT_H
 
-#include <types.h>
+#include "types.h"
 
 namespace z
 {

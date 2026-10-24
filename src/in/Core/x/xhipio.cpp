@@ -19,8 +19,10 @@ static S32 HIPLReadLongs(HIPLOADDATA* lddata, S32* data, S32 cnt);
 static S32 HIPLReadFloats(HIPLOADDATA* lddata, F32* data, S32 cnt);
 static S32 HIPLReadString(HIPLOADDATA* lddata, char* buf);
 
+#define MAX_LOADINST 8
+
 static U32 g_loadlock = 0;
-static HIPLOADDATA g_hiploadinst[8] = {};
+static HIPLOADDATA g_hiploadinst[MAX_LOADINST] = {};
 
 // clang-format off
 static HIPLOADFUNCS g_map_HIPL_funcmap =
@@ -54,7 +56,7 @@ static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, 
     S32 i;
     S32 uselock = -1;
 
-    for (i = 0; i < ARRAYSIZE(g_hiploadinst); i++)
+    for (i = 0; i < MAX_LOADINST; i++)
     {
         if (!(g_loadlock & (1 << i)))
         {
@@ -79,7 +81,7 @@ static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, 
         lddata->pos = 0;
         lddata->readTop = 0;
 
-        for (i = 0; i < ARRAYSIZE(lddata->stk); i++)
+        for (i = 0; i < MAX_OPENBLK; i++)
         {
             tmp_blk = &lddata->stk[i];
             tmp_blk->endpos = 0;

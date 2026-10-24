@@ -1,7 +1,7 @@
 #ifndef ZVAR_H
 #define ZVAR_H
 
-#include <types.h>
+#include "types.h"
 
 struct zVarEntry
 {

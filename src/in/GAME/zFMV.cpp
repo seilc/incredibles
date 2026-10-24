@@ -6,6 +6,7 @@
 #include "xSndMgr.h"
 #include "iFMV.h"
 #include "xPad.h"
+#include "xutil.h"
 
 // clang-format off
 static zFMVFile zFMVFileTable[] =
@@ -53,7 +54,7 @@ static zFMVFile zFMVFileTable[] =
 
 zFMVFile* zFMVFileGetFile(eFMVFile fmvId)
 {
-    for (S32 i = 0; i < ARRAYSIZE(zFMVFileTable); i++)
+    for (S32 i = 0; i < ARRAY_LENGTH(zFMVFileTable); i++)
     {
         if (fmvId == zFMVFileTable[i].fmvCode)
         {

@@ -3,6 +3,8 @@
 
 #include "xRand.h"
 
+#define ARRAY_LENGTH(a) (sizeof(a) / sizeof(a[0]))
+
 const char* xUtil_idtag2string(U32 srctag, S32 bufidx = 0);
 
 template <class T> static inline T xUtil_choose(const T* r3, S32 r4, const F32* r5 = NULL)

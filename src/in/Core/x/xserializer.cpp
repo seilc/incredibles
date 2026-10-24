@@ -393,7 +393,7 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
 
     while (sitmp->idtag != 0)
     {
-        tally += ALIGN(sitmp->needsize, 4);
+        tally += (sitmp->needsize + 3) & ~3;
         sicnt++;
         sitmp++;
     }
@@ -413,7 +413,7 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
     {
         tmp_clt->idtag = sitmp->idtag;
         tmp_clt->trueoff = tally;
-        tmp_clt->actsize = ALIGN(sitmp->needsize, 4);
+        tmp_clt->actsize = (sitmp->needsize + 3) & ~3;
         tmp_clt->membuf = xsd->bitbuf + tally / 4;
 
         XOrdAppend(&xsd->cltlist, tmp_clt);

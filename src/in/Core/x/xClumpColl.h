@@ -2,7 +2,7 @@
 #define XCLUMPCOLL_H
 
 #include <rwcore.h>
-#include <types.h>
+#include "types.h"
 
 struct xClumpCollBSPBranchNode
 {

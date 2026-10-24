@@ -1,7 +1,7 @@
 #ifndef XLIGHTKIT_H
 #define XLIGHTKIT_H
 
-#include <types.h>
+#include "types.h"
 
 #include <rwcore.h>
 #include <rpworld.h>

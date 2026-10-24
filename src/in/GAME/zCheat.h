@@ -1,7 +1,7 @@
 #ifndef ZCHEAT_H
 #define ZCHEAT_H
 
-#include <types.h>
+#include "types.h"
 
 #ifdef GAMECUBE
 S32 zCheatProcess(const char* name);

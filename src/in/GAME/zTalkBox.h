@@ -1,7 +1,7 @@
 #ifndef ZTALKBOX_H
 #define ZTALKBOX_H
 
-#include <types.h>
+#include "types.h"
 
 struct ztalkbox
 {

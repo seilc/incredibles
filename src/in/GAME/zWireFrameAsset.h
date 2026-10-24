@@ -1,7 +1,7 @@
 #ifndef ZWIREFRAMEASSET_H
 #define ZWIREFRAMEASSET_H
 
-#include <types.h>
+#include "types.h"
 
 struct zWireframeVertex
 {

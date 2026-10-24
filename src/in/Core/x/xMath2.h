@@ -1,7 +1,7 @@
 #ifndef XMATH2_H
 #define XMATH2_H
 
-#include <types.h>
+#include "types.h"
 
 struct xVec2
 {

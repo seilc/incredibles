@@ -5,7 +5,7 @@
 #include <rtslerp.h>
 #include <rwcore.h>
 
-#include <types.h>
+#include "types.h"
 
 static U8 g_iAnim_workBufferData[0x4000];
 U8* g_iAnim_workBuffer = g_iAnim_workBufferData;

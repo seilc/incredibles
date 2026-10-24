@@ -1,7 +1,7 @@
 #ifndef IPAD_H
 #define IPAD_H
 
-#include <types.h>
+#include "types.h"
 
 typedef struct _tagiPad
 {

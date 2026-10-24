@@ -1,7 +1,7 @@
 #ifndef XMATH_H
 #define XMATH_H
 
-#include <types.h>
+#include "types.h"
 
 #include <cmath>
 
@@ -13,8 +13,6 @@
 #define xmax3(a,b,c) (xmax(xmax((a), (b)), (c)))
 #define xclamp(x,a,b) xmax((a), xmin((x), (b)))
 #define xsqr(x) ((x) * (x))
-
-#define ALIGN(x, a) ((x) + ((a)-1) & ~((a)-1))
 
 #define PI 3.14159265f
 

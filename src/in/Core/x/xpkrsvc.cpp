@@ -1721,7 +1721,7 @@ static S32 LOD_r_LHDR(HIPLOADDATA* pkg, PACKER_READ_DATA* pr)
 
     if (laynode->laysize > 0)
     {
-        laynode->laysize = ALIGN(laynode->laysize, 2048);
+        laynode->laysize = (laynode->laysize + 2047) & ~2047;
     }
 
     cid = g_hiprf->enter(pkg);

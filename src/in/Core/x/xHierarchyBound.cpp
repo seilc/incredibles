@@ -3,7 +3,8 @@
 #include "xMemMgr.h"
 #include "iMath3.h"
 
-#include <hacks.h>
+#include "decomp.h"
+
 #include <string.h>
 
 void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* init,
@@ -33,11 +34,9 @@ void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* 
     bound->master.r = masterRadius * scale;
     bound->maxCount = count + extraBounds;
     memset(&bound->nodes[count], 0, extraBounds * sizeof(xHierarchyNode));
-
-#ifndef NO_HACKS
-    DEFINE_IMPLICIT_COPY_OP_AFTER_THIS_FUNCTION(xIsect)
-#endif
 }
+
+DECOMP_FORCEACTIVE(&xIsect::operator=)
 
 bool xHierarchyBoundTest(const xHierarchyBound* bound, const xRay3* testRay, U16* boundUserData,
                          xIsect* isect, S8* subsphere)

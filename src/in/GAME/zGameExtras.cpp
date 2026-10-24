@@ -587,7 +587,7 @@ static void GEC_dfltSound()
     };
     // clang-format on
 
-    xUtil_choose(aid_sndList, ARRAYSIZE(aid_sndList), NULL);
+    xUtil_choose(aid_sndList, ARRAY_LENGTH(aid_sndList), NULL);
 }
 
 static void GEC_cb_TestCheats()

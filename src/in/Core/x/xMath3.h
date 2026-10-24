@@ -21,13 +21,13 @@ struct xMat3x3
     U32 pad1;
     xVec3 at;
     U32 pad2;
-} ALIGNED(16);
+} ALIGN(16);
 
 struct xMat4x3 : xMat3x3
 {
     xVec3 pos;
     U32 pad3;
-} ALIGNED(16);
+} ALIGN(16);
 
 struct xQuat
 {

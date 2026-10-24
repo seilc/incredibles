@@ -1,7 +1,7 @@
 #ifndef XTEXTASSET_H
 #define XTEXTASSET_H
 
-#include <types.h>
+#include "types.h"
 
 struct xTextAsset
 {

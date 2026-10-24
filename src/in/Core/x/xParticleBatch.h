@@ -1,7 +1,7 @@
 #ifndef XPARTICLEBATCH_H
 #define XPARTICLEBATCH_H
 
-#include <types.h>
+#include "types.h"
 
 struct xParticleBatchGroup
 {

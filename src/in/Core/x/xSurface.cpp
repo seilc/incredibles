@@ -2,7 +2,7 @@
 
 #include "xMemMgr.h"
 
-#include <hacks.h>
+#include "decomp.h"
 
 static xSurface* surfs = NULL;
 static U16 nsurfs = 0;
@@ -24,9 +24,9 @@ void xSurfaceInit(U16 num_surfs)
     {
         surfs = NULL;
     }
-
-    DEFINE_IMPLICIT_COPY_OP_AFTER_THIS_FUNCTION(xBase)
 }
+
+DECOMP_FORCEACTIVE(&xBase::operator=)
 
 void xSurfaceExit()
 {

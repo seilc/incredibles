@@ -1,7 +1,7 @@
 #ifndef XEVENT_H
 #define XEVENT_H
 
-#include <types.h>
+#include "types.h"
 
 // The dwarf data does not have an en_xEventTags enum,
 //   so this is based on the one from BFBB.

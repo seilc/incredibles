@@ -1,7 +1,7 @@
 #ifndef ZSYMBOL_H
 #define ZSYMBOL_H
 
-#include <types.h>
+#include "types.h"
 
 struct xModelInstance;
 

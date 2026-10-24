@@ -1,7 +1,7 @@
 #ifndef XCOLOR_H
 #define XCOLOR_H
 
-#include <types.h>
+#include "types.h"
 #include <rwcore.h>
 
 typedef union xColor_tag

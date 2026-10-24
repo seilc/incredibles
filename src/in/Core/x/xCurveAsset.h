@@ -1,7 +1,7 @@
 #ifndef XCURVEASSET_H
 #define XCURVEASSET_H
 
-#include <types.h>
+#include "types.h"
 
 enum xCurveType
 {

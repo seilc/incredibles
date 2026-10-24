@@ -1,7 +1,7 @@
 #ifndef XJAW_H
 #define XJAW_H
 
-#include <types.h>
+#include "types.h"
 
 struct xJawDataTable
 {

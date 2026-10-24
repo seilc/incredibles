@@ -1,6 +1,6 @@
 #ifndef ZCOMBATLASER_H
 #define ZCOMBATLASER_H
 
-#include <types.h>
+#include "types.h"
 
 #endif

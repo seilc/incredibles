@@ -1,7 +1,7 @@
 #ifndef ZLIGHT_H
 #define ZLIGHT_H
 
-#include <types.h>
+#include "types.h"
 
 struct xEnv;
 

@@ -1,7 +1,7 @@
 #ifndef ILIGHT_H
 #define ILIGHT_H
 
-#include <types.h>
+#include "types.h"
 #include <rwcore.h>
 #include <rpworld.h>
 

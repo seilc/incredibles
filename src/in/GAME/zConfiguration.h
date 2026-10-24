@@ -1,7 +1,7 @@
 #ifndef ZCONFIGURATION_H
 #define ZCONFIGURATION_H
 
-#include <types.h>
+#include "types.h"
 
 typedef enum _PLAYER_ENUM
 {

@@ -1,7 +1,7 @@
 #ifndef ZGAME_H
 #define ZGAME_H
 
-#include <types.h>
+#include "types.h"
 
 extern U32 startPressed;
 

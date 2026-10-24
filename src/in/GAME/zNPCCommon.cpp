@@ -14,23 +14,14 @@
 #include "xString.h"
 #include "zNPCCombat.h"
 
+#include "decomp.h"
+
 #include <string.h>
 
-#include <hacks.h>
-
-#ifndef NO_HACKS
-#pragma push
-#pragma force_active off
-static void hack_symbol_order()
-{
-    FORCE_USE_SYMBOL(F32, 0.0f);
-    FORCE_USE_SYMBOL(F32, 1.0f);
-    FORCE_USE_SYMBOL(F32, EPSILON);
-
-    xMat3x3RMulVec(NULL, NULL, NULL);
-}
-#pragma pop
-#endif
+DECOMP_FORCEFLOAT(0.0f)
+DECOMP_FORCEFLOAT(1.0f)
+DECOMP_FORCEFLOAT(EPSILON)
+DECOMP_FORCEBLOCK(() { xMat3x3RMulVec(NULL, NULL, NULL); })
 
 namespace
 {

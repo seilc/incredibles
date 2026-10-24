@@ -209,7 +209,7 @@ cflags_base = [
     "-fp_contract on",
     "-str reuse",
     "-multibyte",  # For Wii compilers, replace with `-enc SJIS`
-    "-i include",
+    "-i src",
     f"-i build/{config.version}/include",
     f"-DBUILD_VERSION={version_num}",
     f"-DVERSION_{config.version}",
@@ -419,8 +419,7 @@ cflags_incredibles = [
     "-inline off",
     "-gccinc",
     "-ir src/in",
-    "-i include",
-    "-i include/bink",
+    "-i src/bink/bink",
     "-i src/PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Include",
     "-i src/PowerPC_EABI_Support/MSL/MSL_C++/MSL_Common/Include",
     "-i src/dolphin/include",

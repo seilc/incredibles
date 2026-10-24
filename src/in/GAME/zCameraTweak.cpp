@@ -4,7 +4,7 @@
 #include "xEvent.h"
 #include "iMath.h"
 
-#include <hacks.h>
+#include "decomp.h"
 
 F32 zcam_near_d = 3.0f;
 F32 zcam_near_h = 1.8f;
@@ -41,16 +41,8 @@ struct zCamTweakLook
 static zCamTweakLook zcam_neartweak;
 static zCamTweakLook zcam_fartweak;
 
-#ifndef NO_HACKS
-#pragma push
-#pragma force_active off
-static void hack_float_order()
-{
-    FORCE_USE_SYMBOL(F32, 0.0f);
-    FORCE_USE_SYMBOL(F32, 1.0f);
-}
-#pragma pop
-#endif
+DECOMP_FORCEFLOAT(0.0f)
+DECOMP_FORCEFLOAT(1.0f)
 
 static void zCameraTweak_LookPreCalc(zCamTweakLook* look, F32 d, F32 h, F32 pitch)
 {
