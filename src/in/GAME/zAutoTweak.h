@@ -9,7 +9,7 @@
 namespace auto_tweak {
 
 template <class T, class T2>
-static inline void add_tweak(const char* name, T* v, T2 vmin, T2 vmax, const tweak_callback* cb, void* context, U32 flags) { xDebugAddTweak(name, v, vmin, vmax, cb, context, flags); }
+static inline void add_tweak(const char* name, T* v, T2 vmin, T2 vmax, const tweak_callback* cb, void* context, U32 flags) { xTWEAK(name, v, vmin, vmax, cb, context, flags); }
 
 }
 

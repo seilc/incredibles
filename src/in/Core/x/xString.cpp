@@ -8,12 +8,6 @@
 
 #include <stdlib.h>
 
-// Note: I'm using pre-increment (++i) a lot instead of the usual post-increment (i++) in this file.
-// This actually affects codegen in some unexpected places and is needed to match,
-// particularly where multiple variables are incremented in the same statement, e.g.: ++i, ++j;
-// In most cases it doesn't matter whether pre- or post- increment is used,
-// but I chose to mainly use pre-increment for style consistency.
-
 U32 xStrHash(const char* str)
 {
     U32 i = 0;

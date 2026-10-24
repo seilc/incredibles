@@ -119,9 +119,7 @@ inline void _t_auto_tweak(const char* prefix, const char* name, T* v, T2 vmin, T
 
 template <>
 inline void _t_auto_tweak(const char* prefix, const char* name, bool* v, S32 vmin, S32 vmax, const tweak_callback* cb, void* context, U32 flags, bool process)
-{
-    _auto_tweak(prefix, name, v, cb, context, flags, process);
-}
+{ _auto_tweak(prefix, name, v, cb, context, flags, process); }
 
 #define xTWEAK(name, v, vmin, vmax, cb, context, flags) xDebugAddTweak(name, v, vmin, vmax, cb, context, flags)
 #define xTWEAKSELECT(name, v, labels, values, labels_size, cb, context, flags) xDebugAddSelectTweak(name, v, labels, values, labels_size, cb, context, flags)

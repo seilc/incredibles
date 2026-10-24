@@ -7,8 +7,8 @@
 
 #include <types.h>
 
-static unsigned char g_iAnim_workBufferData[0x4000];
-unsigned char* g_iAnim_workBuffer = g_iAnim_workBufferData;
+static U8 g_iAnim_workBufferData[0x4000];
+U8* g_iAnim_workBuffer = g_iAnim_workBufferData;
 
 void iAnimInit()
 {
