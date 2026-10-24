@@ -4,6 +4,8 @@
 #include <types.h>
 #include <rwcore.h>
 
+struct tag_xFile;
+
 typedef enum en_BIO_ASYNC_ERRCODES
 {
     BINIO_ASYNC_FAIL = -1,
@@ -53,5 +55,8 @@ typedef struct st_FILELOADINFO
 } FILELOADINFO;
 
 FILELOADINFO* xBinioLoadCreate(const char* filename, S32 fileflags);
+
+void xFileSetUserData(tag_xFile* xf, void* p);
+void* xFileGetUserData(tag_xFile* xf);
 
 #endif

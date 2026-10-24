@@ -2,6 +2,7 @@
 #define IFMV_H
 
 #include "xFile.h"
+#include "xpkrsvc.h"
 
 #include <rwcore.h>
 #include <bink.h>
@@ -27,6 +28,8 @@ struct MOVIE
 #endif
 };
 
+MOVIE* iFMVOpen(PKRAssetTOCInfo& rAssetInfo);
+void iFMVClose(MOVIE*& pMovie);
 U32 iFMVPlay(const char* filename, U32 buttons, F32 time, U32 uSubtitlesAID,
                 bool skippable, bool lockController, bool r8);
 
