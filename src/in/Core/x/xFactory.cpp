@@ -70,6 +70,13 @@ S32 xFactory::RegItemType(XGOFTypeInfo* info)
     return rc;
 }
 
+// RESTORED: from TSSM GC, BFBB GC
+void xFactory::GrowDataDisable()
+{
+    growContextData.Done();
+}
+// END RESTORED
+
 xFactoryInst* xFactory::CreateItem(S32 typeID, void* userdata, RyzMemGrow* callerzgrow)
 {
     S32 idx;

@@ -33,6 +33,6 @@ void xMovePointSplineSetup(xMovePoint* m);
 void xMovePointSplineDestroy(xMovePoint* m);
 F32 xMovePointGetNext(const xMovePoint* m, const xMovePoint* prev, xMovePoint** next, xVec3* hdng);
 xVec3* xMovePointGetPos(const xMovePoint* m);
-S32 xMovePointGetAllLinked(xMovePoint** mps, S32 mps_max, xMovePoint* mp, S32 mps_used); // RESTORED
+S32 xMovePointGetAllLinked(xMovePoint** mps, S32 mps_max, xMovePoint* mp, S32 mps_used);
 
 #endif

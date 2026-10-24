@@ -1,31 +1,23 @@
 #ifndef IFMV_H
 #define IFMV_H
 
-#include "xFile.h"
+#include "types.h"
 #include "xpkrsvc.h"
-
 #include <rwcore.h>
-#include <bink.h>
+#include <dolphin.h>
+
+struct BINK;
 
 struct MOVIE
 {
-#if 0
-    HBINK hBink;
-    RwRaster* pBinkRaster;
-    S32 asyncReadKey;
+    U32 aid;
+    BINK* hBink;
+    DVDFileInfo file;
     RwTexture* pBinkTexture;
-    U8* pPreBuffer;
-    U8* pPreBufferAligned;
-    U32 PreBufferSize;
-    S32 FileOffset;
-    xFile* pFile;
-#else
-    char unk0x00[0x04];
-    HBINK hBink;
-    char unk0x08[0x3C];
-    RwTexture* pBinkTexture;
-    char unk0x48[0x08];
-#endif
+    U32 uMovieOffsetBytes;
+    U32 movie_is_suspended : 1;
+    U32 other_movie_flags : 7;
+    U32 disk_open_frame : 24;
 };
 
 MOVIE* iFMVOpen(PKRAssetTOCInfo& rAssetInfo);

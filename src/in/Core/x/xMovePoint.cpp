@@ -184,7 +184,6 @@ xVec3* xMovePointGetPos(const xMovePoint* m)
     return m->pos;
 }
 
-// RESTORED: from Incredibles GC
 S32 xMovePointGetAllLinked(xMovePoint** mps, S32 mps_max, xMovePoint* mp, S32 mps_used)
 {
     if (mps_used >= mps_max) return mps_used;
@@ -202,4 +201,3 @@ S32 xMovePointGetAllLinked(xMovePoint** mps, S32 mps_max, xMovePoint* mp, S32 mp
 
     return mps_used;
 }
-// END RESTORED

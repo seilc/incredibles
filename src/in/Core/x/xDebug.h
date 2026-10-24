@@ -77,6 +77,32 @@ do {                                                                            
 #define xASSERT_DESIGN_M(line, cond, msg)
 #endif
 
+#define xFAIL_AND_RETURN_IF(line, cond)                                                                     \
+do {                                                                                              \
+    if ((cond)) {                                                                                 \
+        _xASSERTFAIL(line, "*always*", "%s", #cond)                                               \
+        return;                                                                                   \
+    }                                                                                             \
+} while (0)
+
+#define xFAIL_AND_RETURN_VALUE_IF(line, cond, retval)                                                            \
+do {                                                                                              \
+    if ((cond)) {                                                                                 \
+        _xASSERTFAIL(line, "*always*", "%s", #cond)                                               \
+        return (retval);                                                                          \
+    }                                                                                             \
+} while (0)
+
+#define xFIXNAN(line, x)                                                                          \
+if ((x) && !((x) > 0.0f) && !((x) < 0.0f)) {                                                      \
+    static bool done = false;                                                                     \
+    if (!done) {                                                                                  \
+        xFAILM(line, "%s", "NAN");                                                                \
+        done = true;                                                                              \
+    }                                                                                             \
+    (x) = 0.0f;                                                                                   \
+}
+
 extern U32 gFrameCount;
 extern U32 gSceneFrameCount;
 

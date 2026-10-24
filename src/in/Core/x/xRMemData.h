@@ -22,6 +22,8 @@ struct RyzMemGrow
     {
         return flg_grow & RMEM_GROW_ENABLED;
     }
+
+    void Done(); // inferred from TSSM GC, Rat MAP
 };
 
 struct RyzMemData

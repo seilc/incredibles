@@ -6,6 +6,25 @@
 #define ARRAY_LENGTH(a) (sizeof(a) / sizeof(a[0]))
 
 const char* xUtil_idtag2string(U32 srctag, S32 bufidx = 0);
+void quicksort_istr(void* base, unsigned long num, unsigned long width, unsigned long key_offset);
+
+template <class T, class V, class C>
+T binary_find(T first, T last, const V& value, C cmp)
+{
+    const T notfound = last;
+    while (first < last)
+    {
+        const T mid = first + (last - first) / 2;
+        S32 c = cmp(value, *mid);
+        if (c < 0)
+            last = mid;
+        else if (c > 0)
+            first = mid + 1;
+        else
+            return mid;
+    }
+    return notfound;
+}
 
 template <class T> static inline T xUtil_choose(const T* r3, S32 r4, const F32* r5 = NULL)
 {

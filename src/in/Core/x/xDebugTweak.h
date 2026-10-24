@@ -3,6 +3,8 @@
 
 #include "xString.h"
 
+#include <string.h>
+
 struct tweak_info;
 
 struct tweak_callback
@@ -111,11 +113,31 @@ void _auto_tweak(const char* prefix, const char* name, U8* v, U8 vmin, U8 vmax, 
 void _auto_tweak(const char* prefix, const char* name, F32* v, F32 vmin, F32 vmax, const tweak_callback* cb, void* context, U32 flags, bool process);
 void _auto_tweak(const char* prefix, const char* name, bool* v, const tweak_callback* cb, void* context, U32 flags, bool process);
 
+void _auto_tweak_select(const char* prefix, const char* name, U32* v, const char** labels, const U32* values, U32 labels_size, const tweak_callback* cb, void* context, U32 flags, bool process);
+void _auto_tweak_flag(const char* prefix, const char* name, U32* v, U32 mask, const tweak_callback* cb, void* context, U32 flags);
+
+typedef bool(*xDebugRemoveTweaksCallback)(const tweak_info&, void*);
+
 void xDebugRemoveTweak(const char* name);
+void xDebugRemoveTweaks(const substr& name, xDebugRemoveTweaksCallback cb, void* context);
+
+inline void xDebugRemoveTweaks(const char* name, xDebugRemoveTweaksCallback cb, void* context)
+{ xDebugRemoveTweaks(substr::create(name, strlen(name)), cb, context); }
+
+inline void _auto_tweak_flag(const char* prefix, const char* name, S32* v, S32 mask, const tweak_callback* cb, void* context, U32 flags)
+{ _auto_tweak_flag(prefix, name, (U32*)v, (U32)mask, cb, context, flags); }
 
 template <class T, class T2>
 inline void _t_auto_tweak(const char* prefix, const char* name, T* v, T2 vmin, T2 vmax, const tweak_callback* cb, void* context, U32 flags, bool process)
 { _auto_tweak(prefix, name, v, vmin, vmax, cb, context, flags, process); }
+
+template <class T, class T2>
+inline void _t_auto_tweak_select(const char* prefix, const char* name, T* v, const char** labels, const T* values, T2 labels_size, const tweak_callback* cb, void* context, U32 flags, bool process)
+{ _auto_tweak_select(prefix, name, v, labels, values, labels_size, cb, context, flags, process); }
+
+template <class T, class T2>
+inline void _t_auto_tweak_flag(const char* prefix, const char* name, T* v, T2 mask, const tweak_callback* cb, void* context, U32 flags)
+{ _auto_tweak_flag(prefix, name, v, mask, cb, context, flags); }
 
 template <>
 inline void _t_auto_tweak(const char* prefix, const char* name, bool* v, S32 vmin, S32 vmax, const tweak_callback* cb, void* context, U32 flags, bool process)
@@ -131,6 +153,8 @@ inline void _t_auto_tweak(const char* prefix, const char* name, bool* v, S32 vmi
 
 #define xAUTOTWEAKRANGE(prefix, name, v, vmin, vmax, cb, context, flags, process) _t_auto_tweak(prefix, name, v, vmin, vmax, cb, context, flags, process)
 #define xAUTOTWEAKBOOL(prefix, name, v, cb, context, flags, process) _t_auto_tweak(prefix, name, v, 0, 0, cb, context, flags, process)
+#define xAUTOTWEAKSELECT(prefix, name, v, labels, values, labels_size, cb, context, flags, process) _t_auto_tweak_select(prefix, name, v, labels, values, labels_size, cb, context, flags, process)
+#define xAUTOTWEAKFLAG(prefix, name, v, mask, cb, context, flags) _t_auto_tweak_flag(prefix, name, v, mask, cb, context, flags)
 
 #define xTWEAKABLE
 #else
@@ -151,6 +175,8 @@ inline void xDebugRemoveTweaks(const char*, bool (*)(const tweak_info&, void*), 
 
 #define xAUTOTWEAKRANGE(prefix, name, v, vmin, vmax, cb, context, flags, process)
 #define xAUTOTWEAKBOOL(prefix, name, v, cb, context, flags, process)
+#define xAUTOTWEAKSELECT(prefix, name, v, labels, values, labels_size, cb, context, flags, process)
+#define xAUTOTWEAKFLAG(prefix, name, v, mask, cb, context, flags)
 
 #define xTWEAKABLE const
 #endif
