@@ -9,7 +9,7 @@ void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc)
 
     if (tempAlloc)
     {
-        array->list = (void**)xMemPushTemp(size * sizeof(void*));
+        array->list = (void**)xMEMPUSHTEMP(size * sizeof(void*), 'XORD', 75);
     }
     else
     {
@@ -30,7 +30,7 @@ void XOrdDone(XORDEREDARRAY* array, S32 wasTempAlloc)
 {
     if (array->max && wasTempAlloc)
     {
-        iMemPopTemp(array->list);
+        xMEMPOPTEMP(array->list);
     }
 
     array->list = NULL;

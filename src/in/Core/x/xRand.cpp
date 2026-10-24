@@ -200,7 +200,7 @@ void xRandUniformSpherePoints(xVec3* loc, S32 amount, F32 zmin, F32 zmax)
         F32 z;
     };
 
-    sector_type* sector_buffer = (sector_type*)xMemPushTemp(sectors * sizeof(sector_type));
+    sector_type* sector_buffer = (sector_type*)xMEMPUSHTEMP(sectors * sizeof(sector_type), 0, 378);
 
     sector_type* sector = sector_buffer;
     F32 sector_yaw = (2.0f * PI / 4294967296.0f) * xrand_RandomInt32();
@@ -231,5 +231,5 @@ void xRandUniformSpherePoints(xVec3* loc, S32 amount, F32 zmin, F32 zmax)
         loc->assign(x, y, z);
     }
 
-    iMemPopTemp(sector_buffer);
+    xMEMPOPTEMP(sector_buffer);
 }
