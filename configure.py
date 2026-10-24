@@ -845,7 +845,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zSparkEmitter.cpp"),
             Object(NonMatching, "in/GAME/zToss.cpp"),
             Object(NonMatching, "in/GAME/zHudFamilyMeter.cpp"),
-            Object(NonMatching, "in/Core/x/xIM.cpp"),
+            Object(Matching, "in/Core/x/xIM.cpp"),
             Object(NonMatching, "in/GAME/zParticleCustom.cpp"),
             Object(NonMatching, "in/GAME/zShrapnelEmitter.cpp"),
             Object(NonMatching, "in/GAME/zSmashRing.cpp"),
