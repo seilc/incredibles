@@ -3,11 +3,7 @@
 #include "xDebug.h"
 #include "xString.h"
 
-#pragma push
-#pragma sym off
 #include <cstring>
-#pragma pop
-
 #include <stdlib.h>
 #include <rwcore.h>
 

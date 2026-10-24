@@ -3,6 +3,9 @@
 
 #include <string.h>
 
+#pragma push
+#pragma sym off
+
 namespace std {
 
 inline char* strstr(char* s1, const char* s2)
@@ -11,5 +14,7 @@ inline char* strstr(char* s1, const char* s2)
 }
 
 }
+
+#pragma pop
 
 #endif

@@ -1,6 +1,9 @@
 #ifndef _MSL_MATH_H
 #define _MSL_MATH_H
 
+#pragma push
+#pragma sym off
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -75,5 +78,7 @@ extern inline double sqrt(double x)
 #ifdef __cplusplus
 }
 #endif
+
+#pragma pop
 
 #endif

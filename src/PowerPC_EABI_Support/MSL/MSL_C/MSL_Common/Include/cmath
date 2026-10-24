@@ -3,6 +3,9 @@
 
 #include <math.h>
 
+#pragma push
+#pragma sym off
+
 namespace std {
 
 float floorf(float);
@@ -14,5 +17,7 @@ inline float ceilf(float x) { return ceil(x); }
 inline float fmodf(float x, float y) { return fmod(x, y); }
 
 }
+
+#pragma pop
 
 #endif
