@@ -29,9 +29,4 @@ inline bool zMainIsPAL()
     return gVidMode == eGameVidModePAL;
 }
 
-inline bool IsPS2Demo()
-{
-    return false;
-}
-
 #endif

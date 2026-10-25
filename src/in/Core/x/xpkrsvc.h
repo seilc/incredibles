@@ -5,6 +5,8 @@
 #include "xordarray.h"
 #include "iTime.h"
 
+#include <time.h>
+
 typedef enum en_LAYER_TYPE
 {
     PKR_LTYPE_ALL = -1,
@@ -140,20 +142,35 @@ typedef struct st_PACKER_READ_DATA
     PACKER_ATOC_NODE* pool_anode;
     S32 pool_nextaidx;
     XORDEREDARRAY typelist[PACKER_TYPE_COUNT];
-    long time_made;
-    long time_mod;
+    time_t time_made;
+    time_t time_mod;
 } PACKER_READ_DATA;
+
+enum en_pkrfindmyass
+{
+    PKR_FIND_FAILED,
+    PKR_FIND_EXACT,
+    PKR_FIND_EXACT_XFORM,
+    PKR_FIND_RANGE,
+    PKR_FIND_RANGE_XFORM
+};
 
 PKRReadFuncs* PKRGetReadFuncs(S32 apiver);
 S32 PKRStartup();
 S32 PKRShutdown();
 S32 PKRLoadStep(S32);
+st_PACKER_ATOC_NODE* PKR_FindAssetNode(st_PACKER_READ_DATA* pr, U32 aid, S32* assetsize);
+U32 PKRAssetIDFromInst(void* asset_inst);
 void PKR_drv_guardLayer(PACKER_LTOC_NODE*);
 READ_ASYNC_STATUS PKR_drv_guardVerify(PACKER_LTOC_NODE*);
 
-inline S32 PKRFindMyAsset(PACKER_READ_DATA*, PKRAssetTOCInfo*, const void*)
+#if DEBUG || RELEASE
+en_pkrfindmyass PKRFindMyAsset(st_PACKER_READ_DATA* pr, PKRAssetTOCInfo* tocinfo, const void* ptr_raw);
+#else
+inline en_pkrfindmyass PKRFindMyAsset(st_PACKER_READ_DATA*, PKRAssetTOCInfo*, const void*)
 {
-    return 0;
+    return PKR_FIND_FAILED;
 }
+#endif
 
 #endif

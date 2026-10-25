@@ -105,6 +105,8 @@ struct xGlobals
 
 extern xGlobals* xglobals;
 
+inline bool IsPS2Demo() { return false; }
+
 extern U32 FB_XRES;
 extern U32 FB_YRES;
 

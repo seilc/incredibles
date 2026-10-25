@@ -35,12 +35,10 @@ extern const char* region_array[eRegionCount];
 
 bool xRegionCodeIsValid(const char* pszRegionCode);
 
-inline xRegion xRegionString(const char* pszRegionCode)
+inline xRegion xRegionString(const char* pszRegion)
 {
-    for (xRegion iRegion = eRegionUS; iRegion < eRegionCount; iRegion = (xRegion)(iRegion + 1))
-    {
-        if (stricmp(region_array[iRegion], pszRegionCode) == 0)
-        {
+    for (xRegion iRegion = eRegionUS; iRegion < eRegionCount; iRegion = (xRegion)(iRegion + 1)) {
+        if (stricmp(region_array[iRegion], pszRegion) == 0) {
             return iRegion;
         }
     }

@@ -1,46 +1,42 @@
 #ifndef XSTRANSVC_H
 #define XSTRANSVC_H
 
-#include "xpkrsvc.h"
 #include "xRegionSupport.h"
-
-typedef struct st_STRAN_SCENE
-{
-    U32 scnid;
-    S32 lockid;
-    PACKER_READ_DATA* spkg;
-    S32 flgHipHop;
-    void* userdata;
-    char fnam[256];
-} STRAN_SCENE;
-
-#define STRAN_SCENE_COUNT 16
-
-typedef struct st_STRAN_DATA
-{
-    STRAN_SCENE hipscn[STRAN_SCENE_COUNT];
-    U32 loadlock;
-} STRAN_DATA;
-
-#define XST_OPTS_HIP (1<<0)
-#define XST_OPTS_HOP (1<<1)
-#define XST_OPTS_LOCAL (3<<0)
-#define XST_OPTS_MASKHH (3<<0)
+#include "xpkrsvc.h"
 
 bool xSTIsLoaded();
 S32 xSTStartup(PKRAssetType* handlers);
 S32 xSTShutdown();
+S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, const char* filename);
+S32 xSTQueueSceneAssets(U32 sid, S32 flg_hiphop);
+void xSTUnLoadScene(U32 sid, S32 flg_hiphop);
 void xSTUnLoadSceneMany(U32 sceneID, S32 type);
-const char* xSTAssetName(U32 aid);
+F32 xSTLoadStep(U32);
+void xSTDisconnect(U32 sid, S32 flg_hiphop);
+S32 xSTSwitchScene(U32 sid, void* userdata, S32(*progmon)(void*, F32));
+char* xSTAssetName(U32 aid);
+char* xSTAssetName(void* raw_HIP_asset);
+char* xSTAssetNameFromPointer(void* model);
+U32 xSTGetAssetID(void* raw_HIP_asset);
+en_pkrfindmyass xSTRandMemToAsset(PKRAssetTOCInfo* ainfo, const void* addr);
 void* xSTFindAsset(U32 aid, U32* size = NULL);
+st_PACKER_ATOC_NODE* xSTFindAssetNode(U32 aid, U32* size);
 S32 xSTAssetCountByType(U32 type);
 void* xSTFindAssetByType(U32 type, S32 idx, U32* size = NULL);
 S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo);
 S32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo);
-const char* xST_xAssetID_HIPFullPath(U32 aid);
-const char* xST_xAssetID_HIPFullPath(U32 aid, U32* sceneID);
+S32 xSTGetAssetInfoInHxP(U32 aid, PKRAssetTOCInfo* tocainfo, U32 hash);
+char* xST_xAssetID_HIPFullPath(U32 aid);
+char* xST_xAssetID_HIPFullPath(U32 aid, U32* sceneID);
+U32 xST_getTimeStamp(U32 sceneID);
+#if DEBUG
+void xSTReportLoadTimes(U32 sceneID, S32 toScreen);
+#endif
 void xSTSetLocalizationCode(const char* code);
-const char* xSTGetLocalizationCode();
+char* xSTGetLocalizationCode();
 xRegion xSTGetLocalizationEnum();
+void xSTAddToDiscLanguageConfig(xRegion region);
+U32 xSTGetDiscLanguageConfig();
+S32 xSTGetAssetTypes(U32* types, S32 max_types);
 
 #endif
