@@ -5,7 +5,7 @@
 
 #include <rwcore.h>
 
-S32 xScrFX_PulseGlaresAdd(RwRaster* raster); // RESTORED
+S32 xScrFX_PulseGlaresAdd(RwRaster* raster);
 S32 xScrFX_PulseGlaresAdd(U32 glareID);
 void xScrFX_PulseGlaresRender(const xMat4x3& mat);
 void xScrFX_PulseGlaresUpdate(F32 dt);

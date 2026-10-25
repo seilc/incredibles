@@ -33,7 +33,7 @@ public:
     }
 
     U32 GetBlockSize(void* pointer) const;
-    bool InActiveList(const void* pointer, U32) const; // RESTORED
+    bool InActiveList(const void* pointer, U32) const;
     bool IsValidPointer(const void* pointer) const;
     void DumpActiveList() const;
 
