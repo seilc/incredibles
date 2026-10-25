@@ -20,9 +20,15 @@ struct xVec3
     };
 
     static const xVec3 m_Null;
+    static const xVec3 m_Ones;
+    static const xVec3 m_NegOnes;
     static const xVec3 m_UnitAxisX;
     static const xVec3 m_UnitAxisY;
     static const xVec3 m_UnitAxisZ;
+    static const xVec3 m_HalfVec;
+    static const xVec3 m_NegHalfVec;
+    static const xVec3 m_DoubleVec;
+    static const xVec3 m_NegDoubleVec;
 
     F32 length() const;
     F32 length2() const;
@@ -48,6 +54,7 @@ struct xVec3
 };
 
 F32 xVec3Normalize(xVec3* o, const xVec3* v);
+F32 xVec3NormalizeFast(xVec3* o, const xVec3* v); // inferred from TSSM GC, Rat MAP
 void xVec3Copy(xVec3* o, const xVec3* v);
 F32 xVec3Dot(const xVec3* a, const xVec3* b);
 F32 xVec3Length(const xVec3* v);
@@ -61,6 +68,7 @@ void xVec3Init(xVec3& o, F32 x, F32 y, F32 z);
 void xVec3AddTo(xVec3& o, const xVec3& v);
 void xVec3AddTo(xVec3* o, const xVec3* v);
 void xVec3Inv(xVec3* o, const xVec3* v);
+inline void xVec3ScaleC(xVec3* o, const xVec3* v, F32 _x, F32 _y, F32 _z); // inferred from BFBB GC, Rat MAP
 F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b);
 
 inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)
