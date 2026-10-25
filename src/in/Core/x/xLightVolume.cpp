@@ -31,7 +31,7 @@ void xLightVolume::reset_all()
     activity_type* end_act = act + activities_used;
 
     for (; act != end_act; act++) {
-        xASSERT(56, act->owner != 0);
+        xASSERT_L(56, act->owner != 0);
         act->owner->activity = 0;
     }
 
@@ -45,14 +45,14 @@ void xLightVolume::create()
 
 bool xLightVolume::activate()
 {
-    xASSERT(73, activity == 0);
+    xASSERT_L(73, activity == 0);
 
 #if DEBUG || RELEASE
     activity_type* act = activities;
     activity_type* end_act = act + activities_used;
 
     for (; act != end_act; act++) {
-        xASSERT(80, (act->owner != this) && "Added light volume more than once.");
+        xASSERT_L(80, (act->owner != this) && "Added light volume more than once.");
     }
 #endif
 
@@ -69,9 +69,9 @@ bool xLightVolume::activate()
 
 void xLightVolume::deactivate()
 {
-    xASSERT(98, activity != 0);
-    xASSERT(99, (activity >= activities) && (activity < (activities + activities_used)));
-    xASSERT(100, activity->owner == this);
+    xASSERT_L(98, activity != 0);
+    xASSERT_L(99, (activity >= activities) && (activity < (activities + activities_used)));
+    xASSERT_L(100, activity->owner == this);
 
     activities_used--;
 
@@ -97,7 +97,7 @@ void xLightVolumeModel::create()
 
 void xLightVolumeModel::render()
 {
-    xASSERT(__LINE__, model != 0);
+    xASSERT(model != 0);
 
     if (single) {
         render_single(model, 0);

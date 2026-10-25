@@ -14,7 +14,7 @@ static U32 dbg_culls = 0;
 
 void xQuickCullInit(xQCControl* ctrl, F32 xmin, F32 ymin, F32 zmin, F32 xmax, F32 ymax, F32 zmax)
 {
-    xASSERT(54, ctrl);
+    xASSERT_L(54, ctrl);
 
     ctrl->world_xmin = xmin;
     ctrl->world_ymin = ymin;
@@ -32,9 +32,9 @@ void xQuickCullInit(xQCControl* ctrl, F32 xmin, F32 ymin, F32 zmin, F32 xmax, F3
         ctrl->world_xsz = ctrl->world_ysz = ctrl->world_zsz = 1.0f;
     }
 
-    xASSERT(72, ctrl->world_xsz > 0.0f);
-    xASSERT(73, ctrl->world_ysz > 0.0f);
-    xASSERT(74, ctrl->world_zsz > 0.0f);
+    xASSERT_L(72, ctrl->world_xsz > 0.0f);
+    xASSERT_L(73, ctrl->world_ysz > 0.0f);
+    xASSERT_L(74, ctrl->world_zsz > 0.0f);
 
     ctrl->scale_x = 127.0f / ctrl->world_xsz;
     ctrl->scale_y = 127.0f / ctrl->world_ysz;
@@ -46,7 +46,7 @@ void xQuickCullInit(xQCControl* ctrl, F32 xmin, F32 ymin, F32 zmin, F32 xmax, F3
 
 void xQuickCullInit(xQCControl* ctrl, const xBox* box)
 {
-    xASSERT(129, box);
+    xASSERT_L(129, box);
     xQuickCullInit(ctrl,
                    box->lower.x, box->lower.y, box->lower.z,
                    box->upper.x, box->upper.y, box->upper.z);
@@ -69,7 +69,7 @@ S32 xQuickCullIsects(const xQCData* a, const xQCData* b)
 
 void xQuickCullForBound(xQCControl* ctrl, xQCData* q, const xBound* b)
 {
-    xASSERT(184, ctrl);
+    xASSERT_L(184, ctrl);
 
     if (b->type == k_XBOUNDTYPE_SPHERE) {
         xQuickCullForSphere(ctrl, q, &b->sph);
@@ -114,9 +114,9 @@ DECOMP_FORCEACTIVE("ctrl", "q", "v")
 
 void xQuickCullForLine(xQCControl* ctrl, xQCData* q, const xLine3* ln)
 {
-    xASSERT(544, ctrl);
-    xASSERT(545, q);
-    xASSERT(546, ln);
+    xASSERT_L(544, ctrl);
+    xASSERT_L(545, q);
+    xASSERT_L(546, ln);
 
     xQCData a;
     xQuickCullCellForVec(ctrl, &a, &ln->p1);
@@ -129,9 +129,9 @@ void xQuickCullForLine(xQCControl* ctrl, xQCData* q, const xLine3* ln)
 
 void xQuickCullForRay(xQCControl* ctrl, xQCData* q, const xRay3* r)
 {
-    xASSERT(556, ctrl);
-    xASSERT(557, q);
-    xASSERT(558, r);
+    xASSERT_L(556, ctrl);
+    xASSERT_L(557, q);
+    xASSERT_L(558, r);
 
     xLine3 ln;
 
@@ -180,9 +180,9 @@ void xQuickCullForRay(xQCControl* ctrl, xQCData* q, const xRay3* r)
 
 void xQuickCullForSphere(xQCControl* ctrl, xQCData* q, const xSphere* s)
 {
-    xASSERT(571, ctrl);
-    xASSERT(572, q);
-    xASSERT(573, s);
+    xASSERT_L(571, ctrl);
+    xASSERT_L(572, q);
+    xASSERT_L(573, s);
 
     xVec3 v1, v2;
     F32 radius_adjusted = 0.05f + s->r;
@@ -212,9 +212,9 @@ void xQuickCullForSphere(xQCControl* ctrl, xQCData* q, const xSphere* s)
 
 void xQuickCullForBox(xQCControl* ctrl, xQCData* q, const xBox* box)
 {
-    xASSERT(597, ctrl);
-    xASSERT(598, q);
-    xASSERT(599, box);
+    xASSERT_L(597, ctrl);
+    xASSERT_L(598, q);
+    xASSERT_L(599, box);
 
     xQCData a;
     xQuickCullCellForVec(ctrl, &a, &box->lower);
@@ -227,7 +227,7 @@ void xQuickCullForBox(xQCControl* ctrl, xQCData* q, const xBox* box)
 
 void xQuickCullForOBB(xQCControl* ctrl, xQCData* q, const xBox* b, const xMat4x3* m)
 {
-    xASSERT(609, ctrl);
+    xASSERT_L(609, ctrl);
 
     xBox worldbox;
     xBoxInitBoundOBB(&worldbox, b, m);
@@ -271,7 +271,7 @@ void xQuickCullDebugUpdate()
 
 void xQuickCullDebugRegister(const xQCData* q)
 {
-    xASSERT(716, q);
+    xASSERT_L(716, q);
     dbg_regs++;
 }
 #endif

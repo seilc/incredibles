@@ -9,7 +9,7 @@ void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc)
 
     if (tempAlloc)
     {
-        array->list = (void**)xMEMPUSHTEMP(size * sizeof(void*), 'XORD', 75);
+        array->list = (void**)xMEMPUSHTEMP_L(size * sizeof(void*), 'XORD', 75);
     }
     else
     {

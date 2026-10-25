@@ -15,7 +15,7 @@ namespace xhud {
     
 void text_widget::load(xBase& data, xDynAsset& asset, size_t asset_size)
 {
-    xDynAssetValidate(15, asset, text_asset, text_asset::type_name());
+    xDynAssetValidate_L(15, asset, text_asset, text_asset::type_name());
 
     init_base(data, asset, sizeof(widget_chunk));
     
@@ -38,7 +38,7 @@ void text_widget::setup()
     const text_asset& ta = *(text_asset*)a;
     ztextbox* ztb = (ztextbox*)zSceneFindObject(ta.text_box);
 
-    xASSERTM(35, ztb != 0, "HUD Text %s: Cannot find text-box %s", xSTAssetNameOrID((void*)a), xSTAssetNameOrID(ta.text_box));
+    xASSERT_FMT_L(35, ztb != 0, "HUD Text %s: Cannot find text-box %s", xSTAssetNameOrID((void*)a), xSTAssetNameOrID(ta.text_box));
 
     if (ztb == 0) {
         tb = xtextbox::create();
@@ -53,7 +53,7 @@ void text_widget::setup()
         U32 len;
         const char* s = xTextFindString(ta.text, &len);
 
-        xASSERTM(50, s != 0, "HUD Text %s: Cannot find text %s", xSTAssetNameOrID((void*)a), xSTAssetNameOrID(ta.text));
+        xASSERT_FMT_L(50, s != 0, "HUD Text %s: Cannot find text %s", xSTAssetNameOrID((void*)a), xSTAssetNameOrID(ta.text));
 
         if (s) {
             memcpy(text, s, len);
@@ -130,14 +130,14 @@ void text_widget::render()
     }
 #endif
 
-    xASSERT(125, tb.font.width);
-    xASSERT(126, tb.font.height);
+    xASSERT_L(125, tb.font.width);
+    xASSERT_L(126, tb.font.height);
     tb.render(true);
 }
 
 void text_widget::set_text(const char* intext)
 {
-    xASSERTM(133, (intext), "String is not set !");
+    xASSERT_FMT_L(133, (intext), "String is not set !");
 
     size_t textchars = strlen(intext);
     size_t copychars = xmin(textchars, sizeof(text) - 1);
@@ -159,8 +159,8 @@ bool scale_text_motive_reset(widget& w, motive& m)
         textWid.tb.font.width = m.orig_width;
     }
 
-    xASSERT(__LINE__, textWid.tb.font.width);
-    xASSERT(__LINE__, textWid.tb.font.height);
+    xASSERT(textWid.tb.font.width);
+    xASSERT(textWid.tb.font.height);
 
     textWid.tb.font.color.a = 0xFF;
     textWid.tb.font.shadowColor.a = 0xFF;
@@ -176,14 +176,14 @@ bool scale_text_motive_update(widget& w, motive& m, F32 dt)
         m.orig_height = textWid.tb.font.height;
         m.orig_width = textWid.tb.font.width;
         m.current_scale = m.begin_scale;
-        xASSERT(__LINE__, m.orig_height);
-        xASSERT(__LINE__, m.orig_width);
+        xASSERT(m.orig_height);
+        xASSERT(m.orig_width);
     }
 
     F32 diff = dt * (m.final_scale - m.begin_scale) / m.delta;
     bool result;
 
-    xASSERT(__LINE__, m.current_scale != 0);
+    xASSERT(m.current_scale != 0);
 
     F32 remaining = m.final_scale - m.current_scale;
 
@@ -198,8 +198,8 @@ bool scale_text_motive_update(widget& w, motive& m, F32 dt)
     textWid.tb.font.width = m.orig_width * m.current_scale;
     textWid.tb.font.height = m.orig_height * m.current_scale;
 
-    xASSERT(__LINE__, textWid.tb.font.width);
-    xASSERT(__LINE__, textWid.tb.font.height);
+    xASSERT(textWid.tb.font.width);
+    xASSERT(textWid.tb.font.height);
 
     F32 fPot = (m.current_scale - m.begin_scale) / (m.final_scale - m.begin_scale);
     F32 fAlpha = fPot * m.end_alpha + (1.0f - fPot) * m.begin_alpha;

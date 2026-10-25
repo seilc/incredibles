@@ -69,10 +69,10 @@ void xMemoryManager::Free(void* pointer)
         return;
     }
 
-    xASSERT(81, Owns(pointer));
+    xASSERT_L(81, Owns(pointer));
 
     if (IsDebugging()) {
-        xASSERT(86, IsValidPointer(pointer));
+        xASSERT_L(86, IsValidPointer(pointer));
 
         U32 size;
         pointer = RemoveDebugBlock(pointer, &size);
@@ -120,7 +120,7 @@ void* xMemoryManager::Reallocate(void* pointer, U32 size, U32 options, const cha
 
 U32 xMemoryManager::GetBlockSize(void* pointer) const
 {
-    xASSERT(138, Owns(pointer));
+    xASSERT_L(138, Owns(pointer));
 
     if (pointer == &zeroMemoryAddress) {
         return 0;
@@ -219,7 +219,7 @@ void* xMemoryManager::DoReallocate(void* pointer, U32 size, U32 options, const c
 void* xMemoryManager::SetupDebugBlock(void* memory, U32 size, const char* file, const char* function, S32 line)
 {
     DebugAllocationHeader* header = (DebugAllocationHeader*)memory;
-    xASSERT(260, !IsValidPointer(header+1));
+    xASSERT_L(260, !IsValidPointer(header+1));
 
     DebugAllocationTrailer* trailer = (DebugAllocationTrailer*)xMEMADVANCE(header+1, size);
 
@@ -252,18 +252,18 @@ void* xMemoryManager::SetupDebugBlock(void* memory, U32 size, const char* file, 
 
 void* xMemoryManager::RemoveDebugBlock(void* memory, U32* size)
 {
-    xASSERT(292, IsValidPointer( memory ));
+    xASSERT_L(292, IsValidPointer( memory ));
 
     DebugAllocationHeader* header = (DebugAllocationHeader*)((U32)memory - sizeof(DebugAllocationHeader));
     DebugAllocationTrailer* trailer = (DebugAllocationTrailer*)xMEMADVANCE(memory, header->size);
 
-    xASSERT(299, header->manager == this);
+    xASSERT_L(299, header->manager == this);
 
     for (S32 i = 0; i < header->NUM_MAGIC; i++)
-        xASSERT(303, header->magic[i] == header->MAGIC);
+        xASSERT_L(303, header->magic[i] == header->MAGIC);
 
     for (S32 i = 0; i < trailer->NUM_MAGIC; i++)
-        xASSERT(305, trailer->magic[i] == trailer->MAGIC);
+        xASSERT_L(305, trailer->magic[i] == trailer->MAGIC);
 
     if (header->prev)
         header->prev->next = header->next;

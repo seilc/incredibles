@@ -15,7 +15,7 @@ static xFFXRotMatchState* rot_match_alist;
 
 void xFFXPoolInit(U32 num_ffx)
 {
-    xASSERT(30, num_ffx);
+    xASSERT_L(30, num_ffx);
 
     psize = num_ffx;
     pool = (xFFX*)xMEMALLOC(sizeof(xFFX) * psize);
@@ -39,7 +39,7 @@ xFFX* xFFXAlloc()
 
 void xFFXFree(xFFX* f)
 {
-    xASSERT(57, f);
+    xASSERT_L(57, f);
 
     f->next = alist;
     alist = f;
@@ -47,8 +47,8 @@ void xFFXFree(xFFX* f)
 
 S16 xFFXAddEffect(xEnt* ent, xFFX* f)
 {
-    xASSERT(116, ent);
-    xASSERT(117, f);
+    xASSERT_L(116, ent);
+    xASSERT_L(117, f);
 
     f->next = ent->ffx;
     f->flags |= 0x1;
@@ -62,7 +62,7 @@ DECOMP_FORCEACTIVE("n < ent->num_ffx")
 
 U32 xFFXRemoveEffectByFData(xEnt* ent, void* fdata)
 {
-    xASSERT(209, ent);
+    xASSERT_L(209, ent);
 
     xFFX** ffxh = &ent->ffx;
     while (*ffxh) {
@@ -81,7 +81,7 @@ U32 xFFXRemoveEffectByFData(xEnt* ent, void* fdata)
 
 static void xFFXApplyOne(xFFX* ffx, xEnt* ent, xScene* sc, F32 dt)
 {
-    xASSERT(228, ffx);
+    xASSERT_L(228, ffx);
 
     if (ffx->next) {
         xFFXApplyOne(ffx->next, ent, sc, dt);
@@ -93,7 +93,7 @@ static void xFFXApplyOne(xFFX* ffx, xEnt* ent, xScene* sc, F32 dt)
 
 void xFFXApply(xEnt* ent, xScene* sc, F32 dt)
 {
-    xASSERT(243, ent);
+    xASSERT_L(243, ent);
 
     if (ent->ffx) {
         xFFXApplyOne(ent->ffx, ent, sc, dt);
@@ -102,9 +102,9 @@ void xFFXApply(xEnt* ent, xScene* sc, F32 dt)
 
 void xFFXShakeUpdateEnt(xEnt* ent, xScene* sc, F32 dt, void* fdata)
 {
-    xASSERT(253, ent);
-    xASSERT(254, sc);
-    xASSERT(255, fdata);
+    xASSERT_L(253, ent);
+    xASSERT_L(254, sc);
+    xASSERT_L(255, fdata);
 
     xFFXShakeState* ss = (xFFXShakeState*)fdata;
     F32 tnext = ss->tmr + dt;
@@ -127,7 +127,7 @@ void xFFXShakeUpdateEnt(xEnt* ent, xScene* sc, F32 dt, void* fdata)
 
 void xFFXShakePoolInit(U32 num)
 {
-    xASSERT(296, num);
+    xASSERT_L(296, num);
 
     shake_psize = num;
     shake_pool = (xFFXShakeState*)xMEMALLOC(sizeof(xFFXShakeState) * shake_psize);
@@ -151,7 +151,7 @@ xFFXShakeState* xFFXShakeAlloc()
 
 void xFFXShakeFree(xFFXShakeState* s)
 {
-    xASSERT(323, s);
+    xASSERT_L(323, s);
 
     s->next = shake_alist;
     shake_alist = s;
@@ -175,7 +175,7 @@ DECOMP_FORCEACTIVE(
 
 void xFFXRotMatchPoolInit(U32 num)
 {
-    xASSERT(484, num);
+    xASSERT_L(484, num);
 
     rot_match_psize = num;
     rot_match_pool = (xFFXRotMatchState*)xMEMALLOC(sizeof(xFFXRotMatchState) * rot_match_psize);

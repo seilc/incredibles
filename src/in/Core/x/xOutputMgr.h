@@ -15,16 +15,19 @@ enum xOutSeverity
 };
 
 #if DEBUG || RELEASE
-#define xWARNINVALID(line, name, cond)                                                              \
+#define _xWARN_INVALID(line, name, cond, condstr)                                                    \
 do {                                                                                                \
     if (!(cond) && (xOutTrumps((name), xOutSevWarn) || xOutEnabled((name)) && xOutGetSev() >= xOutSevWarn)) {   \
-        iprintf(">>> INVALID:" #cond);                                                              \
+        iprintf(">>> INVALID:" condstr);                                                            \
         iprintf(" in %s in %s(%d)", __FUNCTION__, __FILE__, (line));                                \
         iprintf("\n");                                                                              \
     }                                                                                               \
 } while (0)
 
-#define xTRACEFUNCTION(line, name)                                                                  \
+#define xWARN_INVALID(name, cond) _xWARN_INVALID(__LINE__, name, cond, #cond)
+#define xWARN_INVALID_L(line, name, cond) _xWARN_INVALID(line, name, cond, #cond)
+
+#define xTRACE_FUNCTION_L(line, name)                                                               \
 do {                                                                                                \
     if (xOutTrumps((name), xOutSevInfo) || (xOutEnabled((name)) && xOutGetSev() >= xOutSevInfo)) {  \
         iprintf("~~ entering %s in %s(%d)", __FUNCTION__, __FILE__, (line));                        \
@@ -45,8 +48,9 @@ void xOutWarn(char* name, const char* fmt, ...);
 void xOutInfo(char* name, const char* fmt, ...);
 void xOutBabble(char* name, const char* fmt, ...);
 #else
-#define xWARNINVALID(line, name, cond)
-#define xTRACEFUNCTION(line, name)
+#define xWARN_INVALID(name, cond)
+#define xWARN_INVALID_L(line, name, cond)
+#define xTRACE_FUNCTION_L(line, name)
 
 #define xOutSetSev(sev)
 #define xOutGetSev 0
@@ -59,5 +63,7 @@ void xOutBabble(char* name, const char* fmt, ...);
 #define xOutInfo
 #define xOutBabble(name, ...)
 #endif
+
+#define xTRACE_FUNCTION(name) xTRACE_FUNCTION_L(__LINE__, name)
 
 #endif

@@ -21,7 +21,7 @@ public:
     virtual void render() = 0;
     virtual void render_immediate_pass(xColor, bool, bool)
     {
-        xASSERT(72, false && "Must implement for immediate-mode.");
+        xASSERT_L(72, false && "Must implement for immediate-mode.");
     }
 
     static void render_all();

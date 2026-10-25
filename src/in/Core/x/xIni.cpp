@@ -9,7 +9,7 @@
 
 static char* TrimWhitespace(char* str)
 {
-    xASSERT(16, str);
+    xASSERT_L(16, str);
 
     while (*str == ' ' || *str == '\t') str++;
     if (*str == '\0') return str;

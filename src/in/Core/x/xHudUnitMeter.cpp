@@ -18,7 +18,7 @@ F32 tweak_anim_time_delta = 0.1f;
 
 void unit_meter_widget::load(xBase& data, xDynAsset& asset, size_t asset_size)
 {
-    xDynAssetValidate(20, asset, unit_meter_asset, unit_meter_asset::type_name());
+    xDynAssetValidate_L(20, asset, unit_meter_asset, unit_meter_asset::type_name());
     init_base(data, asset, sizeof(widget_chunk));
     widget_chunk& wc = (widget_chunk&)data;
     new (&wc.w) unit_meter_widget((unit_meter_asset&)asset);
@@ -122,7 +122,7 @@ void unit_meter_widget::update(F32 dt)
     anim_time += dt;
     S32 units = 0.5f + max_value;
     if (units > 6) units = 6;
-    xASSERT(124, units >= 0);
+    xASSERT_L(124, units >= 0);
 
     F32 mod_duration = 0.0f;
     for (S32 i = 0; i < units; i++) {
@@ -150,7 +150,7 @@ void unit_meter_widget::render()
 
     S32 units = 0.5f + max_value;
     if (units > 6) units = 6;
-    xASSERT(157, units >= 0);
+    xASSERT_L(157, units >= 0);
     for (S32 i = 0; i < units; i++) {
         S32 which = 0; if ((res.fill_forward && value >= i + 1) ||
             (!res.fill_forward && value >= units - i))

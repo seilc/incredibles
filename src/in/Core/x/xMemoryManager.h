@@ -6,15 +6,19 @@
 #include <dolphin.h>
 
 #if DEBUG || RELEASE
-#define xMEMORYMANAGERASSERT(line, cond)                                                          \
+#define _xMEMORYMANAGER_ASSERT(line, cond, condstr)                                               \
 do {                                                                                              \
     if (!(cond)) {                                                                                \
-        OSReport("assert: %d (%s#%d)\n", #cond, __FILE__, (line));                                \
+        OSReport("assert: %d (%s#%d)\n", condstr, __FILE__, (line));                              \
         while (1);                                                                                \
     }                                                                                             \
 } while (0)
+
+#define xMEMORYMANAGER_ASSERT(cond) _xMEMORYMANAGER_ASSERT(__LINE__, cond, #cond)
+#define xMEMORYMANAGER_ASSERT_L(line, cond) _xMEMORYMANAGER_ASSERT(line, cond, #cond)
 #else
-#define xMEMORYMANAGERASSERT(line, cond)
+#define xMEMORYMANAGER_ASSERT(cond)
+#define xMEMORYMANAGER_ASSERT_L(line, cond)
 #endif
 
 static const U32 xMEMORYOPT_ALIGN_MASK = 0x3C;

@@ -144,7 +144,7 @@ static void xCMprep(xCreditsData* data)
         hp = (xCMhunk*)(pp + cp->num_presets);
 
         while ((char*)hp - (char*)cp < cp->credits_size) {
-            xASSERT(242, hp->preset >= 0 && hp->preset < cp->num_presets);
+            xASSERT_L(242, hp->preset >= 0 && hp->preset < cp->num_presets);
             xCMpreset* preset = &pp[hp->preset];
             switch (preset->align) {
             case CM_ALIGN_CENTER:
@@ -405,19 +405,19 @@ static U32 xCMrender(F32 time, xCreditsData* data)
 #endif
 
             if (time >= hp->t0 && time <= hp->t1) {
-                xASSERT(1107, hp->t1 - hp->t0 > EPSILON);
+                xASSERT_L(1107, hp->t1 - hp->t0 > EPSILON);
                 F32 a = (time - hp->t0) / (hp->t1 - hp->t0);
 
-                xASSERT(1111, hp->preset < cp->num_presets);
+                xASSERT_L(1111, hp->preset < cp->num_presets);
                 xCMpreset* preset = &pp[hp->preset];
 
-                xASSERT(1113, preset->align < CM_ALIGN_MAX);
+                xASSERT_L(1113, preset->align < CM_ALIGN_MAX);
 
                 F32 nx, ny;
                 ny = a * (cp->out.y - cp->in.y) + cp->in.y;
 
-                xASSERT(1124, cp->fin.end - cp->fin.start > EPSILON);
-                xASSERT(1125, cp->fout.end - cp->fout.start > EPSILON);
+                xASSERT_L(1124, cp->fin.end - cp->fin.start > EPSILON);
+                xASSERT_L(1125, cp->fout.end - cp->fout.start > EPSILON);
 
                 F32 x0, x1, y0, y1, ca;
                 if (a < cp->fin.start || a > cp->fout.end)
