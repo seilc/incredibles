@@ -4,6 +4,53 @@
 #include "iDebug.h"
 #include "xString.h"
 
+enum en_VERBOSE_MSGLEVEL
+{
+    DBML_NONE,
+    DBML_RELDISP,
+    DBML_DISP,
+    DBML_USER,
+    DBML_ERR,
+    DBML_TIME,
+    DBML_WARN,
+    DBML_VALID,
+    DBML_INFO,
+    DBML_DBG,
+    DBML_TEST,
+    DBML_VDBG,
+    DBML_SPEW
+};
+
+#if DEBUG || RELEASE
+#define xWARN(...) DBprintf(DBML_WARN, __VA_ARGS__)
+#define xVERBOSE(...) DBprintf(DBML_VDBG, __VA_ARGS__)
+#else
+#define xWARN(...)
+#define xVERBOSE(...)
+#endif
+
+#if DEBUG
+#define _xVALIDATE(line, cond, msg)                                                               \
+do {                                                                                              \
+    static S32 been_here;                                                                         \
+    if (!(cond) && !been_here) {                                                                  \
+        DBprintf(DBML_VALID, "%s(%d) : (" msg ") in '%s'\n", __FILE__, line, __FUNCTION__);       \
+        xDebugValidateFailed();                                                                   \
+        been_here = TRUE;                                                                         \
+    }                                                                                             \
+} while (0)
+
+#define xVALIDATE(cond) _xVALIDATE(__LINE__, cond, #cond)
+#define xVALIDATE_L(line, cond) _xVALIDATE(line, cond, #cond)
+#define xVALIDATE_FAIL_L(line) _xVALIDATE(line, 0, "*always*")
+#else
+#define xVALIDATE(cond)
+#define xVALIDATE_L(line, cond)
+#define xVALIDATE_FAIL_L(line)
+#endif
+
+#define xVALIDATE_FAIL() xVALIDATE_FAIL_L(__LINE__)
+
 #if DEBUG || RELEASE
 #define _xSTR(x) #x
 

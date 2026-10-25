@@ -25,7 +25,7 @@ typedef struct st_HIPLOADBLOCK
 
 typedef struct st_HIPLOADDATA
 {
-    FILELOADINFO* fli;
+    st_FILELOADINFO* fli;
     S32 lockid;
     S32 bypass;
     S32 bypass_recover;

@@ -51,7 +51,7 @@ HIPLOADFUNCS* get_HIPLFuncs()
 static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags)
 {
     HIPLOADDATA* lddata = NULL;
-    FILELOADINFO* fli;
+    st_FILELOADINFO* fli;
     HIPLOADBLOCK* tmp_blk;
     S32 i;
     S32 uselock = -1;
@@ -355,7 +355,7 @@ static S32 HIPLReadAsync(HIPLOADDATA* lddata, S32 pos, char* data, S32 cnt, S32 
 static READ_ASYNC_STATUS HIPLPollRead(HIPLOADDATA* lddata)
 {
     READ_ASYNC_STATUS rdstat = HIP_RDSTAT_INPROG;
-    BIO_ASYNC_ERRCODES pollstat;
+    en_BIO_ASYNC_ERRCODES pollstat;
 
     if (!lddata->bypass)
     {
