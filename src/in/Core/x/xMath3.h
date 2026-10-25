@@ -76,6 +76,16 @@ struct xPlane
 {
     xVec3 norm;
     F32 d;
+
+    void Init(const xVec3& pt)
+    {
+        d = norm.dot(pt);
+    }
+
+    void Init(const xVec3& normal, const xVec3& pt);
+
+    F32 Dist(const xVec3& pt) const;
+    void Project(xVec3& proj, const xVec3& pt, F32 dist_above) const;
 };
 
 #define XRAY3_USE_MIN (1<<10)

@@ -29,6 +29,27 @@ struct xSweptSphere
     xClumpCollBSPTriangle* bspTriangle;
     xCollideSphereHitType type;
     xPlane tri_plane;
+
+    xSweptSphere();
+};
+
+struct xCollideLineSegment
+{
+    xVec3 start;
+    xVec3 dir;
+    F32 length;
+};
+
+struct xCollideProcessedTri
+{
+    struct xEdge
+    {
+        xCollideLineSegment segment;
+        xPlane edge;
+    };
+
+    xPlane surface;
+    xEdge edges[3];
 };
 
 void xSweptSphereResetCollision(xSweptSphere* sws);

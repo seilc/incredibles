@@ -768,7 +768,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zGrass.cpp"),
             Object(NonMatching, "in/Core/x/xFXCameraTexture.cpp"),
             Object(NonMatching, "in/Core/x/xFXHighDynamicRange.cpp"),
-            Object(NonMatching, "in/Core/x/xCollideSpherePolygonUnprocessed.cpp"),
+            Object(Matching, "in/Core/x/xCollideSpherePolygonUnprocessed.cpp"),
             Object(NonMatching, "in/GAME/zInteraction.cpp"),
             Object(NonMatching, "in/GAME/zNPCSenses.cpp"),
             Object(NonMatching, "in/GAME/zBomb.cpp"),

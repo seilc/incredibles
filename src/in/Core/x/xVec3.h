@@ -138,4 +138,6 @@ inline F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b)
         (outlen) = len;                                                                            \
     }
 
+#include "xVec3Inlines.h"
+
 #endif
