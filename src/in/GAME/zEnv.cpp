@@ -90,7 +90,7 @@ void zEnvRender(xEnv* env)
                 if (g)
                 {
                     U32 texid = xGroupGetItem(g, pp->texanim[0].group_idx);
-                    RwTexture* texptr = (RwTexture*)xSTFindAsset(texid);
+                    RwTexture* texptr = (RwTexture*)xSTFindAsset(texid, NULL);
 
                     if (texptr)
                     {

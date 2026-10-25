@@ -18,7 +18,7 @@ void zActionLineInit()
 
     sActionLineRaster = NULL;
 
-    RwTexture* tex = (RwTexture*)xSTFindAsset(0x7830BF69);
+    RwTexture* tex = (RwTexture*)xSTFindAsset(0x7830BF69, NULL);
 
     if (tex)
     {

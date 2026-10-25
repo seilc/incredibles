@@ -75,7 +75,7 @@ void zPlayerLoadHIP(U32 sceneID)
 
     sMemDepthJustHIPStartPlayer = xMemPushBase();
 
-    zSceneLoadPackFile(tagPlayer, ZSCENE_LOAD_HIP);
+    zSceneLoadPackFile(tagPlayer, ZSCENE_LOAD_HIP, false, NULL);
 
     globals.playerLoaded = true;
 }
@@ -86,7 +86,7 @@ void zPlayerUnloadHIP()
 
     xSTUnLoadSceneMany(globals.playerTag, 0x1 | 0x4);
     iSndSceneExit();
-    xUtil_idtag2string(globals.playerTag);
+    xUtil_idtag2string(globals.playerTag, 0);
     xMemPopBase(sMemDepthJustHIPStartPlayer);
 
     sMemDepthJustHIPStartPlayer = -1;

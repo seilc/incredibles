@@ -151,7 +151,7 @@ static bool zScriptExecuteEvents(_zScript* t, F32 start, F32 end)
 
                             if (!paramWidget)
                             {
-                                paramWidget = (xBase*)xSTFindAsset(t->current->paramWidget);
+                                paramWidget = (xBase*)xSTFindAsset(t->current->paramWidget, NULL);
                             }
                         }
 

@@ -87,7 +87,7 @@ void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
 
                             if (!b)
                             {
-                                b = (xBase*)xSTFindAsset(idx->paramWidgetAssetID);
+                                b = (xBase*)xSTFindAsset(idx->paramWidgetAssetID, NULL);
                             }
                         }
 

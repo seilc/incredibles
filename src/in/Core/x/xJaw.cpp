@@ -12,7 +12,7 @@ void* xJaw_FindData(U32 soundID)
     for (i = 0; i < numJawTables; i++)
     {
         U32 j;
-        void* data = xSTFindAssetByType('JAW ', i);
+        void* data = xSTFindAssetByType('JAW ', i, NULL);
         U32 jawcount = *(U32*)data;
         xJawDataTable* tbl = (xJawDataTable*)((U32*)data + 1);
         void* rawdata = (void*)(tbl + jawcount);

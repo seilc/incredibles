@@ -88,7 +88,7 @@ void zProgressScript_WalkForward(zProgressScript* s, F32 percent)
 
                 if (!paramWidget)
                 {
-                    paramWidget = (xBase*)xSTFindAsset(event->paramWidget);
+                    paramWidget = (xBase*)xSTFindAsset(event->paramWidget, NULL);
                 }
             }
 
@@ -133,7 +133,7 @@ void zProgressScript_WalkBack(zProgressScript* s, F32 percent)
 
                 if (!paramWidget)
                 {
-                    paramWidget = (xBase*)xSTFindAsset(event->paramWidget);
+                    paramWidget = (xBase*)xSTFindAsset(event->paramWidget, NULL);
                 }
             }
 

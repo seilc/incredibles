@@ -100,7 +100,7 @@ struct xBehaveMgr : RyzMemData
 {
     xFactory* goalFactory;
     xPsyche* psypool;
-    XORDEREDARRAY psylist;
+    st_XORDEREDARRAY psylist;
 
     ~xBehaveMgr()
     {

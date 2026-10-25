@@ -2,30 +2,30 @@
 
 #include <string.h>
 
-static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags);
-static void HIPLDestroy(HIPLOADDATA* lddata);
-static U32 HIPLBaseSector(HIPLOADDATA* lddata);
-static S32 HIPLSetBypass(HIPLOADDATA* lddata, S32 enable, S32 use_async);
-static void HIPLSetSpot(HIPLOADDATA* lddata, S32 spot);
-static U32 HIPLBlockEnter(HIPLOADDATA* lddata);
-static void HIPLBlockExit(HIPLOADDATA* lddata);
-static S32 HIPLBlockRead(HIPLOADDATA* lddata, void* data, S32 cnt, S32 size);
-static S32 HIPLBypassRead(HIPLOADDATA* lddata, void* data, S32 cnt, S32 size);
-static S32 HIPLReadAsync(HIPLOADDATA* lddata, S32 pos, char* data, S32 cnt, S32 size);
-static READ_ASYNC_STATUS HIPLPollRead(HIPLOADDATA* lddata);
-static S32 HIPLReadBytes(HIPLOADDATA* lddata, char* data, S32 cnt);
-static S32 HIPLReadShorts(HIPLOADDATA* lddata, S16* data, S32 cnt);
-static S32 HIPLReadLongs(HIPLOADDATA* lddata, S32* data, S32 cnt);
-static S32 HIPLReadFloats(HIPLOADDATA* lddata, F32* data, S32 cnt);
-static S32 HIPLReadString(HIPLOADDATA* lddata, char* buf);
+static st_HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags);
+static void HIPLDestroy(st_HIPLOADDATA* lddata);
+static U32 HIPLBaseSector(st_HIPLOADDATA* lddata);
+static S32 HIPLSetBypass(st_HIPLOADDATA* lddata, S32 enable, S32 use_async);
+static void HIPLSetSpot(st_HIPLOADDATA* lddata, S32 spot);
+static U32 HIPLBlockEnter(st_HIPLOADDATA* lddata);
+static void HIPLBlockExit(st_HIPLOADDATA* lddata);
+static S32 HIPLBlockRead(st_HIPLOADDATA* lddata, void* data, S32 cnt, S32 size);
+static S32 HIPLBypassRead(st_HIPLOADDATA* lddata, void* data, S32 cnt, S32 size);
+static S32 HIPLReadAsync(st_HIPLOADDATA* lddata, S32 pos, char* data, S32 cnt, S32 size);
+static en_READ_ASYNC_STATUS HIPLPollRead(st_HIPLOADDATA* lddata);
+static S32 HIPLReadBytes(st_HIPLOADDATA* lddata, char* data, S32 cnt);
+static S32 HIPLReadShorts(st_HIPLOADDATA* lddata, S16* data, S32 cnt);
+static S32 HIPLReadLongs(st_HIPLOADDATA* lddata, S32* data, S32 cnt);
+static S32 HIPLReadFloats(st_HIPLOADDATA* lddata, F32* data, S32 cnt);
+static S32 HIPLReadString(st_HIPLOADDATA* lddata, char* buf);
 
 #define MAX_LOADINST 8
 
 static U32 g_loadlock = 0;
-static HIPLOADDATA g_hiploadinst[MAX_LOADINST] = {};
+static st_HIPLOADDATA g_hiploadinst[MAX_LOADINST] = {};
 
 // clang-format off
-static HIPLOADFUNCS g_map_HIPL_funcmap =
+static st_HIPLOADFUNCS g_map_HIPL_funcmap =
 {
     HIPLCreate,
     HIPLDestroy,
@@ -43,16 +43,16 @@ static HIPLOADFUNCS g_map_HIPL_funcmap =
 };
 // clang-format on
 
-HIPLOADFUNCS* get_HIPLFuncs()
+st_HIPLOADFUNCS* get_HIPLFuncs()
 {
     return &g_map_HIPL_funcmap;
 }
 
-static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags)
+static st_HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags)
 {
-    HIPLOADDATA* lddata = NULL;
+    st_HIPLOADDATA* lddata = NULL;
     st_FILELOADINFO* fli;
-    HIPLOADBLOCK* tmp_blk;
+    st_HIPLOADBLOCK* tmp_blk;
     S32 i;
     S32 uselock = -1;
 
@@ -69,7 +69,7 @@ static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, 
 
     if (lddata)
     {
-        memset(lddata, 0, sizeof(HIPLOADDATA));
+        memset(lddata, 0, sizeof(st_HIPLOADDATA));
 
         lddata->lockid = uselock;
         lddata->top = -1;
@@ -112,7 +112,7 @@ static HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, 
     return lddata;
 }
 
-static void HIPLDestroy(HIPLOADDATA* lddata)
+static void HIPLDestroy(st_HIPLOADDATA* lddata)
 {
     S32 lockid;
 
@@ -125,18 +125,18 @@ static void HIPLDestroy(HIPLOADDATA* lddata)
 
         lockid = lddata->lockid;
 
-        memset(lddata, 0, sizeof(HIPLOADDATA));
+        memset(lddata, 0, sizeof(st_HIPLOADDATA));
 
         g_loadlock &= ~(1 << lockid);
     }
 }
 
-static U32 HIPLBaseSector(HIPLOADDATA* lddata)
+static U32 HIPLBaseSector(st_HIPLOADDATA* lddata)
 {
     return lddata->base_sector;
 }
 
-static S32 HIPLSetBypass(HIPLOADDATA* lddata, S32 enable, S32 use_async)
+static S32 HIPLSetBypass(st_HIPLOADDATA* lddata, S32 enable, S32 use_async)
 {
     lddata->fli->discardDblBuf(lddata->fli);
 
@@ -167,7 +167,7 @@ static S32 HIPLSetBypass(HIPLOADDATA* lddata, S32 enable, S32 use_async)
     return TRUE;
 }
 
-static void HIPLSetSpot(HIPLOADDATA* lddata, S32 spot)
+static void HIPLSetSpot(st_HIPLOADDATA* lddata, S32 spot)
 {
     if (lddata->bypass)
     {
@@ -176,9 +176,9 @@ static void HIPLSetSpot(HIPLOADDATA* lddata, S32 spot)
     }
 }
 
-static U32 HIPLBlockEnter(HIPLOADDATA* lddata)
+static U32 HIPLBlockEnter(st_HIPLOADDATA* lddata)
 {
-    HIPLOADBLOCK* top;
+    st_HIPLOADBLOCK* top;
     U32 cid = 0;
     S32 size = 0;
 
@@ -215,9 +215,9 @@ static U32 HIPLBlockEnter(HIPLOADDATA* lddata)
     return cid;
 }
 
-static void HIPLBlockExit(HIPLOADDATA* lddata)
+static void HIPLBlockExit(st_HIPLOADDATA* lddata)
 {
-    HIPLOADBLOCK* top;
+    st_HIPLOADBLOCK* top;
 
     if (!lddata->bypass)
     {
@@ -228,9 +228,9 @@ static void HIPLBlockExit(HIPLOADDATA* lddata)
     }
 }
 
-static S32 HIPLBlockRead(HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
+static S32 HIPLBlockRead(st_HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
 {
-    HIPLOADBLOCK* top;
+    st_HIPLOADBLOCK* top;
     S32 got = 0;
     S32 left = 0;
     S32 head = FALSE;
@@ -300,7 +300,7 @@ static S32 HIPLBlockRead(HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
     return got;
 }
 
-static S32 HIPLBypassRead(HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
+static S32 HIPLBypassRead(st_HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
 {
     S32 got = 0;
 
@@ -339,7 +339,7 @@ static S32 HIPLBypassRead(HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
     return got * size;
 }
 
-static S32 HIPLReadAsync(HIPLOADDATA* lddata, S32 pos, char* data, S32 cnt, S32 size)
+static S32 HIPLReadAsync(st_HIPLOADDATA* lddata, S32 pos, char* data, S32 cnt, S32 size)
 {
     S32 got;
 
@@ -352,9 +352,9 @@ static S32 HIPLReadAsync(HIPLOADDATA* lddata, S32 pos, char* data, S32 cnt, S32 
     return got;
 }
 
-static READ_ASYNC_STATUS HIPLPollRead(HIPLOADDATA* lddata)
+static en_READ_ASYNC_STATUS HIPLPollRead(st_HIPLOADDATA* lddata)
 {
-    READ_ASYNC_STATUS rdstat = HIP_RDSTAT_INPROG;
+    en_READ_ASYNC_STATUS rdstat = HIP_RDSTAT_INPROG;
     en_BIO_ASYNC_ERRCODES pollstat;
 
     if (!lddata->bypass)
@@ -390,7 +390,7 @@ static READ_ASYNC_STATUS HIPLPollRead(HIPLOADDATA* lddata)
     return rdstat;
 }
 
-static S32 HIPLReadBytes(HIPLOADDATA* lddata, char* data, S32 cnt)
+static S32 HIPLReadBytes(st_HIPLOADDATA* lddata, char* data, S32 cnt)
 {
     if (lddata->bypass)
     {
@@ -402,7 +402,7 @@ static S32 HIPLReadBytes(HIPLOADDATA* lddata, char* data, S32 cnt)
     }
 }
 
-static S32 HIPLReadShorts(HIPLOADDATA* lddata, S16* data, S32 cnt)
+static S32 HIPLReadShorts(st_HIPLOADDATA* lddata, S16* data, S32 cnt)
 {
     S32 got;
 
@@ -418,7 +418,7 @@ static S32 HIPLReadShorts(HIPLOADDATA* lddata, S16* data, S32 cnt)
     return got / 2;
 }
 
-static S32 HIPLReadLongs(HIPLOADDATA* lddata, S32* data, S32 cnt)
+static S32 HIPLReadLongs(st_HIPLOADDATA* lddata, S32* data, S32 cnt)
 {
     S32 got;
 
@@ -434,7 +434,7 @@ static S32 HIPLReadLongs(HIPLOADDATA* lddata, S32* data, S32 cnt)
     return got / 4;
 }
 
-static S32 HIPLReadFloats(HIPLOADDATA* lddata, F32* data, S32 cnt)
+static S32 HIPLReadFloats(st_HIPLOADDATA* lddata, F32* data, S32 cnt)
 {
     S32 got;
 
@@ -450,7 +450,7 @@ static S32 HIPLReadFloats(HIPLOADDATA* lddata, F32* data, S32 cnt)
     return got / 4;
 }
 
-static S32 HIPLReadString(HIPLOADDATA* lddata, char* buf)
+static S32 HIPLReadString(st_HIPLOADDATA* lddata, char* buf)
 {
     S32 n = 0;
     char pad = '\0';

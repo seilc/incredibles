@@ -56,7 +56,7 @@ void xGroupSetup(xGroup* g)
             }
             else
             {
-                g->item[i] = (xBase*)xSTFindAsset(id);
+                g->item[i] = (xBase*)xSTFindAsset(id, NULL);
 
                 if (g->item[i])
                 {

@@ -5,7 +5,7 @@
 
 #define MAX_OPENBLK 8
 
-typedef enum en_READ_ASYNC_STATUS
+enum en_READ_ASYNC_STATUS
 {
     HIP_RDSTAT_NONE = -1,
     HIP_RDSTAT_INPROG = 0,
@@ -13,17 +13,17 @@ typedef enum en_READ_ASYNC_STATUS
     HIP_RDSTAT_FAILED,
     HIP_RDSTAT_NOBYPASS,
     HIP_RDSTAT_NOASYNC
-} READ_ASYNC_STATUS;
+};
 
-typedef struct st_HIPLOADBLOCK
+struct st_HIPLOADBLOCK
 {
     S32 endpos;
     U32 blk_id;
     S32 blk_remain;
     S32 flags;
-} HIPLOADBLOCK;
+};
 
-typedef struct st_HIPLOADDATA
+struct st_HIPLOADDATA
 {
     st_FILELOADINFO* fli;
     S32 lockid;
@@ -31,30 +31,30 @@ typedef struct st_HIPLOADDATA
     S32 bypass_recover;
     U32 base_sector;
     S32 use_async;
-    READ_ASYNC_STATUS asyn_stat;
+    en_READ_ASYNC_STATUS asyn_stat;
     S32 pos;
     S32 top;
     S32 readTop;
-    HIPLOADBLOCK stk[MAX_OPENBLK];
-} HIPLOADDATA;
+    st_HIPLOADBLOCK stk[MAX_OPENBLK];
+};
 
-typedef struct st_HIPLOADFUNCS
+struct st_HIPLOADFUNCS
 {
-    HIPLOADDATA* (*create)(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags);
-    void (*destroy)(HIPLOADDATA* lddata);
-    U32 (*basesector)(HIPLOADDATA* lddata);
-    U32 (*enter)(HIPLOADDATA* lddata);
-    void (*exit)(HIPLOADDATA* lddata);
-    S32 (*readBytes)(HIPLOADDATA* lddata, char* data, S32 cnt);
-    S32 (*readShorts)(HIPLOADDATA* lddata, S16* data, S32 cnt);
-    S32 (*readLongs)(HIPLOADDATA* lddata, S32* data, S32 cnt);
-    S32 (*readFloats)(HIPLOADDATA* lddata, F32* data, S32 cnt);
-    S32 (*readString)(HIPLOADDATA* lddata, char* buf);
-    S32 (*setBypass)(HIPLOADDATA* lddata, S32 enable, S32 use_async);
-    void (*setSpot)(HIPLOADDATA* lddata, S32 spot);
-    READ_ASYNC_STATUS (*pollRead)(HIPLOADDATA* lddata);
-} HIPLOADFUNCS;
+    st_HIPLOADDATA* (*create)(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags);
+    void (*destroy)(st_HIPLOADDATA* lddata);
+    U32 (*basesector)(st_HIPLOADDATA* lddata);
+    U32 (*enter)(st_HIPLOADDATA* lddata);
+    void (*exit)(st_HIPLOADDATA* lddata);
+    S32 (*readBytes)(st_HIPLOADDATA* lddata, char* data, S32 cnt);
+    S32 (*readShorts)(st_HIPLOADDATA* lddata, S16* data, S32 cnt);
+    S32 (*readLongs)(st_HIPLOADDATA* lddata, S32* data, S32 cnt);
+    S32 (*readFloats)(st_HIPLOADDATA* lddata, F32* data, S32 cnt);
+    S32 (*readString)(st_HIPLOADDATA* lddata, char* buf);
+    S32 (*setBypass)(st_HIPLOADDATA* lddata, S32 enable, S32 use_async);
+    void (*setSpot)(st_HIPLOADDATA* lddata, S32 spot);
+    en_READ_ASYNC_STATUS (*pollRead)(st_HIPLOADDATA* lddata);
+};
 
-HIPLOADFUNCS* get_HIPLFuncs();
+st_HIPLOADFUNCS* get_HIPLFuncs();
 
 #endif

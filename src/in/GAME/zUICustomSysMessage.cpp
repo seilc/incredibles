@@ -67,7 +67,7 @@ bool zUICustomSysMessageManager::HandleEvent(xBase* from, U32 toEvent, const F32
 
         if (toParamWidgetID)
         {
-            itemMsg->SetText(xTextFindString(toParamWidgetID));
+            itemMsg->SetText(xTextFindString(toParamWidgetID, NULL));
         }
 
         break;

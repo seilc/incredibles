@@ -35,7 +35,7 @@ struct XGOFTypeInfo
 struct xFactory : RyzMemData
 {
     XGOFTypeInfo* infopool;
-    XORDEREDARRAY infolist;
+    st_XORDEREDARRAY infolist;
     xFactoryInst* products;
     RyzMemGrow growContextData;
 

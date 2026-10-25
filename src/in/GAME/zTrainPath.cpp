@@ -26,17 +26,17 @@ void zTrainPathJunction::InitDone()
     {
         if (junct->junct_asset->in_spline)
         {
-            junct->in_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->in_spline);
+            junct->in_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->in_spline, NULL);
         }
 
         if (junct->junct_asset->out1_spline)
         {
-            junct->out1_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->out1_spline);
+            junct->out1_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->out1_spline, NULL);
         }
 
         if (junct->junct_asset->out2_spline)
         {
-            junct->out2_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->out2_spline);
+            junct->out2_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->out2_spline, NULL);
         }
     }
 }

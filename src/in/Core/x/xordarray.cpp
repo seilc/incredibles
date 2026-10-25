@@ -3,7 +3,7 @@
 #include "xMemMgr.h"
 
 
-void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc)
+void XOrdInit(st_XORDEREDARRAY* array, S32 size, S32 tempAlloc)
 {
     size = (size<1) ? 1 : size;
 
@@ -26,7 +26,7 @@ void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc)
     }
 }
 
-void XOrdDone(XORDEREDARRAY* array, S32 wasTempAlloc)
+void XOrdDone(st_XORDEREDARRAY* array, S32 wasTempAlloc)
 {
     if (array->max && wasTempAlloc)
     {
@@ -39,7 +39,7 @@ void XOrdDone(XORDEREDARRAY* array, S32 wasTempAlloc)
     array->warnlvl = 0;
 }
 
-void XOrdAppend(XORDEREDARRAY* array, void* elt)
+void XOrdAppend(st_XORDEREDARRAY* array, void* elt)
 {
     if (array->cnt < array->max)
     {
@@ -47,7 +47,7 @@ void XOrdAppend(XORDEREDARRAY* array, void* elt)
     }
 }
 
-void XOrdInsert(XORDEREDARRAY* array, void* elt, XOrdCompareCB compare)
+void XOrdInsert(st_XORDEREDARRAY* array, void* elt, XOrdCompareCallback compare)
 {
     if (array->cnt < array->max)
     {
@@ -70,7 +70,7 @@ void XOrdInsert(XORDEREDARRAY* array, void* elt, XOrdCompareCB compare)
     }
 }
 
-S32 XOrdLookup(XORDEREDARRAY* array, const void* key, XOrdTestCB test)
+S32 XOrdLookup(st_XORDEREDARRAY* array, const void* key, XOrdTestCallback test)
 {
     S32 da_idx = -1;
     S32 k0 = 0;
@@ -100,7 +100,7 @@ S32 XOrdLookup(XORDEREDARRAY* array, const void* key, XOrdTestCB test)
     return da_idx;
 }
 
-void XOrdSort(XORDEREDARRAY* array, XOrdCompareCB test)
+void XOrdSort(st_XORDEREDARRAY* array, XOrdCompareCallback test)
 {
     void** list = array->list;
     S32 num = array->cnt;

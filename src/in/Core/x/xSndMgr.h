@@ -48,10 +48,10 @@ void xSndMgrStopSounds(S16 eSoundCategory, bool bSkipPaused);
 void xSndMgrPauseSounds(S16 eSoundCategory, bool bPaused, bool bPauseFutureSoundsOfThisType);
 F32 xSndMgrGetDampedVolume(S16 eSoundCategory);
 iSndGroupHandle xSndMgrGetSoundGroup(U32 uSoundGroupNameHash);
-iSndHandle xSndMgrPlay(iSndGroupHandle hSoundToPlay, U32 uFlags, const xVec3* pPos_WS = NULL,
-                       const xVec3* pVel = NULL, xEnt* pParentEnt = NULL,
-                       const F32* pfOverrideVolume = NULL,
-                       const F32* pfOverridePitch = NULL);
+iSndHandle xSndMgrPlay(iSndGroupHandle hSoundToPlay, U32 uFlags, const xVec3* pPos_WS,
+                       const xVec3* pVel, xEnt* pParentEnt,
+                       const F32* pfOverrideVolume,
+                       const F32* pfOverridePitch);
 void xSndMgrStop(iSndHandle& hSound);
 xSndGroup* xSndMgr_GetGroup(iSndGroupHandle hSound);
 

@@ -3,22 +3,22 @@
 
 #include "types.h"
 
-typedef struct st_XORDEREDARRAY
+struct st_XORDEREDARRAY
 {
     void** list;
     S32 cnt;
     S32 max;
     S32 warnlvl;
-} XORDEREDARRAY;
+};
 
-typedef S32 (*XOrdCompareCB)(void* vkey, void* vitem);
-typedef S32 (*XOrdTestCB)(const void* vkey, void* vitem);
+typedef S32(*XOrdCompareCallback)(void*, void*);
+typedef S32(*XOrdTestCallback)(const void*, void*);
 
-void XOrdInit(XORDEREDARRAY* array, S32 size, S32 tempAlloc);
-void XOrdDone(XORDEREDARRAY* array, S32 wasTempAlloc);
-void XOrdAppend(XORDEREDARRAY* array, void* elt);
-void XOrdInsert(XORDEREDARRAY* array, void* elt, XOrdCompareCB compare);
-S32 XOrdLookup(XORDEREDARRAY* array, const void* key, XOrdTestCB test);
-void XOrdSort(XORDEREDARRAY* array, XOrdCompareCB test);
+void XOrdInit(st_XORDEREDARRAY* array, S32 size, S32 tempAlloc);
+void XOrdDone(st_XORDEREDARRAY* array, S32 wasTempAlloc);
+void XOrdAppend(st_XORDEREDARRAY* array, void* elt);
+void XOrdInsert(st_XORDEREDARRAY* array, void* elt, XOrdCompareCallback compare);
+S32 XOrdLookup(st_XORDEREDARRAY* array, const void* key, XOrdTestCallback test);
+void XOrdSort(st_XORDEREDARRAY* array, XOrdCompareCallback test);
 
 #endif

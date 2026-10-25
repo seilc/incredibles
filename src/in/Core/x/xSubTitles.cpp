@@ -62,7 +62,7 @@ bool xSubTitlesRender(U32 aid, F32 fTime)
 
     if (!m_pCurrentAsset || m_pCurrentAsset->id != aid)
     {
-        m_pCurrentAsset = (xSubtitlesAsset*)xSTFindAsset(aid);
+        m_pCurrentAsset = (xSubtitlesAsset*)xSTFindAsset(aid, NULL);
         m_uLastTimeKey = 0;
     }
 

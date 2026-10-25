@@ -6,7 +6,7 @@
 #define IDTAG(a,b,c,d) (((U32)(a)<<24)|((U32)(b)<<16)|((U32)(c)<<8)|((U32)(d)))
 #define ARRAY_LENGTH(a) (sizeof(a) / sizeof(a[0]))
 
-char* xUtil_idtag2string(U32 srctag, S32 bufidx = 0);
+char* xUtil_idtag2string(U32 srctag, S32 bufidx);
 F32 xClampAngle0_2PI(F32 angle);
 void quicksort_uint(void* base, unsigned long num, unsigned long width, unsigned long key_offset);
 void quicksort_istr(void* base, unsigned long num, unsigned long width, unsigned long key_offset);
@@ -29,7 +29,7 @@ T binary_find(T first, T last, const V& value, C cmp)
     return notfound;
 }
 
-template <class T> static inline T xUtil_choose(const T* r3, S32 r4, const F32* r5 = NULL)
+template <class T> static inline T xUtil_choose(const T* r3, S32 r4, const F32* r5)
 {
     if (!r3)
     {

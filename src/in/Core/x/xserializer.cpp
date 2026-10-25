@@ -13,7 +13,7 @@ typedef struct st_XSERIAL_DATA_PRIV
     S32 buf_bytcnt;
     SERIAL_CLIENTINFO* cltbuf;
     SERIAL_CLIENTINFO* cltnext;
-    XORDEREDARRAY cltlist;
+    st_XORDEREDARRAY cltlist;
 } XSERIAL_DATA_PRIV;
 
 static S32 g_serinit = 0;

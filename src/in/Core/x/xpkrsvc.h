@@ -1,16 +1,16 @@
 #ifndef XPKRSVC_H
 #define XPKRSVC_H
 
+#include "types.h"
 #include "xhipio.h"
 #include "xordarray.h"
-#include "iTime.h"
 
 #include <time.h>
 
-typedef enum en_LAYER_TYPE
+enum en_LAYER_TYPE
 {
     PKR_LTYPE_ALL = -1,
-    PKR_LTYPE_DEFAULT = 0,
+    PKR_LTYPE_DEFAULT,
     PKR_LTYPE_TEXTURE,
     PKR_LTYPE_TEXTURE_STRM,
     PKR_LTYPE_BSP,
@@ -23,30 +23,20 @@ typedef enum en_LAYER_TYPE
     PKR_LTYPE_CUTSCENETOC,
     PKR_LTYPE_JSPINFO,
     PKR_LTYPE_NOMORE
-} LAYER_TYPE;
-
-typedef enum en_PKR_LAYER_LOAD_DEST
-{
-    PKR_LDDEST_SKIP,
-    PKR_LDDEST_KEEPSTATIC,
-    PKR_LDDEST_KEEPMALLOC,
-    PKR_LDDEST_RWHANDOFF,
-    PKR_LDDEST_NOMORE,
-    PKR_LDDEST_FORCE = 0x7fffffff
-} PKR_LAYER_LOAD_DEST;
+};
 
 struct PKRAssetType
 {
     U32 typetag;
     U32 tflags;
     S32 typalign;
-    void* (*readXForm)(void*, U32, void*, U32, U32*);
-    void* (*writeXForm)(void*, U32, void*, void*, U32, U32*);
-    S32 (*assetLoaded)(void*, U32, void*, S32);
-    void* (*makeData)(void*, U32, void*, S32*, S32*);
-    void (*cleanup)(void*, U32, void*);
-    void (*assetUnloaded)(void*, U32);
-    void (*writePeek)(void*, U32, void*, S8*);
+    void*(*readXForm)(void*, U32, void*, U32, U32*);
+    void*(*writeXForm)(void*, U32, void*, void*, U32, U32*);
+    S32(*assetLoaded)(void*, U32, void*, S32);
+    void*(*makeData)(void*, U32, void*, S32*, S32*);
+    void(*cleanup)(void*, U32, void*);
+    void(*assetUnloaded)(void*, U32);
+    void(*writePeek)(void*, U32, void*, char*);
 };
 
 struct PKRAssetTOCInfo
@@ -63,31 +53,41 @@ struct PKRAssetTOCInfo
 #endif
 };
 
+struct st_HIPLOADDATA;
+struct st_PACKER_LTOC_NODE;
 struct st_PACKER_READ_DATA;
 
 struct PKRReadFuncs
 {
     U32 api_ver;
-    st_PACKER_READ_DATA* (*Init)(void* userdata, const char* pkgfile, U32 opts, S32* cltver,
-                                 PKRAssetType* typelist, S32 fileflags);
-    void (*Done)(st_PACKER_READ_DATA*);
-    S32 (*LoadLayer)(st_PACKER_READ_DATA*, LAYER_TYPE);
-    U32 (*GetAssetSize)(st_PACKER_READ_DATA*, U32);
-    void* (*LoadAsset)(st_PACKER_READ_DATA*, U32, const char*, void*, S32*);
-    void* (*AssetByType)(st_PACKER_READ_DATA*, U32, S32, U32*);
-    S32 (*AssetCount)(st_PACKER_READ_DATA*, U32);
-    S32 (*IsAssetReady)(st_PACKER_READ_DATA*, U32);
-    S32 (*SetActive)(st_PACKER_READ_DATA*, LAYER_TYPE);
-    const char* (*AssetName)(st_PACKER_READ_DATA*, U32);
-    U32 (*GetBaseSector)(st_PACKER_READ_DATA*);
-    S32 (*GetAssetInfo)(st_PACKER_READ_DATA*, U32, PKRAssetTOCInfo*);
-    S32 (*GetAssetInfoByType)(st_PACKER_READ_DATA*, U32, S32, PKRAssetTOCInfo*);
-    S32 (*PkgHasAsset)(st_PACKER_READ_DATA*, U32);
-    U32 (*PkgTimeStamp)(st_PACKER_READ_DATA*);
-    void (*PkgDisconnect)(st_PACKER_READ_DATA*);
+    st_PACKER_READ_DATA*(*Init)(void*, const char*, U32, S32*, PKRAssetType*, S32);
+    void(*Done)(st_PACKER_READ_DATA*);
+    S32(*LoadLayer)(st_PACKER_READ_DATA*, en_LAYER_TYPE);
+    U32(*GetAssetSize)(st_PACKER_READ_DATA*, U32);
+    void*(*LoadAsset)(st_PACKER_READ_DATA*, U32, const char*, void*, S32*);
+    void*(*AssetByType)(st_PACKER_READ_DATA*, U32, S32, U32*);
+    S32(*AssetCount)(st_PACKER_READ_DATA*, U32);
+    S32(*IsAssetReady)(st_PACKER_READ_DATA*, U32);
+    S32(*SetActive)(st_PACKER_READ_DATA*, en_LAYER_TYPE);
+    char*(*AssetName)(st_PACKER_READ_DATA*, U32);
+    U32(*GetBaseSector)(st_PACKER_READ_DATA*);
+    S32(*GetAssetInfo)(st_PACKER_READ_DATA*, U32, PKRAssetTOCInfo*);
+    S32(*GetAssetInfoByType)(st_PACKER_READ_DATA*, U32, S32, PKRAssetTOCInfo*);
+    S32(*PkgHasAsset)(st_PACKER_READ_DATA*, U32);
+    U32(*PkgTimeStamp)(st_PACKER_READ_DATA*);
+    void(*PkgDisconnect)(st_PACKER_READ_DATA*);
+#if DEBUG
+    void(*dbgrpt_stats)(st_PACKER_READ_DATA*);
+    void(*dbgrpt_typeInfo)(st_PACKER_READ_DATA*);
+    void(*dbgrpt_typeTally)(st_PACKER_READ_DATA*);
+    void(*dbgrpt_layers)(st_PACKER_READ_DATA*);
+    void(*dbgrpt_assets)(st_PACKER_READ_DATA*);
+    void(*dbgrpt_kosher)(st_PACKER_READ_DATA*);
+    void(*dbgrpt_loadtimes)(st_PACKER_READ_DATA*, S32);
+#endif
 };
 
-typedef struct st_PACKER_ATOC_NODE
+struct st_PACKER_ATOC_NODE
 {
     U32 aid;
     U32 asstype;
@@ -103,26 +103,18 @@ typedef struct st_PACKER_ATOC_NODE
     S32 readcnt;
     S32 readrem;
     PKRAssetType* typeref;
-    HIPLOADDATA* ownpkg;
+    st_HIPLOADDATA* ownpkg;
     st_PACKER_READ_DATA* ownpr;
     char name[32];
-} PACKER_ATOC_NODE;
-
-typedef struct st_PACKER_LTOC_NODE
-{
-    LAYER_TYPE laytyp;
-    XORDEREDARRAY assref;
-    S32 flg_ldstat;
-    S32 danglecnt;
-    U32 chksum;
-    S32 laysize;
-    char* laymem;
-    char* laytru;
-} PACKER_LTOC_NODE;
+#if DEBUG
+    char fullname[128];
+    S64 dbg_loadtime[4];
+#endif
+};
 
 #define PACKER_TYPE_COUNT 129
 
-typedef struct st_PACKER_READ_DATA
+struct st_PACKER_READ_DATA
 {
     PKRAssetType* types;
     void* userdata;
@@ -131,20 +123,26 @@ typedef struct st_PACKER_READ_DATA
     S32 cltver;
     S32 subver;
     S32 compatver;
-    HIPLOADDATA* pkg;
+    st_HIPLOADDATA* pkg;
     U32 base_sector;
     S32 lockid;
     char packfile[128];
     S32 asscnt;
     S32 laycnt;
-    XORDEREDARRAY asstoc;
-    XORDEREDARRAY laytoc;
-    PACKER_ATOC_NODE* pool_anode;
+    st_XORDEREDARRAY asstoc;
+    st_XORDEREDARRAY laytoc;
+    st_PACKER_ATOC_NODE* pool_anode;
     S32 pool_nextaidx;
-    XORDEREDARRAY typelist[PACKER_TYPE_COUNT];
+    st_XORDEREDARRAY typelist[PACKER_TYPE_COUNT];
     time_t time_made;
     time_t time_mod;
-} PACKER_READ_DATA;
+#if DEBUG
+    S32 dbg_typlodtym_done;
+    F32 dbg_typlodtym[130];
+    F32 dbg_typxformtym[130];
+    S64 dbg_readtime[4];
+#endif
+};
 
 enum en_pkrfindmyass
 {
@@ -158,12 +156,11 @@ enum en_pkrfindmyass
 PKRReadFuncs* PKRGetReadFuncs(S32 apiver);
 S32 PKRStartup();
 S32 PKRShutdown();
-S32 PKRLoadStep(S32);
+S32 PKRLoadStep(S32 block);
+void PKR_drv_guardLayer(st_PACKER_LTOC_NODE*);
+en_READ_ASYNC_STATUS PKR_drv_guardVerify(st_PACKER_LTOC_NODE*);
 st_PACKER_ATOC_NODE* PKR_FindAssetNode(st_PACKER_READ_DATA* pr, U32 aid, S32* assetsize);
 U32 PKRAssetIDFromInst(void* asset_inst);
-void PKR_drv_guardLayer(PACKER_LTOC_NODE*);
-READ_ASYNC_STATUS PKR_drv_guardVerify(PACKER_LTOC_NODE*);
-
 #if DEBUG || RELEASE
 en_pkrfindmyass PKRFindMyAsset(st_PACKER_READ_DATA* pr, PKRAssetTOCInfo* tocinfo, const void* ptr_raw);
 #else

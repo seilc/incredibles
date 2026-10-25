@@ -137,12 +137,12 @@ static void xSoundFXPlay(xSoundFX* sfx)
         if (attachEnt)
         {
             sfx->sndHandle =
-                xSndMgrPlay(sfx->asset->soundAsset, 0x800, xEntGetPos(attachEnt), NULL, attachEnt);
+                xSndMgrPlay(sfx->asset->soundAsset, 0x800, xEntGetPos(attachEnt), NULL, attachEnt, NULL, NULL);
         }
     }
     else
     {
-        sfx->sndHandle = xSndMgrPlay(sfx->asset->soundAsset, 0, &sfx->asset->pos);
+        sfx->sndHandle = xSndMgrPlay(sfx->asset->soundAsset, 0, &sfx->asset->pos, NULL, NULL, NULL, NULL);
     }
 }
 

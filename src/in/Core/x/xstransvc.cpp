@@ -649,7 +649,7 @@ static S32 XST_PreLoadScene(st_STRAN_SCENE* sdata, const char* sfile, S32 filefl
     xASSERT_L(1018, sdata);
     xASSERT_L(1019, sfile);
 
-    sdata->spkg = g_pkrf->Init(sdata->userdata, (char*)sfile, 0x2E, &cltver, g_typeHandlers, fileflags);
+    sdata->spkg = g_pkrf->Init(sdata->userdata, sfile, 0x2E, &cltver, g_typeHandlers, fileflags);
     xVALIDATE_L(1026, sdata->spkg);
 
     if (!sdata->spkg) {

@@ -41,7 +41,7 @@ void zLoadingScreen::Init()
 
     controlCount = 0;
 
-    xGroupAsset* group = (xGroupAsset*)xSTFindAsset(0x7F67BBC4);
+    xGroupAsset* group = (xGroupAsset*)xSTFindAsset(0x7F67BBC4, NULL);
 
     show_stats = true;
 

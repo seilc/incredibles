@@ -1,6 +1,8 @@
 #ifndef XREGIONSUPPORT_H
 #define XREGIONSUPPORT_H
 
+#include "types.h"
+
 #include <string.h>
 
 enum xRegion
@@ -31,7 +33,7 @@ enum xRegion
     eRegionMaxCount = 32
 };
 
-extern const char* region_array[eRegionCount];
+extern char* region_array[eRegionCount];
 
 bool xRegionCodeIsValid(const char* pszRegionCode);
 
