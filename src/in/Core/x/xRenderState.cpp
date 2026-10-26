@@ -7,8 +7,8 @@ extern void _rwDlRenderStateSetZCompLoc(RwBool zBeforeTex);
 extern void RwGameCubeSetAlphaCompare(RwInt32 comp0, RwUInt8 ref0, RwInt32 op, RwInt32 comp1, RwUInt8 ref1);
 }
 
-static RwReal old_near_plane = -1e+38f;
-static RwReal old_far_plane = -1e+38f;
+RwReal old_near_plane = -1e+38f;
+RwReal old_far_plane = -1e+38f;
 static RwUInt32 old_alpha_discard_value_gc = 0;
 static bool alphaDiscardCurrentlySet = false;
 
