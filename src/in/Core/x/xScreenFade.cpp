@@ -10,7 +10,7 @@ namespace ScreenFade
 {
     namespace GlobalData
     {
-        S32 cnt_fadesInProgress = 0;
+        static S32 cnt_fadesInProgress = 0;
     }
 } // namespace ScreenFade
 
