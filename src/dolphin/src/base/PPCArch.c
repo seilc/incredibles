@@ -64,7 +64,7 @@ asm void PPCMtl2cr(register u32 newL2cr) {
     blr
 }
 
-asm void PPCMtdec(register u32 newDec) {
+__declspec(weak) asm void PPCMtdec(register u32 newDec) {
     nofralloc
     mtdec newDec
     blr
@@ -99,7 +99,7 @@ asm void PPCEieio() {
     blr
 }
 
-asm void PPCHalt() {
+__declspec(weak) asm void PPCHalt() {
     nofralloc
     sync
 loop:
