@@ -5,7 +5,7 @@
 
 #ifdef DEBUG
 const char* __AXVersion = "<< Dolphin SDK - AX\tdebug build: Apr  5 2004 03:56:21 (0x2301) >>";
-#elif SDK_REVISION < 0
+#elif SDK_REVISION < 20040405
 const char* __AXVersion = "<< Dolphin SDK - AX\trelease build: Dec  2 2003 05:10:55 (0x2301) >>";
 #else
 const char* __AXVersion = "<< Dolphin SDK - AX\trelease build: Apr  5 2004 04:15:05 (0x2301) >>";

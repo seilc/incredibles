@@ -85,18 +85,18 @@ static void StartDol(const OSExecParams* params, void* entry) {
 
 static void ReadDisc(void* addr, s32 length, s32 offset) {
     DVDCommandBlock block;
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
     OSTime start;
 #endif
 
     DVDReadAbsAsyncPrio(&block, addr, length, offset, NULL, 0);
 
-#if SDK_REVISION < 1    
+#if SDK_REVISION < 20040521    
     start = OSGetTime();
 #endif
 
     while (DVDGetCommandBlockStatus(&block)) {
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
         if (!DVDCheckDisk() || OS_TIMER_CLOCK < (OSGetTime() - start))
 #else
         if (!DVDCheckDisk())
@@ -134,7 +134,7 @@ void __OSSetExecParams(const OSExecParams* params, OSExecParams* addr) {
 
 static void StopStreaming() {
     DVDCommandBlock block;
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
     OSTime start;
 #endif
 
@@ -143,12 +143,12 @@ static void StopStreaming() {
         AISetStreamVolRight(0);
         DVDCancelStreamAsync(&block, NULL);
 
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
         start = OSGetTime();
 #endif
 
         while (DVDGetCommandBlockStatus(&block)) {
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
             if (!DVDCheckDisk() || OS_TIMER_CLOCK < (OSGetTime() - start))
 #else
             if (!DVDCheckDisk())
@@ -236,7 +236,7 @@ void __OSBootDolSimple(u32 doloffset, u32 restartCode, void* regionStart, void* 
     void* dolEntry;
     AppLoaderStruct* header;
 
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
     OSTime start;
 #endif
 
@@ -264,12 +264,12 @@ void __OSBootDolSimple(u32 doloffset, u32 restartCode, void* regionStart, void* 
     __OSUnmaskInterrupts(0x400);
     OSEnableInterrupts();
 
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
     start = OSGetTime();
 #endif
 
     while (Prepared != TRUE) {
-#if SDK_REVISION < 1
+#if SDK_REVISION < 20040521
         if (!DVDCheckDisk() || OS_TIMER_CLOCK < (OSGetTime() - start))
 #else
         if (!DVDCheckDisk())
@@ -376,7 +376,7 @@ void OSExecl(const char* dolfile, const char* arg0, ...) {
 
     argv = OSAllocFromArenaLo(4, 0x1000);
     va_start(vl, arg0);
-#if SDK_REVISION < 2
+#if SDK_REVISION < 20041110
     *argv = (char*)arg0;
 
     i = 1;

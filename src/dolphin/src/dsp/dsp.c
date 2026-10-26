@@ -4,7 +4,7 @@
 
 #include "__dsp.h"
 
-#if SDK_REVISION < 0
+#if SDK_REVISION < 20040405
 #define BUILD_DATE "Apr 17 2003"
 #define BUILD_TIME "12:34:16"
 #else
@@ -18,7 +18,7 @@
 
 #ifdef DEBUG
 const char* __DSPVersion = "<< Dolphin SDK - DSP\tdebug build: Apr  5 2004 03:56:49 (0x2301) >>";
-#elif SDK_REVISION < 0
+#elif SDK_REVISION < 20040405
 const char* __DSPVersion = "<< Dolphin SDK - DSP\trelease build: Apr 17 2003 12:34:16 (0x2301) >>";
 #else
 const char* __DSPVersion = "<< Dolphin SDK - DSP\trelease build: Apr  5 2004 04:15:32 (0x2301) >>";

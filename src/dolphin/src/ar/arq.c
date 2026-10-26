@@ -5,7 +5,7 @@
 
 #ifdef DEBUG
 const char* __ARQVersion = "<< Dolphin SDK - ARQ\tdebug build: Apr  5 2004 03:56:20 (0x2301) >>";
-#elif SDK_REVISION < 0
+#elif SDK_REVISION < 20040405
 const char* __ARQVersion = "<< Dolphin SDK - ARQ\trelease build: Nov 26 2003 05:19:43 (0x2301) >>";
 #else
 const char* __ARQVersion = "<< Dolphin SDK - ARQ\trelease build: Apr  5 2004 04:15:04 (0x2301) >>";

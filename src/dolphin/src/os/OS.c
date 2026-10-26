@@ -18,14 +18,14 @@ extern void __OSInitMemoryProtection(void);
 #define OS_EXCEPTIONTABLE_ADDR 0x3000
 #define OS_DBJUMPPOINT_ADDR 0x60
 
-#if SDK_REVISION < 0
+#if SDK_REVISION < 20040405
 #define BUILD_DATE  "Nov 26 2003"
 #define RBUILD_TIME "05:18:37"
-#elif SDK_REVISION < 1
+#elif SDK_REVISION < 20040521
 #define BUILD_DATE  "Apr  5 2004"
 #define DBUILD_TIME "03:55:13"
 #define RBUILD_TIME "04:13:58"
-#elif SDK_REVISION < 2
+#elif SDK_REVISION < 20041110
 #define BUILD_DATE  "May 21 2004"
 #define DBUILD_TIME "09:15:32"
 #define RBUILD_TIME "09:28:09"

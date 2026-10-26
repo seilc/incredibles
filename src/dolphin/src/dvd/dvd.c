@@ -12,7 +12,7 @@ extern int __DVDLowTestAlarm(const OSAlarm * alarm /* r3 */);
 
 #ifdef DEBUG
 const char* __DVDVersion = "<< Dolphin SDK - DVD\tdebug build: Apr  5 2004 03:56:07 (0x2301) >>";
-#elif SDK_REVISION < 0
+#elif SDK_REVISION < 20040405
 const char* __DVDVersion = "<< Dolphin SDK - DVD\trelease build: Sep 16 2003 09:50:54 (0x2301) >>";
 #else
 const char* __DVDVersion = "<< Dolphin SDK - DVD\trelease build: Apr  5 2004 04:14:51 (0x2301) >>";

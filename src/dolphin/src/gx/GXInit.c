@@ -7,10 +7,10 @@
 
 #include "__gx.h"
 
-#if SDK_REVISION < 0
+#if SDK_REVISION < 20040405
 #define BUILD_DATE  "Nov 26 2003"
 #define RBUILD_TIME "05:19:07"
-#elif SDK_REVISION < 2
+#elif SDK_REVISION < 20041110
 #define BUILD_DATE  "Apr  5 2004"
 #define DBUILD_TIME "03:55:13"
 #define RBUILD_TIME "04:14:28"

@@ -195,7 +195,7 @@ void GXSetCPUFifo(GXFifoObj* fifo) {
 void GXSetGPFifo(GXFifoObj* fifo) {
     __GXFifoObj* realFifo = (__GXFifoObj*)fifo;
     BOOL enabled = OSDisableInterrupts();
-#if SDK_REVISION >= 2
+#if SDK_REVISION >= 20041110
     u32 stbtmp;
 #endif
 
@@ -230,7 +230,7 @@ void GXSetGPFifo(GXFifoObj* fifo) {
         __GXFifoLink(0);
     }
 
-#if SDK_REVISION >= 2
+#if SDK_REVISION >= 20041110
     stbtmp = __GXData->cpEnable;
     SET_REG_FIELD(0, stbtmp, 1, 1, 0);
     SET_REG_FIELD(0, stbtmp, 1, 5, 0);
@@ -256,7 +256,7 @@ do { \
     fifo->count = temp; \
 } while (0)
 
-#if SDK_REVISION >= 2
+#if SDK_REVISION >= 20041110
 static void __GXSaveFifoCPStat(__GXFifoObj* realFifo) {
     u32 cpStatus;
     u8 readIdle;
@@ -290,7 +290,7 @@ void GXSaveCPUFifo(GXFifoObj* fifo) {
 void __GXSaveCPUFifoAux(__GXFifoObj* realFifo) {
     BOOL enabled = OSDisableInterrupts();
 
-#if SDK_REVISION < 2
+#if SDK_REVISION < 20041110
     realFifo->base = OSPhysicalToCached(GX_GET_PI_REG(3));
     realFifo->top = OSPhysicalToCached(GX_GET_PI_REG(4));
     realFifo->wrPtr = OSPhysicalToCached(GX_GET_PI_REG(5) & 0xFBFFFFFF);
@@ -299,7 +299,7 @@ void __GXSaveCPUFifoAux(__GXFifoObj* realFifo) {
 #endif
 
     if (CPGPLinked) {
-#if SDK_REVISION < 2
+#if SDK_REVISION < 20041110
         SOME_MACRO1(realFifo);
         SOME_MACRO2(realFifo);
 #else
@@ -315,7 +315,7 @@ void __GXSaveCPUFifoAux(__GXFifoObj* realFifo) {
 
 void GXSaveGPFifo(GXFifoObj* fifo) {
     __GXFifoObj* realFifo = (__GXFifoObj*)fifo;
-#if SDK_REVISION < 2
+#if SDK_REVISION < 20041110
     u32 cpStatus;
     u8 readIdle;
     u32 temp;
@@ -323,7 +323,7 @@ void GXSaveGPFifo(GXFifoObj* fifo) {
     BOOL enabled = OSDisableInterrupts();
 #endif
 
-#if SDK_REVISION < 2
+#if SDK_REVISION < 20041110
     ASSERTMSGLINE(908, realFifo == GPFifo, "GXSaveGPFifo: fifo is not attached to GP");
     cpStatus = *(u16*)__cpReg;
     readIdle = GET_REG_FIELD(cpStatus, 1, 2);
@@ -432,7 +432,7 @@ void GXEnableBreakPt(void* break_pt) {
     __GXFifoReadDisable();
     GX_SET_CP_REG(30, (u32)break_pt);
     GX_SET_CP_REG(31, ((u32)break_pt >> 16) & 0x3FFF);
-#if SDK_REVISION >= 2
+#if SDK_REVISION >= 20041110
     SOME_SET_REG_MACRO(__GXData->cpEnable, 1, 1, 0);
     SOME_SET_REG_MACRO(__GXData->cpEnable, 1, 5, 0);
     GX_SET_CP_REG(1, __GXData->cpEnable);

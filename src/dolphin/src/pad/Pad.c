@@ -6,7 +6,7 @@
 
 #if DEBUG
 const char* __PADVersion = "<< Dolphin SDK - PAD\tdebug build: Apr  5 2004 03:56:05 (0x2301) >>";
-#elif SDK_REVISION < 0
+#elif SDK_REVISION < 20040405
 const char* __PADVersion = "<< Dolphin SDK - PAD\trelease build: Aug  6 2003 04:30:02 (0x2301) >>";
 #else
 const char* __PADVersion = "<< Dolphin SDK - PAD\trelease build: Apr  5 2004 04:14:49 (0x2301) >>";
