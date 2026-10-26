@@ -6,11 +6,6 @@
 class xMemoryManagerFixed : public xMemoryManager
 {
 public:
-#if DEBUG || RELEASE
-    void SetOrigSize(void* pointer, U32 size) const;
-    U32 GetOrigSize(void* pointer) const;
-#endif
-
     void Init(void* start, U32 elements, U32 elementSize);
 
 protected:
@@ -39,10 +34,6 @@ private:
     FixedHeader* freeList;
     U32 elements;
     U32 elementSize;
-#if DEBUG || RELEASE
-    U32 allocatedElements;
-    U8* origSizeList;
-#endif
 
     void InitMemory();
 };

@@ -131,7 +131,6 @@ static void xCMprep(xCreditsData* data)
         return;
     }
 
-    // Fakematch: different declaration order than DWARF
     xCMhunk* hp;
     char* dp;
     xCMcredits* cp;
@@ -267,51 +266,6 @@ static xColor xCMcolor_scale(xColor color, F32 scale)
     return tmp;
 }
 
-#if DEBUG || RELEASE
-U32 dumpit = 0;
-#endif
-
-static void xCMdump_header(xCMheader* hdr)
-{
-    iprintf("header magic:              %08X\n", hdr->magic);
-    iprintf("       version:            %08X\n", hdr->version);
-    iprintf("       state:              %d\n", hdr->state);
-    iprintf("       total_time:         %6.2f\n", hdr->total_time);
-    iprintf("       total_size:         %d bytes\n", hdr->total_size);
-}
-
-static void xCMdump_credits(xCMcredits* credits)
-{
-    iprintf("credits credits_size:      %d bytes\n", credits->credits_size);
-    iprintf("        len:               %6.2f sec\n", credits->len);
-    iprintf("        flags:             %08X\n", credits->flags);
-    iprintf("        in:                %6.2f - %6.2f\n", credits->in.x, credits->in.y);
-    iprintf("        out:               %6.2f - %6.2f\n", credits->out.x, credits->out.y);
-    iprintf("        scroll_rate:       %6.2f pixels/sec\n", credits->scroll_rate);
-    iprintf("        lifetime:          %6.2f sec\n", credits->lifetime);
-    iprintf("        fin:               %6.2f - %6.2f\n", credits->fin.start, credits->fin.end);
-    iprintf("        fout:              %6.2f - %6.2f\n", credits->fout.start, credits->fout.end);
-    iprintf("        num_presets:       %d\n", credits->num_presets);
-}
-
-static void xCMdump_textbox(xCMtextbox* textbox)
-{
-    iprintf("textbox font:              %d\n", textbox->font);
-    iprintf("        color:             %08X\n", *(U32*)&textbox->color);
-    iprintf("        char_size:         %6.2f x %6.2f pixels\n", textbox->char_size.x, textbox->char_size.y);
-    iprintf("        char_spacing:      %6.2f x %6.2f pixels\n", textbox->char_spacing.x, textbox->char_spacing.y);
-    iprintf("        box:               %6.2f x %6.2f\n", textbox->box.x, textbox->box.y);
-}
-
-static void xCMdump_texture(xCMtexture* tex)
-{
-    iprintf("tex assetID:               %08X\n", tex->assetID);
-    iprintf("    color:                 %08X\n", tex->color);
-    iprintf("    x,y,w,h:               %6.2f %6.2f %6.2f %6.2f\n", tex->x, tex->y, tex->w, tex->h);
-    iprintf("    texture:               %08X\n", tex->texture);
-    iprintf("    pad:                   %08X\n", tex->pad);
-}
-
 static const char* preset_names[] = {
     "CM_ALIGN_CENTER",
     "CM_ALIGN_LEFT",
@@ -320,38 +274,8 @@ static const char* preset_names[] = {
     "CM_ALIGN_TEXTURE"
 };
 
-static void xCMdump_preset(xCMpreset* pp)
-{
-    iprintf("preset num:                %d\n", pp->num);
-    iprintf("      align:               %s\n", preset_names[pp->align]);
-    iprintf("      delay:               %6.2f sec\n", pp->delay);
-    iprintf("      innerspace:          %6.2f\n", pp->innerspace);
-    if (pp->align == CM_ALIGN_TEXTURE) {
-        xCMdump_texture((xCMtexture*)&pp->box[0]);
-    } else if (pp->align == CM_ALIGN_CENTER) {
-        xCMdump_textbox(&pp->box[0]);
-    } else {
-        xCMdump_textbox(&pp->box[0]);
-        xCMdump_textbox(&pp->box[1]);
-    }
-}
-
-static void xCMdump_hunk(xCMhunk* hunk)
-{
-    iprintf("hunk hunk_size:            %d bytes\n", hunk->hunk_size);
-    iprintf("     preset idx:           %d\n", hunk->preset);
-    iprintf("     t0,t1:                %6.2f - %6.2f\n", hunk->t0, hunk->t1);
-    if (hunk->text1) {
-        iprintf("     text1:                [%s]\n", hunk->text1);
-    }
-    if (hunk->text2) {
-        iprintf("     text2:                [%s]\n", hunk->text2);
-    }
-}
-
 static U32 xCMrender(F32 time, xCreditsData* data)
 {
-    // Fakematch: different declaration order than DWARF
     xCMhunk* hp;
     xCMheader* hdr;
     char* dp;
@@ -370,40 +294,14 @@ static U32 xCMrender(F32 time, xCreditsData* data)
 
     xprintf("credits time %6.2f\n", time);
 
-#if DEBUG || RELEASE
-    if (dumpit) {
-        xCMdump_header(hdr);
-    }
-#endif
-
     dp = (char*)(hdr + 1);
     while (dp - (char*)data < hdr->total_size) {
         cp = (xCMcredits*)dp;
 
-#if DEBUG || RELEASE
-        if (dumpit) {
-            xCMdump_credits(cp);
-        }
-#endif
-
         pp = (xCMpreset*)(cp + 1);
-
-#if DEBUG || RELEASE
-        if (dumpit) {
-            for (U32 i = 0; i < cp->num_presets; i++) {
-                xCMdump_preset(&pp[i]);
-            }
-        }
-#endif
 
         hp = (xCMhunk*)(pp + cp->num_presets);
         while ((char*)hp - (char*)cp < cp->credits_size) {
-#if DEBUG || RELEASE
-            if (dumpit) {
-                xCMdump_hunk(hp);
-            }
-#endif
-
             if (time >= hp->t0 && time <= hp->t1) {
                 xASSERT_L(1107, hp->t1 - hp->t0 > EPSILON);
                 F32 a = (time - hp->t0) / (hp->t1 - hp->t0);
@@ -579,10 +477,6 @@ static U32 xCMrender(F32 time, xCreditsData* data)
 
         dp = (char*)hp;
     }
-
-#if DEBUG || RELEASE
-    dumpit = 0;
-#endif
 
     return time >= 0.0f && time <= hdr->total_time;
 }

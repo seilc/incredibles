@@ -19,11 +19,11 @@ struct xBound
     xMat4x3* mat;
 };
 
-#define k_XBOUNDTYPE_NONE 0 // None
-#define k_XBOUNDTYPE_SPHERE 1 // Sphere (xBound::sph)
-#define k_XBOUNDTYPE_BOX 2 // Axis-aligned bounding box (xBound::box)
-#define k_XBOUNDTYPE_CYLINDER 3 // Cylinder (xBound::cyl)
-#define k_XBOUNDTYPE_OBB 4 // Oriented bounding box (xBound::box + xBound::mat)
+#define k_XBOUNDTYPE_NONE 0
+#define k_XBOUNDTYPE_SPHERE 1
+#define k_XBOUNDTYPE_BOX 2
+#define k_XBOUNDTYPE_CYLINDER 3
+#define k_XBOUNDTYPE_OBB 4
 
 void xBoundUpdate(xBound* b);
 void xBoundGetBox(xBox& box, const xBound& bound);

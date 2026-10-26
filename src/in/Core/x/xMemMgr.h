@@ -21,7 +21,7 @@ struct xMemPool
 
 enum xMemStaticType
 {
-    eMemStaticTypeUnk0
+    eMemStaticType_0, // unknown
 };
 
 extern U32 gActiveHeap;

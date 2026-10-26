@@ -52,7 +52,7 @@ void zCamSceneEnter(zScene& scene, const xMat4x3& mat)
     globals.cam->create();
     globals.cam->fov_default = globals.screen->fov;
 
-    follow_cam = new (eMemStaticTypeUnk0, 0) zCamPlayer();
+    follow_cam = new (eMemStaticType_0, 0) zCamPlayer();
     follow_cam->create();
     follow_cam->owner = 'ZCAM';
 

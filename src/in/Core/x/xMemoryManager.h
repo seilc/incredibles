@@ -37,9 +37,6 @@ public:
     }
 
     U32 GetBlockSize(void* pointer) const;
-    bool InActiveList(const void* pointer, U32) const;
-    bool IsValidPointer(const void* pointer) const;
-    void DumpActiveList() const;
 
 #if DEBUG || RELEASE
     void* Allocate(U32 size, U32 options, const char* file, const char* function, S32 line);
@@ -107,19 +104,11 @@ private:
     void* arenaStart;
     void* arenaEnd;
     U32 size;
-#if DEBUG || RELEASE
-    U32 callsToAllocate;
-    U32 callsToReallocate;
-    U32 callsToFree;
-#endif
     const char* lastFile;
     const char* lastFunction;
     S32 lastLine;
     U32 debugDataSize;
     DebugAllocationHeader* activeList;
-#if DEBUG || RELEASE
-    U32 debugOverhead;
-#endif
 
     void* SetupDebugBlock(void* memory, U32 size, const char* file, const char* function, S32 line);
     void* RemoveDebugBlock(void* memory, U32* size);

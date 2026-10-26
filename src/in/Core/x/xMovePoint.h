@@ -15,9 +15,6 @@ struct xMovePoint : xBase
     U32 node_wt_sum;
     U8 on;
     U8 pad[3];
-#if DEBUG || RELEASE
-    U32 start_point_of_id;
-#endif
     F32 delay;
     xSpline3* spl;
 };

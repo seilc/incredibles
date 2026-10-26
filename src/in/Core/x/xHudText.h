@@ -28,10 +28,6 @@ public:
     virtual void update(F32 dt);
     virtual void render();
     virtual void set_text(const char* intext);
-
-#if DEBUG || RELEASE
-    virtual const char* category() { return "Text"; }
-#endif
 };
 
 struct text_widget::widget_chunk : xBase

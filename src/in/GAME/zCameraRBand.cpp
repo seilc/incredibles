@@ -20,7 +20,7 @@ void zCameraRBandAsset_Init(zCameraRBandObject* object, zCameraRBandAsset* asset
     object->eventFunc = zCameraRBandAsset_EventCB;
     object->asset = asset;
 
-    rbCam = new (eMemStaticTypeUnk0, 0) zSlideCam();
+    rbCam = new (eMemStaticType_0, 0) zSlideCam();
     rbCam->create();
     rbCam->add_tweaks("Camera|RBand|");
     rbCam->cfg.spring_len = asset->spring_len;

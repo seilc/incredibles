@@ -209,7 +209,6 @@ void __GXSetGenMode(void);
 
 /* GXInit */
 void __GXInitGX();
-void __GXInitRevisionBits(void);
 
 typedef struct __GXData_struct {
     u16 vNumNot;

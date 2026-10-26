@@ -66,10 +66,4 @@ inline void xQuickCullForSphere(xQCData* q, const xSphere* s)
     xQuickCullForSphere(&xqc_def_ctrl, q, s);
 }
 
-#if DEBUG
-void xQuickCullDebugCB();
-void xQuickCullDebugUpdate();
-void xQuickCullDebugRegister(const xQCData* q);
-#endif
-
 #endif

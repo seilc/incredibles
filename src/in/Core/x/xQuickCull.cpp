@@ -2,15 +2,7 @@
 
 #include "xBound.h"
 
-#include "decomp.h"
-
 xQCControl xqc_def_ctrl;
-
-#if DEBUG
-static U32 dbg_regs = 0;
-static U32 dbg_comps = 0;
-static U32 dbg_culls = 0;
-#endif
 
 void xQuickCullInit(xQCControl* ctrl, F32 xmin, F32 ymin, F32 zmin, F32 xmax, F32 ymax, F32 zmax)
 {
@@ -56,13 +48,6 @@ S32 xQuickCullIsects(const xQCData* a, const xQCData* b)
 {
     S32 result = !(a->xmin > b->xmax || a->ymin > b->ymax || a->zmin > b->zmax ||
                    b->xmin > a->xmax || b->ymin > a->ymax || b->zmin > a->zmax);
-    
-#if DEBUG
-    if (!result) {
-        dbg_culls++;
-    }
-    dbg_comps++;
-#endif
 
     return result;
 }
@@ -109,8 +94,6 @@ static void xQuickCullCellMerge(xQCData* o, const xQCData* a, const xQCData* b)
     o->zmax = xmax(a->zmax, b->zmax);
     o->zmax_dup = o->zmax;
 }
-
-DECOMP_FORCEACTIVE("ctrl", "q", "v")
 
 void xQuickCullForLine(xQCControl* ctrl, xQCData* q, const xLine3* ln)
 {
@@ -246,32 +229,3 @@ void xQuickCullForEverything(xQCData* q)
     q->zmax = 127;
     q->zmax_dup = 127;
 }
-
-#if DEBUG
-void xQuickCullDebugCB()
-{
-    xprintf("world_min=<%.3f %.3f %.3f>\n",
-            xqc_def_ctrl.world_xmin, xqc_def_ctrl.world_ymin, xqc_def_ctrl.world_zmin);
-    xprintf("world_max=<%.3f %.3f %.3f>\n",
-            xqc_def_ctrl.world_xmax, xqc_def_ctrl.world_ymax, xqc_def_ctrl.world_zmax);
-    xprintf("world_sz=<%.3f %.3f %.3f>\n",
-            xqc_def_ctrl.world_xsz, xqc_def_ctrl.world_ysz, xqc_def_ctrl.world_zsz);
-    xprintf("block_sz=<%.3f %.3f %.3f>\n",
-            xqc_def_ctrl.world_xsz / 254.0f, xqc_def_ctrl.world_ysz / 254.0f, xqc_def_ctrl.world_zsz / 254.0f);
-    xprintf("cull ratio: %.4f%% (%d/%d)\n",
-            dbg_culls * 100.0f / dbg_comps, dbg_culls, dbg_comps);
-}
-
-void xQuickCullDebugUpdate()
-{
-    dbg_regs = 0;
-    dbg_comps = 0;
-    dbg_culls = 0;
-}
-
-void xQuickCullDebugRegister(const xQCData* q)
-{
-    xASSERT_L(716, q);
-    dbg_regs++;
-}
-#endif

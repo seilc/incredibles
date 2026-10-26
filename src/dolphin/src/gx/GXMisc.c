@@ -96,17 +96,6 @@ void __GXAbort(void) {
     __GXAbortWait(20);
 }
 
-void GXAbortFrame(void) {
-    __GXAbort();
-
-    if (GXGetGPFifo() != (GXFifoObj*)NULL) {
-        __GXCleanGPFifo();
-        __GXInitRevisionBits();
-        __GXData->dirtyState = 0;
-        GXFlush();
-    }
-}
-
 void GXSetDrawSync(u16 token) {
     BOOL enabled;
     u32 reg;

@@ -5,7 +5,6 @@
 #include "zScene.h"
 #include "xTextAsset.h"
 #include "zMain.h"
-#include "xScrFx.h"
 
 #include "decomp.h"
 
@@ -114,22 +113,6 @@ void text_widget::update(F32 dt)
 
 void text_widget::render()
 {
-#if DEBUG || RELEASE
-    bool bDebug = *(bool*)&rc.size.z;
-    if (bDebug) {
-        F32 rc_x0 = rc.loc.x * FB_XRES;
-        F32 rc_y0 = rc.loc.y * FB_YRES;
-        F32 rc_x2 = rc_x0 + rc.size.x * FB_XRES;
-        F32 rc_y2 = rc_y0 + rc.size.y * FB_YRES;
-        F32 rc_x1 = (rc_x0 + rc_x2) * 0.5f;
-        F32 rc_y1 = (rc_y0 + rc_y2) * 0.5f;
-        RwRenderStateSet(rwRENDERSTATETEXTURERASTER, (void*)NULL);
-        xScrFxDrawBox(rc_x0, rc_y0, rc_x1, rc_y2, 192, 128, 128, 200, false);
-        xScrFxDrawBox(rc_x1, rc_y0, rc_x2, rc_y2, 144, 144, 192, 200, false);
-        return;
-    }
-#endif
-
     xASSERT_L(125, tb.font.width);
     xASSERT_L(126, tb.font.height);
     tb.render(true);
@@ -145,10 +128,6 @@ void text_widget::set_text(const char* intext)
     memcpy(text, intext, copychars);
     text[copychars] = '\0';
 }
-
-#if DEBUG || RELEASE
-DECOMP_FORCEACTIVE("m.value != 0")
-#endif
 
 bool scale_text_motive_reset(widget& w, motive& m)
 {

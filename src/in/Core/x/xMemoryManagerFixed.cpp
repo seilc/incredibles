@@ -10,7 +10,11 @@ void xMemoryManagerFixed::Init(void* start, U32 elements, U32 elementSize)
     InitMemory();
 }
 
+#if DEBUG || RELEASE
+void* xMemoryManagerFixed::DoAllocate(U32, U32, const char*, const char*, S32)
+#else
 void* xMemoryManagerFixed::DoAllocate(U32, U32)
+#endif
 {
     FixedHeader* header = freeList;
 
@@ -34,7 +38,11 @@ void xMemoryManagerFixed::DoFree(void* pointer)
     freeList = header;
 }
 
+#if DEBUG || RELEASE
+void* xMemoryManagerFixed::DoReallocate(void* pointer, U32, U32, const char*, const char*, S32)
+#else
 void* xMemoryManagerFixed::DoReallocate(void* pointer, U32, U32)
+#endif
 {
     return pointer;
 }

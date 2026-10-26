@@ -90,8 +90,4 @@ void meter_widget::updater(F32 dt)
     }
 }
 
-#if DEBUG || RELEASE
-DECOMP_FORCEACTIVE("xHud.h", "*always*", "%s")
-#endif
-
 }

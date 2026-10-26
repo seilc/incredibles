@@ -29,10 +29,6 @@ public:
     virtual void update(F32 dt);
     virtual void render();
 
-#if DEBUG || RELEASE
-    virtual const char* category() { return "Font Meter"; }
-#endif
-
 protected:
     char buffer[12];
     S32 last_value;

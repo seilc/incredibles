@@ -115,20 +115,11 @@ static F32 ArcLength3(xCoef3* coef, F64 ustart, F64 uend)
     u = ustart + h;
 
     for (i = 2; i <= 50; i++) {
-// ???
-#if DEBUG
-        if (i % 2 == 0) {
-            sum += 4.0 * sqrt((((A * u + B) * u + C) * u + D) * u + E);
-        } else {
-            sum += 2.0 * sqrt((((A * u + B) * u + C) * u + D) * u + E);
-        }
-#else
         if (i % 2 != 0) {
             sum += 2.0 * sqrt((((A * u + B) * u + C) * u + D) * u + E);
         } else {
             sum += 4.0 * sqrt((((A * u + B) * u + C) * u + D) * u + E);
         }
-#endif
         u += h;
     }
 
@@ -550,14 +541,3 @@ void xSpline3_Catmullize(xSpline3* spl)
 {
     xSpline3_Update(spl);
 }
-
-DECOMP_FORCEACTIVE(
-    "detinv != 0.0f",
-    "%s",
-    "spl->arcLength",
-    "Bspline --> Coef error:     %f\n",
-    "Bspline --> Bezier error:   %f\n",
-    "Bspline --> Hermite error:  %f\n",
-    "Arclength 1,1,1 check -->  %f == %f\n",
-    "Arc[%f]== %f %f %f %f\n"
-)

@@ -11,7 +11,7 @@ struct xFXCameraTexture
     RpWorld* world;
     RwTexture* texture;
     U32 vert_buffer_used;
-    xColor_tag bgcolor;
+    xColor bgcolor;
     RwCamera* oldcam;
     RpWorld* oldworld;
     F32 rcz;

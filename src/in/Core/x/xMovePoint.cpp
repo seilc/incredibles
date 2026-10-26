@@ -5,8 +5,6 @@
 #include "xSpline.h"
 #include "xRand.h"
 
-#include "decomp.h"
-
 void xMovePointInit(xMovePoint* m, xMovePointAsset* asset)
 {
     xASSERT_L(26, m);
@@ -18,9 +16,6 @@ void xMovePointInit(xMovePoint* m, xMovePointAsset* asset)
     m->on = asset->on;
     m->delay = asset->delay;
     m->spl = NULL;
-#if DEBUG || RELEASE
-    m->start_point_of_id = 0;
-#endif
 
     if (asset->numPoints > 0) {
         m->nodes = (xMovePoint**)xMEMALLOC(sizeof(xMovePoint*) * asset->numPoints);
@@ -54,9 +49,6 @@ void xMovePointReset(xMovePoint* m)
 
     m->on = m->asset->on;
     m->delay = m->asset->delay;
-#if DEBUG || RELEASE
-    m->start_point_of_id = 0;
-#endif
 }
 
 void xMovePointSetup(xMovePoint* m, xScene* sc)
@@ -129,8 +121,6 @@ void xMovePointSplineDestroy(xMovePoint* m)
         m->spl = NULL;
     }
 }
-
-DECOMP_FORCEACTIVE("m != 0")
 
 F32 xMovePointGetNext(const xMovePoint* m, const xMovePoint* prev, xMovePoint** next, xVec3* hdng)
 {

@@ -16,7 +16,7 @@ S32 xLightVolume::activities_used = 0;
 
 void xLightVolume::scene_enter()
 {
-    activities = new (eMemStaticTypeUnk0, 0) activity_type[MAX_ACTIVE];
+    activities = new (eMemStaticType_0, 0) activity_type[MAX_ACTIVE];
     activities_used = 0;
     reset_all();
 }

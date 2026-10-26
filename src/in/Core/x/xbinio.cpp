@@ -3,8 +3,6 @@
 #include "xFile.h"
 #include "xDebug.h"
 
-#include "decomp.h"
-
 #include <string.h>
 
 #define MAX_LOADINST 8
@@ -321,8 +319,6 @@ static en_BIO_ASYNC_ERRCODES AsyncReadStatus(st_FILELOADINFO* fli)
     return BFD_AsyncReadStatus(fli);
 }
 
-DECOMP_FORCEACTIVE(DEBUG ? "%s(%d) : (sizeof(S32)==4) in '%s'\n" : 0)
-
 static void Swap2(char* d, S32 n)
 {
     char t;
@@ -573,12 +569,6 @@ static U32 BFD_startSector(const char* filename, S32 fileflags)
 }
 
 static void BFD_cb_asyncread(S32);
-
-DECOMP_FORCEACTIVE(
-    DEBUG ? "%s(%d) : (xtra->asyn_status == BINIO_ASYNC_INPROG) in '%s'\n" : 0,
-    (DEBUG || RELEASE) ? "XBIN: Eh? Async callback ... ASS-U-ME success ?!?\n" : 0,
-    (DEBUG || RELEASE) ? "XBIN: Wow, IOP callback was actually called!\n" : 0
-)
 
 static void BFD_cb_GCP2_readasync(xFile* file)
 {

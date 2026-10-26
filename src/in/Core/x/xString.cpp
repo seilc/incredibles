@@ -4,8 +4,6 @@
 #include "xOutputMgr.h"
 #include "xMath.h"
 
-#include "decomp.h"
-
 #include <stdlib.h>
 
 U32 xStrHash(const char* str)
@@ -427,7 +425,6 @@ const char* find_char(const substr& s, const substr& cs)
     const char* p = s.text;
     const char* d = cs.text;
 
-    // Why?????????????
     switch (cs.size) {
     case 0:
         break;
@@ -587,9 +584,3 @@ const char* find_char(const substr& s, const substr& cs)
 
     return NULL;
 }
-
-DECOMP_FORCEACTIVE(
-    "true",
-    "(s.size == 0) || (s.text != 0)",
-    "(key.size == 0) || (key.text != 0)"
-)

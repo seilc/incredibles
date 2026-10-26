@@ -24,12 +24,12 @@ public:
 
 zParticleSystem** zParticleSystemCreateAll()
 {
-    zParticleSystem** systems = new (eMemStaticTypeUnk0, 0) zParticleSystem*[4];
+    zParticleSystem** systems = new (eMemStaticType_0, 0) zParticleSystem*[4];
 
-    systems[0] = new (eMemStaticTypeUnk0, 0) zParticleSystemDummy;
-    systems[1] = new (eMemStaticTypeUnk0, 0) zParticleSystemWaterfall;
-    systems[2] = new (eMemStaticTypeUnk0, 0) zParticleSystemWaterfallMist;
-    systems[3] = new (eMemStaticTypeUnk0, 0) zParticleSystemWaterfallSplash;
+    systems[0] = new (eMemStaticType_0, 0) zParticleSystemDummy;
+    systems[1] = new (eMemStaticType_0, 0) zParticleSystemWaterfall;
+    systems[2] = new (eMemStaticType_0, 0) zParticleSystemWaterfallMist;
+    systems[3] = new (eMemStaticType_0, 0) zParticleSystemWaterfallSplash;
 
     return systems;
 }

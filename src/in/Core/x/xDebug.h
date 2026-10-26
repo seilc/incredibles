@@ -160,7 +160,17 @@ if ((x) && !((x) > 0.0f) && !((x) < 0.0f)) {                                    
 extern U32 gFrameCount;
 extern U32 gSceneFrameCount;
 
+void xDebugValidateFailed();
 void xprintf(const char*, ...);
+
+#if DEBUG || RELEASE
+void DBprintf(en_VERBOSE_MSGLEVEL msglvl, const char* fmt, ...);
+void xDebug_assert2_info(const char* func, const char* file, U32 line, const char* expr);
+void xDebug_assert2(const char* fmt, ...);
+U32 xDebugBoing();
+void xDebugStackTrace();
+#endif
+
 void xDebugInit();
 void xDebugUpdate();
 void xDebugExit();

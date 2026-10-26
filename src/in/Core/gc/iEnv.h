@@ -4,15 +4,6 @@
 #include "xJSP.h"
 #include "xMath3.h"
 
-struct iEnvMatOrder
-{
-    U16 jspIndex;
-    U16 nodeIndex;
-    S32 matGroup;
-    RpAtomic* atomic;
-    xJSPNodeInfo* nodeInfo;
-};
-
 struct iEnv
 {
     RpWorld* world;
@@ -24,13 +15,9 @@ struct iEnv
     xJSPHeader** jsp_list;
     xBox* jsp_bound;
     S32* jsp_visibilityCount;
-    //S32 jspMatOrderCount;
-    //iEnvMatOrder* jspMatOrderList;
     RpLight* light[2];
     RwFrame* light_frame[2];
     S32 memlvl;
-    //U16 numOpaque;
-    //U16 numTransparent;
 };
 
 struct xEnvAsset;
