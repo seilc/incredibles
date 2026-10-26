@@ -57,13 +57,13 @@ static OSBootInfo* BootInfo;
 static u32* BI2DebugFlag;
 static u32 BI2DebugFlagHolder;
 
+BOOL __OSIsGcam = FALSE;
+static f64 ZeroF;
+static f32 ZeroPS[2];
+static BOOL AreWeInitialized;
+static void (**OSExceptionTable)(u8, OSContext*);
 OSTime __OSStartTime;
 BOOL __OSInIPL;
-void (**OSExceptionTable)(u8, OSContext*);
-BOOL AreWeInitialized;
-f32 ZeroPS[2];
-f64 ZeroF;
-BOOL __OSIsGcam;
 
 // prototypes
 static void __OSInitFPRs(void);
