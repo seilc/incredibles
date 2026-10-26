@@ -5,13 +5,7 @@
 
 #define ROUND(n, a) (((u32)(n) + (a)-1) & ~((a)-1))
 
-#ifdef DEBUG
-const char* __SIVersion = "<< Dolphin SDK - SI\tdebug build: Apr  5 2004 03:55:31 (0x2301) >>";
-#elif SDK_REVISION < 20040405
 const char* __SIVersion = "<< Dolphin SDK - SI\trelease build: Apr 17 2003 12:33:19 (0x2301) >>";
-#else
-const char* __SIVersion = "<< Dolphin SDK - SI\trelease build: Apr  5 2004 04:14:16 (0x2301) >>";
-#endif
 
 static SIControl Si = {
     /* chan */       -1,

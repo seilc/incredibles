@@ -18,28 +18,10 @@ extern void __OSInitMemoryProtection(void);
 #define OS_EXCEPTIONTABLE_ADDR 0x3000
 #define OS_DBJUMPPOINT_ADDR 0x60
 
-#if SDK_REVISION < 20040405
 #define BUILD_DATE  "Nov 26 2003"
 #define RBUILD_TIME "05:18:37"
-#elif SDK_REVISION < 20040521
-#define BUILD_DATE  "Apr  5 2004"
-#define DBUILD_TIME "03:55:13"
-#define RBUILD_TIME "04:13:58"
-#elif SDK_REVISION < 20041110
-#define BUILD_DATE  "May 21 2004"
-#define DBUILD_TIME "09:15:32"
-#define RBUILD_TIME "09:28:09"
-#else
-#define BUILD_DATE  "Nov 10 2004"
-#define DBUILD_TIME "06:08:19"
-#define RBUILD_TIME "06:26:41"
-#endif
 
-#ifdef DEBUG
-const char* __OSVersion = "<< Dolphin SDK - OS\tdebug build: "BUILD_DATE" "DBUILD_TIME" (0x2301) >>";
-#else
 const char* __OSVersion = "<< Dolphin SDK - OS\trelease build: "BUILD_DATE" "RBUILD_TIME" (0x2301) >>";
-#endif
 
 static DVDDriveInfo DriveInfo ATTRIBUTE_ALIGN(32);
 static DVDCommandBlock DriveBlock;
@@ -295,11 +277,7 @@ void OSInit(void) {
         }
 
         OSReport("\nDolphin OS\n");
-#if DEBUG
-        OSReport("Kernel built : %s %s\n", BUILD_DATE, DBUILD_TIME);
-#else
         OSReport("Kernel built : %s %s\n", BUILD_DATE, RBUILD_TIME);
-#endif
         OSReport("Console Type : ");
 
         consoleType = OSGetConsoleType();

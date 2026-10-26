@@ -304,25 +304,8 @@ cflags_sdk_release = [
 cflags_sdk = cflags_sdk_release
 sdk_char_signed = ["-char signed"]
 
-# SDK_REVISION: each library's build date (YYYYMMDD) from its version string; libraries without one get the date
-# most libraries carry. Incredibles links 2003 builds (Apr 17 - Dec 2 2003).
-sdk_dates = {
-    "ar": 20031126,
-    "ax": 20031202,
-    "dvd": 20030916,
-    "gx": 20031126,
-    "os": 20031126,
-    "pad": 20030806,
-}
-sdk_date_default = 20030417
-
-
-def sdk_revision(lib_name: str) -> str:
-    return f"-DSDK_REVISION={sdk_dates.get(lib_name, sdk_date_default)}"
-
-
 # EXIBios.c is built at -O3,p instead of -O4,p in the release library
-cflags_sdk_exibios = [("-O3,p" if f == "-O4,p" else f) for f in cflags_sdk] + [sdk_revision("exi")]
+cflags_sdk_exibios = [("-O3,p" if f == "-O4,p" else f) for f in cflags_sdk]
 
 # REL flags
 cflags_rel = [
@@ -463,7 +446,7 @@ def DolphinLib(lib_name: str, objects: List[Object]) -> Dict[str, Any]:
     return {
         "lib": lib_name,
         "mw_version": "GC/1.2.5n",
-        "cflags": [*cflags_sdk, sdk_revision(lib_name)],
+        "cflags": cflags_sdk,
         "progress_category": "sdk",
         "objects": objects,
     }

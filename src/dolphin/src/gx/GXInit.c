@@ -7,24 +7,10 @@
 
 #include "__gx.h"
 
-#if SDK_REVISION < 20040405
 #define BUILD_DATE  "Nov 26 2003"
 #define RBUILD_TIME "05:19:07"
-#elif SDK_REVISION < 20041110
-#define BUILD_DATE  "Apr  5 2004"
-#define DBUILD_TIME "03:55:13"
-#define RBUILD_TIME "04:14:28"
-#else
-#define BUILD_DATE  "Nov 10 2004"
-#define DBUILD_TIME "06:08:50"
-#define RBUILD_TIME "06:27:12"
-#endif
 
-#ifdef DEBUG
-const char* __GXVersion = "<< Dolphin SDK - GX\tdebug build: "BUILD_DATE" "DBUILD_TIME" (0x2301) >>";
-#else
 const char* __GXVersion = "<< Dolphin SDK - GX\trelease build: "BUILD_DATE" "RBUILD_TIME" (0x2301) >>";
-#endif
 
 static GXFifoObj FifoObj;
 

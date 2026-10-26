@@ -214,16 +214,6 @@ extern OSExecParams __OSRebootParams;
 extern OSTime __OSStartTime;
 extern int __OSInIPL;
 
-// helper for assert line numbers in different revisions
-#if SDK_REVISION < 20040521
-    #define LINE(l0, l1, l2) (l0)
-#elif SDK_REVISION < 20041110
-    #define LINE(l0, l1, l2) (l1)
-#else
-    #define LINE(l0, l1, l2) (l2)
-#endif
-
-
 #ifdef DEBUG
 #define ASSERTLINE(line, cond) \
     ((cond) || (OSPanic(__FILE__, line, "Failed assertion " #cond), 0))

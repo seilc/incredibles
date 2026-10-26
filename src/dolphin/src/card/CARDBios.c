@@ -2,13 +2,7 @@
 
 #include "__card.h"
 
-#if DEBUG
-const char* __CARDVersion = "<< Dolphin SDK - CARD\tdebug build: Apr  5 2004 03:56:53 (0x2301) >>";
-#elif SDK_REVISION < 20040405
 const char* __CARDVersion = "<< Dolphin SDK - CARD\trelease build: Apr 17 2003 12:34:19 (0x2301) >>";
-#else
-const char* __CARDVersion = "<< Dolphin SDK - CARD\trelease build: Apr  5 2004 04:15:35 (0x2301) >>";
-#endif
 
 u32 __CARDFreq = EXI_FREQ_16M;
 

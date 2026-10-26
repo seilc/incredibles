@@ -8,13 +8,7 @@
 #include "__os.h"
 #include "__vi.h"
 
-#ifdef DEBUG
-const char* __VIVersion = "<< Dolphin SDK - VI\tdebug build: Apr  7 2004 03:55:59 (0x2301) >>";
-#elif SDK_REVISION < 20040405
 const char* __VIVersion = "<< Dolphin SDK - VI\trelease build: Apr 17 2003 12:33:22 (0x2301) >>";
-#else
-const char* __VIVersion = "<< Dolphin SDK - VI\trelease build: Apr  7 2004 04:13:59 (0x2301) >>";
-#endif
 
 typedef struct {
     u8 equ;

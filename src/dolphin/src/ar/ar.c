@@ -4,13 +4,7 @@
 
 #include "__ar.h"
 
-#ifdef DEBUG
-const char* __ARVersion = "<< Dolphin SDK - AR\tdebug build: Apr  5 2004 03:56:19 (0x2301) >>";
-#elif SDK_REVISION < 20040405
 const char* __ARVersion = "<< Dolphin SDK - AR\trelease build: Nov 26 2003 05:19:42 (0x2301) >>";
-#else
-const char* __ARVersion = "<< Dolphin SDK - AR\trelease build: Apr  5 2004 04:15:03 (0x2301) >>";
-#endif
 
 static void (*__AR_Callback)();
 static u32 __AR_Size;
