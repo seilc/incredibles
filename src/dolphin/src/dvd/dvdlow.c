@@ -47,7 +47,7 @@ static DVDBuffer Curr;
 static void Read(void* address, u32 length, u32 offset, DVDLowCallback callback);
 static void SetBreakAlarm(OSTime timeout);
 
-void __DVDInitWA(void) {
+__declspec(weak) void __DVDInitWA(void) {
 	NextCommandNumber = 0;
 	CommandList[0].command = -1;
 	__DVDLowSetWAType(0, 0);
@@ -72,7 +72,7 @@ static BOOL ProcessNextCommand(void) {
 	return FALSE;
 }
 
-void __DVDInterruptHandler(__OSInterrupt interrupt, OSContext* context) {
+__declspec(weak) void __DVDInterruptHandler(__OSInterrupt interrupt, OSContext* context) {
 	DVDLowCallback cb;
 	OSContext exceptionContext;
 	u32 cause = 0;
@@ -283,7 +283,7 @@ static void WaitBeforeRead(void* addr, u32 length, u32 offset, DVDLowCallback ca
 	OSSetAlarm(&AlarmForWA, wait, AlarmHandler);
 }
 
-BOOL DVDLowRead(void* addr, u32 length, u32 offset, DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowRead(void* addr, u32 length, u32 offset, DVDLowCallback callback) {
 	u32 blockNumOfPrevEnd;
     u32 blockNumOfCurrStart;
 	OSTime diff;
@@ -328,7 +328,7 @@ BOOL DVDLowRead(void* addr, u32 length, u32 offset, DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowSeek(u32 offset, DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowSeek(u32 offset, DVDLowCallback callback) {
     ASSERTMSGLINE(920, (offset & 3) == 0, "DVDLowSeek(): offset must be a multiple of 4.");
 
 	Callback = callback;
@@ -340,7 +340,7 @@ BOOL DVDLowSeek(u32 offset, DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowWaitCoverClose(DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowWaitCoverClose(DVDLowCallback callback) {
 	Callback = callback;
 	WaitingCoverClose = TRUE;
 	StopAtNextInt = FALSE;
@@ -348,7 +348,7 @@ BOOL DVDLowWaitCoverClose(DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowReadDiskID(DVDDiskID* diskID, DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowReadDiskID(DVDDiskID* diskID, DVDLowCallback callback) {
     ASSERTMSGLINE(986, (((u32)diskID) & 31) == 0, "DVDLowReadID(): id must be aligned with 32 byte boundary.");
 
 	Callback = callback;
@@ -363,7 +363,7 @@ BOOL DVDLowReadDiskID(DVDDiskID* diskID, DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowStopMotor(DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowStopMotor(DVDLowCallback callback) {
 	Callback = callback;
 	StopAtNextInt = FALSE;
 	__DIRegs[2] = 0xe3000000;
@@ -372,7 +372,7 @@ BOOL DVDLowStopMotor(DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowRequestError(DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowRequestError(DVDLowCallback callback) {
 	Callback = callback;
 	StopAtNextInt = FALSE;
 	__DIRegs[2] = 0xe0000000;
@@ -381,7 +381,7 @@ BOOL DVDLowRequestError(DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowInquiry(DVDDriveInfo* info, DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowInquiry(DVDDriveInfo* info, DVDLowCallback callback) {
 	Callback = callback;
 	StopAtNextInt = FALSE;
 	__DIRegs[2] = 0x12000000;
@@ -393,7 +393,7 @@ BOOL DVDLowInquiry(DVDDriveInfo* info, DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowAudioStream(u32 subcmd, u32 length, u32 offset, DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowAudioStream(u32 subcmd, u32 length, u32 offset, DVDLowCallback callback) {
 	Callback = callback;
 	StopAtNextInt = FALSE;
 	__DIRegs[2] = subcmd | 0xe1000000;
@@ -404,7 +404,7 @@ BOOL DVDLowAudioStream(u32 subcmd, u32 length, u32 offset, DVDLowCallback callba
 	return TRUE;
 }
 
-BOOL DVDLowRequestAudioStatus(u32 subcmd, DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowRequestAudioStatus(u32 subcmd, DVDLowCallback callback) {
 	Callback = callback;
 	StopAtNextInt = FALSE;
 	__DIRegs[2] = subcmd | 0xe2000000;
@@ -413,7 +413,7 @@ BOOL DVDLowRequestAudioStatus(u32 subcmd, DVDLowCallback callback) {
 	return TRUE;
 }
 
-BOOL DVDLowAudioBufferConfig(BOOL enable, u32 size, DVDLowCallback callback) {
+__declspec(weak) BOOL DVDLowAudioBufferConfig(BOOL enable, u32 size, DVDLowCallback callback) {
 #ifdef DEBUG
     u32 bufSize;
     u32 trigger;
@@ -435,7 +435,7 @@ BOOL DVDLowAudioBufferConfig(BOOL enable, u32 size, DVDLowCallback callback) {
 	return TRUE;
 }
 
-void DVDLowReset(void) {
+__declspec(weak) void DVDLowReset(void) {
 	u32 reg;
 	OSTime resetStart;
 
@@ -485,13 +485,13 @@ static void SetBreakAlarm(OSTime timeout) {
     OSSetAlarm(&AlarmForBreak, timeout, AlarmHandlerForBreak);
 }
 
-BOOL DVDLowBreak(void) {
+__declspec(weak) BOOL DVDLowBreak(void) {
 	StopAtNextInt = TRUE;
 	Breaking = TRUE;
 	return TRUE;
 }
 
-DVDLowCallback DVDLowClearCallback(void) {
+__declspec(weak) DVDLowCallback DVDLowClearCallback(void) {
 	DVDLowCallback old;
 	__DIRegs[1] = 0;
 	WaitingCoverClose = FALSE;
@@ -512,7 +512,7 @@ u32 DVDLowGetCoverStatus(void) {
     return 2;
 }
 
-void __DVDLowSetWAType(u32 type, s32 seekLoc) {
+__declspec(weak) void __DVDLowSetWAType(u32 type, s32 seekLoc) {
 	BOOL enabled;
 
 	enabled = OSDisableInterrupts();
