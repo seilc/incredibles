@@ -108,23 +108,17 @@ void GXSetCullMode(GXCullMode mode) {
     GXCullMode hwMode;
 
     CHECK_GXBEGIN(557, "GXSetCullMode");
-#if DEBUG
     switch (mode) {
     case GX_CULL_FRONT: hwMode = GX_CULL_BACK;  break;
     case GX_CULL_BACK:  hwMode = GX_CULL_FRONT; break;
     default:            hwMode = mode;          break;
     }
-#else
-    hwMode = (mode >> 1) & 1;
-    __rlwimi(hwMode, mode, 1, 30, 30);
-#endif
 
     SET_REG_FIELD(570, __GXData->genMode, 2, 14, hwMode);
     __GXData->dirtyState |= 4;
 }
 
 void GXGetCullMode(GXCullMode* mode) {
-#if DEBUG
     GXCullMode hwMode = GET_REG_FIELD(__GXData->genMode, 2, 14);
 
     switch (hwMode) {
@@ -132,11 +126,6 @@ void GXGetCullMode(GXCullMode* mode) {
     case GX_CULL_BACK:  *mode = GX_CULL_FRONT; break;
     default:            *mode = hwMode;        break;
     }
-#else
-    // fake match?
-    GXCullMode hwMode = __GXData->genMode;
-    *mode = ((hwMode >> 0xD) & 0x2) | (((((int)hwMode >> 0xE) & 0x2) >> 0x1));
-#endif
 }
 
 void GXSetCoPlanar(GXBool enable) {
