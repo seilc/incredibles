@@ -38,6 +38,7 @@ typedef struct RwGlobals RwGlobals;
 typedef struct RwLLLink RwLLLink;
 typedef struct RwLine RwLine;
 typedef struct RwLinkList RwLinkList;
+typedef struct RwMemory RwMemory;
 typedef struct RwMemoryFunctions RwMemoryFunctions;
 typedef struct RwMetrics RwMetrics;
 typedef struct RwObject RwObject;
@@ -93,6 +94,58 @@ enum RwMatrixFlag
     rwMATRIXFLAGFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
 };
 typedef enum RwMatrixFlag RwMatrixFlag;
+
+enum RwCorePluginID
+{
+    rwID_NAOBJECT = 0x0,
+    rwID_STRUCT = 0x1,
+    rwID_STRING = 0x2,
+    rwID_EXTENSION = 0x3,
+    rwID_CAMERA = 0x5,
+    rwID_TEXTURE = 0x6,
+    rwID_MATERIAL = 0x7,
+    rwID_MATLIST = 0x8,
+    rwID_ATOMICSECT = 0x9,
+    rwID_PLANESECT = 0xA,
+    rwID_WORLD = 0xB,
+    rwID_SPLINE = 0xC,
+    rwID_MATRIX = 0xD,
+    rwID_FRAMELIST = 0xE,
+    rwID_GEOMETRY = 0xF,
+    rwID_CLUMP = 0x10,
+    rwID_LIGHT = 0x12,
+    rwID_UNICODESTRING = 0x13,
+    rwID_ATOMIC = 0x14,
+    rwID_TEXTURENATIVE = 0x15,
+    rwID_TEXDICTIONARY = 0x16,
+    rwID_ANIMDATABASE = 0x17,
+    rwID_IMAGE = 0x18,
+    rwID_SKINANIMATION = 0x19,
+    rwID_GEOMETRYLIST = 0x1A,
+    rwID_ANIMANIMATION = 0x1B,
+    rwID_HANIMANIMATION = 0x1B,
+    rwID_TEAM = 0x1C,
+    rwID_CROWD = 0x1D,
+    rwID_DMORPHANIMATION = 0x1E,
+    rwID_RIGHTTORENDER = 0x1F,
+    rwID_MTEFFECTNATIVE = 0x20,
+    rwID_MTEFFECTDICT = 0x21,
+    rwID_TEAMDICTIONARY = 0x22,
+    rwID_PITEXDICTIONARY = 0x23,
+    rwID_TOC = 0x24,
+    rwID_PRTSTDGLOBALDATA = 0x25,
+    rwID_ALTPIPE = 0x26,
+    rwID_PIPEDS = 0x27,
+    rwID_PATCHMESH = 0x28,
+    rwID_CHUNKGROUPSTART = 0x29,
+    rwID_CHUNKGROUPEND = 0x2A,
+    rwID_UVANIMDICT = 0x2B,
+    rwID_COLLTREE = 0x2C,
+    rwID_ENVIRONMENT = 0x2D,
+    rwID_COREPLUGINIDMAX = 0x2E,
+    rwCOREPLUGINIDFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RwCorePluginID RwCorePluginID;
 
 struct RwV2d
 {
@@ -229,6 +282,12 @@ struct RwStream
     RwInt32 position;
     RwStreamUnion Type;
     RwBool rwOwned;
+};
+
+struct RwMemory
+{
+    RwUInt8* start;
+    RwUInt32 length;
 };
 
 enum RwOpCombineType
@@ -568,6 +627,7 @@ struct RwObject
 #endif
 #define RwFree(p) ((RWSRCGLOBAL(memoryFuncs).rwfree)((p)))
 
+#define GETCOORD(vect,y) (*(RwReal *)(((RwUInt8 *)(&((vect).x)))+(RwInt32)(y)))
 #define RWRGBALONG(r,g,b,a) ((RwUInt32) (((a) << 24) | ((r) << 16) | ((g) << 8) | (b)))
 
 #define RwIm2DVertexSetIntRGBA(vert, red, green, blue, alpha)  \
@@ -588,6 +648,19 @@ struct RwObject
 #define RWSRCGLOBAL(variable) (((RwGlobals *)RwEngineInstance)->variable)
 #define RwRenderStateGetMacro(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateGet(_state, _value))
 #define RwRenderStateSetMacro(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateSet(_state, _value))
+#define rwLLLinkGetData(linkvar,type,entry) ((type *)(((RwUInt8 *)(linkvar))-offsetof(type,entry)))
+#define rwLLLinkGetNext(linkvar) ((linkvar)->next)
+#define rwLLLinkInitialize(linkvar) ( (linkvar)->prev = (RwLLLink *)NULL, (linkvar)->next = (RwLLLink *)NULL )
+
+#define rwLinkListAddLLLink(list, linkvar) \
+    ( (linkvar)->next = (list)->link.next, (linkvar)->prev = (&(list)->link), ((list)->link.next)->prev = (linkvar), (list)->link.next = (linkvar) )
+
+#define rwLinkListGetFirstLLLink(list) ((list)->link.next)
+#define rwLinkListGetTerminator(list) (&((list)->link))
+
+#define rwLinkListInitialize(list) \
+    ( (list)->link.next = ((RwLLLink *)(list)), (list)->link.prev = ((RwLLLink *)(list)) )
+
 #define RwIm2DGetNearScreenZMacro() (RWSRCGLOBAL(dOpenDevice).zBufferNear)
 
 #define RwIm2DRenderPrimitiveMacro(_primType, _vertices, _numVertices) \
@@ -657,6 +730,15 @@ extern RwUInt32 _rwMemoryLastAllocLine;
 
 RwInt32 RwEngineGetCurrentVideoMode(void);
 RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* modeinfo, RwInt32 modeIndex);
+void* RwMemNative32(void* mem, RwUInt32 size);
+RwBool RwStreamClose(RwStream* stream, void* pData);
+RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* lengthOut, RwUInt32* versionOut);
+RwStream* RwStreamOpen(RwStreamType type, RwStreamAccessType accessType, const void* pData);
+RwUInt32 RwStreamRead(RwStream* stream, void* buffer, RwUInt32 length);
+RwStream* RwStreamReadInt16(RwStream* stream, RwInt16* ints, RwUInt32 numBytes);
+RwStream* RwStreamReadInt32(RwStream* stream, RwInt32* ints, RwUInt32 numBytes);
+RwStream* RwStreamReadReal(RwStream* stream, RwReal* reals, RwUInt32 numBytes);
+RwStream* RwStreamSkip(RwStream* stream, RwUInt32 offset);
 RwReal RwV3dNormalize(RwV3d* out, const RwV3d* in);
 
 #if (defined(RWDEBUG) || defined(RWSUPPRESSINLINE))

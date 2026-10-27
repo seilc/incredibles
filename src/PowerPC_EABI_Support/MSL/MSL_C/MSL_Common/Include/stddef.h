@@ -4,4 +4,6 @@
 #include <size_t.h>
 #include <null.h>
 
+#define offsetof(type, member) ((size_t) &(((type*)0)->member))
+
 #endif

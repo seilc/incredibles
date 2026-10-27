@@ -15,6 +15,7 @@
 #define xsqr(x) ((x) * (x))
 
 #define PI 3.14159265f
+#define HUGE 1e38f
 
 F32 xatof(const char* x);
 F32 xsqrt(F32 x);

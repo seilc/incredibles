@@ -35,5 +35,6 @@ struct xScene
 };
 
 xBase* xSceneResolvID(xScene* sc, U32 id);
+const char* xSceneID2Name(xScene* sc, U32 id); // inferred from BFBB GC, RotU GC
 
 #endif

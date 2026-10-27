@@ -2,15 +2,11 @@
 #define XJSP_H
 
 #include "xClumpColl.h"
+#include "xColor.h"
+#include "xVec3.h"
 
 #include <rwcore.h>
 #include <rpworld.h>
-
-struct xJSPMiniLightTie
-{
-    RwLLLink lightInWorldSector;
-    RpLight* light;
-};
 
 struct xJSPNodeInfo
 {
@@ -45,6 +41,12 @@ struct xJSPNodeTree
     xJSPNodeTreeLeaf* leafNodes;
 };
 
+struct xJSPMiniLightTie
+{
+    RwLLLink lightInWorldSector;
+    RpLight* light;
+};
+
 struct xJSPNodeLight
 {
     RpAtomic* atomic;
@@ -69,5 +71,11 @@ struct xJSPHeader
     xJSPNodeTree* nodetree;
     xJSPNodeLight* nodelight;
 };
+
+U32 get_matid(xJSPHeader* jsp, U32 old_mat_id, U32 jspAssetID);
+void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID);
+void xJSP_Destroy(xJSPHeader* jsp);
+xJSPNodeTree* xJSPNodeTreeBuild(xJSPHeader* jsp);
+xVec3* xJSP_GetTriangleVertData(xJSPHeader* jsp, xClumpCollBSPTriangle* tri, xColor* color, xVec3* normal, F32* uv);
 
 #endif
