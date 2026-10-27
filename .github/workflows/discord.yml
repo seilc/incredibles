@@ -36,21 +36,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Download reports
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_ID: ${{ github.event.workflow_run.id }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           gh run download "$RUN_ID" -R "$GITHUB_REPOSITORY" -p '*_report' -D cur
-          prev=$(gh run list -R "$GITHUB_REPOSITORY" -w Build -b main -e push -s success -L 20 \
-              --json databaseId --jq "[.[] | select(.databaseId != $RUN_ID)][0].databaseId // empty")
+          read -r prev prev_sha <<< "$(gh run list -R "$GITHUB_REPOSITORY" -w Build -b main -e push -s success -L 20 \
+              --json databaseId,headSha \
+              --jq "[.[] | select(.databaseId != $RUN_ID)][0] // empty | \"\\(.databaseId) \\(.headSha)\"")"
           if [ -n "$prev" ] && gh run download "$prev" -R "$GITHUB_REPOSITORY" -p '*_report' -D prev; then
             echo "PREV=prev" >> "$GITHUB_ENV"
+            echo "PREV_SHA=$prev_sha" >> "$GITHUB_ENV"
+            commits=$(gh api "repos/$GITHUB_REPOSITORY/compare/$prev_sha...$HEAD_SHA" --jq .total_commits 2>/dev/null) || commits=
+            echo "COMMITS=$commits" >> "$GITHUB_ENV"
           fi
 
       - name: Post progress to Discord
         env:
+          PUSHER: ${{ github.event.workflow_run.actor.login }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           HOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
         run: |
           if [ -z "$HOOK" ]; then
