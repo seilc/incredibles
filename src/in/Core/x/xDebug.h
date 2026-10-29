@@ -43,13 +43,16 @@ do {                                                                            
 #define xVALIDATE(cond) _xVALIDATE(__LINE__, cond, #cond)
 #define xVALIDATE_L(line, cond) _xVALIDATE(line, cond, #cond)
 #define xVALIDATE_FAIL_L(line) _xVALIDATE(line, 0, "*always*")
+#define xVALIDATE_MSG_L(line, cond, msg) _xVALIDATE(line, cond, msg)
 #else
 #define xVALIDATE(cond)
 #define xVALIDATE_L(line, cond)
 #define xVALIDATE_FAIL_L(line)
+#define xVALIDATE_MSG_L(line, cond, msg)
 #endif
 
 #define xVALIDATE_FAIL() xVALIDATE_FAIL_L(__LINE__)
+#define xVALIDATE_MSG(cond, msg) xVALIDATE_MSG_L(__LINE__, cond, msg)
 
 #if DEBUG || RELEASE
 #define _xSTR(x) #x
