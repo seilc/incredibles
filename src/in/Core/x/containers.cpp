@@ -30,7 +30,7 @@ void pool_list_base::create(S32 node_size, S32 max_size, void* buffer)
 {
     if (!buffer)
     {
-        this->buffer = xMEMALLOC(node_size * max_size);
+        this->buffer = xMEMALLOC(node_size * max_size, 0);
     }
     else
     {

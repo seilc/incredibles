@@ -13,7 +13,7 @@ void XOrdInit(st_XORDEREDARRAY* array, S32 size, S32 tempAlloc)
     }
     else
     {
-        array->list = (void**)xMEMALLOC(size * sizeof(void*));
+        array->list = (void**)xMEMALLOC(size * sizeof(void*), 0);
     }
 
     array->cnt = 0;

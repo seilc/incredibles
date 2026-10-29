@@ -12,7 +12,7 @@ void xPartitionReset()
 // func_8004FFC0
 static PartLink* PartitionGetFreeLink()
 {
-    return (PartLink*)xMEMALLOC(sizeof(PartLink));
+    return (PartLink*)xMEMALLOC(sizeof(PartLink), 0);
 }
 
 // func_8004FFEC

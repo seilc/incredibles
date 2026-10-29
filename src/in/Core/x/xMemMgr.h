@@ -36,8 +36,7 @@ S32 xMemGetBase();
 void* operator new(size_t, xMemStaticType, U32);
 void* operator new[](size_t, xMemStaticType, U32);
 
-#define xMEMALLOC(size) xMemAlloc(gActiveHeap, (size), 0)
-#define xMEMALLOCALIGN(size, align) xMemAlloc(gActiveHeap, (size), (align))
+#define xMEMALLOC(size, align) xMemAlloc(gActiveHeap, (size), (align))
 #define xMEMGROWALLOC(size) xMemGrowAlloc(gActiveHeap, (size))
 #define xMEMPUSHTEMP_L(amt, assetID, line) xMemPushTemp((amt))
 #define xMEMPUSHTEMP(amt, assetID) xMEMPUSHTEMP_L(amt, assetID, __LINE__)

@@ -147,7 +147,7 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
                   sizeof(xUpdateCullEnt) * mgrCount +
                   sizeof(xUpdateCullGroup) * nonEmptyGroups;
     
-    xUpdateCullMgr* m = (xUpdateCullMgr*)xMEMALLOC(memsize);
+    xUpdateCullMgr* m = (xUpdateCullMgr*)xMEMALLOC(memsize, 0);
 
     m->ent = (void**)(m + 1);
     m->mgr = (xUpdateCullEnt**)(m->ent + entCount);

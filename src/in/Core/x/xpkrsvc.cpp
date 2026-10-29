@@ -1998,7 +1998,7 @@ static void* PKR_getmem(U32 id, S32 amount, U32, S32 align, S32 isTemp, char** m
     }
     else
     {
-        memptr = xMEMALLOCALIGN(amount, align);
+        memptr = xMEMALLOC(amount, align);
     }
 
     if (memptr)

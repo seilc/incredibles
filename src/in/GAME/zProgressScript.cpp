@@ -31,7 +31,7 @@ void zProgressScript_Init(xBase* b, xProgressScriptAsset* sasset)
 
     s->events = (xProgressScriptEventAsset*)(s->sasset + 1);
     s->numFlagWords = (sasset->eventCount >> 5) + 1;
-    s->flags = (U32*)xMEMALLOC(s->numFlagWords * sizeof(U32));
+    s->flags = (U32*)xMEMALLOC(s->numFlagWords * sizeof(U32), 0);
 
     zProgressScript_Reset(s);
 }

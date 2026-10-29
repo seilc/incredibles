@@ -13,7 +13,7 @@ void xSurfaceInit(U16 num_surfs)
 
     if (nsurfs)
     {
-        surfs = (xSurface*)xMEMALLOC(nsurfs * sizeof(xSurface));
+        surfs = (xSurface*)xMEMALLOC(nsurfs * sizeof(xSurface), 0);
 
         for (U16 i = 0; i < nsurfs; i++)
         {

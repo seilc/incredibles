@@ -18,7 +18,7 @@ void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* 
     }
 
     bound->count = count;
-    bound->nodes = (xHierarchyNode*)xMEMALLOC((count + extraBounds) * sizeof(xHierarchyNode));
+    bound->nodes = (xHierarchyNode*)xMEMALLOC((count + extraBounds) * sizeof(xHierarchyNode), 0);
 
     for (U32 i = 0; i < count; i++)
     {

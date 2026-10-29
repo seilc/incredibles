@@ -40,7 +40,7 @@ void xSubTitlesInit()
 
 void* xSubTitlesRead(void*, U32, void* indata, U32 insize, U32* outsize)
 {
-    xSubtitlesAsset* pSubTitleAsset = (xSubtitlesAsset*)xMEMALLOC(insize);
+    xSubtitlesAsset* pSubTitleAsset = (xSubtitlesAsset*)xMEMALLOC(insize, 0);
 
     memcpy(pSubTitleAsset, indata, insize);
 

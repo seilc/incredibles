@@ -25,7 +25,7 @@ void* RyzMemData::operator new(size_t amt, S32, RyzMemGrow* growCtxt)
     }
     else
     {
-        mem = xMEMALLOC(amt);
+        mem = xMEMALLOC(amt, 0);
     }
 
     memset(mem, 0, 4);

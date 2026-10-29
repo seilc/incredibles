@@ -103,7 +103,7 @@ void zGrapple_SceneInit(zScene* zsc)
         numGrapples += zGrapple_Recurse(grapple->grappleAsset->object, NULL, NULL);
     }
 
-    sGrapplePoints = (zGrapplePoint*)xMEMALLOC(numGrapples * sizeof(zGrapplePoint));
+    sGrapplePoints = (zGrapplePoint*)xMEMALLOC(numGrapples * sizeof(zGrapplePoint), 0);
     sNumGrapplePoints = numGrapples;
 
     numGrapples = 0;

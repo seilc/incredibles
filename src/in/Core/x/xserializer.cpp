@@ -425,7 +425,7 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
     xVALIDATE_L(961, (s=sizeof(S32)) == XSER_BITOP_ELESIZE);
 
     XOrdInit(&g_xserdata.cltlist, count, 0);
-    xsd->cltbuf = (SERIAL_CLIENTINFO*)xMEMALLOC((U32)count * sizeof(SERIAL_CLIENTINFO));
+    xsd->cltbuf = (SERIAL_CLIENTINFO*)xMEMALLOC((U32)count * sizeof(SERIAL_CLIENTINFO), 0);
     memset(xsd->cltbuf, 0, count * sizeof(SERIAL_CLIENTINFO));
     xsd->cltnext = xsd->cltbuf;
 
@@ -442,7 +442,7 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
 
     xVERBOSE("XSER: Sandbox total: %d\n", tally);
 
-    xsd->bitbuf = (S32*)xMEMALLOC(tally);
+    xsd->bitbuf = (S32*)xMEMALLOC(tally, 0);
     memset(xsd->bitbuf, 0, tally);
 
     xsd->buf_bytcnt = tally;

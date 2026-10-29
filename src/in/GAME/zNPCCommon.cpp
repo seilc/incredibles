@@ -397,7 +397,7 @@ namespace zNPC
         chkby |= 0xC;
         commonFlags.old_chkby = chkby;
 
-        frame = (xEntFrame*)xMEMALLOC(sizeof(xEntFrame));
+        frame = (xEntFrame*)xMEMALLOC(sizeof(xEntFrame), 0);
         memset(frame, 0, sizeof(xEntFrame));
 
         xEnt::eventFunc = event_wrapper;
@@ -780,11 +780,11 @@ namespace zNPC
 
         if (commonFlags.cast_shadow)
         {
-            simpShadow = (xShadowSimpleCache*)xMEMALLOC(sizeof(xShadowSimpleCache));
+            simpShadow = (xShadowSimpleCache*)xMEMALLOC(sizeof(xShadowSimpleCache), 0);
 
             if (commonFlags.complex_shadow)
             {
-                entShadow = (xEntShadow*)xMEMALLOC(sizeof(xEntShadow));
+                entShadow = (xEntShadow*)xMEMALLOC(sizeof(xEntShadow), 0);
 
                 xVec3Copy(&entShadow->pos, &asset->pos);
                 xVec3Init(&entShadow->vec, 0.0f, 1.0f, 0.0f);

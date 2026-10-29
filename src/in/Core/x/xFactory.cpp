@@ -11,7 +11,7 @@ xFactory::xFactory(S32 maxTypes)
 {
     U32 amt = maxTypes * sizeof(XGOFTypeInfo);
 
-    infopool = (XGOFTypeInfo*)xMEMALLOC(amt);
+    infopool = (XGOFTypeInfo*)xMEMALLOC(amt, 0);
 
     memset(infopool, 0, amt);
     XOrdInit(&infolist, maxTypes, FALSE);

@@ -18,7 +18,7 @@ void xMovePointInit(xMovePoint* m, xMovePointAsset* asset)
     m->spl = NULL;
 
     if (asset->numPoints > 0) {
-        m->nodes = (xMovePoint**)xMEMALLOC(sizeof(xMovePoint*) * asset->numPoints);
+        m->nodes = (xMovePoint**)xMEMALLOC(sizeof(xMovePoint*) * asset->numPoints, 0);
     } else {
         m->nodes = NULL;
     }

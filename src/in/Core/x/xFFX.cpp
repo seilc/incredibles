@@ -17,7 +17,7 @@ void xFFXPoolInit(U32 num_ffx)
     xASSERT_L(30, num_ffx);
 
     psize = num_ffx;
-    pool = (xFFX*)xMEMALLOC(sizeof(xFFX) * psize);
+    pool = (xFFX*)xMEMALLOC(sizeof(xFFX) * psize, 0);
 
     pool->next = NULL;
     for (U32 i = 1; i < psize; i++) {
@@ -127,7 +127,7 @@ void xFFXShakePoolInit(U32 num)
     xASSERT_L(296, num);
 
     shake_psize = num;
-    shake_pool = (xFFXShakeState*)xMEMALLOC(sizeof(xFFXShakeState) * shake_psize);
+    shake_pool = (xFFXShakeState*)xMEMALLOC(sizeof(xFFXShakeState) * shake_psize, 0);
 
     shake_pool[0].next = NULL;
     for (U32 i = 1; i < shake_psize; i++) {
@@ -159,7 +159,7 @@ void xFFXRotMatchPoolInit(U32 num)
     xASSERT_L(484, num);
 
     rot_match_psize = num;
-    rot_match_pool = (xFFXRotMatchState*)xMEMALLOC(sizeof(xFFXRotMatchState) * rot_match_psize);
+    rot_match_pool = (xFFXRotMatchState*)xMEMALLOC(sizeof(xFFXRotMatchState) * rot_match_psize, 0);
 
     rot_match_pool->next = NULL;
     for (U32 i = 1; i < rot_match_psize; i++) {

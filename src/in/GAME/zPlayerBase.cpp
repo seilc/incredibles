@@ -103,7 +103,7 @@ void zPlayer_StoreCheckPoint(const xVec3& pos, F32 rot, U32 initialCameraID)
     if (!globals.player.checkpoint.jsp_active)
     {
         globals.player.checkpoint.jsp_active =
-            (bool*)xMEMALLOC(globals.sceneCur->env->geom->jsp_count * sizeof(bool));
+            (bool*)xMEMALLOC(globals.sceneCur->env->geom->jsp_count * sizeof(bool), 0);
     }
 
     globals.player.checkpoint.currentEffect = xSndMgrGetEffect();

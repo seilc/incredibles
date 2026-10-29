@@ -247,7 +247,7 @@ void behavior_manager::add_behavior(behavior* new_behavior, S8 priority)
 
     if (!node)
     {
-        node = (behavior_node*)xMEMALLOC(sizeof(behavior_node));
+        node = (behavior_node*)xMEMALLOC(sizeof(behavior_node), 0);
         node->delay = 0.0f;
         node->data = new_behavior;
         node->priority = priority;
