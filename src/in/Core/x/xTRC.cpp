@@ -66,7 +66,7 @@ static void render_message(const char* s)
 static char composed_message_text[256];
 static bool is_controller_message;
 static const char* message_text;
-// RESTORED: from Incredibles PS2
+// RESTORED: from TSSM GC, Incredibles PS2
 static U32 standalone;
 // END RESTORED
 
@@ -106,7 +106,7 @@ void xTRCReset()
     xglobals->dontShowPadMessageDuringLoadingOrCutScene = false;
 }
 
-// RESTORED: from Incredibles PS2
+// RESTORED: from TSSM GC, Incredibles PS2
 static S32 DisplayMessage(TRCState state)
 {
     switch (state) {
@@ -163,7 +163,7 @@ static S32 DisplayMessage(TRCState state)
             cam = iCameraCreate(FB_XRES, FB_YRES, 0);
             RwRGBA bg = { 0, 0, 0, 0 };
             RwCameraClear(cam, &bg, rwCAMERACLEARIMAGE | rwCAMERACLEARZ);
-            RwCameraBeginUpdate(cam);
+            RwCameraBeginUpdateWrapper(cam);
         }
         render_message(message_text);
         if (standalone) {
