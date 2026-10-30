@@ -8,4 +8,6 @@ namespace stats
     void add(const char* name, F32 value);
 }
 
+S32 zUIIncrediblesGetPauseType();
+
 #endif

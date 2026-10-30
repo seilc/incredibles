@@ -585,7 +585,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xTextureManager.cpp"),
             Object(Matching, "in/Core/x/xTimer.cpp"),
             Object(Matching, "in/Core/x/xTransient.cpp"),
-            Object(NonMatching, "in/Core/x/xTRC.cpp"),
+            Object(Matching, "in/Core/x/xTRC.cpp"),
             Object(Matching, "in/Core/x/xUpdateCull.cpp"),
             Object(NonMatching, "in/Core/x/xutil.cpp"),
             Object(Matching, "in/Core/x/xVec3.cpp"),

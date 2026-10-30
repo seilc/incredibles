@@ -1,7 +1,7 @@
 #ifndef XMATH2_H
 #define XMATH2_H
 
-#include "types.h"
+#include "xMath.h"
 
 struct xVec2
 {
@@ -29,6 +29,16 @@ template <class T> struct basic_rect
 
     static const basic_rect<F32> m_Null;
     static const basic_rect<F32> m_Unit;
+
+    basic_rect& expand(T left, T top, T right, T bottom)
+    {
+        x -= left; w += left + right;
+        y -= top; h += top + bottom;
+        return *this;
+    }
+
+    basic_rect& expand(T v) { return expand(v, v, v, v); }
+    basic_rect& contract(T v) { return expand(-v); }
 };
 
 extern const xVec2 g_O2;

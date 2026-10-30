@@ -89,7 +89,7 @@ struct xGlobals
     U8 InitializingLoadingScreen;
     U8 ForceMono;
     U32 minVSyncCnt;
-    U8 dontShowPadMessageDuringLoadingOrCutScene;
+    bool dontShowPadMessageDuringLoadingOrCutScene;
     U8 autoSaveFeature;
     S32 asyncLoadingScreen;
     S32 asyncLoadingFlags;

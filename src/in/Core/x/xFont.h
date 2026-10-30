@@ -131,6 +131,10 @@ public:
     void set_text(const char* text);
     layout& temp_layout(bool cache) const;
     void render(layout& l, S32 begin_jot, S32 end_jot) const;
+    F32 yextent(F32 max, S32& size, const layout& l, S32 begin_jot, S32 end_jot) const;
+
+    F32 yextent(bool cache) const { return yextent(temp_layout(cache), 0, -1); }
+    F32 yextent(const layout& l, S32 begin_jot, S32 end_jot) const { S32 size; return yextent(HUGE, size, l, begin_jot, end_jot); }
 
     static xtextbox create();
 
@@ -171,6 +175,7 @@ private:
 };
 
 void xFontPrintTopText();
+void render_fill_rect(const basic_rect<F32>& bounds, xColor color);
 
 inline F32 NSCREENX(F32 v)
 {

@@ -52,6 +52,8 @@ enum zVarEntryID // helper enum, not present in dwarf
      (entry) == eVarEntryIsVisible || (entry) == eVarEntryIsReferenceNULL)
 
 extern zVarEntry zVarEntryTable[eVarEntryCount];
+extern S32 bad_card_needed;
+extern S32 bad_card_available;
 
 U32 zVarEntryCB_SubtitlesOn(void*);
 

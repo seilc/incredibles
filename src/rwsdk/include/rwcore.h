@@ -45,6 +45,14 @@ enum RwRasterLockMode
 };
 typedef enum RwRasterLockMode RwRasterLockMode;
 
+enum RwRasterFlipMode
+{
+    rwRASTERFLIPDONTWAIT,
+    rwRASTERFLIPWAITVSYNC,
+    rwRASTERFLIPMODEFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RwRasterFlipMode RwRasterFlipMode;
+
 enum RwRasterType
 {
     rwRASTERTYPENORMAL = 0x0,
