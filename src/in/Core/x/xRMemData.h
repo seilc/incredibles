@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include <new>
 
+#define RMEM_GROWSTUB_SIZE 32
 #define RMEM_GROW_ENABLED (1<<0)
 
 struct RyzMemGrow
@@ -23,6 +24,7 @@ struct RyzMemGrow
         return flg_grow & RMEM_GROW_ENABLED;
     }
 
+    RyzMemGrow* Resume(xBase*); // inferred from TSSM GC, Rat MAP
     void Done(); // inferred from TSSM GC, Rat MAP
 };
 
