@@ -206,6 +206,9 @@ class ProjectConfig:
         self.context_defines: List[
             str
         ] = []  # Macros to define at the top of context files
+        self.context_prefixes: Dict[
+            str, Path
+        ] = {}  # `-prefix NAME` -> header read at the top of context files
 
         # Progress output and report.json config
         self.progress = True  # Enable report.json generation and CLI progress output
@@ -1071,6 +1074,9 @@ def generate_build_ninja(
                     ):
                         include_dirs.append(flag[3:])
                 includes = " ".join([f"-I {d}" for d in include_dirs])
+                for flag in all_cflags:
+                    if flag.startswith("-prefix ") and flag[8:] in config.context_prefixes:
+                        includes += f" -p {config.context_prefixes[flag[8:]]}"
                 excludes = " ".join([f"-x {d}" for d in config.context_exclude_globs])
                 defines = " ".join([f"-D {d}" for d in config.context_defines])
 
@@ -1676,6 +1682,7 @@ def generate_objdiff_config(
                 and not flag.startswith("-I ")
                 and not flag.startswith("-I+")
                 and not flag.startswith("-I-")
+                and not flag.startswith("-prefix ")
             )
 
         all_cflags = list(

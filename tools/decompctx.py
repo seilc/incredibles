@@ -146,6 +146,12 @@ def main():
         action="append",
     )
     parser.add_argument(
+        "-p",
+        "--prefix",
+        help="""Prefix header, read before the file (MWCC -prefix)""",
+        action="append",
+    )
+    parser.add_argument(
         "-D",
         "--define",
         help="""Macro definition""",
@@ -161,6 +167,8 @@ def main():
     exclude_globs = args.exclude or []
     prelude_defines = args.define or []
     output = generate_prelude(prelude_defines)
+    for prefix in args.prefix or []:
+        output += import_c_file(prefix)
     output += import_c_file(args.c_file)
 
     with open(os.path.join(root_dir, args.output), "w", encoding="utf-8") as f:
