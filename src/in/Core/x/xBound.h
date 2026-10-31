@@ -25,6 +25,7 @@ struct xBound
 #define k_XBOUNDTYPE_CYLINDER 3
 #define k_XBOUNDTYPE_OBB 4
 
+void xBoundMakeSphere(xBound& b, const xVec3& center, F32 radius);
 void xBoundUpdate(xBound* b);
 void xBoundGetBox(xBox& box, const xBound& bound);
 void xBoundGetCylinder(xCylinder& o, const xBound& bound);
@@ -38,7 +39,7 @@ bool xRayHitsBound(const xRay3& r, const xBound& b);
 bool xSphereHitsBound(const xVec3& c, F32 r, const xBound& b);
 bool xOBBHitsBound(const xBox& box, const xMat4x3& mat, const xBound& b);
 void xBoundGetCenter(const xBound* b, xVec3* center);
-xVec3* xBoundCenter(xBound* b);
+inline xVec3* xBoundCenter(xBound* b) { return &b->sph.center; }
 inline xVec3* xBoundCenter(const xBound* b) { return (xVec3*)&b->sph.center; }
 
 #endif
