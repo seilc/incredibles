@@ -2,8 +2,9 @@
 """Print a Discord message (JSON payload) with per-version Game progress from objdiff reports.
 
 Usage: progress.py CUR_DIR [PREV_DIR]
-One line per version (matched code, and its change since PREV_DIR), then, with PREV_DIR, the Game files whose
-match changed, with the changed functions of the files not yet complete.
+One line per version (matched code, and its change since PREV_DIR; a 🎉 when it passed a multiple of 10% since
+PREV_DIR), then, with PREV_DIR, the Game files whose match changed, with the changed functions of the files not yet
+complete.
 Optional environment, for the line naming who pushed what: PUSHER (GitHub login), REPO (owner/name), HEAD_SHA,
 PREV_SHA, COMMITS (the number of commits pushed).
 Prints nothing when nothing changed since PREV_DIR.
@@ -133,11 +134,15 @@ def main():
     lines = []
     for ver, cur, prev in rows:
         stats = f"{cur.get('matched_code', 0):,} / {cur.get('total_code', 0):,}"
+        cur_pct, end = pct(cur, "matched_code", "total_code"), "."
         if prev:
+            prev_pct = pct(prev, "matched_code", "total_code")
             gained = cur.get("matched_code", 0) - prev.get("matched_code", 0)
-            stats = f"({pct(cur, 'matched_code', 'total_code') - pct(prev, 'matched_code', 'total_code'):+.2f}% {gained:+,}), " + stats
+            stats = f"({cur_pct - prev_pct:+.2f}% {gained:+,}), " + stats
+            if round(cur_pct, 2) // 10 > round(prev_pct, 2) // 10:
+                end = " 🎉"
         who = f"{GAME} {ver}" if len(rows) > 1 else GAME
-        lines.append(f"{who} is **{pct(cur, 'matched_code', 'total_code'):.2f}%** decompiled. `{stats}`")
+        lines.append(f"{who} is **{cur_pct:.2f}%** decompiled{end} `{stats}`")
 
     vers = [ver for ver, _, prev in rows if prev]
     items = []
