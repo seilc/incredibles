@@ -42,7 +42,9 @@ struct RpCollisionTriangle
     RwV3d* vertices[3];
 };
 
+typedef RpAtomic* (*RpIntersectionCallBackAtomic)(RpIntersection* intersection, RpWorldSector* sector, RpAtomic* atomic, RwReal distance, void* data);
 typedef RpCollisionTriangle* (*RpIntersectionCallBackGeometryTriangle)(RpIntersection* intersection, RpCollisionTriangle* collTriangle, RwReal distance, void* data);
+typedef RpWorldSector* (*RpIntersectionCallBackWorldSector)(RpIntersection* intersection, RpWorldSector* worldSector, void* data);
 typedef RpCollisionTriangle* (*RpIntersectionCallBackWorldTriangle)(RpIntersection* intersection, RpWorldSector* sector, RpCollisionTriangle* collTriangle, RwReal distance, void* data);
 
 #ifdef __cplusplus

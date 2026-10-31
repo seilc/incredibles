@@ -47,6 +47,7 @@ typedef struct RwRGBA RwRGBA;
 typedef struct RwRGBAReal RwRGBAReal;
 typedef struct RwResEntry RwResEntry;
 typedef struct RwSphere RwSphere;
+typedef union RwSplitBits RwSplitBits;
 typedef struct RwStream RwStream;
 typedef struct RwStreamCustom RwStreamCustom;
 typedef union RwStreamFile RwStreamFile;
@@ -146,6 +147,13 @@ enum RwCorePluginID
     rwCOREPLUGINIDFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
 };
 typedef enum RwCorePluginID RwCorePluginID;
+
+union RwSplitBits
+{
+    RwReal nReal;
+    volatile RwInt32 nInt;
+    volatile RwUInt32 nUInt;
+};
 
 struct RwV2d
 {
@@ -648,6 +656,29 @@ struct RwObject
 #define RWSRCGLOBAL(variable) (((RwGlobals *)RwEngineInstance)->variable)
 #define RwRenderStateGetMacro(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateGet(_state, _value))
 #define RwRenderStateSetMacro(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateSet(_state, _value))
+
+#define RwV3dCrossProductMacro(o, a, b)                                    \
+    MACRO_START                                                            \
+    {                                                                      \
+        (o)->x = (( (((a)->y) * ( (b)->z))) - ( (((a)->z) * ( (b)->y))));  \
+        (o)->y = (( (((a)->z) * ( (b)->x))) - ( (((a)->x) * ( (b)->z))));  \
+        (o)->z = (( (((a)->x) * ( (b)->y))) - ( (((a)->y) * ( (b)->x))));  \
+    }                                                                      \
+    MACRO_STOP
+
+#define RwV3dDotProductMacro(a, b) \
+    ((((( (((a)->x) * ((b)->x))) + ( (((a)->y) * ((b)->y))))) + ( (((a)->z) * ((b)->z)))))
+
+#define RwV3dSubMacro(o, a, b)            \
+    MACRO_START                           \
+    {                                     \
+        (o)->x = (((a)->x) - ( (b)->x));  \
+        (o)->y = (((a)->y) - ( (b)->y));  \
+        (o)->z = (((a)->z) - ( (b)->z));  \
+    }                                     \
+    MACRO_STOP
+
+#define rwInvSqrtMacro(_recip, _input) ( *(_recip) = _rwInvSqrt(_input) )
 #define rwLLLinkGetData(linkvar,type,entry) ((type *)(((RwUInt8 *)(linkvar))-offsetof(type,entry)))
 #define rwLLLinkGetNext(linkvar) ((linkvar)->next)
 #define rwLLLinkInitialize(linkvar) ( (linkvar)->prev = (RwLLLink *)NULL, (linkvar)->next = (RwLLLink *)NULL )
@@ -740,6 +771,7 @@ RwStream* RwStreamReadInt32(RwStream* stream, RwInt32* ints, RwUInt32 numBytes);
 RwStream* RwStreamReadReal(RwStream* stream, RwReal* reals, RwUInt32 numBytes);
 RwStream* RwStreamSkip(RwStream* stream, RwUInt32 offset);
 RwReal RwV3dNormalize(RwV3d* out, const RwV3d* in);
+RwReal _rwInvSqrt(const RwReal num);
 
 #if (defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
 RwReal RwIm2DGetNearScreenZ(void);
@@ -747,6 +779,8 @@ RwBool RwIm2DRenderPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, R
 void RwMatrixSetIdentity(RwMatrix* matrix);
 RwBool RwRenderStateGet(RwRenderState state, void* value);
 RwBool RwRenderStateSet(RwRenderState state, void* value);
+RwReal RwV3dDotProduct(const RwV3d* ina, const RwV3d* inb);
+void RwV3dSub(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 #endif
 
 #ifdef __cplusplus
@@ -762,6 +796,8 @@ RwBool RwRenderStateSet(RwRenderState state, void* value);
 #define RwMatrixSetIdentity(m) RwMatrixSetIdentityMacro(m)
 #define RwRenderStateGet(_state, _value) RwRenderStateGetMacro(_state, _value)
 #define RwRenderStateSet(_state, _value) RwRenderStateSetMacro(_state, _value)
+#define RwV3dDotProduct(a, b) RwV3dDotProductMacro(a, b)
+#define RwV3dSub(o, a, b) RwV3dSubMacro(o, a, b)
 #endif
 
 #endif
