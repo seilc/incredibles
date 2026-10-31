@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 extern int isdigit(int);
+extern int isprint(int);
 
 #ifdef __cplusplus
 }
