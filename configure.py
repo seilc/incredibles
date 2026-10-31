@@ -773,7 +773,7 @@ config.libs = [
             Object(Matching, "in/GAME/zNPCCommon.cpp"),
             Object(Matching, "in/Core/x/xScreenFade.cpp"),
             Object(NonMatching, "in/GAME/zNPCWeapon.cpp"),
-            Object(NonMatching, "in/Core/x/xCollideSphereBox.cpp"),
+            Object(Matching, "in/Core/x/xCollideSphereBox.cpp"),
             Object(NonMatching, "in/GAME/zNPCInvisAware.cpp"),
             Object(NonMatching, "in/GAME/zNPCBotLob.cpp"),
             Object(NonMatching, "in/GAME/zDashTrack.cpp"),

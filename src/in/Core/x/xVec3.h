@@ -50,6 +50,15 @@ struct xVec3
     xVec3 operator*(F32 s) const;
     xVec3& operator+=(const xVec3& v);
     xVec3& operator*=(F32 s);
+
+    xVec3& cross(const xVec3& c0, const xVec3& c1)
+    {
+        x = c0.y * c1.z - c1.y * c0.z;
+        y = c0.z * c1.x - c1.z * c0.x;
+        z = c0.x * c1.y - c1.x * c0.y;
+        return *this;
+    }
+
     F32 dot(const xVec3& c) const;
 };
 
@@ -70,6 +79,7 @@ void xVec3AddTo(xVec3* o, const xVec3* v);
 void xVec3Inv(xVec3* o, const xVec3* v);
 inline void xVec3ScaleC(xVec3* o, const xVec3* v, F32 _x, F32 _y, F32 _z); // inferred from BFBB GC, Rat MAP
 F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b);
+F32 xVec3NormalizeSafe(xVec3& v);
 
 inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)
 {

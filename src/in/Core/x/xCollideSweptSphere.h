@@ -53,6 +53,7 @@ struct xCollideProcessedTri
 };
 
 void xSweptSphereResetCollision(xSweptSphere* sws);
+S32 xSweptSphereToSphere(xSweptSphere& sws, const xVec3& center, F32 radius);
 S32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph);
 
 #endif
