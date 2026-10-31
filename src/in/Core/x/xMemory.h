@@ -57,9 +57,8 @@ inline void xMemoryCopyDownA128(void* dest, const void* source, U32 count)
 
     U32* destIterator = (U32*)dest + count - 1;
     const U32* sourceIterator = (const U32*)source + count - 1;
-    while (count--) {
+    while (count--)
         *destIterator-- = *sourceIterator--;
-    }
 }
 
 #endif
