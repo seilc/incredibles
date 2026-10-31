@@ -586,6 +586,7 @@ RwMatrix* RwFrameGetLTM(RwFrame* frame);
 RwFrame* RwFrameOrthoNormalize(RwFrame* frame);
 RwFrame* RwFrameTransform(RwFrame* frame, const RwMatrix* transform, RwOpCombineType combine);
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
+void RwGameCubeSetAlphaCompare(RwInt32 comp0, RwUInt8 ref0, RwInt32 op, RwInt32 comp1, RwUInt8 ref1);
 RwBool RwIm3DEnd(void);
 RwBool RwIm3DRenderPrimitive(RwPrimitiveType primType);
 void* RwIm3DTransform(RwIm3DVertex* pVerts, RwUInt32 numVerts, RwMatrix* ltm, RwUInt32 flags);

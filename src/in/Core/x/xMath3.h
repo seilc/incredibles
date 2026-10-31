@@ -13,6 +13,11 @@ struct xVec4
     F32 w;
 };
 
+struct xFRect
+{
+    F32 x, y, w, h;
+};
+
 struct xMat3x3
 {
     xVec3 right;

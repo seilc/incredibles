@@ -1,6 +1,7 @@
 #ifndef XMODEL_H
 #define XMODEL_H
 
+#include "iModel.h"
 #include "xAnim.h"
 #include "xSurface.h"
 #include "xLightKit.h"
@@ -95,5 +96,20 @@ S32 xModelCullSingle(xModelInstance* minst);
 void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
 
 xMat4x3* xModelGetFrame(xModelInstance* minst);
+
+inline void xModelSetMaterialAlpha(xModelInstance* modelInst, U8 alpha)
+{
+    iModelSetMaterialAlpha(modelInst->Data, alpha);
+}
+
+inline void xModelMaterialMul(xModelInstance* modelInst, F32 rm, F32 gm, F32 bm)
+{
+    iModelMaterialMul(modelInst->Data, rm, gm, bm);
+}
+
+inline void xModelResetMaterial(xModelInstance* modelInst)
+{
+    iModelResetMaterial(modelInst->Data);
+}
 
 #endif
