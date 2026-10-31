@@ -10,39 +10,28 @@ void xMemoryManagerFixed::Init(void* start, U32 elements, U32 elementSize)
     InitMemory();
 }
 
-#if DEBUG || RELEASE
-void* xMemoryManagerFixed::DoAllocate(U32, U32, const char*, const char*, S32)
-#else
-void* xMemoryManagerFixed::DoAllocate(U32, U32)
-#endif
+void* xMemoryManagerFixed::DoAllocate(U32 size, U32 options)
 {
-    FixedHeader* header = freeList;
-
-    if (!header)
-    {
+    if (!freeList)
         return NULL;
-    }
 
-    freeList = header->next;
+    FixedHeader* ret = freeList;
 
-    return header;
+    freeList = freeList->next;
+
+    return ret;
 }
 
 void xMemoryManagerFixed::DoFree(void* pointer)
 {
+    S32 TESTVALUE = (S32)((S32)pointer - (S32)GetArenaStart());
+
     FixedHeader* header = (FixedHeader*)pointer;
-
-    GetArenaStart();
-
     header->next = freeList;
-    freeList = header;
+    this->freeList = header;
 }
 
-#if DEBUG || RELEASE
-void* xMemoryManagerFixed::DoReallocate(void* pointer, U32, U32, const char*, const char*, S32)
-#else
-void* xMemoryManagerFixed::DoReallocate(void* pointer, U32, U32)
-#endif
+void* xMemoryManagerFixed::DoReallocate(void* pointer, U32 size, U32)
 {
     return pointer;
 }
@@ -56,13 +45,10 @@ void xMemoryManagerFixed::InitMemory()
 {
     freeList = (FixedHeader*)GetArenaStart();
 
-    FixedHeader* header = freeList;
-
-    for (U32 i = 0; i < elements - 1; i++)
-    {
-        header->next = xMEMADVANCE(header, elementSize);
-        header = header->next;
+    FixedHeader* cur = (FixedHeader*)freeList;
+    for (U32 i = 0; i < elements - 1; i++) {
+        cur->next = xMEMADVANCE(cur, elementSize);
+        cur = cur->next;
     }
-
-    header->next = NULL;
+    cur->next = NULL;
 }
