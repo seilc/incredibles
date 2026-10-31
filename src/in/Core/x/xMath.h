@@ -1,8 +1,9 @@
 #ifndef XMATH_H
 #define XMATH_H
 
-#include "types.h"
+#include "iMath.h"
 
+#include <stddef.h>
 #include <cmath>
 
 #define xabs(x) iabs(x)
@@ -13,20 +14,95 @@
 #define xmax3(a,b,c) (xmax(xmax((a), (b)), (c)))
 #define xclamp(x,a,b) xmax((a), xmin((x), (b)))
 #define xsqr(x) ((x) * (x))
+#define xsignbit(x) ((x) < 0.0f ? 1 : 0)
+#define xsamesign(a,b) (xsignbit(a) == xsignbit(b))
 
 #define PI 3.14159265f
 #define HUGE 1e38f
 
+template <class T>
+T range_limit(T v, T minv, T maxv);
+
+struct xFuncPiece
+{
+    F32 coef[5];
+    F32 end;
+    S32 order;
+    xFuncPiece* next;
+};
+
+struct xResponseCurve
+{
+    struct node
+    {
+        F32 t;
+    };
+
+    struct inode : node
+    {
+        F32 value[1];
+    };
+
+    void reset(U32 values, const void* curve, U32 nodes);
+    void eval_linear(F32 t, F32* value) const;
+    void eval_smooth(F32 t, F32* value) const;
+
+private:
+    void find_active_node(F32 t, size_t stride) const
+    {
+        U32 max_active_node = _nodes - 2;
+        const U8* it = (const U8*)curve + stride * active_node;
+        while (true) {
+            inode& n = *(inode*)it;
+            inode& next = *(inode*)(it + stride);
+            if (t < n.t) {
+                if (active_node == 0) break;
+                it -= stride;
+                active_node--;
+            }
+            else if (t > next.t) {
+                if (active_node >= max_active_node) break;
+                it += stride;
+                active_node++;
+            } else {
+                break;
+            }
+        }
+    }
+
+    U32 _values;
+    const inode* curve;
+    U32 _nodes;
+    mutable U32 active_node;
+};
+
+void xMathInit();
+void xMathExit();
 F32 xatof(const char* x);
+U32 xMathSolveQuadratic(F32 a, F32 b, F32 c, F32* x1, F32* x2);
+F32 xAngleClamp(F32 a);
+F32 xAngleClampFast(F32 a);
+F32 xDangleClamp(F32 a);
+F32 xDangleClampFast(F32 a);
+void xAccelMove(F32& x, F32& v, F32 a, F32 dt, F32 endx, F32 maxv);
+void xAccelMove2(F32& x, F32& v, F32 decel, F32 accel, F32 dt, F32 endx, F32 maxv);
+F32 xAccelMoveTime(F32 dx, F32 a, F32, F32 maxv);
+void xAccelMove(F32& x, F32& v, F32 a, F32 dt, F32 maxv);
+void xAccelMoveRange(F32& x, F32& v, F32 accel_min, F32 accel_max, F32 dt, F32 endx, F32 maxv);
+void xAccelStop(F32& x, F32& v, F32 a, F32 dt);
+F32 xFuncPiece_Eval(xFuncPiece* func, F32 param, xFuncPiece** iterator);
+void xFuncPiece_Derivative(xFuncPiece* deriv, xFuncPiece* func);
+void xFuncPiece_EndPoints(xFuncPiece* func, F32 pi, F32 pf, F32 fi, F32 ff);
+void xFuncPiece_EndPointsAndSlopes(xFuncPiece* func, F32 pi, F32 pf, F32 fi, F32 ff, F32 vi, F32 vf);
+void xFuncPiece_EndPointsAllInitial(xFuncPiece* func, F32 pi, F32 pf, F32 fi, F32 ff, F32 vi, F32 ai);
+void xFuncPiece_ShiftPiece(xFuncPiece* shift, xFuncPiece* func, F32 newZero);
+
 F32 xsqrt(F32 x);
 F32 xexp(F32 x);
 F32 xasin(F32 x);
 F32 xatan2(F32 y, F32 x);
-
-inline F32 xfmod(F32 x, F32 y)
-{
-    return std::fmodf(x, y);
-}
+F32 xfmod(F32 x, F32 y);
+void xsqrtfast(F32& o, F32 fVal);
 
 inline F32 xrmod(F32 ang)
 {
@@ -36,23 +112,6 @@ inline F32 xrmod(F32 ang)
     return ang;
 }
 
-inline void xsqrtfast(F32& out, register F32 x)
-{
-    if (x <= 0.0f)
-    {
-        out = 0.0f;
-    }
-    else
-    {
-        // Have to use inline asm here, for some reason using
-        // __frsqrte and __fres generates an extra frsp instruction
-        asm {
-            frsqrte x, x;
-            fres x, x;
-        }
-    }
-
-    out = x;
-}
+#include "xMathInlines.h"
 
 #endif

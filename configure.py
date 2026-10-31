@@ -539,7 +539,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xJSP.cpp"),
             Object(NonMatching, "in/Core/x/xLaserBolt.cpp"),
             Object(Matching, "in/Core/x/xLightKit.cpp"),
-            Object(NonMatching, "in/Core/x/xMath.cpp"),
+            Object(Matching, "in/Core/x/xMath.cpp"),
             Object(Matching, "in/Core/x/xMath2.cpp"),
             Object(NonMatching, "in/Core/x/xMath3.cpp"),
             Object(NonMatching, "in/Core/x/xMemMgr.cpp"),
