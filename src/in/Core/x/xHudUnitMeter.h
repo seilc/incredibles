@@ -27,10 +27,6 @@ public:
     virtual void setup();
     virtual void update(F32 dt);
     virtual void render();
-
-#if DEBUG || RELEASE
-    virtual const char* category() { return "Unit Meter"; }
-#endif
 };
 
 struct unit_meter_widget::widget_chunk : xBase

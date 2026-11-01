@@ -36,7 +36,7 @@ struct xGridBound
     U16 gx;
     U16 gz;
     U8 oversize;
-    U8 deleted;
+    bool deleted;
     U8 gpad;
     U8 pad;
     xGrid* grid;

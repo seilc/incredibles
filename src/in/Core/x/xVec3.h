@@ -63,7 +63,6 @@ struct xVec3
 };
 
 F32 xVec3Normalize(xVec3* o, const xVec3* v);
-F32 xVec3NormalizeFast(xVec3* o, const xVec3* v); // inferred from TSSM GC, Rat MAP
 void xVec3Copy(xVec3* o, const xVec3* v);
 F32 xVec3Dot(const xVec3* a, const xVec3* b);
 F32 xVec3Length(const xVec3* v);
@@ -77,7 +76,6 @@ void xVec3Init(xVec3& o, F32 x, F32 y, F32 z);
 void xVec3AddTo(xVec3& o, const xVec3& v);
 void xVec3AddTo(xVec3* o, const xVec3* v);
 void xVec3Inv(xVec3* o, const xVec3* v);
-inline void xVec3ScaleC(xVec3* o, const xVec3* v, F32 _x, F32 _y, F32 _z); // inferred from BFBB GC, Rat MAP
 F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b);
 F32 xVec3NormalizeSafe(xVec3& v);
 
@@ -115,38 +113,27 @@ inline F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b)
     return d;
 }
 
-#define xVec3NormalizeMacro(outlen, o, v)                                                          \
-    {                                                                                              \
-        F32 len = 1.0f;                                                                        \
-        F32 len2 = xsqr((v)->x) + xsqr((v)->y) + xsqr((v)->z);                                 \
-                                                                                                   \
-        if (xeq(len2, 1.0f, EPSILON))                                                              \
-        {                                                                                          \
-            (o)->x = (v)->x;                                                                       \
-            (o)->y = (v)->y;                                                                       \
-            (o)->z = (v)->z;                                                                       \
-        }                                                                                          \
-        else if (xeq(len2, 0.0f, EPSILON))                                                         \
-        {                                                                                          \
-            (o)->x = 0.0f;                                                                         \
-            (o)->y = 1.0f;                                                                         \
-            (o)->z = 0.0f;                                                                         \
-                                                                                                   \
-            len = 0.0f;                                                                            \
-        }                                                                                          \
-        else                                                                                       \
-        {                                                                                          \
-            len = xsqrt(len2);                                                                     \
-                                                                                                   \
-            F32 len_inv = 1.0f / len;                                                          \
-                                                                                                   \
-            (o)->x = (v)->x * len_inv;                                                             \
-            (o)->y = (v)->y * len_inv;                                                             \
-            (o)->z = (v)->z * len_inv;                                                             \
-        }                                                                                          \
-                                                                                                   \
-        (outlen) = len;                                                                            \
-    }
+#define xVec3NormalizeMacro(o, v, outlen)                                                         \
+{                                                                                                 \
+    F32 len2 = xsqr((v)->x) + xsqr((v)->y) + xsqr((v)->z);                                        \
+    if (xeq(len2, 1.0f, EPSILON)) {                                                               \
+        (o)->x = (v)->x;                                                                          \
+        (o)->y = (v)->y;                                                                          \
+        (o)->z = (v)->z;                                                                          \
+        *(outlen) = 1.0f;                                                                         \
+    } else if (xeq(len2, 0.0f, EPSILON)) {                                                        \
+        (o)->x = 0.0f;                                                                            \
+        (o)->y = 1.0f;                                                                            \
+        (o)->z = 0.0f;                                                                            \
+        *(outlen) = 0.0f;                                                                         \
+    } else {                                                                                      \
+        *(outlen) = xsqrt(len2);                                                                  \
+        F32 len_inv = 1.0f / *(outlen);                                                           \
+        (o)->x = (v)->x * len_inv;                                                                \
+        (o)->y = (v)->y * len_inv;                                                                \
+        (o)->z = (v)->z * len_inv;                                                                \
+    }                                                                                             \
+}
 
 #include "xVec3Inlines.h"
 

@@ -21,19 +21,19 @@
 // (This version of CW does not support pragmas inside macros.)
 #else
 // Force reference specific data
-#define DECOMP_FORCEACTIVE(...)                                                          \
-    static void fake_function(...);                                                      \
+#define DECOMP_FORCEACTIVE(...)                 \
+    static void fake_function(...);             \
     static void CONCAT(FORCEACTIVE, __LINE__)(void) { fake_function(__VA_ARGS__); }
 
 // Force float literal ordering in sdata2
-#define DECOMP_FORCEFLOAT(f)                                                             \
+#define DECOMP_FORCEFLOAT(f)                    \
     static void CONCAT(FORCELITERAL, __LINE__)(void) { *(float*)0 = (f); }
 
 // For more complex forcing requirements
 // Example usage: DECOMP_FORCEBLOCK((Class* dummy, int arg) {
 //     dummy->Method(arg);
 // })
-#define DECOMP_FORCEBLOCK(...)                                                           \
+#define DECOMP_FORCEBLOCK(...)                  \
     static void CONCAT(FORCEBLOCK, __LINE__) __VA_ARGS__
 #endif
 

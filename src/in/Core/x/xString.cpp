@@ -1,7 +1,5 @@
 #include "xString.h"
 
-#include "xDebug.h"
-#include "xOutputMgr.h"
 #include "xMath.h"
 
 #include <stdlib.h>
@@ -19,8 +17,6 @@ U32 xStrHash(const char* str)
 
 U32 xStrHash(const char* s, size_t size)
 {
-    xASSERT_L(83, (size == 0) || (s != 0));
-
     U32 value = 0;
     for (size_t i = 0; i < size && *s != '\0'; ++i, ++s) {
         char c = *s;
@@ -32,8 +28,6 @@ U32 xStrHash(const char* s, size_t size)
 
 U32 xStrHashCat(U32 prefix, const char* str)
 {
-    xWARN_INVALID_L(105, "UTIL", str);
-
     U32 i = prefix;
     for (; *str != '\0'; ++str) {
         char c = *str;

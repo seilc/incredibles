@@ -18,7 +18,7 @@ public:
         BestFit
     };
 
-    xMemoryManagerGeneral();
+    xMemoryManagerGeneral() {}
 
     void Init(void* start, U32 size, Dir dir, Strategy strategy, bool debugging);
     void* GetCurrentEnd() const;

@@ -1,8 +1,6 @@
 #include "xstransvc.h"
 
-#include "xDebug.h"
 #include "xGlobals.h"
-#include "xOutputMgr.h"
 #include "xutil.h"
 #include "iFile.h"
 #include "iTRC.h"
@@ -59,19 +57,12 @@ bool xSTIsLoaded()
 S32 xSTStartup(PKRAssetType* handlers)
 {
     if (g_straninit++ == 0) {
-        xVERBOSE("STM: Starting Scene Transition Module Services\n");
-
-        xVALIDATE_L(87, handlers);
         g_typeHandlers = handlers;
-        if (!g_typeHandlers) {
-            xWARN("xSTStartup: No Asset Type Handlers?!?\n");
-        }
 
         XST_reset_raw();
 
         PKRStartup();
         g_pkrf = PKRGetReadFuncs(1);
-        xVALIDATE_L(101, g_pkrf);
     }
 
     return g_straninit;
@@ -80,15 +71,11 @@ S32 xSTStartup(PKRAssetType* handlers)
 S32 xSTShutdown()
 {
     if (--g_straninit == 0) {
-        xVERBOSE("STM: Shutting Down Scene Transition Services\n");
-
         g_typeHandlers = NULL;
 
         XST_unlock_all();
         PKRShutdown();
     }
-
-    xVALIDATE_L(134, g_straninit>=0);
 
     return g_straninit;
 }
@@ -98,25 +85,16 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
     S32 result = 1;
     st_STRAN_SCENE* sdata = NULL;
     const char* sfile = NULL;
-    S32 cltver, cnt_retry;
+    S32 cltver;
 
     if (fileflags & 0x4) {
         sfile = filename;
     }
 
     cltver = 0;
-    cnt_retry = 0;
-
-    xVALIDATE_L(170, g_pkrf);
-    xVALIDATE_L(171, sid);
 
     if ((flg_hiphop & XST_OPTS_MASKHH) == XST_OPTS_HOP) {
-        xASSERT_L(177, sid != IDTAG('F','O','N','T'));
-        xASSERT_L(178, sid != IDTAG('B','O','O','T'));
-        xASSERT_L(179, (sid & 0xFFFFFF00) != IDTAG('M','N','U','4'));
-
         sdata = XST_lock_next();
-        xASSERT_FMT_L(183, sdata, "No pack manager instance for '%s'\n", xUtil_idtag2string(sid, 0));
 
         sdata->scnid = sid;
         sdata->userdata = userdata;
@@ -145,7 +123,6 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
         }
 
         if (cltver == 0) {
-            xVALIDATE_L(215, !sdata->spkg);
             XST_unlock(sdata);
             sdata = NULL;
             result = 0;
@@ -153,12 +130,7 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
             result = cltver;
         }
     } else {
-        xASSERT_L(233, (flg_hiphop & XST_OPTS_MASKHH) == XST_OPTS_HIP || (flg_hiphop & XST_OPTS_MASKHH) == XST_OPTS_LOCAL);
-
-        xOutInfo("PACKER", "PreLoading 0x%08X (attempt #%d)\n", sid, ++cnt_retry);
-
         sdata = XST_lock_next();
-        xVALIDATE_L(240, sdata);
 
         sdata->scnid = sid;
         sdata->userdata = userdata;
@@ -188,12 +160,7 @@ S32 xSTPreLoadScene(U32 sid, void* userdata, S32 flg_hiphop, S32 fileflags, cons
             }
         }
 
-        if ((flg_hiphop & XST_OPTS_MASKHH) != XST_OPTS_LOCAL) {
-            xASSERT_FMT_L(277, cltver != 0, "File not found:  '%s'\n", sfile);
-        }
-
         if (cltver == 0) {
-            xVALIDATE_L(283, !sdata->spkg);
             XST_unlock(sdata);
 
             result = 0;
@@ -211,14 +178,9 @@ S32 xSTQueueSceneAssets(U32 sid, S32 flg_hiphop)
     st_STRAN_SCENE* sdata = NULL;
     S32 doTheHOP = 0;
 
-    xVALIDATE_L(302, g_pkrf);
-    xVALIDATE_L(303, sid);
-
     sdata = XST_find_bySID(sid, flg_hiphop);
-    xASSERT_L(308, sdata);
     if (!sdata) result = 0;
     else if (sdata->spkg) {
-        xVERBOSE("Queuing Layer Load (default packed order)\n");
         g_pkrf->LoadLayer(sdata->spkg, PKR_LTYPE_ALL);
     }
 
@@ -234,7 +196,6 @@ void xSTUnLoadScene(U32 sid, S32 flg_hiphop)
         cnt = XST_cnt_locked();
         for (i = 0; i < cnt; i++) {
             sdata = XST_nth_locked(i);
-            xASSERT(sdata);
             if (sdata->spkg) {
                 g_pkrf->Done(sdata->spkg);
             }
@@ -243,7 +204,6 @@ void xSTUnLoadScene(U32 sid, S32 flg_hiphop)
         XST_unlock_all();
     } else {
         sdata = XST_find_bySID(sid, flg_hiphop);
-        xVALIDATE(sdata);
         if (sdata) {
             if (sdata->spkg) {
                 g_pkrf->Done(sdata->spkg);
@@ -295,19 +255,13 @@ F32 xSTLoadStep(U32)
     F32 pct = 0.0f;
     S32 rc = 0;
 
-    xVERBOSE("STM: Processing Stepper Load Queue\n");
-
     rc = PKRLoadStep(0);
     if (rc)
         pct = 0.0f;
     else
         pct = 1.00001f;
 
-    if (pct > 1.0f) {
-        xVERBOSE("STM: Stepper Loading Complete\n");
-    }
-
-    iTRC_CHECK_L(429);
+    iTRC_CHECK();
     iFileAsyncService();
 
     return pct;
@@ -316,11 +270,8 @@ F32 xSTLoadStep(U32)
 void xSTDisconnect(U32 sid, S32 flg_hiphop)
 {
     st_STRAN_SCENE* sdata = NULL;
-    S32 doTheHOP = 0;
 
     sdata = XST_find_bySID(sid, flg_hiphop);
-
-    if (!doTheHOP) xVALIDATE_L(448, sdata);
 
     if (sdata) {
         g_pkrf->PkgDisconnect(sdata->spkg);
@@ -332,17 +283,13 @@ S32 xSTSwitchScene(U32 sid, void* userdata, S32(*progmon)(void*, F32))
     st_STRAN_SCENE* sdata = NULL;
     S32 rc = 0, i = 0;
 
-    xASSERT_L(482, sid);
-
     S32 types[3] = { XST_OPTS_HIP, XST_OPTS_HOP, XST_OPTS_LOCAL };
     for (i = 2; i >= 0; i--) {
         sdata = XST_find_bySID(sid, types[i]);
         if (sdata) {
             if (progmon) progmon(userdata, 0.0f);
-            xVERBOSE("STM: Switching Scene to Active\n");
 
             rc = g_pkrf->SetActive(sdata->spkg, PKR_LTYPE_ALL);
-            xVERBOSE("STM: Scene Switch Completed with %s\n", rc ? "Success" : "Failure");
 
             if (progmon) {
                 progmon(userdata, 1.0f);
@@ -362,7 +309,6 @@ char* xSTAssetName(U32 aid)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xASSERT_L(522, sdata);
         if (sdata->spkg) {
             aname = g_pkrf->AssetName(sdata->spkg, aid);
             if (aname) break;
@@ -381,8 +327,6 @@ en_pkrfindmyass xSTRandMemToAsset(PKRAssetTOCInfo* ainfo, const void* addr)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xASSERT_L(571, sdata);
-        xVALIDATE_L(572, sdata->spkg);
 
         rc_cur = PKRFindMyAsset(sdata->spkg, ainfo, addr);
         if (rc_cur != PKR_FIND_FAILED) {
@@ -400,7 +344,6 @@ void* xSTFindAsset(U32 aid, U32* size)
     st_STRAN_SCENE* sdata;
     S32 asssize;
 
-    xASSERT_FMT_L(598, aid, "xSTFindAsset function is called with 0 asset ID ");
     if (!aid) {
         return NULL;
     }
@@ -409,7 +352,6 @@ void* xSTFindAsset(U32 aid, U32* size)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xASSERT_L(623, sdata);
 
         asssize = 0;
         memloc = g_pkrf->LoadAsset(sdata->spkg, aid, NULL, NULL, &asssize);
@@ -433,8 +375,6 @@ S32 xSTAssetCountByType(U32 type)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xASSERT_L(710, sdata);
-        xVALIDATE_L(711, sdata->spkg);
         cnt = g_pkrf->AssetCount(sdata->spkg, type);
         sum += cnt;
     }
@@ -451,8 +391,6 @@ void* xSTFindAssetByType(U32 type, S32 idx, U32* size)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xASSERT_L(747, sdata);
-        xASSERT_L(748, sdata->spkg);
         cnt = g_pkrf->AssetCount(sdata->spkg, type);
         if (idx >= sum && idx < sum + cnt) {
             memptr = g_pkrf->AssetByType(sdata->spkg, type, idx - sum, size);
@@ -473,8 +411,6 @@ S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xVALIDATE_L(773, sdata);
-        xVALIDATE_L(774, sdata->spkg);
 
         rc = g_pkrf->GetAssetInfo(sdata->spkg, aid, tocainfo);
         if (rc) {
@@ -495,8 +431,6 @@ S32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xVALIDATE_L(811, sdata);
-        xVALIDATE_L(812, sdata->spkg);
 
         cnt = g_pkrf->AssetCount(sdata->spkg, type);
         if (idx >= sum && idx < sum + cnt) {
@@ -526,8 +460,6 @@ char* xST_xAssetID_HIPFullPath(U32 aid, U32* sceneID)
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
-        xVALIDATE_L(905, sdata);
-        xVALIDATE_L(906, sdata->spkg);
 
         rc = g_pkrf->PkgHasAsset(sdata->spkg, aid);
         if (rc) {
@@ -544,12 +476,7 @@ static S32 XST_PreLoadScene(st_STRAN_SCENE* sdata, const char* sfile, S32 filefl
 {
     S32 cltver = 0;
 
-    xVALIDATE_L(1017, g_pkrf);
-    xASSERT_L(1018, sdata);
-    xASSERT_L(1019, sfile);
-
     sdata->spkg = g_pkrf->Init(sdata->userdata, sfile, 0x2E, &cltver, g_typeHandlers, fileflags);
-    xVALIDATE_L(1026, sdata->spkg);
 
     if (!sdata->spkg) {
         return 0;
@@ -562,7 +489,6 @@ static char* XST_translate_sid(U32 sid, char* exten, bool local)
 {
     static char fname[64];
 
-    xASSERT_L(1060, exten);
     fname[0] = '\0';
 
     if (IsPS2Demo() && xglobals->PS2demo->subdir[0] != '\0') {
@@ -626,8 +552,6 @@ static st_STRAN_SCENE* XST_lock_next()
         }
     }
 
-    xASSERT_MSG_L(1140, sdata, "No pack manager available");
-
     if (sdata) {
         sdata->lockid = uselock;
     }
@@ -637,10 +561,7 @@ static st_STRAN_SCENE* XST_lock_next()
 
 static void XST_unlock(st_STRAN_SCENE* sdata)
 {
-    xVALIDATE_L(1152, sdata);
     if (sdata) {
-        xVALIDATE_L(1156, !sdata->spkg);
-
         if (g_xstdata.loadlock & (1 << sdata->lockid)) {
             g_xstdata.loadlock &= ~(U32)(1 << sdata->lockid);
             memset(sdata, 0, sizeof(st_STRAN_SCENE));
@@ -653,7 +574,6 @@ static void XST_unlock_all()
     st_STRAN_SCENE* sdata = NULL;
     S32 i = 0;
 
-    xVALIDATE_L(1172, !g_xstdata.loadlock);
     if (g_xstdata.loadlock) {
         for (i = 0; i < STRAN_MAX_SCENES; i++) {
             if (g_xstdata.loadlock & (1 << i)) {
@@ -687,9 +607,6 @@ static st_STRAN_SCENE* XST_nth_locked(S32 nth)
     st_STRAN_SCENE* sdata = NULL;
     S32 cnt = 0, i = 0;
 
-    xVALIDATE_L(1214, nth>=0);
-    xVALIDATE_L(1215, nth<STRAN_MAX_SCENES);
-
     for (i = 0; i < STRAN_MAX_SCENES; i++) {
         if (g_xstdata.loadlock & (1 << i)) {
             if (cnt == nth) {
@@ -709,12 +626,9 @@ static st_STRAN_SCENE* XST_find_bySID(U32 sid, S32 flagHipHop)
     S32 i = 0;
     st_STRAN_SCENE* tmp_sdata = NULL;
 
-    xVALIDATE_L(1239, sid);
-
     for (i = 0; i < STRAN_MAX_SCENES; i++) {
         if (g_xstdata.loadlock & (1 << i)) {
             tmp_sdata = &g_xstdata.hipscn[i];
-            xVALIDATE_L(1245, tmp_sdata->scnid);
             if (tmp_sdata->scnid == sid) {
                 if ((tmp_sdata->flgHipHop & XST_OPTS_MASKHH) == (flagHipHop & XST_OPTS_MASKHH)) {
                     da_sdata = tmp_sdata;
@@ -723,8 +637,6 @@ static st_STRAN_SCENE* XST_find_bySID(U32 sid, S32 flagHipHop)
             }
         }
     }
-
-    xVALIDATE_L(1257, da_sdata);
 
     return da_sdata;
 }
@@ -735,7 +647,6 @@ void xSTSetLocalizationCode(const char* code)
     strcpy(g_localCode + 1, code);
 
     g_localEnum = xRegionString(code);
-    xASSERT_L(1267, g_localEnum!=eRegionUnknown);
 }
 
 char* xSTGetLocalizationCode()

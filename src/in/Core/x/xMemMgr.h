@@ -38,8 +38,7 @@ void* operator new[](size_t, xMemStaticType, U32);
 
 #define xMEMALLOC(size, align) xMemAlloc(gActiveHeap, (size), (align))
 #define xMEMGROWALLOC(size) xMemGrowAlloc(gActiveHeap, (size))
-#define xMEMPUSHTEMP_L(amt, assetID, line) xMemPushTemp((amt))
-#define xMEMPUSHTEMP(amt, assetID) xMEMPUSHTEMP_L(amt, assetID, __LINE__)
+#define xMEMPUSHTEMP(amt) xMemPushTemp((amt))
 #define xMEMPOPTEMP(pointer) iMemPopTemp((pointer))
 
 #endif

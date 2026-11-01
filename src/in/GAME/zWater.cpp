@@ -3,6 +3,18 @@
 #include "zBase.h"
 #include "xEvent.h"
 
+struct xIniValue;
+
+namespace {
+
+struct motion_config;
+
+void stay_hidden_dammit(xEnt* ent);
+void load_motion_config(motion_config& cfg, const xIniValue* values, S32 values_size);
+void load_motion_configs();
+
+}
+
 void zWaterBody::load(xBase& data, xDynAsset& asset, size_t)
 {
     ((zWaterBody&)data).load((asset_type&)asset);

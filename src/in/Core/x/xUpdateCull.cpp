@@ -218,11 +218,7 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
         }
     }
 
-    xASSERT_L(269, mgrIndex == (S32)m->mgrCount);
-    xASSERT_L(270, grpIndex == (S32)m->grpCount);
-
     for (i = 0; i < entCount; i++) {
-        xASSERT_L(272, m->mgr[i]);
     }
 
     RwFree(inGroupArray);
@@ -296,9 +292,6 @@ void xUpdateCull_Update(xUpdateCullMgr* m, U32 percent_update)
 
 void xUpdateCull_SetCB(xUpdateCullMgr* m, void* entity, xUpdateCullEntCallback cb, void* cbdata)
 {
-    xASSERT_L(404, m != NULL);
-    xASSERT_L(405, entity != NULL);
-
     for (U32 i = 0; i < m->mgrCount; i++) {
         if (m->ent[m->mgrList[i].index] == entity) {
             m->mgrList[i].update_cull_cb = cb;

@@ -24,6 +24,8 @@ struct xSoundFX : xBase
     //F32 cachedOuterDistSquared;
 };
 
+void xSoundFXEnvironmentalStreamSceneExit();
+void xSoundFXUpdateEnvironmentalStreamSounds(xSoundFX* pSoundFXList, U32 numSounds);
 void xSoundFXInit(void* t, void* asset);
 void xSoundFXInit(xSoundFX* t, xSoundFXAsset* asset);
 void xSoundFXReset(xSoundFX* sfx);

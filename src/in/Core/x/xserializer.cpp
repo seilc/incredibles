@@ -1,14 +1,11 @@
 #include "xserializer.h"
 
 #include "xordarray.h"
-#include "xDebug.h"
 #include "xMemMgr.h"
-#include "xutil.h"
 
 #include <string.h>
 
 #define XSER_BITOP_DEPTH 32
-#define XSER_BITOP_ELESIZE 4
 
 typedef struct st_XSERIAL_DATA_PRIV
 {
@@ -47,8 +44,6 @@ S32 xSerialStartup(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
 
         xSER_init_tables();
         xSER_init_buffers(count, sizeinfo);
-
-        xVERBOSE("XSER: Startup ... %d sandboxes\n", count);
     }
 
     return g_serinit;
@@ -56,10 +51,8 @@ S32 xSerialStartup(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
 
 S32 xSerialShutdown()
 {
-    if (--g_serinit == 0)
-        xVERBOSE("XSER: Shutdown\n");
+    --g_serinit;
 
-    xVALIDATE_L(85, g_serinit>=0);
     return g_serinit;
 }
 
@@ -71,11 +64,8 @@ void xSerialTraverse(xSerialTraverseCallback func)
     xSerial xser;
     S32 rc = 0;
 
-    xVALIDATE_L(98, func);
-
     for (i = 0; i < xsd->cltlist.cnt; i++) {
         clt = (SERIAL_CLIENTINFO*)xsd->cltlist.list[i];
-        xVALIDATE_L(103, clt);
 
         xser.setClient(clt->idtag);
 
@@ -89,7 +79,6 @@ xSerial::~xSerial()
 {
     F32 pct = 0.0f;
 
-    xVALIDATE_L(130, this->ctxtdata);
     if (this->ctxtdata) {
         pct = (F32)this->bittally / (this->ctxtdata->actsize * 8);
         pct *= 100.0f;
@@ -103,7 +92,6 @@ void xSerial::setClient(U32 idtag)
 
 S32 xSerial::Write(char* data, S32 elesize, S32 n)
 {
-    xVALIDATE_L(167, n!=0);
     if (n == 0)
         return 0;
 
@@ -115,10 +103,7 @@ S32 xSerial::Write(char* data, S32 elesize, S32 n)
         nbit = -n;
         numbytes = (nbit + 7) / 8;
         numbytes = (numbytes + 3) & ~3;
-        xVALIDATE_L(194, elesize==4);
-        xVALIDATE_MSG_L(209, numbytes <= 4, "XSER: Supports >4bytes w/ _bn; just unexpected");
     }
-    xVALIDATE_L(212, nbit>0);
 
     if (n < 0) {
         S32 bidx = 0;
@@ -134,10 +119,8 @@ S32 xSerial::Write(char* data, S32 elesize, S32 n)
                 iptr++;
                 numbytes -= 4;
             }
-            xVALIDATE_L(250, numbytes>=0);
         }
     } else {
-        xVALIDATE_L(254, (elesize==1)||(elesize==2)||(elesize==4));
         S32 bidx = 0;
         char* cptr = data;
         for (S32 i = 0; i < nbit; i++) {
@@ -151,19 +134,11 @@ S32 xSerial::Write(char* data, S32 elesize, S32 n)
                 cptr++;
                 numbytes--;
             }
-            xVALIDATE_L(276, numbytes>=0);
         }
     }
 
     return nbit;
 }
-
-// RESTORED: from TSSM GC
-S32 xSerial::Write_bn(U32 bits, S32 n)
-{
-    return Write((char*)&bits, 4, -n);
-}
-// END RESTORED
 
 S32 xSerial::Write_b1(S32 bits)
 {
@@ -174,13 +149,6 @@ S32 xSerial::Write_b1(U32 bits)
 {
     return Write((char*)&bits, 4, -1);
 }
-
-// RESTORED: from BFBB GC
-S32 xSerial::Write_b7(U32 bits)
-{
-    return Write((char*)&bits, 4, -7);
-}
-// END RESTORED
 
 S32 xSerial::Write(U8 data)
 {
@@ -222,9 +190,7 @@ S32 xSerial::Read(char* buf, S32 elesize, S32 n)
         nbit = -n;
         numbytes = (nbit + 7) / 8;
         numbytes = (numbytes + 3) & ~3;
-        xVALIDATE_MSG_L(508, numbytes <= 4, "Properly supports >4byte read from _bn; just unexpected");
     }
-    xVALIDATE_L(515, nbit>0);
 
     if (n < 0) {
         bidx = 0;
@@ -243,7 +209,6 @@ S32 xSerial::Read(char* buf, S32 elesize, S32 n)
                 iptr++;
                 numbytes -= 4;
             }
-            xVALIDATE_L(542, numbytes>=0);
         }
     } else {
         bidx = 0;
@@ -262,38 +227,16 @@ S32 xSerial::Read(char* buf, S32 elesize, S32 n)
                 cptr++;
                 numbytes--;
             }
-            xVALIDATE_L(568, numbytes>=0);
         }
     }
 
     return nbit;
 }
 
-// RESTORED: from TSSM GC
-S32 xSerial::Read_bn(U32* bits, S32 n)
-{
-    return Read((char*)bits, 4, -n);
-}
-// END RESTORED
-
 S32 xSerial::Read_b1(S32* bits)
 {
     return Read((char*)bits, 4, -1);
 }
-
-// RESTORED: from TSSM GC, Rat GC
-S32 xSerial::Read_b1(U32* bits)
-{
-    return Read((char*)bits, 4, -1);
-}
-// END RESTORED
-
-// RESTORED: from BFBB GC
-S32 xSerial::Read_b7(U32* bits)
-{
-    return Read((char*)bits, 4, -7);
-}
-// END RESTORED
 
 S32 xSerial::Read(U8* buf)
 {
@@ -324,10 +267,7 @@ void xSerial::wrbit(S32 is_on)
 {
     SERIAL_CLIENTINFO* clt = this->ctxtdata;
 
-    xVALIDATE_L(767, clt->idtag == this->idtag);
-
     if (this->bittally + 1 > clt->actsize * 8) {
-        xASSERT_FMT_L(785, this->warned, "XSER: Client %s playing in someone else's sandbox\nPersistent data will be lost.", xUtil_idtag2string(this->idtag, 0));
         this->warned = TRUE;
         return;
     }
@@ -341,7 +281,6 @@ void xSerial::wrbit(S32 is_on)
         this->curele++;
         this->bitidx = 0;
     }
-    xVALIDATE_L(811, this->bitidx < XSER_BITOP_DEPTH);
 
     this->bittally++;
 }
@@ -351,11 +290,7 @@ S32 xSerial::rdbit()
     SERIAL_CLIENTINFO* clt = this->ctxtdata;
     S32 is_on = FALSE;
 
-    xVALIDATE_L(828, clt->idtag == this->idtag);
-
     if (this->bittally + 1 > clt->actsize * 8) {
-        if (!this->warned)
-            xWARN("XSER: Client %s playing in someone else's sandbox\n", xUtil_idtag2string(this->idtag, 0));
         this->warned = TRUE;
         return is_on;
     }
@@ -367,7 +302,6 @@ S32 xSerial::rdbit()
         this->curele++;
         this->bitidx = 0;
     }
-    xVALIDATE_L(867, this->bitidx < XSER_BITOP_DEPTH);
 
     this->bittally++;
 
@@ -394,8 +328,6 @@ void xSerialWipeMainBuffer()
 {
     XSERIAL_DATA_PRIV* xser = &g_xserdata;
 
-    xVALIDATE_MSG_L(912, xser->bitbuf && xser->buf_bytcnt, "XSER: No buffer?!? Was Startup called?");
-
     memset(xser->bitbuf, 0, xser->buf_bytcnt);
 }
 
@@ -418,11 +350,6 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
     S32 sicnt = 0;
     SERIAL_PERCID_SIZE* sitmp = NULL;
     SERIAL_CLIENTINFO* tmp_clt = NULL;
-    size_t s;
-
-    xVALIDATE_L(958, count>0);
-
-    xVALIDATE_L(961, (s=sizeof(S32)) == XSER_BITOP_ELESIZE);
 
     XOrdInit(&g_xserdata.cltlist, count, 0);
     xsd->cltbuf = (SERIAL_CLIENTINFO*)xMEMALLOC((U32)count * sizeof(SERIAL_CLIENTINFO), 0);
@@ -436,11 +363,7 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
         sitmp++;
     }
 
-    xVALIDATE_L(984, (tally%4)==0);
-
     tally += (count - sicnt) * 400;
-
-    xVERBOSE("XSER: Sandbox total: %d\n", tally);
 
     xsd->bitbuf = (S32*)xMEMALLOC(tally, 0);
     memset(xsd->bitbuf, 0, tally);
@@ -451,8 +374,6 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
     sitmp = sizeinfo;
     tally = 0;
     while (sitmp->idtag) {
-        xVERBOSE("XSER: Registering custom client '%s'\n", xUtil_idtag2string(sitmp->idtag, 0));
-
         tmp_clt->idtag = sitmp->idtag;
         tmp_clt->trueoff = tally;
         tmp_clt->actsize = (sitmp->needsize + 3) & ~3;
@@ -481,9 +402,6 @@ static void xSER_init_buffers(S32 count, SERIAL_PERCID_SIZE* sizeinfo)
         tally += tmp_clt->actsize;
         tmp_clt++;
     }
-
-    xVALIDATE_L(1060, tally <= xsd->buf_bytcnt);
-    xVALIDATE_L(1062, tally == xsd->buf_bytcnt);
 }
 
 static S32 xSER_ord_compare(void* e1, void* e2)
@@ -528,26 +446,14 @@ static SERIAL_CLIENTINFO* XSER_get_client(U32 idtag)
 
     idx = XOrdLookup(&xsd->cltlist, (void*)idtag, xSER_ord_test);
     if (idx < 0) {
-        xVERBOSE("XSER: Adding client '%s'\n", xUtil_idtag2string(idtag, 0));
-
         clt = xsd->cltnext; xsd->cltnext++;
 
-        xVALIDATE_L(1120, clt->idtag==0);
         clt->idtag = idtag;
 
-        xVALIDATE_L(1124, clt->actsize>0);
-        xVALIDATE_L(1125, clt->membuf);
         XOrdInsert(&xsd->cltlist, clt, xSER_ord_compare);
     } else {
-        xVERBOSE("XSER: Found existing client '%s'\n", xUtil_idtag2string(idtag, 0));
         clt = (SERIAL_CLIENTINFO*)xsd->cltlist.list[idx];
-        xVALIDATE_L(1132, clt->membuf);
     }
-
-    xVALIDATE_L(1135, clt);
-    xVALIDATE_L(1136, clt->idtag==idtag);
-
-    xVALIDATE_L(1144, xsd->cltnext < (xsd->cltbuf + (xsd->cltlist.max)));
 
     return clt;
 }
@@ -575,8 +481,6 @@ S32 xSerial_svgame_register(XSAVEGAME_DATA* sgctxt, SAVEGAME_MODE mode)
         xSGAddLoadClient(sgctxt, 0, &g_xserdata, xSER_xsgclt_ldproc_clt);
         xSGAddLoadClient(sgctxt, 'SFIL', &g_xserdata, xSER_xsgclt_ldproc_fill);
     }
-    else
-        xWARN("XSER: Unknown savegame mode %d\n", mode);
 
     return TRUE;
 }
@@ -614,7 +518,6 @@ static S32 xSER_xsgclt_ldproc_ver(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONT
 static S32 xSER_xsgclt_svinfo_clt(void* cltdata, XSAVEGAME_DATA*, S32* cur_space, S32* max_fullgame)
 {
     SERIAL_CLIENTINFO* clt = (SERIAL_CLIENTINFO*)cltdata;
-    xVALIDATE_L(1253, clt);
 
     *cur_space = clt->actsize;
     *max_fullgame = clt->actsize;
@@ -625,7 +528,6 @@ static S32 xSER_xsgclt_svinfo_clt(void* cltdata, XSAVEGAME_DATA*, S32* cur_space
 static S32 xSER_xsgclt_svproc_clt(void* cltdata, XSAVEGAME_DATA* xsg, XSAVEGAME_WRITECONTEXT* wctxt)
 {
     SERIAL_CLIENTINFO* clt = (SERIAL_CLIENTINFO*)cltdata;
-    xVALIDATE_L(1267, clt);
 
     clt = XSER_get_client(clt->idtag);
 
@@ -638,14 +540,12 @@ static S32 xSER_xsgclt_ldproc_clt(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCONT
 {
     XSERIAL_DATA_PRIV* xsd = &g_xserdata;
     SERIAL_CLIENTINFO* clt = NULL;
-    xVALIDATE_L(1289, idtag);
 
     if (xsd->flg_info & 1)
         return TRUE;
 
     clt = XSER_get_client(idtag);
 
-    xVALIDATE_L(1302, clt->actsize <= maxsize);
     xSGReadData(xsg, rctxt, (char*)clt->membuf, clt->actsize);
 
     return TRUE;
@@ -660,8 +560,6 @@ static S32 xSER_xsgclt_svinfo_fill(void*, XSAVEGAME_DATA*, S32* cur_space, S32* 
     S32 tally = 0;
     S32 size = 0;
 
-    xVALIDATE_L(1320, xsd);
-
     tally = 0;
     for (i = 0; i < xsd->cltlist.cnt; i++) {
         clt = (SERIAL_CLIENTINFO*)xsd->cltlist.list[i];
@@ -669,10 +567,8 @@ static S32 xSER_xsgclt_svinfo_fill(void*, XSAVEGAME_DATA*, S32* cur_space, S32* 
     }
 
     size = xsd->buf_bytcnt;
-    xVALIDATE_L(1334, tally<=size);
 
     size -= tally;
-    xVERBOSE("XSER: Reserving %d bytes in SaveGame\n", size);
 
     *cur_space = size + 8;
     *max_fullgame = size + 8;
@@ -698,7 +594,6 @@ static S32 xSER_xsgclt_ldproc_fill(void*, XSAVEGAME_DATA* xsg, XSAVEGAME_READCON
         return TRUE;
 
     xSGReadData(xsg, rctxt, filbuf, 8);
-    xVALIDATE_L(1374, !memcmp(filbuf,"RyanNeil",8));
 
     return TRUE;
 }

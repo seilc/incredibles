@@ -4,7 +4,6 @@
 #include "xFont.h"
 #include "xGlobals.h"
 #include "xMath.h"
-#include "zAutoTweak.h"
 
 #include <stdio.h>
 
@@ -18,7 +17,6 @@ F32 tweak_anim_time_delta = 0.1f;
 
 void unit_meter_widget::load(xBase& data, xDynAsset& asset, size_t asset_size)
 {
-    xDynAssetValidate_L(20, asset, unit_meter_asset, unit_meter_asset::type_name());
     init_base(data, asset, sizeof(widget_chunk));
     widget_chunk& wc = (widget_chunk&)data;
     new (&wc.w) unit_meter_widget((unit_meter_asset&)asset);
@@ -72,46 +70,23 @@ bool unit_meter_widget::is(U32 id) const
     return id == unit_meter_widget::type() || meter_widget::is(id);
 }
 
-#if DEBUG || RELEASE
-static const tweak_callback tweakOffsetX = {
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, normalizedToScreenX, screenToNormalizedX
-};
-static const tweak_callback tweakOffsetY = {
-    NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, normalizedToScreenY, screenToNormalizedY
-};
-#endif
-
 void unit_meter_widget::setup()
 {
     presetup();
-
-#if DEBUG || RELEASE
-    char name[128];
-    sprintf(name, "HUD|%s|%s|", category(), xSTAssetName((void*)a));
-
-    char* prefix = name;
-    zAUTOTWEAK(prefix, "Offset \001X", &res.offset.x, 0.0f, (F32)FB_XRES, &tweakOffsetX, NULL, 2);
-    zAUTOTWEAK(prefix, "Offset \001Y", &res.offset.y, 0.0f, (F32)FB_YRES, &tweakOffsetY, NULL, 2);
-#endif
 
     char tempString[128];
     S32 i;
     char* modelName[2] = { "ModelEmpty", "ModelFull" };
     for (i = 0; i < 2; i++) {
         sprintf(tempString, "%s|Location \001X", modelName[i]);
-        zAUTOTWEAK(prefix, tempString, &res.model[i].loc.x, 0.0f, (F32)FB_XRES, &tweakOffsetX, NULL, 2);
 
         sprintf(tempString, "%s|Location \001Y", modelName[i]);
-        zAUTOTWEAK(prefix, tempString, &res.model[i].loc.y, 0.0f, (F32)FB_YRES, &tweakOffsetY, NULL, 2);
 
         sprintf(tempString, "%s|Location \001Z", modelName[i]);
-        zAUTOTWEAK(prefix, tempString, &res.model[i].loc.z, -100.0f, 100.0f, NULL, NULL, 2);
 
         sprintf(tempString, "%s|Size \001Width", modelName[i]);
-        zAUTOTWEAK(prefix, tempString, &res.model[i].size.x, 0.0f, (F32)FB_XRES, &tweakOffsetX, NULL, 2);
 
         sprintf(tempString, "%s|Size \001Height", modelName[i]);
-        zAUTOTWEAK(prefix, tempString, &res.model[i].size.y, 0.0f, (F32)FB_YRES, &tweakOffsetY, NULL, 2);
     }
 }
 
@@ -122,7 +97,6 @@ void unit_meter_widget::update(F32 dt)
     anim_time += dt;
     S32 units = 0.5f + max_value;
     if (units > 6) units = 6;
-    xASSERT_L(124, units >= 0);
 
     F32 mod_duration = 0.0f;
     for (S32 i = 0; i < units; i++) {
@@ -150,7 +124,6 @@ void unit_meter_widget::render()
 
     S32 units = 0.5f + max_value;
     if (units > 6) units = 6;
-    xASSERT_L(157, units >= 0);
     for (S32 i = 0; i < units; i++) {
         S32 which = 0; if ((res.fill_forward && value >= i + 1) ||
             (!res.fill_forward && value >= units - i))

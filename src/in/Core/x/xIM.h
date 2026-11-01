@@ -33,6 +33,7 @@ struct xIMLockParameters
 
 void xIMLock(xIMLockContext& context, xIMFormat format, S32 vertCount);
 void xIMLock(xIMLockContext& context, xIMFormat format, S32 vertCount, const xIMLockParameters& params);
+void xIMLock2(xIMLockContext& context1, xIMLockContext& context2, xIMFormat format, S32 vertCount, const xIMLockParameters& params1, const xIMLockParameters& params2);
 void xIMUnlock(xIMLockContext& context);
 void xIMRender(xIMLockContext& context, const xMat4x3* mat);
 

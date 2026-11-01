@@ -136,7 +136,6 @@ S32 PKRShutdown();
 S32 PKRLoadStep(S32 block);
 void PKR_drv_guardLayer(st_PACKER_LTOC_NODE*);
 en_READ_ASYNC_STATUS PKR_drv_guardVerify(st_PACKER_LTOC_NODE*);
-U32 PKRAssetIDFromInst(void* asset_inst); // inferred from BFBB GC, TSSM GC, Rat GC
 inline en_pkrfindmyass PKRFindMyAsset(st_PACKER_READ_DATA*, PKRAssetTOCInfo*, const void*)
 {
     return PKR_FIND_FAILED;

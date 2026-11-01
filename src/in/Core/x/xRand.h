@@ -1,7 +1,7 @@
 #ifndef XRAND_H
 #define XRAND_H
 
-#include "xDebug.h"
+#include "types.h"
 
 struct xVec3;
 
@@ -18,6 +18,7 @@ enum xRandomChoiceRule
 void init_genrand(U32 s);
 void init_by_array(U32* init_key, U32 key_length);
 void xrand_RandomInit();
+void xrand_SetRandomSeed(U32 nNewSeed);
 U32 xrand_GenRandInt32();
 F32 xrand_GenRandFloat();
 U32 xrand_RandomChoice(U32& chosenMask, U8& setBits, U32 maxCount, xRandomChoiceRule rule);
@@ -50,7 +51,6 @@ inline F32 xrand_RandomFloatRange(F32 fMin, F32 fMax)
 
 inline U32 xrand_RandomChoice(U32 nChoice)
 {
-    xASSERT_L(124, nChoice <= 0xffff);
     return (nChoice * xrand_RandomInt16()) / 0x10000;
 }
 

@@ -15,5 +15,6 @@ void xRenderFixUntexturedBegin(RpAtomic*);
 void xRenderFixUntexturedEnd(RpAtomic*);
 void xRenderFixIMBegin();
 void xRenderFixIMEnd();
+void xRenderTexCacheRestore();
 
 #endif

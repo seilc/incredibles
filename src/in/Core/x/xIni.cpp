@@ -1,6 +1,5 @@
 #include "xIni.h"
 
-#include "xDebug.h"
 #include "xString.h"
 
 #include <cstring>
@@ -9,8 +8,6 @@
 
 static char* TrimWhitespace(char* str)
 {
-    xASSERT_L(16, str);
-
     while (*str == ' ' || *str == '\t') str++;
     if (*str == '\0') return str;
 

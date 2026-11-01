@@ -3,7 +3,6 @@
 
 #include "xColor.h"
 #include "xModel.h"
-#include "xDebug.h"
 
 #include <rpworld.h>
 
@@ -21,7 +20,6 @@ public:
     virtual void render() = 0;
     virtual void render_immediate_pass(xColor, bool, bool)
     {
-        xASSERT_L(72, false && "Must implement for immediate-mode.");
     }
 
     static void render_all();

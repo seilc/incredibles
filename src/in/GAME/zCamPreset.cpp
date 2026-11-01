@@ -40,7 +40,7 @@ void zCamPreset::apply_on_reset()
 zCamPreset* zCamPreset::find_preset(bool scene_prepare)
 {
     zCamPreset* best_preset = NULL;
-    F32 best_dist2 = 1e+38f;
+    F32 best_dist2 = HUGE;
     bool best_has_checkpoint = false;
     xVec3& to = globals.player.checkpoint.pos;
     zScene& s = *globals.sceneCur;

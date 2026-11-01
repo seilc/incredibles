@@ -45,29 +45,29 @@ static bool ComputeEdge(xVec3& dir, F32& len, xPlane& plane, const xPlane& surfa
 static bool TriangleTestSphereToThreePoints(const xSweptSphere& sphere, xCollideSphereToPolygonResults& results, const xVec3& pt0, const xVec3& pt1, const xVec3& pt2);
 static bool TriangleTestSphereToTwoPoints(const xSweptSphere& sphere, xCollideSphereToPolygonResults& results, const xVec3& pt0, const xVec3& pt1);
 
-#define TEST_EDGE_PLANE(plane) \
-    above_edge_vel = (plane).norm.dot(sphere.dir); \
-    above_edge_de = above_edge_vel * sphere.curdist + above_edge_d0; \
-    if (above_edge_de >= sphere.radius && above_edge_d0 >= sphere.radius) { \
-        return false; \
+#define TEST_EDGE_PLANE(plane)                                                                    \
+    above_edge_vel = (plane).norm.dot(sphere.dir);                                                \
+    above_edge_de = above_edge_vel * sphere.curdist + above_edge_d0;                              \
+    if (above_edge_de >= sphere.radius && above_edge_d0 >= sphere.radius) {                       \
+        return false;                                                                             \
     }
 
-#define TEST_EDGE_SEGMENT(pt, dir, len) \
-    if (xSweptSphereToLineSement(sphere, (pt), (dir), (len), edge_collide) == true) { \
-        results.dist = edge_collide.dist; \
-        results.contact = edge_collide.contact; \
-        results.type = exCOLLIDESPHEREHITTYPE_EDGE; \
-        return true; \
+#define TEST_EDGE_SEGMENT(pt, dir, len)                                                           \
+    if (xSweptSphereToLineSement(sphere, (pt), (dir), (len), edge_collide) == true) {             \
+        results.dist = edge_collide.dist;                                                         \
+        results.contact = edge_collide.contact;                                                   \
+        results.type = exCOLLIDESPHEREHITTYPE_EDGE;                                               \
+        return true;                                                                              \
     }
 
-#define TEST_EDGE_INTERIOR(pt, dir, len) \
-    if (above_edge_d0 < sphere.radius) { \
-        xVec3 to_sphere; \
-        xVec3Sub(to_sphere, sphere.start, (pt)); \
-        F32 along_edge_d0 = to_sphere.dot((dir)); \
-        if (along_edge_d0 >= 0.0f && along_edge_d0 <= (len)) { \
-            return false; \
-        } \
+#define TEST_EDGE_INTERIOR(pt, dir, len)                                                          \
+    if (above_edge_d0 < sphere.radius) {                                                          \
+        xVec3 to_sphere;                                                                          \
+        xVec3Sub(to_sphere, sphere.start, (pt));                                                  \
+        F32 along_edge_d0 = to_sphere.dot((dir));                                                 \
+        if (along_edge_d0 >= 0.0f && along_edge_d0 <= (len)) {                                    \
+            return false;                                                                         \
+        }                                                                                         \
     }
 
 bool TriangleTestSphereOnPlaneUnprocessed(const xPlane& surface, const xVec3& p0, const xVec3& p1, const xVec3& p2, const xSweptSphere& sphere, xCollideSphereToPolygonResults& results, F32 vertical_d0)
@@ -273,13 +273,13 @@ bool xSweptSphereToTriangleUnprocessed(const xSweptSphere& sphere, const xVec3& 
     return TriangleTestSphereOnPlaneUnprocessed(surface, pt0, pt1, pt2, sphere, results, vertical_d0);
 }
 
-#define SET_VERTEX_RESULT(collide, pt) \
-    results.dist = (collide).dist; \
-    results.contact = (pt); \
+#define SET_VERTEX_RESULT(collide, pt)          \
+    results.dist = (collide).dist;              \
+    results.contact = (pt);                     \
     results.type = exCOLLIDESPHEREHITTYPE_VERTEX
 
-#define CALC_DIST2(dist, pt) \
-    xVec3Sub(to_pt, (pt), sphere.start); \
+#define CALC_DIST2(dist, pt)                    \
+    xVec3Sub(to_pt, (pt), sphere.start);        \
     (dist) = to_pt.length2()
 
 static bool TriangleTestSphereToThreePoints(const xSweptSphere& sphere, xCollideSphereToPolygonResults& results, const xVec3& pt0, const xVec3& pt1, const xVec3& pt2)

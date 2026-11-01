@@ -6,8 +6,6 @@
 #include "xColor.h"
 #include "xModel.h"
 
-struct tweak_info;
-
 namespace xhud
 {
     struct render_context;
@@ -181,13 +179,6 @@ namespace xhud
     void render();
     xModelInstance* load_model(U32 id);
     void render_model(xModelInstance& m, const render_context& rc);
-
-#if DEBUG || RELEASE
-    void screenToNormalizedX(const tweak_info&, void* value);
-    void screenToNormalizedY(const tweak_info&, void* value);
-    void normalizedToScreenX(const tweak_info&, void* value);
-    void normalizedToScreenY(const tweak_info&, void* value);
-#endif
 
     inline void widget::disable() { flag.enabled = false; }
 } // namespace xhud

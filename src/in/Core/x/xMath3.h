@@ -3,7 +3,6 @@
 
 #include "xMath.h"
 #include "xVec3.h"
-#include "xDebug.h"
 
 struct xVec4
 {

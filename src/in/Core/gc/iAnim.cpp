@@ -55,7 +55,7 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
     }
 
     if (!BoneTable && !BlendTimeOffset) {
-        F32 lerp = BlendFactor * BlendRecip;
+        RwReal lerp = BlendFactor * BlendRecip;
 
         if (lerp < 0.0f) {
             lerp = 0.0f;
@@ -117,7 +117,7 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
         }
 
         for (i = 0; i < BoneCount; i++) {
-            F32 lerp;
+            RwReal lerp;
 
             if (BlendTimeOffset) {
                 baselerp = -(1 / 1024.0f * BlendTimeOffset[i * 2] - BlendFactor);

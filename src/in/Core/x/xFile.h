@@ -2,7 +2,6 @@
 #define XFILE_H
 
 #include "iFile.h"
-#include "xDebug.h"
 
 #define XFILE_RELNAME_MAX 32
 
@@ -31,13 +30,6 @@ inline void* xFileGetUserData(xFile* xf) { return xf->user_data; }
 
 inline XFILE_READSECTOR_STATUS xFileReadAsyncStatus(S32 key, S32* amtSoFar)
 {
-    XFILE_READSECTOR_STATUS x;
-    IFILE_READSECTOR_STATUS i;
-
-    xVALIDATE_L(116, (x=XFILE_RDSTAT_INPROG) == (i=IFILE_RDSTAT_INPROG));
-    xVALIDATE_L(117, (x=XFILE_RDSTAT_DONE) == (i=IFILE_RDSTAT_DONE));
-    xVALIDATE_L(118, (x=XFILE_RDSTAT_FAIL) == (i=IFILE_RDSTAT_FAIL));
-
     return (XFILE_READSECTOR_STATUS)iFileReadAsyncStatus(key, amtSoFar);
 }
 

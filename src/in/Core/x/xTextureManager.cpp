@@ -1,6 +1,5 @@
 #include "xTextureManager.h"
 
-#include "xDebug.h"
 #include "xstransvc.h"
 #include "xbinio.h"
 #include "iFile.h"
@@ -32,7 +31,6 @@ void xInternalTextureNode::FreeMemory()
                 return;
             }
         }
-        xASSERT_FMT_L(44, zeroIndex != -1, "Programming error: more textures loading than is possible...");
         xTextureManager::Get().m_clearIDs[zeroIndex] = info.aid;
     }
 }
@@ -53,7 +51,6 @@ void xTextureHandle::StopMovie()
 void xTextureHandle::dereference(bool clearPrev)
 {
     if (m_pNode) {
-        xASSERT_FMT_L(77, m_pNode->refCount > 0, "Should not have a refcount that is 0 or below when dereferencing");
         m_pNode->refCount--;
         if (clearPrev) {
             m_pPrevNode = NULL;
@@ -100,7 +97,6 @@ void xTextureHandle::PlayMovie(U32 assetID, U32 looping, U32 freezeframed, U32 s
 {
     if (assetID) {
         dereference(false);
-        xASSERT_FMT_L(142, 0==xSTFindAsset(assetID, NULL), "movie assets should NOT be in memory %X", assetID);
 
         PKRAssetTOCInfo info;
         S32 found = xSTGetAssetInfo(assetID, &info);
@@ -111,7 +107,6 @@ void xTextureHandle::PlayMovie(U32 assetID, U32 looping, U32 freezeframed, U32 s
                 m_pMovie->m_freezeframed = freezeframed;
                 m_pMovie->m_startframe = startframe;
                 m_pMovie->m_endframe = endframe;
-                xASSERT_L(157, !this->m_pMovie->pMovie);
                 m_pMovie->pMovie = iFMVOpen(m_pMovie->info);
             }
         }
@@ -229,12 +224,6 @@ void xTextureManager::AddTexture(xTextureHandle* handle, PKRAssetTOCInfo* pInfo)
     xInternalTextureNode* pNode = NULL;
     for (U32 i = 0; i < maxStreamingTextures; i++) {
         if (m_texture_nodes[i].used && m_texture_nodes[i].info.aid == pInfo->aid) {
-#if DEBUG
-            for (U32 j = i + 1; j < maxStreamingTextures; j++) {
-                xASSERT_FMT_L(319, !m_texture_nodes[j].used || m_texture_nodes[i].info.aid != m_texture_nodes[j].info.aid, "Streaming texture node list is corrupt. Blame a programmer");
-            }
-#endif
-
             handle->m_pNode = &m_texture_nodes[i];
             m_texture_nodes[i].refCount++;
             return;
@@ -249,7 +238,6 @@ void xTextureManager::AddTexture(xTextureHandle* handle, PKRAssetTOCInfo* pInfo)
             break;
         }
     }
-    xASSERT_FMT_L(344, pNode, "More streaming textures than maxStreamingTextures");
     pNode->refCount = 1;
     memcpy(&pNode->info, pInfo, sizeof(PKRAssetTOCInfo));
     handle->m_pNode = pNode;
@@ -277,15 +265,12 @@ void xTextureManager::AddMovie(xTextureHandle* handle, PKRAssetTOCInfo* pInfo)
             break;
         }
     }
-    xASSERT_FMT_L(374, pNode, "More streaming movie than maxStreamingMovies");
     memcpy(&pNode->info, pInfo, sizeof(PKRAssetTOCInfo));
     handle->m_pMovie = pNode;
 }
 
 void xTextureManager::reload(xTextureHandle* pHandle)
 {
-    xASSERT_FMT_L(419, pHandle && pHandle->m_pNode && !pHandle->m_pNode->pTexture && pHandle->m_pNode->state != xInternalTextureNode::LOADED, "This node is ready or not dynamic, so why reload it?");
-
     xFile* pFile = NULL;
     for (U32 i = 0; i < 4; i++) {
         if (!xFileGetUserData(&m_files[i])) {
@@ -300,7 +285,6 @@ void xTextureManager::reload(xTextureHandle* pHandle)
     xInternalTextureNode* pNode = pHandle->m_pNode;
     U32 size = DiskSize(pNode->info.size);
     U32 doubleSize = size * 2;
-    xASSERT_FMT_L(438, doubleSize <= m_maxPoolSize, "This image can't fit in the shared pool even if it kicked out all the other images");
     while (doubleSize + m_currentPoolSize > m_maxPoolSize) {
         if (!freeElement(pHandle->m_pPrevNode)) {
             return;
@@ -309,21 +293,17 @@ void xTextureManager::reload(xTextureHandle* pHandle)
 
     pNode->state = xInternalTextureNode::LOADING;
     pNode->pAssetMemory = RwMallocL(size, rwMEMHINTDUR_NADURATION, 450);
-    xASSERT_L(452, pNode->pAssetMemory);
 
     m_currentPoolSize += size;
     pNode->LRU = GetLRU();
     xFileSetUserData(pFile, pNode);
 
     const char* pHipFilename = xST_xAssetID_HIPFullPath(pNode->info.aid);
-    xASSERT_L(464, pHipFilename);
-    U32 res = iFileOpen(pHipFilename, 0x41, pFile);
-    xASSERT_L(469, !res &&"error opening file");
+    iFileOpen(pHipFilename, 0x41, pFile);
     iFileSeek(pFile, pNode->info.sector * iFileGetSectorSize(XFILE_DRIVE_CDVD), 0);
 
     S32 result = iFileReadAsync(pFile, pNode->pAssetMemory, size, fileCallback, 0);
     if (result == -1) {
-        xFAIL_FMT_L(476, "%s", "Async read has failed probably because there are too many streams at once.");
         pNode->state = xInternalTextureNode::UNLOADED;
         RwFree(pNode->pAssetMemory);
         m_currentPoolSize -= size;

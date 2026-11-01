@@ -1,12 +1,10 @@
 #include "xbinio.h"
 
 #include "xFile.h"
-#include "xDebug.h"
 
 #include <string.h>
 
 #define MAX_LOADINST 8
-#define FIOIO_GUESS_ALIGN 2
 
 struct st_BINIO_XTRADATA
 {
@@ -78,12 +76,9 @@ st_FILELOADINFO* xBinioLoadCreate(const char* filename, S32 fileflags)
         }
     }
 
-    xVALIDATE_L(439, fli);
-
     if (fli) {
         memset(fli, 0, sizeof(st_FILELOADINFO));
 
-        xVALIDATE_L(444, uselock>-1);
         fli->lockid = (uselock < 0) ? 0 : uselock;
 
         fli->xtradata = &g_xtraload[uselock];
@@ -126,7 +121,6 @@ st_FILELOADINFO* xBinioLoadCreate(const char* filename, S32 fileflags)
             fli->filesize = BFD_getLength(tmp_fp, fli->xtradata);
             fli->remain = fli->filesize;
         } else {
-            xWARN("Failed to open read file %s\n", filename);
             LoadDestroy(fli);
             fli = NULL;
         }
@@ -139,8 +133,6 @@ static void LoadDestroy(st_FILELOADINFO* fli)
 {
     xFile* fp = (xFile*)fli->privdata;
     U32 lockid = 0;
-
-    xVALIDATE_L(523, fli);
 
     if (fp) BFD_close(fp, fli->xtradata);
 
@@ -160,16 +152,12 @@ static S32 SkipBytes(st_FILELOADINFO* fli, S32 fwd)
     if (fwd < 0) fwd = 0;
 
     rc = BFD_seek(file, fli->position + fwd, 0, fli->xtradata);
-    xVALIDATE_L(591, !rc);
     if (rc) fli->error = FIOERR_SEEKFAIL;
     else {
         fli->remain -= fwd;
         fli->position += fwd;
-        xVALIDATE_L(596, fli->position<=fli->filesize);
-        xVALIDATE_L(597, fli->remain>=0);
     }
 
-    xVALIDATE_L(600, fli->error == FIOERR_NONE);
     if (fli->error != FIOERR_NONE) return 0;
     else return 1;
 }
@@ -181,19 +169,15 @@ static S32 ReadSeek(st_FILELOADINFO* fli, S32 pos)
 
     if (fli->error != FIOERR_NONE) return 0;
 
-    xVALIDATE_L(619, pos<=fli->filesize);
     pos = (pos < fli->filesize) ? pos : fli->filesize;
 
     rc = BFD_seek(file, pos, 0, fli->xtradata);
-    xVALIDATE_L(623, !rc);
     if (rc) fli->error = FIOERR_SEEKFAIL;
     else {
         fli->position = pos;
         fli->remain = fli->filesize - pos;
-        xVALIDATE_L(628, fli->remain>=0);
     }
 
-    xVALIDATE_L(631, fli->error == FIOERR_NONE);
     if (fli->error != FIOERR_NONE) return 0;
     else return 1;
 }
@@ -219,10 +203,8 @@ static S32 ReadRaw(st_FILELOADINFO* fli, void* data, S32 size, S32 count)
 
     if (fli->error != FIOERR_NONE) return amt;
 
-    xVALIDATE_L(682, (size * count) <= fli->remain);
     if ((size * count) > fli->remain) amt = fli->remain / size;
     else amt = count;
-    xVALIDATE_L(685, amt);
     if (amt) {
         n = BFD_read(data, size, amt, file, fli->xtradata);
 
@@ -230,8 +212,6 @@ static S32 ReadRaw(st_FILELOADINFO* fli, void* data, S32 size, S32 count)
 
         fli->remain -= size * amt;
         fli->position += size * amt;
-        xVALIDATE_L(697, fli->remain>=0);
-        xVALIDATE_L(698, fli->position<=fli->filesize);
     }
 
     return amt;
@@ -374,10 +354,6 @@ static void Swap8(char* d, S32 n)
     }
 }
 
-static void ALT_Swap2(S16* d, S32 n);
-static void ALT_Swap4(S32* d, S32 n);
-static void ALT_Swap8(S32* d, S32 n);
-
 static xFile* BFD_open(const char* filename, const char* mode, U32 lockid, S32, void* xtradata, S32 fileflags)
 {
     xFile* bffp = NULL;
@@ -385,22 +361,16 @@ static xFile* BFD_open(const char* filename, const char* mode, U32 lockid, S32, 
     st_BINIO_XTRADATA* xtra = (st_BINIO_XTRADATA*)xtradata;
     S32 xfflg = XFILE_READ;
 
-    xVALIDATE_L(1586, strlen(filename)<(XFILE_RELNAME_MAX-1));
-
     if (strcmp(mode, "rb") == 0) {
         bffp = &g_xfload[lockid];
         xfflg = XFILE_READ;
     }
     else if (strcmp(mode, "wb") == 0) {
-        xWARN("WARNING: BINIO write operation nonsupported\n");
         bffp = NULL;
         xfflg = XFILE_WRITE;
     } else {
-        xWARN("Unknown/Unsupported file open state request (%s)\n", mode);
         bffp = NULL;
     }
-
-    xVALIDATE_L(1606, bffp);
 
     if (bffp) {
         strncpy(bffp->relname, filename, XFILE_RELNAME_MAX - 1);
@@ -412,7 +382,6 @@ static xFile* BFD_open(const char* filename, const char* mode, U32 lockid, S32, 
 
         orc = iFileOpen(filename, xfflg, bffp);
         if (orc) {
-            xWARN("xFileOpen failed for %s(%d)\n", filename, orc);
             bffp = NULL;
         } else {
             xtra->fpos = 0;
@@ -431,8 +400,6 @@ static void BFD_close(xFile* bffp, void* xtradata)
 {
     st_BINIO_XTRADATA* xtra = (st_BINIO_XTRADATA*)xtradata;
 
-    xVALIDATE_L(1653, bffp);
-    xVALIDATE_L(1654, xtra);
     iFileClose(bffp);
 
     xtra->fpos = 0;
@@ -458,26 +425,15 @@ static S32 BFD_read(void* data, S32 elesize, S32 elecnt, xFile* bffp, void* xtra
     U32 safety = 0;
     U32 numBytes = elesize * elecnt;
 
-    xVALIDATE_L(1718, xtra);
-    xVALIDATE_L(1719, dest);
-    xVALIDATE_L(1720, numBytes);
     if (!numBytes) return actual;
 
     if (!xtra->dbl_buf || xtra->dblbuf_size < 1 || (S32)numBytes > xtra->dblbuf_size) {
-        xVALIDATE_L(1726, !(xtra->fpos % FIOIO_GUESS_ALIGN));
-
-        xVERBOSE("BINIO:read - direct passthru (code: %d)\n", numBytes);
-
         iFileSeek(bffp, xtra->fpos, 0);
         actual = iFileRead(bffp, dest, numBytes);
-        xVALIDATE_L(1739, actual==(S32)numBytes);
 
         xtra->fpos += actual;
     } else {
-        xVALIDATE_L(1748, xtra->dbl_buf && (xtra->dblbuf_size > 0));
-
         remain = numBytes;
-        xVERBOSE("BINIO:read - from buffer (code: %d)\n", numBytes);
 
         for (;;) {
             if (xtra->fpos < xtra->dbl_beg) {
@@ -502,8 +458,6 @@ static S32 BFD_read(void* data, S32 elesize, S32 elecnt, xFile* bffp, void* xtra
             }
 
             readbeg = xtra->fpos - xtra->dbl_beg;
-            xVALIDATE_L(1810, readbeg>=0);
-            xVALIDATE_L(1811, readbeg<xtra->dbl_amt);
 
             if (xtra->dbl_amt > readbeg) {
                 toread = (remain < xtra->dbl_amt - readbeg) ? remain : xtra->dbl_amt - readbeg;
@@ -517,20 +471,15 @@ static S32 BFD_read(void* data, S32 elesize, S32 elecnt, xFile* bffp, void* xtra
                 remain -= toread;
             }
 
-            xVALIDATE_L(1830, actual<=(S32)numBytes);
             if (actual == (S32)numBytes) break;
             else if (xtra->dbl_amt < 1) break;
 
-            xVALIDATE_L(1834, safety < 64);
             if (safety++ > 60000) break;
         }
     }
 
     return actual / elesize;
 }
-
-static S32 BFD_write(void*, S32, S32, xFile*, void*);
-static S32 BFD_tell(xFile*, void* xtradata);
 
 static S32 BFD_seek(xFile* bffp, S32 offset, S32 refpos, void* xtradata)
 {
@@ -539,7 +488,6 @@ static S32 BFD_seek(xFile* bffp, S32 offset, S32 refpos, void* xtradata)
 
     rc = iFileSeek(bffp, offset, refpos);
     rc = (rc == -1) ? 1 : 0;
-    xVALIDATE_L(1873, rc==0);
 
     xtra->fpos = offset;
 
@@ -568,14 +516,11 @@ static U32 BFD_startSector(const char* filename, S32 fileflags)
     return sect_start;
 }
 
-static void BFD_cb_asyncread(S32);
-
 static void BFD_cb_GCP2_readasync(xFile* file)
 {
     return;
 
     st_FILELOADINFO* fli = (st_FILELOADINFO*)xFileGetUserData(file);
-    xVALIDATE(fli);
     xFileSetUserData(file, NULL);
 }
 
@@ -587,10 +532,7 @@ static S32 BFD_AsyncRead(st_FILELOADINFO* fli, S32 pos, void* data, S32 size, S3
     U32 rdsec = 0;
     S32 rc = 0;
 
-    xVALIDATE_L(1995, pos>0);
-
     if (fli->error != FIOERR_NONE) return 0;
-    xVALIDATE_L(1998, g_async_context==NULL);
     if (g_async_context) return 0;
 
     g_async_context = xtra;
@@ -602,11 +544,9 @@ static S32 BFD_AsyncRead(st_FILELOADINFO* fli, S32 pos, void* data, S32 size, S3
     xtra->asyn_ismot = 1;
 
     rc = iFileSeek(file, pos, 0);
-    xVALIDATE_L(2015, rc==pos);
 
     xFileSetUserData(file, fli);
     rc = iFileReadAsync(file, data, size * n, BFD_cb_GCP2_readasync, 0);
-    xVALIDATE_L(2021, rc>=0);
     if (rc < 0) result = 0;
     else {
         xtra->gcaskey = rc;
@@ -616,7 +556,6 @@ static S32 BFD_AsyncRead(st_FILELOADINFO* fli, S32 pos, void* data, S32 size, S3
     if (!result) {
         g_async_context = NULL;
         xtra->asyn_status = BINIO_ASYNC_NOOP;
-        xWARN("XBIN: GCAsync queue failed\n");
     }
 
     return (rdsec == 0) ? 1 : 0;
@@ -628,12 +567,9 @@ static en_BIO_ASYNC_ERRCODES BFD_AsyncReadStatus(st_FILELOADINFO* fli)
     st_BINIO_XTRADATA* xtra = (st_BINIO_XTRADATA*)fli->xtradata;
     XFILE_READSECTOR_STATUS xrdstat = XFILE_RDSTAT_NOOP;
 
-    xVALIDATE_L(2122, g_async_context);
     if (!g_async_context) return status;
 
-    xVALIDATE_L(2125, xtra == g_async_context);
     if (xtra != g_async_context) {
-        xWARN("BIO: Non-Owner client requesting async status\n");
         return BINIO_ASYNC_INPROG;
     }
 

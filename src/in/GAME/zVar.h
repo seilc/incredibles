@@ -47,8 +47,8 @@ enum zVarEntryID // helper enum, not present in dwarf
     eVarEntryCount
 };
 
-#define zVarEntryNeedsContext(entry)                                                               \
-    ((entry) == eVarEntryCounterValue || (entry) == eVarEntryIsEnabled ||                          \
+#define zVarEntryNeedsContext(entry)                                                              \
+    ((entry) == eVarEntryCounterValue || (entry) == eVarEntryIsEnabled ||                         \
      (entry) == eVarEntryIsVisible || (entry) == eVarEntryIsReferenceNULL)
 
 extern zVarEntry zVarEntryTable[eVarEntryCount];

@@ -45,65 +45,56 @@ T binary_find(T first, T last, const V& value, C cmp)
 
 template <class T> static inline T xUtil_choose(const T* r3, S32 r4, const F32* r5)
 {
-    if (!r3)
-    {
+    if (!r3) {
         return 0;
     }
 
-    if (r4 < 1)
-    {
+    if (r4 < 1) {
         return 0;
     }
 
     S32 r31 = 0;
     F32 f1 = xurand();
 
-    if (!r5)
-    {
+    if (!r5) {
         r31 = f1 * r4;
-    }
-    else
-    {
+    } else {
         F32 f2 = 0.0f;
 
-        for (S32 i = 0; i < r4; i++)
-        {
+        for (S32 i = 0; i < r4; i++) {
             F32 f3 = f2;
 
             f2 += r5[i];
 
-            if (f1 >= f3 && f1 <= f2)
-            {
+            if (f1 >= f3 && f1 <= f2) {
                 r31 = i;
                 break;
             }
         }
     }
 
-    if (r31 >= r4)
-    {
+    if (r31 >= r4) {
         r31 = r4 - 1;
     }
 
-    if (r31 < 0)
-    {
+    if (r31 < 0) {
         r31 = 0;
     }
 
     return r3[r31];
 }
 
-#define XUTIL_SWAP(a, b, width)                                                                   \
-do {                                                                                              \
-    U8* _b0 = (a);                                                                                \
-    U8* _b1 = (b);                                                                                \
-    U8* _endb0 = (a) + (width);                                                                   \
-    while (_b0 != _endb0) {                                                                       \
-        U32 _temp = *(U32*)_b0;                                                                   \
-        *(U32*)_b0 = *(U32*)_b1;                                                                  \
-        *(U32*)_b1 = _temp;                                                                       \
-        _b0 += 4, _b1 += 4;                                                                       \
-    }                                                                                             \
+#define XUTIL_SWAP(a, b, width)                 \
+do {                                            \
+    U8* _b0 = (a);                              \
+    U8* _b1 = (b);                              \
+    U8* _endb0 = (a) + (width);                 \
+    while (_b0 != _endb0) {                     \
+        U32 _temp = *(U32*)_b0;                 \
+        *(U32*)_b0 = *(U32*)_b1;                \
+        *(U32*)_b1 = _temp;                     \
+        _b0 += 4, _b1 += 4;                     \
+    }                                           \
 } while (0)
 
 template <class T>

@@ -158,9 +158,9 @@ static void xBoundOBBIsectRay(const xBox* b, const xMat4x3* m, const xRay3* r, x
     xVec3 scale;
     xMat4x3 mnormal;
 
-    xVec3NormalizeMacro(scale.x, &mnormal.right, &m->right);
-    xVec3NormalizeMacro(scale.y, &mnormal.up, &m->up);
-    xVec3NormalizeMacro(scale.z, &mnormal.at, &m->at);
+    xVec3NormalizeMacro(&mnormal.right, &m->right, &scale.x);
+    xVec3NormalizeMacro(&mnormal.up, &m->up, &scale.y);
+    xVec3NormalizeMacro(&mnormal.at, &m->at, &scale.z);
     mnormal.pos = m->pos;
 
     sbox.upper.x = b->upper.x * scale.x, sbox.upper.y = b->upper.y * scale.y, sbox.upper.z = b->upper.z * scale.z;
