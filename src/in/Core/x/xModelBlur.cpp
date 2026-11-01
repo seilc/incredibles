@@ -478,8 +478,8 @@ void xModelBlur::render()
     xFRect tex_rect;
     tex_rect.x = 0.0f;
     tex_rect.y = 0.0f;
-    tex_rect.w = xmin(scr_rect.w, 128.0f);
-    tex_rect.h = xmin(scr_rect.h, 128.0f);
+    tex_rect.w = MIN(scr_rect.w, 128.0f);
+    tex_rect.h = MIN(scr_rect.h, 128.0f);
 
     camtex.setup_subview(world_cam, scr_rect, tex_rect);
 

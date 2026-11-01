@@ -638,7 +638,7 @@ xClumpCollBSPTree* xClumpColl_ForAllIntersections(xClumpCollBSPTree* tree, RpInt
         xClumpCollSphereBBoxMacro(&isData.bbox, &intersection->t.sphere.center, intersection->t.sphere.radius);
 
         testSphere.sphere = &intersection->t.sphere;
-        testSphere.sphere->radius = xmax(1e-5f, testSphere.sphere->radius);
+        testSphere.sphere->radius = MAX(1e-5f, testSphere.sphere->radius);
         testSphere.recipRadius = 1.0f / testSphere.sphere->radius;
         isData.leafTestData = &testSphere;
         isData.cbParam = &cbParam;

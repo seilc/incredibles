@@ -123,7 +123,7 @@ void text_widget::set_text(const char* intext)
     xASSERT_FMT_L(133, (intext), "String is not set !");
 
     size_t textchars = strlen(intext);
-    size_t copychars = xmin(textchars, sizeof(text) - 1);
+    size_t copychars = MIN(textchars, sizeof(text) - 1);
 
     memcpy(text, intext, copychars);
     text[copychars] = '\0';
@@ -214,7 +214,7 @@ bool blink_text_motive_update(widget& w, motive& m, F32 dt)
     }
 
     F32 percent_done = m.current_blink_time / m.time_to_blink;
-    percent_done = xclamp(percent_done, 0.0f, 1.0f);
+    percent_done = CLAMP(percent_done, 0.0f, 1.0f);
     F32 curr_blink_period = percent_done * m.end_blink_period + (1.0f - percent_done) * m.start_blink_period;
     F32 on_time = 0.5f * curr_blink_period;
 

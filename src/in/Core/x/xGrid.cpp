@@ -47,7 +47,7 @@ void xGridInit(xGrid* grid, const xBox* bounds, U16 nx, U16 nz, U8 ingrid_id)
     }
 
     grid->iter_active = 0;
-    grid->maxr = 0.25f * xmin(grid->csizex, grid->csizez);
+    grid->maxr = 0.25f * MIN(grid->csizex, grid->csizez);
     grid->cells = (xGridBound**)xMEMALLOC((U32)nx * nz * sizeof(xGridBound*), 0);
     memset(grid->cells, 0, nx * nz * sizeof(xGridBound*));
 }
@@ -164,8 +164,8 @@ S32 xGridAdd(xGrid* grid, xEnt* ent)
     F32 cgridx, cgridz;
     cgridx = center->x - grid->minx, cgridz = center->z - grid->minz;
     cgridx *= grid->inv_csizex, cgridz *= grid->inv_csizez;
-    S32 x = xmin(grid->nx - 1, xmax(0.0f, cgridx));
-    S32 z = xmin(grid->nz - 1, xmax(0.0f, cgridz));
+    S32 x = MIN(grid->nx - 1, MAX(0.0f, cgridx));
+    S32 z = MIN(grid->nz - 1, MAX(0.0f, cgridz));
 
     if (xGridAdd(grid, &ent->gridb, x, z)) {
         ent->gridb.gx = x;
@@ -253,8 +253,8 @@ void xGridGetCell(xGrid* grid, F32 posx, F32, F32 posz, S32& grx, S32& grz)
     F32 pgridx, pgridz;
     pgridx = posx - grid->minx, pgridz = posz - grid->minz;
     pgridx *= grid->inv_csizex, pgridz *= grid->inv_csizez;
-    grx = xmin(grid->nx - 1, xmax(0.0f, pgridx));
-    grz = xmin(grid->nz - 1, xmax(0.0f, pgridz));
+    grx = MIN(grid->nx - 1, MAX(0.0f, pgridx));
+    grz = MIN(grid->nz - 1, MAX(0.0f, pgridz));
 }
 
 xGridBound* xGridIterFirstCell(xGrid* grid, F32 posx, F32 posy, F32 posz, S32& grx, S32& grz, xGridIterator& it)
@@ -444,8 +444,8 @@ static inline void get_grid_index(S32& ox, S32& oz, const xGrid& grid, F32 x, F3
     S32 iz = grid.inv_csizez * (z - grid.minz);
     S32 xmax = grid.nx - 1;
     S32 zmax = grid.nz - 1;
-    ox = xclamp(ix, 0, xmax);
-    oz = xclamp(iz, 0, zmax);
+    ox = CLAMP(ix, 0, xmax);
+    oz = CLAMP(iz, 0, zmax);
 }
 
 void xGridCheckBoundSetup(xBox& box, S32& lower_x, S32& lower_z, S32& upper_x, S32& upper_z, xGrid& grid,

@@ -366,7 +366,7 @@ S32 imemcmp(const void* d1, const void* d2, size_t size)
 
 S32 icompare(const substr& s1, const substr& s2)
 {
-    size_t len = xmin(s1.size, s2.size);
+    size_t len = MIN(s1.size, s2.size);
     S32 c = imemcmp(s1.text, s2.text, len);
     if (c != 0) {
         return c;

@@ -69,8 +69,6 @@ void xQuickCullForBound(xQCControl* ctrl, xQCData* q, const xBound* b)
     }    
 }
 
-#define CLAMP(x, a, b) ((x) < (b) ? (x) : (b)) < (a) ? (a) : ((x) < (b) ? (x) : (b))
-
 static void xQuickCullCellForVec(xQCControl* ctrl, xQCData* c, const xVec3* v)
 {
     c->xmin = CLAMP((S32)((v->x - ctrl->center_x) * ctrl->scale_x), -127, 127);
@@ -85,13 +83,13 @@ static void xQuickCullCellForVec(xQCControl* ctrl, xQCData* c, const xVec3* v)
 
 static void xQuickCullCellMerge(xQCData* o, const xQCData* a, const xQCData* b)
 {
-    o->xmin = xmin(a->xmin, b->xmin);
-    o->ymin = xmin(a->ymin, b->ymin);
-    o->zmin = xmin(a->zmin, b->zmin);
+    o->xmin = MIN(a->xmin, b->xmin);
+    o->ymin = MIN(a->ymin, b->ymin);
+    o->zmin = MIN(a->zmin, b->zmin);
     o->zmin_dup = o->zmin;
-    o->xmax = xmax(a->xmax, b->xmax);
-    o->ymax = xmax(a->ymax, b->ymax);
-    o->zmax = xmax(a->zmax, b->zmax);
+    o->xmax = MAX(a->xmax, b->xmax);
+    o->ymax = MAX(a->ymax, b->ymax);
+    o->zmax = MAX(a->zmax, b->zmax);
     o->zmax_dup = o->zmax;
 }
 

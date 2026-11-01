@@ -45,7 +45,7 @@ namespace zHud
             if (m_offDecayTime > 0.0f)
             {
                 timeoff /= m_offDecayTime;
-                fPercentDecay = xmin(fPercentDecay, timeoff);
+                fPercentDecay = MIN(fPercentDecay, timeoff);
             }
 
             m_pImageWidget->set_layer_alpha(m_uFlashLayer, 1.0f - fPercentDecay);

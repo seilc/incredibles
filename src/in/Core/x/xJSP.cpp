@@ -382,12 +382,12 @@ static F32 GetSplitVolumeSum(xJSPNodeTreeLeaf* tleaf, S32 count, S32 axis, F32 c
             if (numleft == 0) {
                 leftbox = tleaf[i].box;
             } else {
-                leftbox.inf.x = xmin(leftbox.inf.x, tleaf[i].box.inf.x);
-                leftbox.inf.y = xmin(leftbox.inf.y, tleaf[i].box.inf.y);
-                leftbox.inf.z = xmin(leftbox.inf.z, tleaf[i].box.inf.z);
-                leftbox.sup.x = xmax(leftbox.sup.x, tleaf[i].box.sup.x);
-                leftbox.sup.y = xmax(leftbox.sup.y, tleaf[i].box.sup.y);
-                leftbox.sup.z = xmax(leftbox.sup.z, tleaf[i].box.sup.z);
+                leftbox.inf.x = MIN(leftbox.inf.x, tleaf[i].box.inf.x);
+                leftbox.inf.y = MIN(leftbox.inf.y, tleaf[i].box.inf.y);
+                leftbox.inf.z = MIN(leftbox.inf.z, tleaf[i].box.inf.z);
+                leftbox.sup.x = MAX(leftbox.sup.x, tleaf[i].box.sup.x);
+                leftbox.sup.y = MAX(leftbox.sup.y, tleaf[i].box.sup.y);
+                leftbox.sup.z = MAX(leftbox.sup.z, tleaf[i].box.sup.z);
             }
             numleft++;
         }
@@ -396,12 +396,12 @@ static F32 GetSplitVolumeSum(xJSPNodeTreeLeaf* tleaf, S32 count, S32 axis, F32 c
             if (numright == 0) {
                 rightbox = tleaf[i].box;
             } else {
-                rightbox.inf.x = xmin(rightbox.inf.x, tleaf[i].box.inf.x);
-                rightbox.inf.y = xmin(rightbox.inf.y, tleaf[i].box.inf.y);
-                rightbox.inf.z = xmin(rightbox.inf.z, tleaf[i].box.inf.z);
-                rightbox.sup.x = xmax(rightbox.sup.x, tleaf[i].box.sup.x);
-                rightbox.sup.y = xmax(rightbox.sup.y, tleaf[i].box.sup.y);
-                rightbox.sup.z = xmax(rightbox.sup.z, tleaf[i].box.sup.z);
+                rightbox.inf.x = MIN(rightbox.inf.x, tleaf[i].box.inf.x);
+                rightbox.inf.y = MIN(rightbox.inf.y, tleaf[i].box.inf.y);
+                rightbox.inf.z = MIN(rightbox.inf.z, tleaf[i].box.inf.z);
+                rightbox.sup.x = MAX(rightbox.sup.x, tleaf[i].box.sup.x);
+                rightbox.sup.y = MAX(rightbox.sup.y, tleaf[i].box.sup.y);
+                rightbox.sup.z = MAX(rightbox.sup.z, tleaf[i].box.sup.z);
             }
             numright++;
         }
@@ -499,10 +499,10 @@ static void RecurseSplitJSPNode(xJSPNodeTreeLeaf* tleaf, S32 count, TempSplitChi
             sSplitCurr->leftValue = -HUGE;
 
             for (i = 0; i < lastright; i++) {
-                sSplitCurr->leftValue = xmax(sSplitCurr->leftValue, GETCOORD(tleaf[i].box.sup, bestaxis));
+                sSplitCurr->leftValue = MAX(sSplitCurr->leftValue, GETCOORD(tleaf[i].box.sup, bestaxis));
             }
             for (; i < count; i++) {
-                sSplitCurr->rightValue = xmin(sSplitCurr->rightValue, GETCOORD(tleaf[i].box.inf, bestaxis));
+                sSplitCurr->rightValue = MIN(sSplitCurr->rightValue, GETCOORD(tleaf[i].box.inf, bestaxis));
             }
 
             if (childptr) {
@@ -554,12 +554,12 @@ xJSPNodeTree* xJSPNodeTreeBuild(xJSPHeader* jsp)
         tleaf[i].box.sup.z = -HUGE;
 
         for (j = 0; j < numVert; j++) {
-            tleaf[i].box.inf.x = xmin(tleaf[i].box.inf.x, vert[j].x);
-            tleaf[i].box.inf.y = xmin(tleaf[i].box.inf.y, vert[j].y);
-            tleaf[i].box.inf.z = xmin(tleaf[i].box.inf.z, vert[j].z);
-            tleaf[i].box.sup.x = xmax(tleaf[i].box.sup.x, vert[j].x);
-            tleaf[i].box.sup.y = xmax(tleaf[i].box.sup.y, vert[j].y);
-            tleaf[i].box.sup.z = xmax(tleaf[i].box.sup.z, vert[j].z);
+            tleaf[i].box.inf.x = MIN(tleaf[i].box.inf.x, vert[j].x);
+            tleaf[i].box.inf.y = MIN(tleaf[i].box.inf.y, vert[j].y);
+            tleaf[i].box.inf.z = MIN(tleaf[i].box.inf.z, vert[j].z);
+            tleaf[i].box.sup.x = MAX(tleaf[i].box.sup.x, vert[j].x);
+            tleaf[i].box.sup.y = MAX(tleaf[i].box.sup.y, vert[j].y);
+            tleaf[i].box.sup.z = MAX(tleaf[i].box.sup.z, vert[j].z);
         }
 
         atomCurr++;
