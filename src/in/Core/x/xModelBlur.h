@@ -30,7 +30,7 @@ public:
     static void reset_all();
     static void update_all(F32 dt);
     static void render_all();
-    static config_data& get_default_config();
+    static const config_data& get_default_config();
 
     void create();
     bool activate(F32 lifetime, F32 alpha, const config_data& cfg, xModelInstance* model);

@@ -228,10 +228,10 @@ void xModelBlur::render_all()
     }
 }
 
-xModelBlur::config_data& xModelBlur::get_default_config()
+const xModelBlur::config_data& xModelBlur::get_default_config()
 {
     static const config_data cfg = { 0, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.1f, 0.0f, 32 };
-    return (config_data&)cfg;
+    return cfg;
 }
 
 void xModelBlur::create()
