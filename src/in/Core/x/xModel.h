@@ -19,6 +19,7 @@ struct xModelPipe
 
 struct xModelPool;
 struct xModelBucket;
+template <class T> struct basic_rect;
 
 struct xModelInstance
 {
@@ -94,8 +95,21 @@ void xModelUpdate(xModelInstance* modelInst, F32 timeDelta);
 void xModelEval(xModelInstance* modelInst);
 S32 xModelCullSingle(xModelInstance* minst);
 void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
+void xModelRender2D(const xModelInstance& model, const basic_rect<F32>& r, const xVec3& from, const xVec3& to);
 
 xMat4x3* xModelGetFrame(xModelInstance* minst);
+
+inline void xModelSetFrame(xModelInstance* model, const xMat4x3* frame)
+{
+    xMat4x3Copy((xMat4x3*)model->Mat, frame);
+}
+
+xModelInstance* xModelInstanceAllocReuse(RpAtomic* data, void* object, U16 flags, U8 boneIndex, U8* boneRemap, xModelInstance* reuse_instance);
+
+inline xModelInstance* xModelInstanceAlloc(RpAtomic* data, void* object, U16 flags, U8 boneIndex, U8* boneRemap)
+{
+    return xModelInstanceAllocReuse(data, object, flags, boneIndex, boneRemap, NULL);
+}
 
 inline void xModelSetMaterialAlpha(xModelInstance* modelInst, U8 alpha)
 {

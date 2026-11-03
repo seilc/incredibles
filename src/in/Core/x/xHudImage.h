@@ -10,6 +10,8 @@ namespace xhud
     class image_widget : public widget
     {
     public:
+        struct widget_chunk;
+
         enum RENDERTYPE
         {
             TOPLEFT,
@@ -78,6 +80,11 @@ namespace xhud
         F32 m_fRecipZ;
         U16 m_VertexMax;
         U16 m_IndexMax;
+    };
+
+    struct image_widget::widget_chunk : xBase
+    {
+        image_widget w;
     };
 }; // namespace xhud
 

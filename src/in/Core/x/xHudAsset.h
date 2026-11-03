@@ -11,6 +11,8 @@ struct asset : xDynAsset
 {
     xVec3 loc;
     xVec3 size;
+
+    static const char* type_name() { return "hud"; }
 };
 
 struct model_asset : asset

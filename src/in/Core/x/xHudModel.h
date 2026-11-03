@@ -9,6 +9,8 @@ namespace xhud
     class model_widget : public widget
     {
     public:
+        struct widget_chunk;
+
         static void load(xBase& data, xDynAsset& asset, size_t);
 
         model_widget(const model_asset& a);
@@ -28,6 +30,11 @@ namespace xhud
         xModelInstance* model;
         F32 x_scale;
         F32 y_scale;
+    };
+
+    struct model_widget::widget_chunk : xBase
+    {
+        model_widget w;
     };
 } // namespace xhud
 
