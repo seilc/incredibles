@@ -1,7 +1,7 @@
 #include "xRenderBuffer.h"
 
-tagiRenderArrays gRenderArr;
-tagiRenderInput gRenderBuffer;
+iRenderArrays gRenderArr;
+iRenderInput gRenderBuffer;
 
 void xRenderBufferInit()
 {

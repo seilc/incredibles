@@ -597,6 +597,7 @@ RwRaster* RwRasterUnlock(RwRaster* raster);
 RwTexture* RwTextureCreate(RwRaster* raster);
 RwBool RwTextureDestroy(RwTexture* texture);
 RxRenderStateVector* RxRenderStateVectorLoadDriverState(RxRenderStateVector* rsvp);
+void _rwDlRenderStateSetZCompLoc(RwBool zBeforeTex);
 RwBool _rwFrameSyncDirty(void);
 void _rwObjectHasFrameSetFrame(void* object, RwFrame* frame);
 

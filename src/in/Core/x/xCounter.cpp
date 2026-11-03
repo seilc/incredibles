@@ -15,7 +15,7 @@ namespace
 
 void xCounterInit()
 {
-    xDebugRemoveTweak("Widgets|Counters");
+    xTWEAKREMOVE("Widgets|Counters");
 }
 
 void xCounterInit(void* b, void* asset)

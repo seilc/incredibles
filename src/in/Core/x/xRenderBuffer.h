@@ -7,14 +7,14 @@
 #define IRENDER_NUM_VERTEX 480
 #define IRENDER_NUM_VERTEXTZ 480
 
-struct tagiRenderArrays
+typedef struct tagiRenderArrays
 {
     U16 m_index[IRENDER_NUM_INDEX];
     RwIm3DVertex m_vertex[IRENDER_NUM_VERTEX];
     F32 m_vertexTZ[IRENDER_NUM_VERTEXTZ];
-};
+} iRenderArrays;
 
-struct tagiRenderInput
+typedef struct tagiRenderInput
 {
     U16* m_index;
     RwIm3DVertex* m_vertex;
@@ -27,10 +27,10 @@ struct tagiRenderInput
     xMat4x3 m_camViewMatrix;
     xVec4 m_camViewR;
     xVec4 m_camViewU;
-};
+} iRenderInput;
 
-extern tagiRenderArrays gRenderArr;
-extern tagiRenderInput gRenderBuffer;
+extern iRenderArrays gRenderArr;
+extern iRenderInput gRenderBuffer;
 
 void xRenderBufferInit();
 
