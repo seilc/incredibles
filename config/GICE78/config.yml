@@ -78,6 +78,10 @@ add_relocations:
   type: sda21
   target: "@964!.sdata2:0x803D5A18"
   addend: -4
+- source: .text:0x80198080
+  type: sda21
+  target: "@1116!.sdata2:0x803D6108"
+  addend: -4
 - source: .text:0x801D6968
   type: sda21
   target: "@1408!.sdata2:0x803D6E04"
