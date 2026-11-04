@@ -10,10 +10,10 @@
 
 void zEnvInit(void* env, void* easset)
 {
-    zEnvInit((_zEnv*)env, (xEnvAsset*)easset);
+    zEnvInit((zEnv*)env, (xEnvAsset*)easset);
 }
 
-void zEnvInit(_zEnv* env, xEnvAsset* easset)
+void zEnvInit(zEnv* env, xEnvAsset* easset)
 {
     xBaseInit(env, easset);
 
@@ -59,13 +59,13 @@ void zEnvInit(_zEnv* env, xEnvAsset* easset)
     }
 }
 
-void zEnvSetup(_zEnv* env)
+void zEnvSetup(zEnv* env)
 {
     xBaseSetup(env);
     iEnvLightingBasics(globals.sceneCur->env->geom, env->easset);
 }
 
-void zEnvStartingCamera(_zEnv*)
+void zEnvStartingCamera(zEnv*)
 {
 }
 
@@ -104,17 +104,17 @@ void zEnvRender(xEnv* env)
     xEnvRender(env, false);
 }
 
-void zEnvSave(_zEnv* ent, xSerial* s)
+void zEnvSave(zEnv* ent, xSerial* s)
 {
     xBaseSave(ent, s);
 }
 
-void zEnvLoad(_zEnv* ent, xSerial* s)
+void zEnvLoad(zEnv* ent, xSerial* s)
 {
     xBaseLoad(ent, s);
 }
 
-void zEnvReset(_zEnv* env)
+void zEnvReset(zEnv* env)
 {
     xBaseReset(env, env->easset);
 }
@@ -124,7 +124,7 @@ void zEnvEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase* toParamWidge
     switch (toEvent)
     {
     case eEventReset:
-        zEnvReset((_zEnv*)to);
+        zEnvReset((zEnv*)to);
         break;
     case eEventOn:
         iEnvJSPOn(globals.sceneCur->env->geom, (xJSPHeader*)toParamWidget);

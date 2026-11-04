@@ -215,7 +215,7 @@ void xFXHighDynamicRangeRender(RwCamera*)
     if (!tweak::render || !enabled)
         return;
 
-    if (globals.LoadingScene || (!zMenuRunning() && zGameGetOstrich() != eGameOstrich_InScene))
+    if (globals.inLoadingScreen || (!zMenuRunning() && zGameGetOstrich() != eGameOstrich_InScene))
         return;
 
     zRenderState(SDRS_Fill);

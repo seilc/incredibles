@@ -149,9 +149,9 @@ namespace zNPC
             model->Anim->Single->State->Speed = move_speed_multiply;
             model->Anim->Single->CurrentSpeed = move_speed_multiply;
 
-            xVec3 var_18;
-            xMat3x3RMulVec(&var_18, &frame->mat, &model->Anim->Single->PhysDisp);
-            xVec3AddTo(frame->setDpos(), var_18);
+            xVec3 disp;
+            xMat3x3RMulVec(&disp, &frame->mat, &model->Anim->Single->PhysDisp);
+            xVec3AddTo(frame->setDpos(), disp);
 
             xVec3Init(&model->Anim->Single->PhysDisp, 0.0f, 0.0f, 0.0f);
         }
@@ -193,10 +193,10 @@ namespace zNPC
         {
             if (xBoundHitsBound(bound, hit->bound))
             {
-                xVec3* r31 = xBoundCenter(&bound);
-                xVec3* r27 = xBoundCenter(&hit->bound);
+                xVec3* npccenter = xBoundCenter(&bound);
+                xVec3* hitcenter = xBoundCenter(&hit->bound);
 
-                xVec3 hitdir = { r31->x - r27->x, r31->y - r27->y, r31->z - r27->z };
+                xVec3 hitdir = { npccenter->x - hitcenter->x, npccenter->y - hitcenter->y, npccenter->z - hitcenter->z };
 
                 hitdir.up_normalize();
 
@@ -208,7 +208,7 @@ namespace zNPC
                 info.knockback.x = hitdir.x * hit->knockback;
                 info.knockback.y = hitdir.y * hit->knockback;
                 info.knockback.z = hitdir.z * hit->knockback;
-                info.hitLocation = *r27;
+                info.hitLocation = *hitcenter;
 
                 zCombatDamage(this, info);
             }

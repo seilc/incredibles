@@ -169,7 +169,7 @@ bool zCamPreset::get_relative(xVec3& loc, F32& yaw) const
 
 void zCamPreset::get_matrix(xMat4x3& mat) const
 {
-    xMat4x3 arg_20;
+    xMat4x3 check_mat;
     xVec3 loc;
     F32 yaw;
 
@@ -179,11 +179,11 @@ void zCamPreset::get_matrix(xMat4x3& mat) const
 
     if (get_relative(loc, yaw))
     {
-        xMat3x3Euler(&arg_20, yaw, 0.0f, 0.0f);
+        xMat3x3Euler(&check_mat, yaw, 0.0f, 0.0f);
 
-        arg_20.pos = loc;
+        check_mat.pos = loc;
 
-        xMat4x3Mul(&mat, &mat, &arg_20);
+        xMat4x3Mul(&mat, &mat, &check_mat);
     }
 }
 

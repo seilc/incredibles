@@ -497,8 +497,8 @@ void xModelBlur::render()
     FBSaveMem = (U32*)(((U32)FBSaveMemPopAddr + 31) & ~31);
     textureMem = (U32*)(((U32)textureMemPopAddr + 31) & ~31);
 
-    GXColor r1_14 = { 0, 0, 0, 0 };
-    GXSetCopyClear(r1_14, GX_MAX_Z24);
+    GXColor clearColor = { 0, 0, 0, 0 };
+    GXSetCopyClear(clearColor, GX_MAX_Z24);
 
     GXSetTexCopySrc(0, 0, 128, 128);
     GXSetTexCopyDst(128, 128, GX_TF_RGBA8, GX_FALSE);

@@ -10,7 +10,6 @@
 #include "zPlayer.h"
 #include "zScene.h"
 
-#include "types.h"
 #include <rwcore.h>
 #include <rpworld.h>
 
@@ -83,6 +82,7 @@ struct xGlobals
     S8 currentActivePad;
     U8 firstStartPressed;
     U8 fromLauncher;
+    U8 skipAssertWithController;
     U8 FlashWIP;
     U8 inLoadingScreen;
     U8 LoadingScene;

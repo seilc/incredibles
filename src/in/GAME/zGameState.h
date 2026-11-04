@@ -26,7 +26,7 @@ typedef enum _GameOstrich
     eGameOstrich_PlayingMovie,
     eGameOstrich_InScene,
     eGameOstrich_Total
-} GameOstrich;
+} eGameOstrich;
 
 // Fake enums, copied from bfbb decomp
 
@@ -90,12 +90,12 @@ enum eIntroState
 
 extern S32 gGameState;
 extern eGameMode gGameMode;
-extern _GameOstrich gGameOstrich;
+extern eGameOstrich gGameOstrich;
 
 S32 zGameStateGet();
 S32 zGameModeGet();
-GameOstrich zGameGetOstrich();
-void zGameSetOstrich(GameOstrich o);
+eGameOstrich zGameGetOstrich();
+void zGameSetOstrich(eGameOstrich o);
 S32 zGameStateFindEvent(U32* eventList, S32 eventCount, S32 targetMode, S32 targetEvent,
                            S32* new_mode, S32* new_state);
 void zGameStateSwitchEvent(S32 event);

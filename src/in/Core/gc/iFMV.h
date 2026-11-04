@@ -1,7 +1,6 @@
 #ifndef IFMV_H
 #define IFMV_H
 
-#include "types.h"
 #include "xpkrsvc.h"
 #include <rwcore.h>
 #include <dolphin.h>
@@ -23,6 +22,6 @@ struct MOVIE
 MOVIE* iFMVOpen(PKRAssetTOCInfo& rAssetInfo);
 void iFMVClose(MOVIE*& pMovie);
 U32 iFMVPlay(const char* filename, U32 buttons, F32 time, U32 uSubtitlesAID,
-                bool skippable, bool lockController, bool r8);
+                bool skippable, bool lockController, bool displayDemoBlink);
 
 #endif

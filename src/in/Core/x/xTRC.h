@@ -24,17 +24,17 @@ typedef enum _tagTRCState
     TRC_Total
 } TRCState;
 
-struct _tagTRCPadInfo : _tagiTRCPadInfo
+typedef struct _tagTRCPadInfo : iTRCPadInfo
 {
     S32 id;
     TRCState state;
-};
+} TRCPadInfo;
 
-struct _tagTRCDiskInfo
+typedef struct _tagTRCDiskInfo
 {
     TRCState state;
     TRCState id;
-};
+} TRCDiskInfo;
 
 void xTRCInit();
 void xTRCInitMessages();

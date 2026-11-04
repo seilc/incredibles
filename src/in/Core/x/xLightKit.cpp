@@ -1,7 +1,6 @@
 #include "xLightKit.h"
 
 #include "xMath.h"
-
 #include "iAsync.h"
 
 #include <string.h>

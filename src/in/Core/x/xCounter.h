@@ -8,20 +8,20 @@ struct xCounterAsset : xBaseAsset
     S16 count;
 };
 
-struct _xCounter : xBase
+typedef struct _xCounter : xBase
 {
     xCounterAsset* asset;
     S16 count;
     U8 state;
     U8 pad;
-};
+} xCounter;
 
 void xCounterInit();
 void xCounterInit(void* b, void* asset);
 void xCounterInit(xBase* b, xCounterAsset* asset);
 void xCounterReset(xBase* b);
-void xCounterSave(_xCounter* ent, xSerial* s);
-void xCounterLoad(_xCounter* ent, xSerial* s);
+void xCounterSave(xCounter* ent, xSerial* s);
+void xCounterLoad(xCounter* ent, xSerial* s);
 void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
                      xBase* toParamWidget, U32);
 

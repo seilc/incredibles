@@ -20,14 +20,14 @@ U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
         return 0;
     }
 
-    F32 f1 = xVec3Dot(&v, &r->dir);
+    F32 b = xVec3Dot(&v, &r->dir);
 
-    if (f1 >= 0.0f)
+    if (b >= 0.0f)
     {
         return 0;
     }
 
-    return (f1 * f1 >= c);
+    return (b * b >= c);
 }
 
 U32 xRayHitsBoxFast(const xRay3* r, const xBox* b)

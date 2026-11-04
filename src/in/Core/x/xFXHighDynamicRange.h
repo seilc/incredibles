@@ -1,7 +1,6 @@
 #ifndef XFXHIGHDYNAMICRANGE_H
 #define XFXHIGHDYNAMICRANGE_H
 
-#include "types.h"
 #include "iDraw.h"
 
 #include <rwcore.h>

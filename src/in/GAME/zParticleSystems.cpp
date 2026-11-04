@@ -1,7 +1,6 @@
 #include "zParticleSystems.h"
 
 #include "zParticleSystemWaterfall.h"
-
 #include "xMemMgr.h"
 
 class zParticleSystemDummy : public zParticleSystem

@@ -730,7 +730,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
                                     JDeltaEval(model, deltaModel, deltaAnim, breakTime);
                                 }
 
-                                if (pipeCurr && (pipeCurr->Flags & 0xFF00)) {
+                                if (pipeCurr && (pipeCurr->Flags & (eSRCBLEND_MASK | eDESTBLEND_MASK))) {
                                     if (fakeCount < FAKE_MAX) {
                                         sCutsceneFakeModel[fakeCount].Data = model;
                                         sCutsceneFakeModel[fakeCount].BoneCount = iModelNumBones(model);
@@ -775,7 +775,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
                             mphIndex++;
                         }
 
-                        if (pipeCurr && (pipeCurr->Flags & 0xFF00)) {
+                        if (pipeCurr && (pipeCurr->Flags & (eSRCBLEND_MASK | eDESTBLEND_MASK))) {
                             if (fakeCount < FAKE_MAX) {
                                 sCutsceneFakeModel[fakeCount].Data = model;
                                 sCutsceneFakeModel[fakeCount].BoneCount = iModelNumBones(model);

@@ -1,8 +1,6 @@
 #ifndef XREGIONSUPPORT_H
 #define XREGIONSUPPORT_H
 
-#include "types.h"
-
 #include <string.h>
 
 enum xRegion

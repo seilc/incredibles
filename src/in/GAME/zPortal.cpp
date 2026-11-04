@@ -5,10 +5,10 @@
 
 void zPortalInit(void* portal, void* passet)
 {
-    zPortalInit((_zPortal*)portal, (xPortalAsset*)passet);
+    zPortalInit((zPortal*)portal, (xPortalAsset*)passet);
 }
 
-void zPortalInit(_zPortal* portal, xPortalAsset* passet)
+void zPortalInit(zPortal* portal, xPortalAsset* passet)
 {
     xBaseInit(portal, passet);
 
@@ -21,17 +21,17 @@ void zPortalInit(_zPortal* portal, xPortalAsset* passet)
     }
 }
 
-void zPortalReset(_zPortal* portal)
+void zPortalReset(zPortal* portal)
 {
     xBaseReset(portal, portal->passet);
 }
 
-void zPortalSave(_zPortal* ent, xSerial* s)
+void zPortalSave(zPortal* ent, xSerial* s)
 {
     xBaseSave(ent, s);
 }
 
-void zPortalLoad(_zPortal* ent, xSerial* s)
+void zPortalLoad(zPortal* ent, xSerial* s)
 {
     xBaseLoad(ent, s);
 }
@@ -42,7 +42,7 @@ void zPortalEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, 
     {
     case eEventReset:
     {
-        zPortalReset((_zPortal*)to);
+        zPortalReset((zPortal*)to);
         break;
     }
     case eEventTeleportPlayer:
@@ -53,9 +53,9 @@ void zPortalEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, 
         }
 
         if ((globals.demoType != zDT_PUBLICITY && globals.demoType != zDT_E3) ||
-            ((_zPortal*)to)->passet->sceneID == globals.sceneCur->sceneID)
+            ((zPortal*)to)->passet->sceneID == globals.sceneCur->sceneID)
         {
-            zSceneSwitch((_zPortal*)to, toParam[0] != 0.0f);
+            zSceneSwitch((zPortal*)to, toParam[0] != 0.0f);
         }
 
         break;

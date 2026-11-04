@@ -1,8 +1,6 @@
 #ifndef ZRENDERSTATE_H
 #define ZRENDERSTATE_H
 
-#include "types.h"
-
 typedef enum _SDRenderState
 {
     SDRS_Unknown,

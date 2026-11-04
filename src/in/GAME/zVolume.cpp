@@ -62,28 +62,28 @@ void zVolume_OccludePrecalc(xVec3* camPos)
     S32 i, j;
     xVec3 corner[5];
     xVolumeAsset* a;
+    F32 c, s;
     PreCalcOcclude* calc;
+    xVec3 d1, d2;
     xVec4 locFrustVec[4];
-    F32 depthdot, camdot;
-    F32 f30, f1;
-    xVec3 var_EC, var_F8;
+    F32 depthdot, camdot, testdot1, testdot2;
 
     gOccludeCalcCount = 0;
 
     for (i = 0; i < gOccludeCount; i++)
     {
         a = gOccludeList[i]->asset;
-        f30 = icos(a->rot);
-        f1 = isin(a->rot);
+        c = icos(a->rot);
+        s = isin(a->rot);
         calc = &gOccludeCalc[gOccludeCalcCount];
 
-        corner[0].x = f30 * (a->bound.box.box.lower.x - a->xpivot) + a->xpivot;
+        corner[0].x = c * (a->bound.box.box.lower.x - a->xpivot) + a->xpivot;
         corner[0].y = a->bound.box.box.lower.y;
-        corner[0].z = f1 * (a->bound.box.box.lower.x - a->xpivot) + a->bound.box.box.lower.z;
+        corner[0].z = s * (a->bound.box.box.lower.x - a->xpivot) + a->bound.box.box.lower.z;
 
-        corner[1].x = f30 * (a->bound.box.box.upper.x - a->xpivot) + a->xpivot;
+        corner[1].x = c * (a->bound.box.box.upper.x - a->xpivot) + a->xpivot;
         corner[1].y = corner[0].y;
-        corner[1].z = f1 * (a->bound.box.box.upper.x - a->xpivot) + a->bound.box.box.lower.z;
+        corner[1].z = s * (a->bound.box.box.upper.x - a->xpivot) + a->bound.box.box.lower.z;
 
         corner[2].x = corner[1].x;
         corner[2].y = a->bound.box.box.upper.y;
@@ -95,9 +95,9 @@ void zVolume_OccludePrecalc(xVec3* camPos)
 
         corner[4] = corner[0];
 
-        xVec3Sub(&var_EC, &corner[1], &corner[0]);
-        xVec3Sub(&var_F8, &corner[2], &corner[0]);
-        xVec3Cross((xVec3*)&calc->DepthVec, &var_EC, &var_F8);
+        xVec3Sub(&d1, &corner[1], &corner[0]);
+        xVec3Sub(&d2, &corner[2], &corner[0]);
+        xVec3Cross((xVec3*)&calc->DepthVec, &d1, &d2);
         xVec3Normalize((xVec3*)&calc->DepthVec, (xVec3*)&calc->DepthVec);
 
         depthdot = xVec3Dot((xVec3*)&calc->DepthVec, &corner[0]);
@@ -120,16 +120,16 @@ void zVolume_OccludePrecalc(xVec3* camPos)
 
         for (j = 0; j < 4; j++)
         {
-            xVec3Sub(&var_EC, &corner[j], camPos);
-            xVec3Sub(&var_F8, &corner[j + 1], camPos);
-            xVec3Cross((xVec3*)&locFrustVec[j], &var_EC, &var_F8);
+            xVec3Sub(&d1, &corner[j], camPos);
+            xVec3Sub(&d2, &corner[j + 1], camPos);
+            xVec3Cross((xVec3*)&locFrustVec[j], &d1, &d2);
             xVec3Normalize((xVec3*)&locFrustVec[j], (xVec3*)&locFrustVec[j]);
         }
 
-        f30 = xVec3Dot((xVec3*)&locFrustVec[0], &corner[0]);
-        f1 = xVec3Dot((xVec3*)&locFrustVec[0], &corner[2]);
+        testdot1 = xVec3Dot((xVec3*)&locFrustVec[0], &corner[0]);
+        testdot2 = xVec3Dot((xVec3*)&locFrustVec[0], &corner[2]);
 
-        if (f30 > f1)
+        if (testdot1 > testdot2)
         {
             for (j = 0; j < 4; j++)
             {

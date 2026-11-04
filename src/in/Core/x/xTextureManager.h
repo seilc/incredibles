@@ -1,7 +1,6 @@
 #ifndef XTEXTUREMANAGER_H
 #define XTEXTUREMANAGER_H
 
-#include "types.h"
 #include "xpkrsvc.h"
 #include "xFile.h"
 #include "iFMV.h"

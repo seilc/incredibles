@@ -1,7 +1,6 @@
 #ifndef XPKRSVC_H
 #define XPKRSVC_H
 
-#include "types.h"
 #include "xhipio.h"
 #include "xordarray.h"
 

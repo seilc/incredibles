@@ -8,6 +8,12 @@
 
 #include <string.h>
 
+#define SBG01030_ID 0x5EEA143C // xStrHash("SBG01030")
+#define SBG01017_A_ID 0x9943D503 // xStrHash("SBG01017_a")
+#define SBG01017_B_ID 0x9943D504 // xStrHash("SBG01017_b")
+#define SBG01018_ID 0x5EEA133E // xStrHash("SBG01018")
+#define SBG01016_ID 0x5EEA133C // xStrHash("SBG01016")
+
 #define CHEAT_TIME 0.3f
 #define CHEAT_COUNT 16
 
@@ -434,46 +440,46 @@ void zGameExtras_Load(xSerial* xser)
     g_flg_chEnabled |= keepers;
 }
 
-static S32 TestCheat(U32* r3)
+static S32 TestCheat(U32* cheat_info)
 {
-    S32 r4 = CHEAT_COUNT - 1;
+    S32 i = CHEAT_COUNT - 1;
 
-    if (r3[CHEAT_COUNT - 1] == 0)
+    if (cheat_info[CHEAT_COUNT - 1] == 0)
     {
         return FALSE;
     }
 
-    while (r4 >= 0)
+    while (i >= 0)
     {
-        if (r3[r4] != sCheatPressed[r4])
+        if (cheat_info[i] != sCheatPressed[i])
         {
             return FALSE;
         }
 
-        r4--;
+        i--;
     }
 
     return TRUE;
 }
 
-static void AddToCheatPressed(U32 r3)
+static void AddToCheatPressed(U32 button)
 {
     for (S32 i = 1; i < CHEAT_COUNT; i++)
     {
         sCheatPressed[i - 1] = sCheatPressed[i];
     }
 
-    sCheatPressed[CHEAT_COUNT - 1] = r3;
+    sCheatPressed[CHEAT_COUNT - 1] = button;
 }
 
-inline void GEC_CheatFlagAdd(S32 r3)
+inline void GEC_CheatFlagAdd(S32 flg)
 {
-    g_flg_chEnabled |= r3;
+    g_flg_chEnabled |= flg;
 }
 
-inline void GEC_CheatFlagToggle(S32 r3)
+inline void GEC_CheatFlagToggle(S32 flg)
 {
-    g_flg_chEnabled ^= r3;
+    g_flg_chEnabled ^= flg;
 }
 
 void zGameCheatsUpdate(F32 dt)
@@ -577,13 +583,13 @@ static void GEC_dfltSound()
     // clang-format off
     static U32 aid_sndList[] =
     {
-        0x5EEA143C,
-        0x5EEA143C,
-        0x5EEA143C,
-        0x9943D503,
-        0x9943D504,
-        0x5EEA133E,
-        0x5EEA133C
+        SBG01030_ID,
+        SBG01030_ID,
+        SBG01030_ID,
+        SBG01017_A_ID,
+        SBG01017_B_ID,
+        SBG01018_ID,
+        SBG01016_ID
     };
     // clang-format on
 

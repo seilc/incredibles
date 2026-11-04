@@ -31,25 +31,24 @@ void zSlideCam::start()
 static xVec3 SpringDamp(const xVec3& cam_pos, const xVec3& curr_tgt_pos, const xVec3& prev_tgt_pos,
                         F32 dt, F32 spring_const, F32 damp_const, F32 spring_len)
 {
-    xVec3 var_7C, var_88;
+    xVec3 disp, velocity;
 
-    var_7C = cam_pos - curr_tgt_pos;
-    var_88 = (prev_tgt_pos - curr_tgt_pos) * dt;
+    disp = cam_pos - curr_tgt_pos;
+    velocity = (prev_tgt_pos - curr_tgt_pos) * dt;
 
-    F32 f30 = xVec3Length(&var_7C);
-    F32 f31 = xVec3Dot(&var_7C, &var_88);
+    F32 forceMag, len = xVec3Length(&disp), dot = xVec3Dot(&disp, &velocity);
 
-    xVec3Normalize(&var_7C, &var_7C);
+    xVec3Normalize(&disp, &disp);
 
-    F32 f0 = spring_const * (spring_len - f30) + damp_const * (f31 / f30);
+    forceMag = spring_const * (spring_len - len) + damp_const * (dot / len);
 
-    var_7C *= f0 * dt;
+    disp *= forceMag * dt;
 
-    xVec3 var_94;
+    xVec3 r;
 
-    xVec3Add(&var_94, &cam_pos, &var_7C);
+    xVec3Add(&r, &cam_pos, &disp);
 
-    return var_94;
+    return r;
 }
 
 void zSlideCam::setCurrTgtPos(const xVec3& pos, const xVec3& up)

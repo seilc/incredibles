@@ -43,45 +43,45 @@ T binary_find(T first, T last, const V& value, C cmp)
     return notfound;
 }
 
-template <class T> static inline T xUtil_choose(const T* r3, S32 r4, const F32* r5)
+template <class T> static inline T xUtil_choose(const T* list, S32 cnt, const F32* wts)
 {
-    if (!r3) {
+    if (!list) {
         return 0;
     }
 
-    if (r4 < 1) {
+    if (cnt < 1) {
         return 0;
     }
 
-    S32 r31 = 0;
-    F32 f1 = xurand();
+    S32 idx = 0;
+    F32 pt = xurand();
 
-    if (!r5) {
-        r31 = f1 * r4;
+    if (!wts) {
+        idx = pt * cnt;
     } else {
-        F32 f2 = 0.0f;
+        F32 hi = 0.0f;
 
-        for (S32 i = 0; i < r4; i++) {
-            F32 f3 = f2;
+        for (S32 i = 0; i < cnt; i++) {
+            F32 lo = hi;
 
-            f2 += r5[i];
+            hi += wts[i];
 
-            if (f1 >= f3 && f1 <= f2) {
-                r31 = i;
+            if (pt >= lo && pt <= hi) {
+                idx = i;
                 break;
             }
         }
     }
 
-    if (r31 >= r4) {
-        r31 = r4 - 1;
+    if (idx >= cnt) {
+        idx = cnt - 1;
     }
 
-    if (r31 < 0) {
-        r31 = 0;
+    if (idx < 0) {
+        idx = 0;
     }
 
-    return r3[r31];
+    return list[idx];
 }
 
 #define XUTIL_SWAP(a, b, width)                 \

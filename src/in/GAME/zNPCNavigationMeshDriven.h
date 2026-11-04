@@ -1,6 +1,4 @@
 #ifndef ZNPCNAVIGATIONMESHDRIVEN_H
 #define ZNPCNAVIGATIONMESHDRIVEN_H
 
-#include "types.h"
-
 #endif

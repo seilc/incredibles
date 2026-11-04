@@ -1,9 +1,7 @@
 #ifndef ITRC_H
 #define ITRC_H
 
-#include "types.h"
-
-enum _tagPadInit
+typedef enum _tagPadInit
 {
     ePadInit_Open1,
     ePadInit_WaitStable2,
@@ -16,12 +14,12 @@ enum _tagPadInit
     ePadInit_Complete8a,
     ePadInit_Complete8b,
     ePadInit_Finished9
-};
+} ePadInit;
 
-struct _tagiTRCPadInfo
+typedef struct _tagiTRCPadInfo
 {
-    _tagPadInit pad_init;
-};
+    ePadInit pad_init;
+} iTRCPadInfo;
 
 class iTRCDisk
 {

@@ -1,7 +1,6 @@
 #include "xScreenFade.h"
 
 #include "xEvent.h"
-
 #include "zBase.h"
 
 #include <string.h>

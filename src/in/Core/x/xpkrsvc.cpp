@@ -6,9 +6,10 @@
 #include "zMain.h"
 
 #include <rwcore.h>
-
 #include <string.h>
 #include <stdio.h>
+
+#define SIMPLE_SHADOW_TABLE_ID 0x98A3F56C // xStrHash("simple shadow table")
 
 enum en_PKR_LAYER_LOAD_DEST
 {
@@ -100,7 +101,7 @@ static PKRAssetType* PKR_type2typeref(U32 type, PKRAssetType* typelist);
 static void PKR_bld_typecnt(st_PACKER_READ_DATA* pr);
 static S32 PKR_typeHdlr_idx(st_PACKER_READ_DATA* pr, U32 type);
 static void PKR_alloc_chkidx();
-static void* PKR_getmem(U32 id, S32 amount, U32 r5, S32 align);
+static void* PKR_getmem(U32 id, S32 amount, U32 aid, S32 align);
 static void* PKR_getmem(U32 id, S32 amount, U32, S32 align, S32 isTemp, char** memtru);
 static void PKR_relmem(U32 id, S32 blksize, void* memptr, U32, S32 isTemp);
 static void PKR_special_loadbuf_killed(RwResEntry*);
@@ -348,7 +349,7 @@ static void PKR_ReadDone(st_PACKER_READ_DATA* pr)
 
 static S32 PKR_SetActive(st_PACKER_READ_DATA* pr, en_LAYER_TYPE layer)
 {
-    S32 r3;
+    S32 loaded;
     S32 result = TRUE;
     S32 rc;
     S32 i;
@@ -371,9 +372,9 @@ static S32 PKR_SetActive(st_PACKER_READ_DATA* pr, en_LAYER_TYPE layer)
             {
                 assnode = (st_PACKER_ATOC_NODE*)laynode->assref.list[i];
 
-                r3 = (assnode->loadflag & 0x80000);
+                loaded = (assnode->loadflag & 0x80000);
 
-                if (!(assnode->loadflag & 0x10000) && r3)
+                if (!(assnode->loadflag & 0x10000) && loaded)
                 {
                     if (!assnode->typeref)
                     {
@@ -403,10 +404,10 @@ static S32 PKR_SetActive(st_PACKER_READ_DATA* pr, en_LAYER_TYPE layer)
 
 static S32 PKR_parse_TOC(st_HIPLOADDATA* pkg, st_PACKER_READ_DATA* pr)
 {
-    S32 r4;
     S32 is_ok = FALSE;
     U32 cid;
     S32 done = FALSE;
+    S32 asscnt;
 
     cid = g_hiprf->enter(pkg);
 
@@ -420,13 +421,13 @@ static S32 PKR_parse_TOC(st_HIPLOADDATA* pkg, st_PACKER_READ_DATA* pr)
         case 'PACK':
             LOD_r_PACK(pkg, pr);
 
-            r4 = pr->asscnt;
+            asscnt = pr->asscnt;
 
             if (is_ok)
             {
-                if (r4 > 0)
+                if (asscnt > 0)
                 {
-                    XOrdInit(&pr->asstoc, r4, FALSE);
+                    XOrdInit(&pr->asstoc, asscnt, FALSE);
                     PKR_makepool_anode(pr, pr->asscnt);
                 }
 
@@ -1166,7 +1167,7 @@ static S32 PKR_FRIEND_assetIsGameDup(U32 aid, const st_PACKER_READ_DATA* skippr,
     S32 i;
     S32 idx;
 
-    if (aid == 0x98A3F56C) // "simple shadow table" in font2.HIP (BfBB leftover)
+    if (aid == SIMPLE_SHADOW_TABLE_ID)
     {
         return FALSE;
     }
@@ -1970,9 +1971,9 @@ static void PKR_alloc_chkidx()
 {
 }
 
-static void* PKR_getmem(U32 id, S32 amount, U32 r5, S32 align)
+static void* PKR_getmem(U32 id, S32 amount, U32 aid, S32 align)
 {
-    return PKR_getmem(id, amount, r5, align, FALSE, NULL);
+    return PKR_getmem(id, amount, aid, align, FALSE, NULL);
 }
 
 static void* PKR_getmem(U32 id, S32 amount, U32, S32 align, S32 isTemp, char** memtru)

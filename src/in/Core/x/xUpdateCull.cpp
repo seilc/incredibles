@@ -97,7 +97,7 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
     U32 tempCount = 0;
 
     if (entCount > 0) {
-        tempEnt = (void**)RwMallocL(sizeof(void*) * entCount, rwMEMHINTDUR_NADURATION, 124);
+        tempEnt = (void**)RwMalloc(sizeof(void*) * entCount, rwMEMHINTDUR_NADURATION);
 
         for (U32 idx = 0; idx < entCount; idx++) {
             if (!(((xEnt*)ent[idx])->baseFlags & k_XBASE_UNK_0x80)) {
@@ -113,7 +113,7 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
     entsInGroups = 0;
     nonEmptyGroups = 0;
 
-    bool* inGroupArray = (bool*)RwMallocL(sizeof(bool) * entCount, rwMEMHINTDUR_NADURATION, 141);
+    bool* inGroupArray = (bool*)RwMalloc(sizeof(bool) * entCount, rwMEMHINTDUR_NADURATION);
     memset(inGroupArray, 0, sizeof(bool) * entCount);
 
     for (i = 0; i < groupCount; i++) {

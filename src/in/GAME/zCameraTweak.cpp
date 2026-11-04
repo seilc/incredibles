@@ -46,10 +46,10 @@ DECOMP_FORCEFLOAT(1.0f)
 
 static void zCameraTweak_LookPreCalc(zCamTweakLook* look, F32 d, F32 h, F32 pitch)
 {
-    F32 f1 = d * itan(pitch);
+    F32 deltaH = d * itan(pitch);
 
-    look->h = h - f1;
-    look->dist = xsqrt(f1 * f1 + d * d);
+    look->h = h - deltaH;
+    look->dist = xsqrt(deltaH * deltaH + d * d);
     look->pitch = pitch;
 }
 

@@ -10,10 +10,10 @@
 
 enum
 {
-    rwID_HI_BEEF01 = 0xBEEF01,
+    rwID_HI_COLLTREE = 0xBEEF01,
     rwID_HI_JSPINFO = 0xBEEF02,
-    rwID_HI_BEEF03 = 0xBEEF03,
-    rwID_HI_BEEF04 = 0xBEEF04
+    rwID_HI_STRIPVECS = 0xBEEF03,
+    rwID_HI_EXTRAINFO = 0xBEEF04
 };
 
 struct __rwMark
@@ -129,7 +129,7 @@ void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID)
     iAsyncLockRW();
 
     if (!*jsp) {
-        hdr = (xJSPHeaderEx*)RwMallocL(sizeof(xJSPHeaderEx), rwMEMHINTDUR_NADURATION, 371);
+        hdr = (xJSPHeaderEx*)RwMalloc(sizeof(xJSPHeaderEx), rwMEMHINTDUR_NADURATION);
         *jsp = hdr;
         memset(hdr, 0, sizeof(xJSPHeaderEx));
     } else {
@@ -144,7 +144,7 @@ void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID)
 
     iAsyncUnlockRW();
 
-    if (mark.type == rwID_HI_BEEF01) {
+    if (mark.type == rwID_HI_COLLTREE) {
         iAsyncLockRW();
 
         data = mp + 1;
@@ -174,14 +174,14 @@ void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID)
                 mp = (__rwMark*)((U8*)data + mark.length);
                 memmove(&mark, mp, sizeof(__rwMark));
                 RwMemNative32(&mark, sizeof(__rwMark));
-                if (mark.type == rwID_HI_BEEF03) {
+                if (mark.type == rwID_HI_STRIPVECS) {
                     data = mp + 1;
 
                     hdr->stripVecCount = *(U32*)data;
                     data = (U32*)data + 1;
                     hdr->stripVecList = (RwV3d*)data;
                     sAtomicStartCount = RpClumpGetNumAtomics(hdr->clump);
-                    sAtomicStartVert = (RwV3d**)RwMallocL(sAtomicStartCount * sizeof(RwV3d*), rwMEMHINTDUR_NADURATION, 446);
+                    sAtomicStartVert = (RwV3d**)RwMalloc(sAtomicStartCount * sizeof(RwV3d*), rwMEMHINTDUR_NADURATION);
 
                     RwV3d* currVec = hdr->stripVecList;
                     RpClumpForAllAtomics(hdr->clump, AddAtomicPrecalcedVertCB, &currVec);
@@ -193,8 +193,8 @@ void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID)
                 sAtomicStartCount = 0;
                 RpClumpForAllAtomics(hdr->clump, CountAtomicCB, &hdr->stripVecCount);
 
-                hdr->stripVecList = (RwV3d*)RwMallocL(hdr->stripVecCount * sizeof(RwV3d), rwMEMHINTDUR_NADURATION, 459);
-                sAtomicStartVert = (RwV3d**)RwMallocL(sAtomicStartCount * sizeof(RwV3d*), rwMEMHINTDUR_NADURATION, 460);
+                hdr->stripVecList = (RwV3d*)RwMalloc(hdr->stripVecCount * sizeof(RwV3d), rwMEMHINTDUR_NADURATION);
+                sAtomicStartVert = (RwV3d**)RwMalloc(sAtomicStartCount * sizeof(RwV3d*), rwMEMHINTDUR_NADURATION);
 
                 RwV3d* currVec = hdr->stripVecList;
                 RpClumpForAllAtomics(hdr->clump, AddAtomicCB, &currVec);
@@ -216,7 +216,7 @@ void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID)
             hdr->jspNodeList = (xJSPNodeInfo*)(tmphdr + 1);
 
             xJSPNodeTree* tmpNodeTree = (xJSPNodeTree*)(hdr->jspNodeList + hdr->jspNodeCount);
-            hdr->nodetree = (xJSPNodeTree*)RwMallocL(sizeof(xJSPNodeTree), rwMEMHINTDUR_NADURATION, 490);
+            hdr->nodetree = (xJSPNodeTree*)RwMalloc(sizeof(xJSPNodeTree), rwMEMHINTDUR_NADURATION);
             *hdr->nodetree = *tmpNodeTree;
             hdr->nodetree->branchNodes = (xJSPNodeTreeBranch*)(tmpNodeTree + 1);
             hdr->nodetree->leafNodes = (xJSPNodeTreeLeaf*)(hdr->nodetree->branchNodes + hdr->nodetree->numBranchNodes);
@@ -238,7 +238,7 @@ void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID)
         __rwMark mark2;
         memmove(&mark2, mp2, sizeof(__rwMark));
         RwMemNative32(&mark2, sizeof(__rwMark));
-        if (mark2.type == rwID_HI_BEEF04) {
+        if (mark2.type == rwID_HI_EXTRAINFO) {
             mp = mp2;
             mark = mark2;
             data = mp + 1;
@@ -276,7 +276,7 @@ void xJSP_MultiStreamRead(void* data, U32 size, xJSPHeader** jsp, U32 assetID)
         } else {
             S32 i, atomCount = RpClumpGetNumAtomics(clump);
             if (atomCount) {
-                RpAtomic** atomList = (RpAtomic**)RwMallocL(atomCount * sizeof(RpAtomic*), rwMEMHINTDUR_NADURATION, 568);
+                RpAtomic** atomList = (RpAtomic**)RwMalloc(atomCount * sizeof(RpAtomic*), rwMEMHINTDUR_NADURATION);
                 RpAtomic** atomCurr = atomList;
                 RpClumpForAllAtomics(clump, ListAtomicCB, &atomCurr);
                 for (i = atomCount - 1; i >= 0; i--) {
@@ -323,7 +323,7 @@ void xJSP_Destroy(xJSPHeader* jsp)
         U32* tp = (U32*)jsp->stripVecList;
         U32 test = *(tp - 4);
         RwMemNative32(&test, sizeof(U32));
-        if (test != rwID_HI_BEEF03) {
+        if (test != rwID_HI_STRIPVECS) {
             RwFree(jsp->stripVecList);
         }
     }
@@ -339,7 +339,7 @@ static void xJSPNodeLightBuild(xJSPHeader* jsp)
     RpClump* clump;
     RpAtomic* apAtom;
 
-    jsp->nodelight = (xJSPNodeLight*)RwMallocL(jsp->jspNodeCount * sizeof(xJSPNodeLight), rwMEMHINTDUR_NADURATION, 651);
+    jsp->nodelight = (xJSPNodeLight*)RwMalloc(jsp->jspNodeCount * sizeof(xJSPNodeLight), rwMEMHINTDUR_NADURATION);
     memset(jsp->nodelight, 0, jsp->jspNodeCount * sizeof(xJSPNodeLight));
 
     clump = jsp->clump; nlight = jsp->nodelight;
@@ -519,11 +519,11 @@ xJSPNodeTree* xJSPNodeTreeBuild(xJSPHeader* jsp)
         return NULL;
     }
 
-    RpAtomic** atomList = (RpAtomic**)RwMallocL(atomCount * sizeof(RpAtomic*), rwMEMHINTDUR_NADURATION, 914);
+    RpAtomic** atomList = (RpAtomic**)RwMalloc(atomCount * sizeof(RpAtomic*), rwMEMHINTDUR_NADURATION);
     RpAtomic** atomCurr = atomList;
     RpClumpForAllAtomics(clump, ListAtomicCB, &atomCurr);
 
-    xJSPNodeTreeLeaf* tleaf = (xJSPNodeTreeLeaf*)RwMallocL(atomCount * sizeof(xJSPNodeTreeLeaf), rwMEMHINTDUR_NADURATION, 920);
+    xJSPNodeTreeLeaf* tleaf = (xJSPNodeTreeLeaf*)RwMalloc(atomCount * sizeof(xJSPNodeTreeLeaf), rwMEMHINTDUR_NADURATION);
     atomCurr = atomList;
     for (i = 0; i < atomCount; i++) {
         RpGeometry* geom = (*atomCurr)->geometry;
@@ -550,12 +550,12 @@ xJSPNodeTree* xJSPNodeTreeBuild(xJSPHeader* jsp)
         atomCurr++;
     }
 
-    sSplitList = (TempSplit*)RwMallocL(atomCount * sizeof(TempSplit), rwMEMHINTDUR_NADURATION, 946);
+    sSplitList = (TempSplit*)RwMalloc(atomCount * sizeof(TempSplit), rwMEMHINTDUR_NADURATION);
     sSplitLeaf = tleaf;
     sSplitCurr = sSplitList;
     RecurseSplitJSPNode(tleaf, atomCount, NULL);
 
-    xJSPNodeTree* jntree = (xJSPNodeTree*)RwMallocL(sizeof(xJSPNodeTree) + atomCount * sizeof(xJSPNodeTreeLeaf) + (sSplitCurr - sSplitList) * sizeof(xJSPNodeTreeBranch), rwMEMHINTDUR_NADURATION, 959);
+    xJSPNodeTree* jntree = (xJSPNodeTree*)RwMalloc(sizeof(xJSPNodeTree) + atomCount * sizeof(xJSPNodeTreeLeaf) + (sSplitCurr - sSplitList) * sizeof(xJSPNodeTreeBranch), rwMEMHINTDUR_NADURATION);
     jntree->numBranchNodes = sSplitCurr - sSplitList;
     jntree->branchNodes = (xJSPNodeTreeBranch*)(jntree + 1);
     jntree->numLeafNodes = atomCount;

@@ -1,8 +1,6 @@
 #ifndef IASYNC_H
 #define IASYNC_H
 
-#include "types.h"
-
 #include <dolphin.h>
 
 extern OSSemaphore asyncSema;

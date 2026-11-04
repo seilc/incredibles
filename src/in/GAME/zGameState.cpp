@@ -8,7 +8,7 @@
 
 S32 gGameState = eGameState_Dead;
 eGameMode gGameMode;
-_GameOstrich gGameOstrich;
+eGameOstrich gGameOstrich;
 
 // clang-format off
 static U32 sGameMode_DispatchTable[eGameMode_Count] =
@@ -126,12 +126,12 @@ S32 zGameModeGet()
     return gGameMode;
 }
 
-GameOstrich zGameGetOstrich()
+eGameOstrich zGameGetOstrich()
 {
     return gGameOstrich;
 }
 
-void zGameSetOstrich(GameOstrich o)
+void zGameSetOstrich(eGameOstrich o)
 {
     gGameOstrich = o;
 }

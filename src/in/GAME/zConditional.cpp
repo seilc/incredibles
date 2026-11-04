@@ -11,7 +11,7 @@ void zConditionalInit(void* b, void* asset)
 
 void zConditionalInit(xBase* b, zCondAsset* asset)
 {
-    _zConditional* c = (_zConditional*)b;
+    zConditional* c = (zConditional*)b;
 
     xBaseInit(c, asset);
 
@@ -37,22 +37,22 @@ void zConditionalInit(xBase* b, zCondAsset* asset)
     }
 }
 
-void zConditionalReset(_zConditional* c)
+void zConditionalReset(zConditional* c)
 {
     xBaseReset(c, c->asset);
 }
 
-void zConditionalSave(_zConditional* ent, xSerial* s)
+void zConditionalSave(zConditional* ent, xSerial* s)
 {
     xBaseSave(ent, s);
 }
 
-void zConditionalLoad(_zConditional* ent, xSerial* s)
+void zConditionalLoad(zConditional* ent, xSerial* s)
 {
     xBaseLoad(ent, s);
 }
 
-U32 zConditional_GetCount(_zConditional* c)
+U32 zConditional_GetCount(zConditional* c)
 {
     zVarEntry* v = NULL;
     void* context = NULL;
@@ -95,7 +95,7 @@ U32 zConditional_GetCount(_zConditional* c)
     return eEventUnknown;
 }
 
-U32 zConditional_Evaluate(_zConditional* c)
+U32 zConditional_Evaluate(zConditional* c)
 {
     U32 temp;
     void* context = NULL;
@@ -138,7 +138,7 @@ U32 zConditional_Evaluate(_zConditional* c)
 
 void zConditionalEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
-    _zConditional* t = (_zConditional*)to;
+    zConditional* t = (zConditional*)to;
 
     switch (toEvent)
     {

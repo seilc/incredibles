@@ -1,8 +1,6 @@
 #ifndef ZNPCTYPES_H
 #define ZNPCTYPES_H
 
-#include "types.h"
-
 enum en_npctyp
 {
     NPC_TYPE_UNKNOWN,

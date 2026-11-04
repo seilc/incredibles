@@ -30,8 +30,8 @@ static void Tridiag_Solve(F32* a, F32* b, F32* c, xVec3* d, xVec3* x, S32 n)
     F32* gamma;
     xVec3* delta;
 
-    gamma = (F32*)RwMallocL(n * sizeof(F32), rwMEMHINTDUR_NADURATION, 106);
-    delta = (xVec3*)RwMallocL(n * sizeof(xVec3), rwMEMHINTDUR_NADURATION, 107);
+    gamma = (F32*)RwMalloc(n * sizeof(F32), rwMEMHINTDUR_NADURATION);
+    delta = (xVec3*)RwMalloc(n * sizeof(xVec3), rwMEMHINTDUR_NADURATION);
 
     gamma[0] = c[0] / b[0];
     
@@ -67,9 +67,9 @@ static void Interpolate_Bspline(xVec3* data, xVec3* control, F32* knots, U32 nod
     F32* alpha, *beta, *gamma;
     F32 t1, t2, t3, t4, t5;
     
-    alpha = (F32*)RwMallocL(nodata * sizeof(F32), rwMEMHINTDUR_NADURATION, 214);
-    beta = (F32*)RwMallocL(nodata * sizeof(F32), rwMEMHINTDUR_NADURATION, 215);
-    gamma = (F32*)RwMallocL(nodata * sizeof(F32), rwMEMHINTDUR_NADURATION, 216);
+    alpha = (F32*)RwMalloc(nodata * sizeof(F32), rwMEMHINTDUR_NADURATION);
+    beta = (F32*)RwMalloc(nodata * sizeof(F32), rwMEMHINTDUR_NADURATION);
+    gamma = (F32*)RwMalloc(nodata * sizeof(F32), rwMEMHINTDUR_NADURATION);
 
     alpha[0] = alpha[nodata - 1] = 0.0f;
     beta[0] = beta[nodata - 1] = 1.0f;

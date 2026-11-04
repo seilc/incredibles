@@ -12,8 +12,8 @@
 
 #include <string.h>
 
-_tagTRCPadInfo gTrcPad[k_MAX_TRC_PADS];
-_tagTRCDiskInfo gTrcDisk;
+TRCPadInfo gTrcPad[k_MAX_TRC_PADS];
+TRCDiskInfo gTrcDisk;
 static const char* k_CONTROLLER_MISSING_MESSAGE;
 static const char* k_CONTROLLER_INVALID_MESSAGE;
 static const xColor yellow = { 0xFF, 0xE6, 0x00, 0xFF };

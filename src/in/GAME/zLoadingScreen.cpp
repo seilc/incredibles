@@ -12,6 +12,12 @@
 
 #include <string.h>
 
+#define LOADING_SCREEN_ID 0x7F67BBC4 // xStrHash("LOADING SCREEN")
+#define UI_IMAGE_ID 0x337BCB31 // xStrHash("ui:image")
+#define UI_BOX_ID 0x8C2D107D // xStrHash("ui:box")
+#define UI_TEXT_ID 0xBD7646D7 // xStrHash("ui:text")
+#define UI_CONTROLLER_ID 0xE8753BAE // xStrHash("ui:controller")
+
 static bool show_stats = false;
 
 namespace
@@ -41,7 +47,7 @@ void zLoadingScreen::Init()
 
     controlCount = 0;
 
-    xGroupAsset* group = (xGroupAsset*)xSTFindAsset(0x7F67BBC4, NULL);
+    xGroupAsset* group = (xGroupAsset*)xSTFindAsset(LOADING_SCREEN_ID, NULL);
 
     show_stats = true;
 
@@ -57,23 +63,23 @@ void zLoadingScreen::Init()
 
             switch (asset->type)
             {
-            case 0x337BCB31:
+            case UI_IMAGE_ID:
                 test = RwMalloc(sizeof(zUIImage), 0);
                 element = (zUI*)test;
                 memset(element, 0, sizeof(zUIImage));
                 zUIImage_Init(*element, *asset, size);
                 break;
-            case 0x8C2D107D:
+            case UI_BOX_ID:
                 element = (zUI*)RwMalloc(sizeof(zUIBox), 0);
                 memset(element, 0, sizeof(zUIBox));
                 zUIBox_Init(*element, *asset, size);
                 break;
-            case 0xBD7646D7:
+            case UI_TEXT_ID:
                 element = (zUI*)RwMalloc(sizeof(zUIText), 0);
                 memset(element, 0, sizeof(zUIText));
                 zUIText_Init(*element, *asset, size);
                 break;
-            case 0xE8753BAE:
+            case UI_CONTROLLER_ID:
                 element = (zUI*)RwMalloc(sizeof(zUIController), 0);
                 memset(element, 0, sizeof(zUIController));
                 zUIController_Init(*element, *asset, size);

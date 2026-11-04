@@ -3,12 +3,11 @@
 #include "xDebugTweak.h"
 #include "xEvent.h"
 #include "xFont.h"
-
 #include "zBase.h"
 
 namespace
 {
-    void add_tweaks(_xCounter&)
+    void add_tweaks(xCounter&)
     {
     }
 } // namespace
@@ -25,7 +24,7 @@ void xCounterInit(void* b, void* asset)
 
 void xCounterInit(xBase* b, xCounterAsset* asset)
 {
-    _xCounter* t = (_xCounter*)b;
+    xCounter* t = (xCounter*)b;
 
     xBaseInit(t, asset);
 
@@ -49,7 +48,7 @@ void xCounterInit(xBase* b, xCounterAsset* asset)
 
 void xCounterReset(xBase* b)
 {
-    _xCounter* t = (_xCounter*)b;
+    xCounter* t = (xCounter*)b;
 
     xBaseInit(t, t->asset);
 
@@ -66,7 +65,7 @@ void xCounterReset(xBase* b)
     t->state = 0;
 }
 
-void xCounterSave(_xCounter* ent, xSerial* s)
+void xCounterSave(xCounter* ent, xSerial* s)
 {
     xBaseSave(ent, s);
 
@@ -74,7 +73,7 @@ void xCounterSave(_xCounter* ent, xSerial* s)
     s->Write(ent->count);
 }
 
-void xCounterLoad(_xCounter* ent, xSerial* s)
+void xCounterLoad(xCounter* ent, xSerial* s)
 {
     xBaseLoad(ent, s);
 
@@ -85,7 +84,7 @@ void xCounterLoad(_xCounter* ent, xSerial* s)
 void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
                      xBase* toParamWidget, U32)
 {
-    _xCounter* t = (_xCounter*)to;
+    xCounter* t = (xCounter*)to;
 
     switch (toEvent)
     {
@@ -143,7 +142,7 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
         {
             if (toParamWidget && toParamWidget->baseType == eBaseTypeCounter)
             {
-                t->count = ((_xCounter*)toParamWidget)->count;
+                t->count = ((xCounter*)toParamWidget)->count;
             }
             else
             {

@@ -4,6 +4,8 @@
 
 #include <rwcore.h>
 
+#define ACTIONLINES_ID 0x7830BF69 // xStrHash("ACTIONLINES")
+
 #define ACTION_LINE_COUNT 8
 
 static ActionLine* sActionLine[ACTION_LINE_COUNT];
@@ -18,7 +20,7 @@ void zActionLineInit()
 
     sActionLineRaster = NULL;
 
-    RwTexture* tex = (RwTexture*)xSTFindAsset(0x7830BF69, NULL);
+    RwTexture* tex = (RwTexture*)xSTFindAsset(ACTIONLINES_ID, NULL);
 
     if (tex)
     {

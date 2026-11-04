@@ -15,7 +15,7 @@ void xFogInit(void* b, void* tasset)
 
 void xFogInit(xBase* b, xFogAsset* tasset)
 {
-    _xFog* t = (_xFog*)b;
+    xFog* t = (xFog*)b;
 
     xBaseInit(b, tasset);
 
@@ -32,24 +32,24 @@ void xFogInit(xBase* b, xFogAsset* tasset)
     }
 }
 
-void xFogReset(_xFog* t)
+void xFogReset(xFog* t)
 {
     xBaseReset(t, t->tasset);
 }
 
-void xFogSave(_xFog* ent, xSerial* s)
+void xFogSave(xFog* ent, xSerial* s)
 {
     xBaseSave(ent, s);
 }
 
-void xFogLoad(_xFog* ent, xSerial* s)
+void xFogLoad(xFog* ent, xSerial* s)
 {
     xBaseLoad(ent, s);
 }
 
 void xFogEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
-    _xFog* t = (_xFog*)to;
+    xFog* t = (xFog*)to;
 
     switch (toEvent)
     {
