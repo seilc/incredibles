@@ -78,6 +78,8 @@ void xVec3AddTo(xVec3* o, const xVec3* v);
 void xVec3Inv(xVec3* o, const xVec3* v);
 F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b);
 F32 xVec3NormalizeSafe(xVec3& v);
+F32 xVec3Dist(const xVec3* a, const xVec3* b);
+void xVec3Lerp(xVec3* o, const xVec3* a, const xVec3* b, F32 f);
 
 inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)
 {

@@ -54,7 +54,6 @@ struct xModelInstance
     xBox combinedAnimBound;
     U32 modelID;
     U32 shadowID;
-    RpAtomic* shadowmapAtomic;
     struct
     {
         xVec3* verts;
@@ -94,6 +93,7 @@ struct xModelAssetParam
 void xModelUpdate(xModelInstance* modelInst, F32 timeDelta);
 void xModelEval(xModelInstance* modelInst);
 S32 xModelCullSingle(xModelInstance* minst);
+S32 xModelBoxCull(xBox* box);
 void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
 void xModelRender2D(const xModelInstance& model, const basic_rect<F32>& r, const xVec3& from, const xVec3& to);
 

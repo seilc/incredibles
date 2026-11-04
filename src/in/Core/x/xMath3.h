@@ -131,6 +131,8 @@ void xBoxInitBoundOBB(xBox* o, const xBox* b, const xMat4x3* m);
 void xMat3x3Euler(xMat3x3* m, F32 yaw, F32 pitch, F32 roll);
 void xMat4x3Copy(xMat4x3* o, const xMat4x3* m);
 void xQuatFromMat(xQuat* q, const xMat3x3* m);
+void xQuatToMat(const xQuat* q, xMat3x3* m);
+void xQuatSlerp(xQuat* o, const xQuat* a, const xQuat* b, F32 t);
 void xMat3x3Tolocal(xVec3* o, const xMat3x3* m, const xVec3* v);
 void xMat3x3Normalize(xMat3x3* o, const xMat3x3* m);
 void xMat4x3Mul(xMat4x3* o, const xMat4x3* a, const xMat4x3* b);
@@ -150,6 +152,11 @@ inline void xMat3x3Identity(xMat3x3* m)
 }
 
 void xMat3x3Rot(xMat3x3* m, const xVec3* a, F32 t);
+
+inline void xMat4x3Identity(xMat4x3* m)
+{
+    xMat4x3Copy(m, &g_I3);
+}
 
 inline static void xMat3x3RMulVec(xVec3* o, const xMat3x3* m, const xVec3* v)
 {

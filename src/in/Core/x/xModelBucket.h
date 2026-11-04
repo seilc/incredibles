@@ -16,4 +16,6 @@ struct xModelBucket
     xModelPipe Pipe;
 };
 
+void xModelBucket_Add(xModelInstance* minst);
+
 #endif

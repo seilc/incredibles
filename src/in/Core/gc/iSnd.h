@@ -15,5 +15,6 @@ enum iSndGroupHandle
 #define ISND_INVALID_SND_GROUP_HANDLE ((iSndGroupHandle)0xFFFFFFFF)
 
 void iSndSceneExit();
+void iSndSetExternalCallback(void*);
 
 #endif

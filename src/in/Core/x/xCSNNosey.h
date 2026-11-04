@@ -10,11 +10,10 @@ class XCSNNosey
 public:
     XCSNNosey();
 
-    virtual void CanRenderNow();
+    virtual void CanRenderNow() {}
     virtual void UpdatedAnimated(RpAtomic* model, RwMatrix* animMat, U32 animIndex,
-                                 U32 dataIndex, U32&);
+                                 U32 dataIndex, U32&) {}
 
-private:
     void* userdata;
     S32 flg_nosey;
 };

@@ -103,6 +103,8 @@ public:
 
     static void scene_enter();
     static void scene_exit();
+    static void coord_to_local(xVec3& c, const xVec3& loc);
+    static void orient_to_local(xQuat& o, const xMat3x3& mat);
 
     virtual void create();
     virtual void destroy();
@@ -119,6 +121,16 @@ public:
     xCamBlend* blender;
     U8 unk0xBC[4];
 };
+
+inline void xCam::coord_to_local(xVec3& c, const xVec3& loc)
+{
+    c = loc;
+}
+
+inline void xCam::orient_to_local(xQuat& o, const xMat3x3& mat)
+{
+    xQuatFromMat(&o, &mat);
+}
 
 class xCamBlend : public xCam
 {

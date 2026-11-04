@@ -6,10 +6,22 @@
 #include <rphanim.h>
 #include "types.h"
 
+struct xVec3;
+struct xQuat;
+struct xSphere;
+struct xBox;
+
 RpHAnimHierarchy* iModelGetHierarchy(RpAtomic* imodel);
 void iModelRender(RpAtomic* model, RwMatrix* mat);
 void iModelSetMaterialAlpha(RpAtomic* model, U8 alpha);
 void iModelResetMaterial(RpAtomic* model);
 void iModelMaterialMul(RpAtomic* model, F32 rm, F32 gm, F32 bm);
+void iModelUnload(RpAtomic* userdata);
+RpAtomic* iModelFile_RWMultiAtomic(RpAtomic* model);
+U32 iModelNumBones(RpAtomic* model);
+xSphere* iModelWorldBoundSphere(RpAtomic* model, RwMatrix* mat, xSphere* sphere);
+void iModelSetWorldBoundFromBox(RpAtomic* model, xBox* box);
+void iModelAnimMatrices(RpAtomic* model, xQuat* quat, xVec3* tran, RwMatrix* mat);
+void iModelAnimBoundWorld(xBox* box, xBox* combinedBox, RpAtomic* model, RwMatrix* mat, RwMatrix* bonemat);
 
 #endif

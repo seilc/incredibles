@@ -27,4 +27,19 @@ inline void xVec3ScaleC(xVec3& o, F32 scale)
     o.z *= scale;
 }
 
+inline F32 xVec3Dist(const xVec3* a, const xVec3* b)
+{
+    F32 d;
+    F32 dx__ = a->x - b->x;
+    F32 dy__ = a->y - b->y;
+    F32 dz__ = a->z - b->z;
+    d = xsqrt(dx__ * dx__ + dy__ * dy__ + dz__ * dz__);
+    return d;
+}
+
+inline void xVec3Lerp(xVec3* o, const xVec3* a, const xVec3* b, F32 f)
+{
+    o->x = a->x * (1.0f - f) + b->x * f, o->y = a->y * (1.0f - f) + b->y * f, o->z = a->z * (1.0f - f) + b->z * f;
+}
+
 #endif

@@ -53,6 +53,8 @@ iSndHandle xSndMgrPlay(iSndGroupHandle hSoundToPlay, U32 uFlags, const xVec3* pP
                        const F32* pfOverrideVolume,
                        const F32* pfOverridePitch);
 void xSndMgrStop(iSndHandle& hSound);
+void xSndMgrCutscenePause(S16 eSoundCategory, bool bPaused, bool bPauseFutureSoundsOfThisType);
+void xSndMgrStartStereo(iSndHandle hSnd00, iSndHandle hSnd01);
 xSndGroup* xSndMgr_GetGroup(iSndGroupHandle hSound);
 
 template <S32 unknown>
