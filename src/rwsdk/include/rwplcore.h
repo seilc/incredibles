@@ -455,6 +455,16 @@ enum RwTextureAddressMode
 };
 typedef enum RwTextureAddressMode RwTextureAddressMode;
 
+enum RwCullMode
+{
+    rwCULLMODENACULLMODE,
+    rwCULLMODECULLNONE,
+    rwCULLMODECULLBACK,
+    rwCULLMODECULLFRONT,
+    rwCULLMODEFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RwCullMode RwCullMode;
+
 enum RwPrimitiveType
 {
     rwPRIMTYPENAPRIMTYPE,
@@ -759,10 +769,6 @@ extern const RwChar* _rwMemoryLastAllocFile;
 extern RwUInt32 _rwMemoryLastAllocLine;
 #endif
 
-#ifdef RWDEBUG
-RwV3d* RwMatrixGetPos(RwMatrix* matrix);
-#endif
-
 RwInt32 RwEngineGetCurrentVideoMode(void);
 RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* modeinfo, RwInt32 modeIndex);
 void* RwMemNative32(void* mem, RwUInt32 size);
@@ -780,6 +786,7 @@ RwReal _rwInvSqrt(const RwReal num);
 #if (defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
 RwReal RwIm2DGetNearScreenZ(void);
 RwBool RwIm2DRenderPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices);
+RwV3d* RwMatrixGetPos(RwMatrix* matrix);
 void RwMatrixSetIdentity(RwMatrix* matrix);
 RwBool RwRenderStateGet(RwRenderState state, void* value);
 RwBool RwRenderStateSet(RwRenderState state, void* value);
@@ -791,16 +798,13 @@ void RwV3dSub(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 }
 #endif
 
-#ifndef RWDEBUG
-#define RwMatrixGetPos(m) (&(m)->pos)
-#endif
-
 #if !(defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
 #define RwIm2DGetNearScreenZ() RwIm2DGetNearScreenZMacro()
 
 #define RwIm2DRenderPrimitive(_primType, _vertices, _numVertices) \
     RwIm2DRenderPrimitiveMacro(_primType, _vertices, _numVertices)
 
+#define RwMatrixGetPos(m) (&(m)->pos)
 #define RwMatrixSetIdentity(m) RwMatrixSetIdentityMacro(m)
 #define RwRenderStateGet(_state, _value) RwRenderStateGetMacro(_state, _value)
 #define RwRenderStateSet(_state, _value) RwRenderStateSetMacro(_state, _value)

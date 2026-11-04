@@ -3,6 +3,8 @@
 
 #include "xModelBucket.h"
 
+struct xEnt;
+
 struct zLODTable
 {
     xModelBucket** baseBucket;

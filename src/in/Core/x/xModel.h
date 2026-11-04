@@ -3,22 +3,14 @@
 
 #include "iModel.h"
 #include "xAnim.h"
+#include "xModelBucket.h"
 #include "xSurface.h"
 #include "xLightKit.h"
 
 #include <rwcore.h>
 #include <rpworld.h>
 
-struct xModelPipe
-{
-    U32 Flags;
-    U8 Layer;
-    U8 AlphaDiscard;
-    U16 PipePad;
-};
-
 struct xModelPool;
-struct xModelBucket;
 template <class T> struct basic_rect;
 
 struct xModelInstance
@@ -92,6 +84,7 @@ struct xModelAssetParam
 
 void xModelUpdate(xModelInstance* modelInst, F32 timeDelta);
 void xModelEval(xModelInstance* modelInst);
+void xModelRenderSingle(xModelInstance* modelInst);
 S32 xModelCullSingle(xModelInstance* minst);
 S32 xModelBoxCull(xBox* box);
 void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
@@ -125,5 +118,7 @@ inline void xModelResetMaterial(xModelInstance* modelInst)
 {
     iModelResetMaterial(modelInst->Data);
 }
+
+extern S32 xModelBucketEnabled;
 
 #endif

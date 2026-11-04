@@ -151,6 +151,8 @@ void xEntRender(xEnt* ent);
 void xEntEndUpdate(xEnt* ent, xScene* sc, F32 dt);
 void xEntMove(xEnt* ent, xScene* sc, F32 dt);
 void xEntApplyPhysics(xEnt* ent, xScene* sc, F32 dt);
+void xEntSetupPipeline(xSurface* surf, RpAtomic* model);
+void xEntRestorePipeline(xSurface*, RpAtomic* model);
 void xEntShow(xEnt* ent);
 void xEntHide(xEnt* ent);
 xMat4x3* xEntGetFrame(const xEnt* ent);
