@@ -52,8 +52,12 @@ struct xCollideProcessedTri
     xEdge edges[3];
 };
 
+void xSweptSpherePrepare(xSweptSphere* sws, const xVec3* start, const xVec3* end, F32 radius);
 void xSweptSphereResetCollision(xSweptSphere* sws);
 S32 xSweptSphereToSphere(xSweptSphere& sws, const xVec3& center, F32 radius);
 S32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph);
+S32 xSweptSphereToModel(xSweptSphere* sws, RpAtomic* model, const RwMatrix* mat);
+
+inline xSweptSphere::xSweptSphere() {}
 
 #endif

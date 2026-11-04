@@ -27,6 +27,11 @@ inline void xVec3ScaleC(xVec3& o, F32 scale)
     o.z *= scale;
 }
 
+inline F32 xVec3Length(const xVec3* v)
+{
+    return xsqrt(v->x * v->x + v->y * v->y + v->z * v->z);
+}
+
 inline F32 xVec3Dist(const xVec3* a, const xVec3* b)
 {
     F32 d;

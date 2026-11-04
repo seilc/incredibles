@@ -104,6 +104,23 @@ F32 xatan2(F32 y, F32 x);
 F32 xfmod(F32 x, F32 y);
 void xsqrtfast(F32& o, F32 fVal);
 
+inline F32 xDampSpringCoeff(F32 dt, F32 k)
+{
+    return xexp(-k * dt);
+}
+
+inline void xDampSpring(F32& s, F32& v, F32 dt, F32 k, F32 e)
+{
+    F32 c1 = s, c2 = v + k * s;
+    s = e * (c1 + c2 * dt);
+    v = c2 * e - k * s;
+}
+
+inline void xDampSpring(F32& s, F32& v, F32 dt, F32 k)
+{
+    xDampSpring(s, v, dt, k, xDampSpringCoeff(dt, k));
+}
+
 inline F32 xrmod(F32 ang)
 {
     F32 frac = (1.0f / (2.0f * PI)) * ang;

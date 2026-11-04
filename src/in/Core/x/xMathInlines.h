@@ -28,6 +28,11 @@ inline F32 xsqrt(register F32 x)
     return 100000.0f;
 }
 
+inline F32 xexp(F32 x)
+{
+    return std::expf(x);
+}
+
 inline F32 xfmod(F32 x, F32 y)
 {
     return std::fmodf(x, y);

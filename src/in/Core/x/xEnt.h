@@ -159,7 +159,12 @@ xMat4x3* xEntGetFrame(const xEnt* ent);
 xVec3* xEntGetPos(const xEnt* ent);
 
 U32 xEntIsEnabled(const xEnt* ent);
-U32 xEntIsVisible(const xEnt* ent);
+
+inline U32 xEntIsVisible(const xEnt* ent)
+{
+    return (ent->flags & 0x85) == 0x1;
+}
+
 bool xBaseIsEntity(xBase* base);
 
 inline void xEntVisibilityCullOn(xEnt* ent)

@@ -49,7 +49,9 @@ struct xVec3
     xVec3 operator-(const xVec3& v) const;
     xVec3 operator*(F32 s) const;
     xVec3& operator+=(const xVec3& v);
+    xVec3& operator-=(const xVec3& v) { x -= v.x; y -= v.y; z -= v.z; return *this; }
     xVec3& operator*=(F32 s);
+    xVec3& operator/=(F32 f) { F32 i = 1.0f / f; x *= i; y *= i; z *= i; return *this; }
 
     xVec3& cross(const xVec3& c0, const xVec3& c1)
     {
@@ -60,6 +62,7 @@ struct xVec3
     }
 
     F32 dot(const xVec3& c) const;
+    xVec3& negate() { x = -x; y = -y; z = -z; return *this; }
 };
 
 F32 xVec3Normalize(xVec3* o, const xVec3* v);

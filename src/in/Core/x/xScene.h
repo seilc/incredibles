@@ -5,6 +5,13 @@
 #include "xEnv.h"
 #include "xMemMgr.h"
 
+struct xGrid;
+struct xQCData;
+struct xRay3;
+struct xScene;
+
+typedef void(*xRayEntCallback)(xScene*, xRay3*, xQCData*, xEnt*, void*);
+
 struct xScene
 {
     U32 sceneID;
@@ -35,5 +42,6 @@ struct xScene
 };
 
 xBase* xSceneResolvID(xScene* sc, U32 id);
+void xRayHitsGrid(xGrid* grid, xScene* sc, xRay3* r, xRayEntCallback rentcb, xQCData* qcr, void* data);
 
 #endif
