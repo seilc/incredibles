@@ -10,5 +10,15 @@ void iCameraSetFogParams(iFogParams* fp, F32 time);
 void iCameraSetFog(bool enable);
 void iCameraSetOrthoProjection(RwCamera* cam, bool ortho);
 RwCamera* RwCameraBeginUpdateWrapper(RwCamera* camera);
+void iCameraPerformRenderWareHack(RwCamera* camera);
+
+inline RwCamera* RwCameraCreateWrapper()
+{
+    RwCamera* camera = RwCameraCreate();
+    if (camera) {
+        iCameraPerformRenderWareHack(camera);
+    }
+    return camera;
+}
 
 #endif

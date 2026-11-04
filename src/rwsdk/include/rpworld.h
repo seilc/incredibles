@@ -318,6 +318,8 @@ extern "C" {
 
 RpAtomic* AtomicDefaultRenderCallBack(RpAtomic* atomic);
 RpAtomic* RpAtomicSetFrame(RpAtomic* atomic, RwFrame* frame);
+RpAtomic* RpAtomicStreamRead(RwStream* stream);
+RpAtomic* RpAtomicStreamWrite(RpAtomic* atomic, RwStream* stream);
 RpClump* RpClumpAddAtomic(RpClump* clump, RpAtomic* atomic);
 RwBool RpClumpDestroy(RpClump* clump);
 RpClump* RpClumpForAllAtomics(RpClump* clump, RpAtomicCallBack callback, void* pData);

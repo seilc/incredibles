@@ -4,6 +4,7 @@
 #include "iModel.h"
 #include "xAnim.h"
 #include "xModelBucket.h"
+#include "xModelAsset.h"
 #include "xSurface.h"
 #include "xLightKit.h"
 
@@ -11,7 +12,13 @@
 #include <rpworld.h>
 
 struct xModelPool;
+struct xSphere;
 template <class T> struct basic_rect;
+
+enum
+{
+    ModelInstance_ChildTransform = 0x40
+};
 
 struct xModelInstance
 {
@@ -59,6 +66,26 @@ struct xModelPool
     xModelInstance* List;
 };
 
+struct xModelPipeTable
+{
+    U32 ModelHashID;
+    U32 SubObjectBits;
+    xModelPipe Pipe;
+};
+
+struct xModelPipeLookup
+{
+    RpAtomic* model;
+    xModelPipe Pipe;
+};
+
+extern S32 xModelPipeNumTables;
+extern S32 xModelPipeCount[16];
+extern xModelPipeTable* xModelPipeData[16];
+extern S32 xModelLookupCount;
+extern xModelPipeLookup* xModelLookupList;
+extern S32 xModelInstStaticAlloc;
+
 struct xModelTag
 {
     xVec3 v;
@@ -66,29 +93,39 @@ struct xModelTag
     F32 wt[4];
 };
 
-struct xModelAssetInfo
-{
-    U32 Magic;
-    U32 NumModelInst;
-    U32 AnimTableID;
-    U32 CombatID;
-    U32 BrainID;
-};
-
-struct xModelAssetParam
-{
-    U32 HashID;
-    U8 WordLength;
-    U8 String[3];
-};
-
+xModelPipe xModelGetPipe(RpAtomic* model);
+void xModelInit();
+void xModelInitOnce();
+void xModelPoolInit(U32 count, U32 numMatrices);
+bool xModelInstanceAvailable(S32 bones, S32 need);
+xModelInstance* xModelInstanceAllocReuse(RpAtomic* data, void* object, U16 flags, U8 boneIndex, U8* boneRemap, xModelInstance* reuse_instance);
+void xModelInstanceFree(xModelInstance* modelInst);
+void xModelInstanceAttach(xModelInstance* inst, xModelInstance* parent);
 void xModelUpdate(xModelInstance* modelInst, F32 timeDelta);
+void xModelEvalSingle(xModelInstance* modelInst, xBox* combinedAnimBound);
 void xModelEval(xModelInstance* modelInst);
 void xModelRenderSingle(xModelInstance* modelInst);
-S32 xModelCullSingle(xModelInstance* minst);
-S32 xModelBoxCull(xBox* box);
-void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
+void xModelRender(xModelInstance* modelInst);
 void xModelRender2D(const xModelInstance& model, const basic_rect<F32>& r, const xVec3& from, const xVec3& to);
+void xModel_SceneEnter(RpWorld* world);
+void xModel_SceneExit(RpWorld* world);
+void xModelAnimCollStart(xModelInstance& m);
+void xModelAnimCollRefresh(const xModelInstance& cm);
+void xModelGetBoneLocation(xVec3& loc, const xModelInstance& model, size_t index);
+void xModelGetBoneMat(xMat3x3& mat, const xModelInstance& model, size_t index);
+void xModelGetBoneMat(xMat4x3& mat, const xModelInstance& model, size_t index);
+void xModelGetBoneLocationScaled(xVec3& loc, const xModelInstance& model, size_t index);
+void xModelGetBoneMatScaled(xMat4x3& mat, const xModelInstance& model, size_t index);
+S32 xModelSphereCull(xSphere* sphere);
+S32 xModelSphereCullPlusShadow(xSphere* sphere, xVec3* shadowVec, S32* shadowOutside);
+S32 xModelBoxCull(xBox* box);
+S32 xModelBoxCullPlusShadow(xBox* box, xVec3* shadowVec, S32* shadowOutside);
+S32 xModelCullGroup(xModelInstance* minst);
+S32 xModelCullGroupPlusShadow(xModelInstance* minst, F32 shadowDepth, S32* shadowOutside);
+S32 xModelCullSingle(xModelInstance* minst);
+void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
+void xModelCloneAtomic(RpAtomic** out, S32 out_size, RpAtomic* in);
+RpAtomic* xModelFindAtomic(U32 id, U32* actual_id);
 
 xMat4x3* xModelGetFrame(xModelInstance* minst);
 
@@ -96,8 +133,6 @@ inline void xModelSetFrame(xModelInstance* model, const xMat4x3* frame)
 {
     xMat4x3Copy((xMat4x3*)model->Mat, frame);
 }
-
-xModelInstance* xModelInstanceAllocReuse(RpAtomic* data, void* object, U16 flags, U8 boneIndex, U8* boneRemap, xModelInstance* reuse_instance);
 
 inline xModelInstance* xModelInstanceAlloc(RpAtomic* data, void* object, U16 flags, U8 boneIndex, U8* boneRemap)
 {

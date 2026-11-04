@@ -164,4 +164,16 @@ xAnimState* xAnimTableGetState(xAnimTable* table, const char* name);
 void xAnimPlaySetState(xAnimSingle* single, xAnimState* state, F32 startTime);
 void xAnimPlayStartTransition(xAnimPlay* play, xAnimTransition* transition);
 
+void xAnimPlayChooseTransition(xAnimPlay* play);
+void xAnimPlayUpdate(xAnimPlay* play, F32 timeDelta);
+void xAnimPlayEval(xAnimPlay* play);
+void xAnimPoolFree(xAnimPlay* play);
+
+inline F32 xAnimFileRawTime(xAnimFile* afile, F32 time)
+{
+    if ((afile->FileFlags & 0x1000) || ((afile->FileFlags & 0x2000) && time > 0.5f * afile->Duration))
+        return afile->TimeOffset + afile->Duration - time;
+    return afile->TimeOffset + time;
+}
+
 #endif

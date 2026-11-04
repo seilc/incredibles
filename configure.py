@@ -557,7 +557,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xMath2.cpp"),
             Object(NonMatching, "in/Core/x/xMath3.cpp"),
             Object(NonMatching, "in/Core/x/xMemMgr.cpp"),
-            Object(NonMatching, "in/Core/x/xModel.cpp"),
+            Object(Matching, "in/Core/x/xModel.cpp"),
             Object(Matching, "in/Core/x/xModelBucket.cpp"),
             Object(Matching, "in/Core/x/xMorph.cpp"),
             Object(Matching, "in/Core/x/xMovePoint.cpp"),

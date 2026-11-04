@@ -133,11 +133,14 @@ void xMat4x3Copy(xMat4x3* o, const xMat4x3* m);
 void xQuatFromMat(xQuat* q, const xMat3x3* m);
 void xQuatToMat(const xQuat* q, xMat3x3* m);
 void xQuatSlerp(xQuat* o, const xQuat* a, const xQuat* b, F32 t);
+void xMat3x3Mul(xMat3x3* o, const xMat3x3* a, const xMat3x3* b);
+void xMat3x3ScaleC(xMat3x3* m, F32 x, F32 y, F32 z);
+void xMat3x3Transpose(xMat3x3* o, const xMat3x3* m);
 void xMat3x3Tolocal(xVec3* o, const xMat3x3* m, const xVec3* v);
+F32 xMat3x3LookVec(xMat3x3* m, const xVec3* at);
 void xMat3x3Normalize(xMat3x3* o, const xMat3x3* m);
 void xMat4x3Mul(xMat4x3* o, const xMat4x3* a, const xMat4x3* b);
 bool xVec3Eq(const xVec3& a, const xVec3& b, F32 tol);
-void xMat3x3MulScale(xMat3x3*, const xMat3x3*, xVec3*);
 void xMat3x3Euler(xMat3x3* m, const xVec3* ypr);
 void xRotCopy(xRot* o, const xRot* r);
 
@@ -167,6 +170,36 @@ inline static void xMat3x3RMulVec(xVec3* o, const xMat3x3* m, const xVec3* v)
     o->x = x;
     o->y = y;
     o->z = z;
+}
+
+inline F32 xMat3x3LookAt(xMat3x3* m, const xVec3* from, const xVec3* to)
+{
+    xVec3 at;
+    xVec3Sub(&at, to, from);
+    return xMat3x3LookVec(m, &at);
+}
+
+inline void xMat3x3MulScaleC(xMat3x3* o, const xMat3x3* m, F32 x, F32 y, F32 z)
+{
+    o->right.assign(m->right.x * x, m->right.y * x, m->right.z * x);
+    o->up.assign(m->up.x * y, m->up.y * y, m->up.z * y);
+    o->at.assign(m->at.x * z, m->at.y * z, m->at.z * z);
+}
+
+inline void xMat3x3MulScale(xMat3x3* o, const xMat3x3* m, xVec3* s)
+{
+    return xMat3x3MulScaleC(o, m, s->x, s->y, s->z);
+}
+
+inline void xMat4x3ScaleC(xMat4x3* m, F32 x, F32 y, F32 z)
+{
+    xMat3x3ScaleC(m, x, y, z);
+    xVec3Copy(&m->pos, &g_O3);
+}
+
+inline void xMat4x3Scale(xMat4x3* m, const xVec3* s)
+{
+    xMat4x3ScaleC(m, s->x, s->y, s->z);
 }
 
 inline void xMat4x3Toworld(xVec3* o, const xMat4x3* m, const xVec3* v)
