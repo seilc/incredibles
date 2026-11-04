@@ -164,6 +164,14 @@ struct RpPTankAtomicExtPrv
 #define RpPTankAtomicGetTextureMacro(atm_) \
     (RpMaterialGetTexture(RpGeometryGetMaterial(RpAtomicGetGeometry(atm_),0)))
 
+#define RpPTankAtomicSetActiveParticlesCountMacro(atm_,cnt_)                \
+    MACRO_START                                                             \
+    {                                                                       \
+        RPATOMICPTANKPLUGINDATA(atm_)->instFlags |= rpPTANKIFLAGACTNUMCHG;  \
+        RPATOMICPTANKPLUGINDATA(atm_)->actPCount = cnt_;                    \
+    }                                                                       \
+    MACRO_STOP
+
 #define RpPTankAtomicSetBlendModesMacro(atm_,src_,dst_)                         \
     MACRO_START                                                                 \
     {                                                                           \
@@ -204,10 +212,12 @@ extern RwInt32 _rpPTankAtomicDataOffset;
 RpAtomic* RpPTankAtomicCreate(RwInt32 maxParticleNum, RwUInt32 dataFlags, RwUInt32 platFlags);
 void RpPTankAtomicDestroy(RpAtomic* ptank);
 RwBool RpPTankAtomicLock(RpAtomic* atomic, RpPTankLockStruct* dst, RwUInt32 dataFlags, RpPTankLockFlags lockFlag);
+RpAtomic* RpPTankAtomicUnlock(RpAtomic* atomic);
 
 #if (defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
 RwInt32 RpPTankAtomicGetActiveParticlesCount(RpAtomic* atomic);
 RwTexture* RpPTankAtomicGetTexture(RpAtomic* atomic);
+void RpPTankAtomicSetActiveParticlesCount(RpAtomic* atomic, RwInt32 count);
 void RpPTankAtomicSetBlendModes(RpAtomic* atomic, RwBlendFunction srcBlendMode, RwBlendFunction dstBlendMode);
 void RpPTankAtomicSetConstantVtx2TexCoords(RpAtomic* atomic, RwTexCoords* UVs);
 void RpPTankAtomicSetTexture(RpAtomic* atomic, RwTexture* texture);
@@ -221,6 +231,7 @@ void RpPTankAtomicSetVertexAlpha(RpAtomic* atomic, RwBool vtxAlphaState);
 #if !(defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
 #define RpPTankAtomicGetActiveParticlesCount(atm_) RpPTankAtomicGetActiveParticlesCountMacro(atm_)
 #define RpPTankAtomicGetTexture(atm_) RpPTankAtomicGetTextureMacro(atm_)
+#define RpPTankAtomicSetActiveParticlesCount(atm_,cnt_) RpPTankAtomicSetActiveParticlesCountMacro(atm_,cnt_)
 #define RpPTankAtomicSetBlendModes(atm_,src_,dst_) RpPTankAtomicSetBlendModesMacro(atm_,src_,dst_)
 #define RpPTankAtomicSetConstantVtx2TexCoords(atm_, uv_) RpPTankAtomicSetConstantVtx2TexCoordsMacro(atm_, uv_)
 #define RpPTankAtomicSetTexture(atm_,tex_) RpPTankAtomicSetTextureMacro(atm_,tex_)

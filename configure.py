@@ -756,7 +756,7 @@ config.libs = [
             Object(Matching, "in/GAME/zActionLine.cpp"),
             Object(NonMatching, "in/Core/x/xCollideSpherePolygon.cpp"),
             Object(NonMatching, "in/GAME/zAsync.cpp"),
-            Object(NonMatching, "in/Core/x/xParticleBatch.cpp"),
+            Object(Matching, "in/Core/x/xParticleBatch.cpp"),
             Object(NonMatching, "in/GAME/zSmoke.cpp"),
             Object(NonMatching, "in/GAME/zSplash.cpp"),
             Object(NonMatching, "in/GAME/zNPCNavigationMeshDriven.cpp"),
