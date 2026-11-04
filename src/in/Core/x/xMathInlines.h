@@ -48,4 +48,15 @@ inline void xsqrtfast(F32& o, register F32 fVal)
     o = fRetVal;
 }
 
+inline void xsinfast(F32& fResult, F32 fAngle)
+{
+    F32 fASqr = fAngle * fAngle;
+    fResult = 0.00761f;
+    fResult *= fASqr;
+    fResult -= 0.16605f;
+    fResult *= fASqr;
+    fResult += 1.0f;
+    fResult *= fAngle;
+}
+
 #endif
