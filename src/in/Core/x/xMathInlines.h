@@ -28,6 +28,11 @@ inline F32 xsqrt(register F32 x)
     return 100000.0f;
 }
 
+inline F32 xlog(F32 x)
+{
+    return std::logf(x);
+}
+
 inline F32 xexp(F32 x)
 {
     return std::expf(x);
@@ -36,6 +41,37 @@ inline F32 xexp(F32 x)
 inline F32 xfmod(F32 x, F32 y)
 {
     return std::fmodf(x, y);
+}
+
+inline F32 xpow(F32 x, F32 y)
+{
+    return std::powf(x, y);
+}
+
+inline F32 xacos(F32 x)
+{
+    if (x > 1.0f) {
+        x = 1.0f;
+    }
+
+    if (x < -1.0f) {
+        x = -1.0f;
+    }
+
+    return std::acosf(x);
+}
+
+inline F32 xasin(F32 x)
+{
+    if (x > 1.0f) {
+        x = 1.0f;
+    }
+
+    if (x < -1.0f) {
+        x = -1.0f;
+    }
+
+    return std::asinf(x);
 }
 
 inline void xsqrtfast(F32& o, register F32 fVal)

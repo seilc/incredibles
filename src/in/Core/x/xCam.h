@@ -40,6 +40,14 @@ struct xCamCoordSphere
     xQuat dir;
 };
 
+struct xCamCoordPolar
+{
+    xVec3 origin;
+    F32 theta;
+    F32 phi;
+    F32 dist;
+};
+
 struct xCamOrientEuler
 {
     F32 yaw;
@@ -107,6 +115,7 @@ public:
     static void coord_to_local(xVec3& c, const xVec3& loc);
     static void orient_to_local(xQuat& o, const xMat3x3& mat);
     static xVec3& convert(xVec3& o, const xCamCoordCylinder& i);
+    static xVec3& convert(xVec3& o, const xCamCoordPolar& i);
     static void blend3(F32& o, F32 i0, F32 i1, F32 i2, F32 s);
     static void blend3(xVec3& o, const xVec3& i0, const xVec3& i1, const xVec3& i2, F32 s);
     static void blend3(xCamConfigFollow::zone_data& o, const xCamConfigFollow::zone_data& i0,
@@ -151,6 +160,15 @@ inline xVec3& xCam::convert(xVec3& o, const xCamCoordCylinder& i)
     o.x = i.origin.x + i.dist * isin(i.theta);
     o.y = i.origin.y + i.height;
     o.z = i.origin.z + i.dist * icos(i.theta);
+    return o;
+}
+
+inline xVec3& xCam::convert(xVec3& o, const xCamCoordPolar& i)
+{
+    F32 cp = i.dist * icos(i.phi);
+    o.x = i.origin.x + cp * isin(i.theta);
+    o.y = i.origin.y + i.dist * isin(i.phi);
+    o.z = i.origin.z + cp * icos(i.theta);
     return o;
 }
 

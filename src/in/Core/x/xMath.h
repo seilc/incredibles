@@ -21,7 +21,18 @@
 #define HUGE 1e38f
 
 template <class T>
-T range_limit(T v, T minv, T maxv);
+T range_limit(T v, T minv, T maxv)
+{
+    return v <= minv ? minv : (v >= maxv ? maxv : v);
+}
+
+static const S32 MAX_BINOM_SIZE = 528;
+extern S32 binom_triangle[MAX_BINOM_SIZE];
+
+inline S32 xBinom(S32 n, S32 r)
+{
+    return binom_triangle[n * (n + 1) / 2 + r];
+}
 
 struct xFuncPiece
 {
@@ -98,7 +109,10 @@ void xFuncPiece_EndPointsAllInitial(xFuncPiece* func, F32 pi, F32 pf, F32 fi, F3
 void xFuncPiece_ShiftPiece(xFuncPiece* shift, xFuncPiece* func, F32 newZero);
 
 F32 xsqrt(F32 x);
+F32 xlog(F32 x);
 F32 xexp(F32 x);
+F32 xpow(F32 x, F32 y);
+F32 xacos(F32 x);
 F32 xasin(F32 x);
 F32 xatan2(F32 y, F32 x);
 F32 xfmod(F32 x, F32 y);

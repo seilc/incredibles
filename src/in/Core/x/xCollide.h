@@ -50,6 +50,8 @@ U32 xSphereHitsSphere(const xSphere* a, const xSphere* b, xCollis* coll);
 U32 xSphereHitsBox(const xSphere* a, const xBox* b, xCollis* coll);
 U32 xSphereHitsOBB_nu(const xSphere* s, const xBox* b, const xMat4x3* m, xCollis* coll);
 bool xSphereHitsBox(const xVec3& c, F32 r, const xBox& b);
+S32 xCapsuleIsectsModelClosestToLine(const xCapsule* c, const xModelInstance* model, xCollis* colls);
+S32 xCapsuleIsectsEnvClosestToLine(const xCapsule* c, const xEnv* env, xCollis* colls);
 U32 xBoxHitsSphere(const xBox* a, const xSphere* b, xCollis* coll);
 U32 xObbHitsObb(const xBox* a, const xMat4x3* a_mat, const xBox* b, const xMat4x3* b_mat,
                    xCollis* coll);

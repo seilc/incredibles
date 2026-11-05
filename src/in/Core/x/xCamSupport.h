@@ -1,18 +1,13 @@
 #ifndef XCAMSUPPORT_H
 #define XCAMSUPPORT_H
 
-#include "xMath3.h"
+#include "xVec3.h"
 
-struct xCamCoordPolar
-{
-    xVec3 origin;
-    F32 theta;
-    F32 phi;
-    F32 dist;
-};
+struct xCamCoordPolar;
 
-struct xCamSupportPath
+class xCamSupportPath
 {
+public:
     struct config
     {
         F32 min_segment_dist;
@@ -21,12 +16,38 @@ struct xCamSupportPath
         F32 subdiv_thresh;
     };
 
+    config cfg;
+
+    void create(S32 max_size, S32 debug_max_size);
+    void reset(const xVec3& start_loc);
+    void refresh_config();
+    S32 polar_subdivide(const xCamCoordPolar& start, const xCamCoordPolar& end);
+    void prune(S32 start, S32 size);
+    void smooth(S32 start, S32 size);
+    F32 traverse(xVec3& rloc, F32 velmag, F32 dt);
+    void refresh_dist();
+
+    F32 total_distance()
+    {
+        if (dist < 0.0f) {
+            refresh_dist();
+        }
+
+        F32 rdist = dist - subdist;
+        return rdist >= 0.0f ? rdist : 0.0f;
+    }
+
+    S32 size() const
+    {
+        return used;
+    }
+
+private:
     struct path_node
     {
         xVec3 loc;
     };
 
-    config cfg;
     path_node* path;
     S32 power;
     S32 max_size;
@@ -35,10 +56,21 @@ struct xCamSupportPath
     F32 dist;
     F32 subdist;
     F32 weights[31];
+
+    S32 mod_index(S32 index) const
+    {
+        return index & (max_size - 1);
+    }
+
+    static S32 polar_subdivide(path_node* vert, S32 vert_size, const xCamCoordPolar& start, const xCamCoordPolar& end, F32 thresh);
+    static void compute_weights(F32* w, S32 n, F32 s);
+    void debug_init(S32 debug_max_size) {}
+    void debug_refresh_config() {}
 };
 
-struct xCamSupportLOSBar
+class xCamSupportLOSBar
 {
+public:
     struct config
     {
         F32 rail_ymin;
@@ -56,6 +88,12 @@ struct xCamSupportLOSBar
     xVec3 last_stern_loc;
     F32 rail_yoffset;
     F32 last_rail_yoffset;
+
+    void reset(const xVec3& origin, const xVec3& stern_loc);
+    void begin_update(const xVec3& origin);
+    void precollide();
+    bool collide_pivot();
+    bool collide_compress();
 };
 
 #endif

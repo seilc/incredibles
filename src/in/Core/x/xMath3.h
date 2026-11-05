@@ -145,6 +145,7 @@ void xMat3x3Mul(xMat3x3* o, const xMat3x3* a, const xMat3x3* b);
 void xMat3x3ScaleC(xMat3x3* m, F32 x, F32 y, F32 z);
 void xMat3x3Transpose(xMat3x3* o, const xMat3x3* m);
 void xMat3x3Tolocal(xVec3* o, const xMat3x3* m, const xVec3* v);
+void xMat3x3LMulVec(xVec3* o, const xMat3x3* m, const xVec3* v);
 F32 xMat3x3LookVec(xMat3x3* m, const xVec3* at);
 void xMat3x3Normalize(xMat3x3* o, const xMat3x3* m);
 void xMat4x3Mul(xMat4x3* o, const xMat4x3* a, const xMat4x3* b);
@@ -162,7 +163,13 @@ inline void xMat3x3Identity(xMat3x3* m)
     xMat3x3Copy(m, &g_I3);
 }
 
-void xMat3x3Rot(xMat3x3* m, const xVec3* a, F32 t);
+void xMat3x3RotC(xMat3x3* m, F32 x, F32 y, F32 z, F32 t);
+
+inline void xMat3x3Rot(xMat3x3* m, const xVec3* a, F32 t)
+{
+    xMat3x3RotC(m, a->x, a->y, a->z, t);
+}
+
 void xMat3x3GetEuler(const xMat3x3* m, xVec3* a);
 void xMat3x3Euler(xMat3x3* m, const xVec3* ypr);
 void xMat4x3MoveLocalRight(xMat4x3* m, F32 mag);
@@ -246,6 +253,11 @@ inline void xBoxFromCapsule(xBox& box, const xVec3& s, const xVec3& e, F32 r)
     else { l.z = e.z; u.z = s.z; }
     l -= r;
     u += r;
+}
+
+inline void xBoxFromCapsule(xBox& box, const xCapsule& capsule)
+{
+    xBoxFromCapsule(box, capsule.start, capsule.end, capsule.r);
 }
 
 inline void xMat3x3LookVec(const xVec3& at, xVec3& right, xVec3& up)

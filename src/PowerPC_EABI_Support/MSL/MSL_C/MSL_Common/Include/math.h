@@ -26,6 +26,9 @@ extern double sin(double);
 extern double sqrt(double);
 extern double ceil(double);
 extern double tan(double);
+extern double acos(double);
+extern double asin(double);
+extern double log(double);
 extern double exp(double);
 extern double fmod(double, double);
 

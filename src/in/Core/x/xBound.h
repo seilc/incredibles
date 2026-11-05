@@ -42,4 +42,6 @@ void xBoundGetCenter(const xBound* b, xVec3* center);
 inline xVec3* xBoundCenter(xBound* b) { return &b->sph.center; }
 inline xVec3* xBoundCenter(const xBound* b) { return (xVec3*)&b->sph.center; }
 
+inline bool xSphereHitsBound(const xSphere& o, const xBound& b) { return xSphereHitsBound(o.center, o.r, b); }
+
 #endif

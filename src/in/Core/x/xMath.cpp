@@ -8,7 +8,7 @@ static S32 xmath_inited;
 static S32 xmath_exited;
 static U32 rndseed;
 
-S32 binom_triangle[528];
+S32 binom_triangle[MAX_BINOM_SIZE];
 
 static void xBinomInit();
 

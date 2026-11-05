@@ -515,7 +515,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xBound.cpp"),
             Object(NonMatching, "in/Core/x/xCam.cpp"),
             Object(Matching, "in/Core/x/xCamFollow.cpp"),
-            Object(NonMatching, "in/Core/x/xCamSupport.cpp"),
+            Object(Matching, "in/Core/x/xCamSupport.cpp"),
             Object(Matching, "in/Core/x/xClimate.cpp"),
             Object(Matching, "in/Core/x/xClumpColl.cpp"),
             Object(Matching, "in/Core/x/xCM.cpp"),

@@ -10,6 +10,10 @@ namespace std {
 
 float floorf(float);
 
+inline float acosf(float x) { return acos(x); }
+inline float asinf(float x) { return asin(x); }
+inline float logf(float x) { return log(x); }
+inline float powf(float x, float y) { return pow(x, y); }
 inline float sinf(float x) { return sin(x); }
 inline float cosf(float x) { return cos(x); }
 inline float tanf(float x) { return tan(x); }
