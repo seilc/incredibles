@@ -155,6 +155,11 @@ inline void xMat3x3Identity(xMat3x3* m)
 }
 
 void xMat3x3Rot(xMat3x3* m, const xVec3* a, F32 t);
+void xMat3x3GetEuler(const xMat3x3* m, xVec3* a);
+void xMat3x3Euler(xMat3x3* m, const xVec3* ypr);
+void xMat4x3MoveLocalRight(xMat4x3* m, F32 mag);
+void xMat4x3MoveLocalUp(xMat4x3* m, F32 mag);
+void xMat4x3MoveLocalAt(xMat4x3* m, F32 mag);
 
 inline void xMat4x3Identity(xMat4x3* m)
 {

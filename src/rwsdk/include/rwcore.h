@@ -7,6 +7,7 @@ typedef struct RwBBox RwBBox;
 typedef struct RwCamera RwCamera;
 typedef struct RwFrame RwFrame;
 typedef struct RwFrustumPlane RwFrustumPlane;
+typedef struct RwImage RwImage;
 typedef struct RwObjectHasFrame RwObjectHasFrame;
 typedef struct RwRaster RwRaster;
 typedef struct RwTexDictionary RwTexDictionary;
@@ -375,6 +376,17 @@ struct RwRaster
     RwInt32 originalStride;
 };
 
+struct RwImage
+{
+    RwInt32 flags;
+    RwInt32 width;
+    RwInt32 height;
+    RwInt32 depth;
+    RwInt32 stride;
+    RwUInt8* cpPixels;
+    RwRGBA* palette;
+};
+
 struct RwTexDictionary
 {
     RwObject object;
@@ -555,6 +567,8 @@ struct RwCamera
 #define RwRasterGetFormatMacro(_raster) ((((_raster)->cFormat) & (rwRASTERFORMATMASK >> 8)) << 8)
 #define RwRasterGetHeightMacro(_raster) ((_raster)->height)
 #define RwRasterGetStrideMacro(_raster) ((_raster)->stride)
+#define RwRasterGetTypeMacro(_raster) (((_raster)->cType) & rwRASTERTYPEMASK)
+#define RwRasterGetWidthMacro(_raster) ((_raster)->width)
 #define RwTextureGetRasterMacro(_tex) ((_tex)->raster)
 #define rwTEXTUREFILTERMODEMASK 0x000000FF
 
@@ -588,14 +602,21 @@ RwFrame* RwFrameTransform(RwFrame* frame, const RwMatrix* transform, RwOpCombine
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
 void RwGameCubeSetAlphaCompare(RwInt32 comp0, RwUInt8 ref0, RwInt32 op, RwInt32 comp1, RwUInt8 ref1);
 RwBool RwIm3DEnd(void);
+RwBool RwIm3DRenderIndexedPrimitive(RwPrimitiveType primType, RwImVertexIndex* indices, RwInt32 numIndices);
 RwBool RwIm3DRenderPrimitive(RwPrimitiveType primType);
 void* RwIm3DTransform(RwIm3DVertex* pVerts, RwUInt32 numVerts, RwMatrix* ltm, RwUInt32 flags);
+RwImage* RwImageAllocatePixels(RwImage* image);
+RwImage* RwImageCreate(RwInt32 width, RwInt32 height, RwInt32 depth);
+RwBool RwImageDestroy(RwImage* image);
+RwImage* RwImageSetFromRaster(RwImage* image, RwRaster* raster);
 RwRaster* RwRasterCreate(RwInt32 width, RwInt32 height, RwInt32 depth, RwInt32 flags);
 RwBool RwRasterDestroy(RwRaster* raster);
 RwUInt8* RwRasterLock(RwRaster* raster, RwUInt8 level, RwInt32 lockMode);
+RwRaster* RwRasterSetFromImage(RwRaster* raster, RwImage* image);
 RwRaster* RwRasterUnlock(RwRaster* raster);
 RwTexture* RwTextureCreate(RwRaster* raster);
 RwBool RwTextureDestroy(RwTexture* texture);
+RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster);
 RxRenderStateVector* RxRenderStateVectorLoadDriverState(RxRenderStateVector* rsvp);
 void _rwDlRenderStateSetZCompLoc(RwBool zBeforeTex);
 RwBool _rwFrameSyncDirty(void);
@@ -621,6 +642,8 @@ RwMatrix* RwFrameGetMatrix(RwFrame* frame);
 RwInt32 RwRasterGetFormat(const RwRaster* raster);
 RwInt32 RwRasterGetHeight(const RwRaster* raster);
 RwInt32 RwRasterGetStride(const RwRaster* raster);
+RwInt32 RwRasterGetType(const RwRaster* raster);
+RwInt32 RwRasterGetWidth(const RwRaster* raster);
 RwRaster* RwTextureGetRaster(const RwTexture* texture);
 RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filtering);
 #endif
@@ -649,6 +672,8 @@ RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filter
 #define RwRasterGetFormat(_raster) RwRasterGetFormatMacro(_raster)
 #define RwRasterGetHeight(_raster) RwRasterGetHeightMacro(_raster)
 #define RwRasterGetStride(_raster) RwRasterGetStrideMacro(_raster)
+#define RwRasterGetType(_raster) RwRasterGetTypeMacro(_raster)
+#define RwRasterGetWidth(_raster) RwRasterGetWidthMacro(_raster)
 #define RwTextureGetRaster(_tex) RwTextureGetRasterMacro(_tex)
 #define RwTextureSetFilterMode(_tex, _filtering) RwTextureSetFilterModeMacro(_tex, _filtering)
 #endif

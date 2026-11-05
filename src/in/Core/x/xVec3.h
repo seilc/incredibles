@@ -30,6 +30,7 @@ struct xVec3
     static const xVec3 m_NegDoubleVec;
 
     F32 length() const;
+    F32 normalize();
     F32 length2() const;
     void up_normalize();
 
@@ -81,6 +82,7 @@ void xVec3Inv(xVec3* o, const xVec3* v);
 F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b);
 F32 xVec3NormalizeSafe(xVec3& v);
 F32 xVec3Dist(const xVec3* a, const xVec3* b);
+F32 xVec3Dist2(const xVec3* a, const xVec3* b);
 void xVec3Lerp(xVec3* o, const xVec3* a, const xVec3* b, F32 f);
 
 inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)

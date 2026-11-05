@@ -91,6 +91,8 @@ struct xGlobals
     U32 minVSyncCnt;
     bool dontShowPadMessageDuringLoadingOrCutScene;
     U8 autoSaveFeature;
+    bool skipAsserts;
+    bool beforeFirstFrame;
     S32 asyncLoadingScreen;
     S32 asyncLoadingFlags;
     char fromLauncherUser[32];

@@ -581,7 +581,7 @@ config.libs = [
             Object(NonMatching, "in/Core/x/xsavegame.cpp"),
             Object(NonMatching, "in/Core/x/xScene.cpp"),
             Object(Matching, "in/Core/x/xScreenWarp.cpp"),
-            Object(NonMatching, "in/Core/x/xScrFx.cpp"),
+            Object(Matching, "in/Core/x/xScrFx.cpp"),
             Object(Matching, "in/Core/x/xserializer.cpp"),
             Object(NonMatching, "in/Core/x/xShadow.cpp"),
             Object(NonMatching, "in/Core/x/xShadowSimple.cpp"),

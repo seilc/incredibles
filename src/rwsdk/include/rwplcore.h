@@ -702,7 +702,11 @@ struct RwObject
 #define rwLinkListInitialize(list) \
     ( (list)->link.next = ((RwLLLink *)(list)), (list)->link.prev = ((RwLLLink *)(list)) )
 
+#define RwIm2DGetFarScreenZMacro() (RWSRCGLOBAL(dOpenDevice).zBufferFar)
 #define RwIm2DGetNearScreenZMacro() (RWSRCGLOBAL(dOpenDevice).zBufferNear)
+
+#define RwIm2DRenderIndexedPrimitiveMacro(_primType, _vertices, _numVertices, _indices, _numIndices) \
+    (RWSRCGLOBAL(dOpenDevice).fpIm2DRenderIndexedPrimitive(_primType, _vertices, _numVertices, _indices, _numIndices))
 
 #define RwIm2DRenderPrimitiveMacro(_primType, _vertices, _numVertices) \
     (RWSRCGLOBAL(dOpenDevice).fpIm2DRenderPrimitive(_primType, _vertices, _numVertices))
@@ -719,6 +723,17 @@ struct RwObject
         (m)->pos.x = (m)->pos.y = (m)->pos.z = (RwReal)((0.0));                                             \
         rwMatrixSetFlags((m), rwMatrixGetFlags(m) | (rwMATRIXINTERNALIDENTITY | rwMATRIXTYPEORTHONORMAL));  \
     }                                                                                                       \
+    MACRO_STOP
+
+#define RwV3dAssignMacro(_target, _source) ( *(_target) = *(_source) )
+
+#define RwV3dScaleMacro(o, a, s)       \
+    MACRO_START                        \
+    {                                  \
+        (o)->x = (((a)->x) * ( (s)));  \
+        (o)->y = (((a)->y) * ( (s)));  \
+        (o)->z = (((a)->z) * ( (s)));  \
+    }                                  \
     MACRO_STOP
 
 #define rwObjectGetParent(object) (((const RwObject *)(object))->parent)
@@ -738,15 +753,6 @@ struct RwObject
         result = x + v * (_RW_S1 + z * r);                                                     \
     }                                                                                          \
     while(0)
-
-#define RwV3dScaleMacro(o, a, s)       \
-    MACRO_START                        \
-    {                                  \
-        (o)->x = (((a)->x) * ( (s)));  \
-        (o)->y = (((a)->y) * ( (s)));  \
-        (o)->z = (((a)->z) * ( (s)));  \
-    }                                  \
-    MACRO_STOP
 
 #define RwV3dIncrementScaledMacro(o, a, s)  \
     MACRO_START                             \
@@ -771,6 +777,10 @@ extern RwUInt32 _rwMemoryLastAllocLine;
 
 RwInt32 RwEngineGetCurrentVideoMode(void);
 RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* modeinfo, RwInt32 modeIndex);
+RwMatrix* RwMatrixInvert(RwMatrix* dst, const RwMatrix* src);
+RwMatrix* RwMatrixMultiply(RwMatrix* dst, const RwMatrix* src1, const RwMatrix* src2);
+RwMatrix* RwMatrixScale(RwMatrix* matrix, const RwV3d* scale, RwOpCombineType combineOp);
+RwMatrix* RwMatrixTranslate(RwMatrix* matrix, const RwV3d* translation, RwOpCombineType combineOp);
 void* RwMemNative32(void* mem, RwUInt32 size);
 RwBool RwStreamClose(RwStream* stream, void* pData);
 RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* lengthOut, RwUInt32* versionOut);
@@ -780,17 +790,22 @@ RwStream* RwStreamReadInt16(RwStream* stream, RwInt16* ints, RwUInt32 numBytes);
 RwStream* RwStreamReadInt32(RwStream* stream, RwInt32* ints, RwUInt32 numBytes);
 RwStream* RwStreamReadReal(RwStream* stream, RwReal* reals, RwUInt32 numBytes);
 RwStream* RwStreamSkip(RwStream* stream, RwUInt32 offset);
+RwReal RwV3dLength(const RwV3d* in);
 RwReal RwV3dNormalize(RwV3d* out, const RwV3d* in);
 RwReal _rwInvSqrt(const RwReal num);
 
 #if (defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
+RwReal RwIm2DGetFarScreenZ(void);
 RwReal RwIm2DGetNearScreenZ(void);
+RwBool RwIm2DRenderIndexedPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices, RwImVertexIndex* indices, RwInt32 numIndices);
 RwBool RwIm2DRenderPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices);
 RwV3d* RwMatrixGetPos(RwMatrix* matrix);
 void RwMatrixSetIdentity(RwMatrix* matrix);
 RwBool RwRenderStateGet(RwRenderState state, void* value);
 RwBool RwRenderStateSet(RwRenderState state, void* value);
+void RwV3dAssign(RwV3d* target, const RwV3d* source);
 RwReal RwV3dDotProduct(const RwV3d* ina, const RwV3d* inb);
+void RwV3dScale(RwV3d* out, const RwV3d* in, RwReal scalar);
 void RwV3dSub(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 #endif
 
@@ -799,7 +814,11 @@ void RwV3dSub(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 #endif
 
 #if !(defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
+#define RwIm2DGetFarScreenZ() RwIm2DGetFarScreenZMacro()
 #define RwIm2DGetNearScreenZ() RwIm2DGetNearScreenZMacro()
+
+#define RwIm2DRenderIndexedPrimitive(_primType, _vertices, _numVertices, _indices, _numIndices) \
+    RwIm2DRenderIndexedPrimitiveMacro(_primType, _vertices, _numVertices, _indices, _numIndices)
 
 #define RwIm2DRenderPrimitive(_primType, _vertices, _numVertices) \
     RwIm2DRenderPrimitiveMacro(_primType, _vertices, _numVertices)
@@ -808,7 +827,9 @@ void RwV3dSub(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 #define RwMatrixSetIdentity(m) RwMatrixSetIdentityMacro(m)
 #define RwRenderStateGet(_state, _value) RwRenderStateGetMacro(_state, _value)
 #define RwRenderStateSet(_state, _value) RwRenderStateSetMacro(_state, _value)
+#define RwV3dAssign(o, a) RwV3dAssignMacro(o, a)
 #define RwV3dDotProduct(a, b) RwV3dDotProductMacro(a, b)
+#define RwV3dScale(o, a, s) RwV3dScaleMacro(o, a, s)
 #define RwV3dSub(o, a, b) RwV3dSubMacro(o, a, b)
 #endif
 

@@ -3,4 +3,6 @@
 
 #include "types.h"
 
+#define iprintf
+
 #endif
