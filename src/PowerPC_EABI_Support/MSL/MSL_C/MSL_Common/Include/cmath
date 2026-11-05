@@ -8,8 +8,6 @@
 
 namespace std {
 
-float floorf(float);
-
 inline float acosf(float x) { return acos(x); }
 inline float asinf(float x) { return asin(x); }
 inline float atan2f(float y, float x) { return atan2(y, x); }
@@ -20,6 +18,7 @@ inline float cosf(float x) { return cos(x); }
 inline float tanf(float x) { return tan(x); }
 inline float ceilf(float x) { return ceil(x); }
 inline float expf(float x) { return exp(x); }
+inline float floorf(float x) { return floor(x); }
 inline float fmodf(float x, float y) { return fmod(x, y); }
 
 }

@@ -637,9 +637,8 @@ bool xCamSupportLOSBar::collide_pivot()
     to_cap.start.assign(origin.x, origin.y + rail_yoffset, origin.z);
     to_cap.end = stern_loc;
     to_cap.r = cfg.pivot_bar_radius;
-    if (losbar_tweak::render_coll_pivot) {
+    if (losbar_tweak::render_coll_pivot)
         xDrawSetColor(g_WHITE);
-    }
 
     if (!capsule_hits_scene(to_cap, coll))
         return false;

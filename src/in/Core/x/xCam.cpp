@@ -85,8 +85,9 @@ void xCamGroup::reset()
     for (xCam** it = owned, **end = it + size; it != end; it++) {
         xCam& c = **it;
         c.group = NULL;
-        if (c.started())
+        if (c.started()) {
             c.stop();
+        }
     }
 
     size = 0;
@@ -121,8 +122,9 @@ void xCamGroup::update(xScene& scene, F32 dt)
                 if (!next) {
                     primary = NULL;
                 } else {
-                    if (next->group_index == -1)
+                    if (next->group_index == -1) {
                         insert(*next);
+                    }
                     primary = next;
                     primary->group = this;
                     primary->group_flags &= ~0x10;
@@ -140,12 +142,14 @@ void xCamGroup::add(xCam& cam, bool force_cut)
 {
     if (cam.group == this) {
         cam.group_flags &= ~0xC;
-        if (force_cut)
+        if (force_cut) {
             cam.group_flags |= 0x8;
+        }
     } else if (!cam.group && size < MAX_OWNED_CAMS) {
         cam.group_flags = 0;
-        if (force_cut)
+        if (force_cut) {
             cam.group_flags |= 0x8;
+        }
         insert(cam);
     }
 }
@@ -156,8 +160,9 @@ void xCamGroup::remove(xCam& cam, bool force_cut)
         if (&cam == primary || (cam.group_flags & 0x10)) {
             cam.group_flags &= ~0x8;
             cam.group_flags |= 0x4;
-            if (force_cut)
+            if (force_cut) {
                 cam.group_flags |= 0x8;
+            }
         } else {
             erase(cam);
         }
@@ -200,14 +205,16 @@ S32 xCamGroup::get_next() const
 
 S32 xCamGroup::get_blend(S32 to_index)
 {
-    if (!primary || to_index == -1 || to_index == primary->group_index)
+    if (!primary || to_index == -1 || to_index == primary->group_index) {
         return to_index;
+    }
 
     xCam* to = owned[to_index];
     xCam* from = primary->group_flags & 0x4 ? primary : to;
     F32 blend_time = from->group_flags & 0x8 ? 0.0f : from->cfg_common.blend_time;
-    if (blend_time <= 0.0f)
+    if (blend_time <= 0.0f) {
         return to_index;
+    }
 
     if (to->group_flags & 0x10) {
         xCamBlend* parent = to->blender;
@@ -220,12 +227,14 @@ S32 xCamGroup::get_blend(S32 to_index)
         return primary->group_index;
     }
 
-    if (size >= MAX_OWNED_CAMS)
+    if (size >= MAX_OWNED_CAMS) {
         return to_index;
+    }
 
     xCamBlend* blend = grab_blend_cam();
-    if (!blend)
+    if (!blend) {
         return to_index;
+    }
 
     primary->blender = to->blender = blend;
     blend->attach(*primary, *to);
@@ -238,8 +247,9 @@ S32 xCamGroup::get_blend(S32 to_index)
 
 void xCamGroup::set_primary(S32 index)
 {
-    if (primary && index == primary->group_index)
+    if (primary && index == primary->group_index) {
         return;
+    }
 
     if (primary && primary->started() && !(primary->group_flags & 0x10)) {
         primary->stop();
@@ -263,8 +273,9 @@ void xCamGroup::flush_dead()
     for (S32 i = 0; i < size; i++) {
         xCam& c = *owned[i];
         if (&c != primary && !(c.group_flags & 0x10) && (c.group_flags & 0x5)) {
-            if (c.started())
+            if (c.started()) {
                 c.stop();
+            }
             erase(i);
             i--;
         }

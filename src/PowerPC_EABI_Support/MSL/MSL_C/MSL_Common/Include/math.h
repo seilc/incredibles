@@ -25,6 +25,7 @@ extern double cos(double);
 extern double sin(double);
 extern double sqrt(double);
 extern double ceil(double);
+extern double floor(double);
 extern double tan(double);
 extern double acos(double);
 extern double asin(double);

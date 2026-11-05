@@ -743,9 +743,9 @@ static RpCollisionTriangle* nearestFloorCB(RpIntersection*, RpCollisionTriangle*
         pdz[i] = nfpoly->center.z - xformVert[i].z;
     }
 
-    F32 cross0 = pdx[0] * pdz[1] - pdz[0] * pdx[1];
-    F32 cross1 = pdx[1] * pdz[2] - pdz[1] * pdx[2];
-    F32 cross2 = pdx[2] * pdz[0] - pdz[2] * pdx[0];
+    F32 cross0 = pdx[0] * pdz[1] - pdz[0] * pdx[1],
+        cross1 = pdx[1] * pdz[2] - pdz[1] * pdx[2],
+        cross2 = pdx[2] * pdz[0] - pdz[2] * pdx[0];
 
     if ((cross0 >= 0.0f && cross1 >= 0.0f && cross2 >= 0.0f) || (cross0 <= 0.0f && cross1 <= 0.0f && cross2 <= 0.0f)) {
         nfpoly->neardist = 0.0f;
