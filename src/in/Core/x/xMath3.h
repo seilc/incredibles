@@ -260,6 +260,22 @@ inline void xBoxFromCapsule(xBox& box, const xCapsule& capsule)
     xBoxFromCapsule(box, capsule.start, capsule.end, capsule.r);
 }
 
+inline void xQuatToLookVec(const xQuat* q, xVec3* v)
+{
+    F32 tx = 2.0f * q->v.x;
+    F32 ty = 2.0f * q->v.y;
+    F32 tz = 2.0f * q->v.z;
+    F32 tsx = tx * q->s;
+    F32 tsy = ty * q->s;
+    F32 txx = tx * q->v.x;
+    F32 txz = tz * q->v.x;
+    F32 tyy = ty * q->v.y;
+    F32 tyz = tz * q->v.y;
+    v->x = txz - tsy;
+    v->y = tyz + tsx;
+    v->z = 1.0f - txx - tyy;
+}
+
 inline void xMat3x3LookVec(const xVec3& at, xVec3& right, xVec3& up)
 {
     if (at.x > 0.8f || at.x < -0.8f) {

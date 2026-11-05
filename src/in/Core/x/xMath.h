@@ -115,6 +115,7 @@ F32 xpow(F32 x, F32 y);
 F32 xacos(F32 x);
 F32 xasin(F32 x);
 F32 xatan2(F32 y, F32 x);
+F32 xinvsqrt(F32 fVal);
 F32 xfmod(F32 x, F32 y);
 void xsqrtfast(F32& o, F32 fVal);
 
@@ -133,6 +134,14 @@ inline void xDampSpring(F32& s, F32& v, F32 dt, F32 k, F32 e)
 inline void xDampSpring(F32& s, F32& v, F32 dt, F32 k)
 {
     xDampSpring(s, v, dt, k, xDampSpringCoeff(dt, k));
+}
+
+inline F32 xSCurve(F32 t)
+{
+    if (t <= 0.5f) {
+        return 2.0f * t * t;
+    }
+    t = 1.0f - t; return 1.0f - 2.0f * t * t;
 }
 
 inline F32 xrmod(F32 ang)

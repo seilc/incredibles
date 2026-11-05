@@ -30,7 +30,12 @@ struct xVec3
     static const xVec3 m_NegDoubleVec;
 
     F32 length() const { return xsqrt(length2()); }
-    F32 normalize();
+    F32 normalize()
+    {
+        F32 f = xinvsqrt(length2());
+        *this *= f;
+        return 1.0f / f;
+    }
     F32 length2() const;
     void up_normalize();
 
@@ -46,9 +51,11 @@ struct xVec3
         assign(xyz, xyz, xyz);
     }
 
-    xVec3 operator+(const xVec3& v) const;
+    xVec3 operator+(const xVec3& v) const { xVec3 r = *this; r += v; return r; }
     xVec3 operator-(const xVec3& v) const;
     xVec3 operator*(F32 s) const;
+    xVec3 operator/(F32 f) const { xVec3 r = *this; r /= f; return r; }
+    xVec3 operator-() const { xVec3 r = *this; r.x = -r.x; r.y = -r.y; r.z = -r.z; return r; }
     xVec3& operator+=(const xVec3& v);
     xVec3& operator-=(const xVec3& v) { x -= v.x; y -= v.y; z -= v.z; return *this; }
     xVec3& operator+=(F32 f) { x += f; y += f; z += f; return *this; }
@@ -123,6 +130,13 @@ inline F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b)
         hdng->z = dz__ * dist_inv;
     }
     return d;
+}
+
+#define xVec3AddScaleMacro(o, a, b, s)          \
+{                                               \
+    (o)->x = (a)->x + (s) * (b)->x;             \
+    (o)->y = (a)->y + (s) * (b)->y;             \
+    (o)->z = (a)->z + (s) * (b)->z;             \
 }
 
 #define xVec3NormalizeMacro(o, v, outlen)                                                         \

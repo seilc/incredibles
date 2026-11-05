@@ -12,6 +12,7 @@ float floorf(float);
 
 inline float acosf(float x) { return acos(x); }
 inline float asinf(float x) { return asin(x); }
+inline float atan2f(float y, float x) { return atan2(y, x); }
 inline float logf(float x) { return log(x); }
 inline float powf(float x, float y) { return pow(x, y); }
 inline float sinf(float x) { return sin(x); }

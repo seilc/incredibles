@@ -89,6 +89,11 @@ inline void xsqrtfast(F32& o, register F32 fVal)
     o = fRetVal;
 }
 
+inline F32 xatan2(F32 y, F32 x)
+{
+    return xAngleClampFast(std::atan2f(y, x));
+}
+
 inline void xsinfast(F32& fResult, F32 fAngle)
 {
     F32 fASqr = fAngle * fAngle;
@@ -98,6 +103,17 @@ inline void xsinfast(F32& fResult, F32 fAngle)
     fResult *= fASqr;
     fResult += 1.0f;
     fResult *= fAngle;
+}
+
+inline F32 xinvsqrt(register F32 fVal)
+{
+    register F32 fRetVal;
+
+    asm {
+        frsqrte fRetVal, fVal
+    }
+
+    return fRetVal;
 }
 
 #endif

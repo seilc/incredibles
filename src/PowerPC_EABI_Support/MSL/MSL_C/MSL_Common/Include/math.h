@@ -29,6 +29,7 @@ extern double tan(double);
 extern double acos(double);
 extern double asin(double);
 extern double log(double);
+extern double atan2(double, double);
 extern double exp(double);
 extern double fmod(double, double);
 

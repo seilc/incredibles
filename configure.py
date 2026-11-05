@@ -513,7 +513,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xBehaveMgr.cpp"),
             Object(Matching, "in/Core/x/xbinio.cpp"),
             Object(Matching, "in/Core/x/xBound.cpp"),
-            Object(NonMatching, "in/Core/x/xCam.cpp"),
+            Object(Matching, "in/Core/x/xCam.cpp"),
             Object(Matching, "in/Core/x/xCamFollow.cpp"),
             Object(Matching, "in/Core/x/xCamSupport.cpp"),
             Object(Matching, "in/Core/x/xClimate.cpp"),

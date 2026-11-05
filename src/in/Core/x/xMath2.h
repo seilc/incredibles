@@ -8,6 +8,7 @@ struct xVec2
     F32 x;
     F32 y;
 
+    xVec2& operator=(F32 f) { x = y = f; return *this; }
     xVec2& assign(F32 x, F32 y) { this->x = x; this->y = y; return *this; }
 
     void assign(F32 xy)
