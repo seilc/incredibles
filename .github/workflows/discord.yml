@@ -56,6 +56,13 @@ jobs:
             echo "COMMITS=$commits" >> "$GITHUB_ENV"
           fi
 
+      - name: Draw treemap
+        continue-on-error: true
+        timeout-minutes: 5
+        run: |
+          python3 -m pip install --break-system-packages -q pillow==12.3.0
+          python3 .github/treemap.py cur treemap.png $PREV
+
       - name: Post progress to Discord
         env:
           PUSHER: ${{ github.event.workflow_run.actor.login }}
@@ -72,4 +79,6 @@ jobs:
             echo "No progress change, skipped"
             exit 0
           fi
-          curl -fsS -H "Content-Type: application/json" --data-binary @payload.json "$HOOK"
+          if [ ! -s treemap.png ] || ! curl -fsS -F "payload_json=<payload.json" -F "files[0]=@treemap.png;type=image/png" "$HOOK"; then
+            curl -fsS -H "Content-Type: application/json" --data-binary @payload.json "$HOOK"
+          fi
