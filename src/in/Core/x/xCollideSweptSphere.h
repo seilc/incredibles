@@ -5,12 +5,17 @@
 #include "xQuickCull.h"
 #include "xJSP.h"
 
+struct RpCollTree;
+struct xBound;
+struct xEnv;
 struct xScene;
+
+typedef RwBool (*RpCollTreeLeafCB)(RwInt32 numTriangles, RwInt32 triOffset, void* data);
 
 struct xSweptSphere
 {
-    U8 detect_initial_penetration;
-    U8 init_collide;
+    bool detect_initial_penetration;
+    bool init_collide;
     xVec3 start;
     xVec3 end;
     F32 radius;
@@ -54,12 +59,23 @@ struct xCollideProcessedTri
     xEdge edges[3];
 };
 
+void xSweptSphereDetectInitialPenetration(xSweptSphere& sws);
+void xSweptSpherePrepare(xSweptSphere& sws, const xVec3& start, const xVec3& dir, F32 dist, F32 radius);
 void xSweptSpherePrepare(xSweptSphere* sws, const xVec3* start, const xVec3* end, F32 radius);
 void xSweptSphereResetCollision(xSweptSphere* sws);
-S32 xSweptSphereToScene(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
+void xSweptSphereGetResults(xSweptSphere* sws);
+S32 xSweptSphereToEnv(xSweptSphere* sws, xEnv* env);
+void RpCollTreeForAllCapsuleIntsec(RpCollTree* tree, RwLine* line, RwReal radius, RpCollTreeLeafCB callBack, void* data);
+S32 xSweptSphereToModel(xSweptSphere* sws, RpAtomic* model, const RwMatrix* mat);
 S32 xSweptSphereToSphere(xSweptSphere& sws, const xVec3& center, F32 radius);
 S32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph);
-S32 xSweptSphereToModel(xSweptSphere* sws, RpAtomic* model, const RwMatrix* mat);
+S32 xSweptSphereToBound(xSweptSphere* sws, const xBound* bound);
+S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent);
+S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent, xRay3* ray);
+S32 xSweptSphereToScene(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
+S32 xSweptSphereToNonMoving(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
+S32 xSweptSphereToStatDyn(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
+S32 xSweptSphereToNPC(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
 
 inline xSweptSphere::xSweptSphere() {}
 

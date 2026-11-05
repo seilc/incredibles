@@ -193,4 +193,10 @@ inline void xEntVisibilityCullOff(xEnt* ent)
     }
 }
 
+struct xEntOpacity
+{
+    F32 delta_opacity;
+    F32 delta_opacity_2;
+};
+
 #endif

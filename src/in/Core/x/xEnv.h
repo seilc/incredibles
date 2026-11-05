@@ -19,4 +19,9 @@ void xEnvSetup(xEnv* env);
 void xEnvFree(xEnv* env);
 void xEnvRender(xEnv* env, bool alpha);
 
+inline bool xEnvIsJSPActive(const xEnv* env, S32 which)
+{
+    return iEnvIsJSPActive(env->geom, which);
+}
+
 #endif

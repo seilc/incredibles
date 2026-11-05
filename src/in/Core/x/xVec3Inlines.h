@@ -27,6 +27,13 @@ inline void xVec3Cross(xVec3& o, const xVec3& a, const xVec3& b)
     o.x = a.y * b.z - b.y * a.z, o.y = a.z * b.x - b.z * a.x, o.z = a.x * b.y - b.x * a.y;
 }
 
+inline void xVec3SMul(xVec3& o, const xVec3& v, F32 s)
+{
+    o.x = v.x * s;
+    o.y = v.y * s;
+    o.z = v.z * s;
+}
+
 inline void xVec3SMulBy(xVec3* v, F32 s)
 {
     v->x *= s, v->y *= s, v->z *= s;

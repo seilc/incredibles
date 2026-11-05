@@ -109,6 +109,9 @@ void xModelRender(xModelInstance* modelInst);
 void xModelRender2D(const xModelInstance& model, const basic_rect<F32>& r, const xVec3& from, const xVec3& to);
 void xModel_SceneEnter(RpWorld* world);
 void xModel_SceneExit(RpWorld* world);
+
+extern RpMorphTarget anim_coll_old_mt;
+
 void xModelAnimCollStart(xModelInstance& m);
 void xModelAnimCollRefresh(const xModelInstance& cm);
 void xModelGetBoneLocation(xVec3& loc, const xModelInstance& model, size_t index);
@@ -132,6 +135,30 @@ xMat4x3* xModelGetFrame(xModelInstance* minst);
 inline void xModelSetFrame(xModelInstance* model, const xMat4x3* frame)
 {
     xMat4x3Copy((xMat4x3*)model->Mat, frame);
+}
+
+inline bool xModelAnimCollDirty(const xModelInstance& m)
+{
+    return (m.Flags & 0x1800) == 0x800;
+}
+
+inline void xModelAnimCollApply(const xModelInstance& cm)
+{
+    xModelInstance& m = (xModelInstance&)cm;
+    if (xModelAnimCollDirty(m)) xModelAnimCollRefresh(m);
+    RpGeometry* geom = RpAtomicGetGeometry(m.Data);
+    RpMorphTarget* mt = RpGeometryGetMorphTarget(geom, 0);
+
+    anim_coll_old_mt.verts = mt->verts;
+    mt->verts = (RwV3d*)m.anim_coll.verts;
+}
+
+inline void xModelAnimCollRestore(const xModelInstance& cm)
+{
+    xModelInstance& m = (xModelInstance&)cm;
+    RpGeometry* geom = RpAtomicGetGeometry(m.Data);
+    RpMorphTarget* mt = RpGeometryGetMorphTarget(geom, 0);
+    mt->verts = anim_coll_old_mt.verts;
 }
 
 inline xModelInstance* xModelInstanceAlloc(RpAtomic* data, void* object, U16 flags, U8 boneIndex, U8* boneRemap)

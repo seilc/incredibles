@@ -769,7 +769,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zIncrediBallCam.cpp"),
             Object(Matching, "in/GAME/zTimeHandler.cpp"),
             Object(Matching, "in/GAME/zBulletMarkAsset.cpp"),
-            Object(NonMatching, "in/Core/x/xCollideSweptSphere.cpp"),
+            Object(Matching, "in/Core/x/xCollideSweptSphere.cpp"),
             Object(Matching, "in/GAME/zNPCCommon.cpp"),
             Object(Matching, "in/Core/x/xScreenFade.cpp"),
             Object(NonMatching, "in/GAME/zNPCWeapon.cpp"),

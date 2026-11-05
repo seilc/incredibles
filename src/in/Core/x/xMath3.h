@@ -76,6 +76,13 @@ struct xCylinder
     F32 h;
 };
 
+struct xCapsule
+{
+    xVec3 start;
+    xVec3 end;
+    F32 r;
+};
+
 struct xPlane
 {
     xVec3 norm;
@@ -128,6 +135,7 @@ extern xVec3 g_O3;
 extern xMat4x3 g_I3;
 
 void xBoxInitBoundOBB(xBox* o, const xBox* b, const xMat4x3* m);
+void xBoxInitBoundCapsule(xBox* b, const xCapsule* c);
 void xMat3x3Euler(xMat3x3* m, F32 yaw, F32 pitch, F32 roll);
 void xMat4x3Copy(xMat4x3* o, const xMat4x3* m);
 void xQuatFromMat(xQuat* q, const xMat3x3* m);
@@ -223,6 +231,34 @@ inline void xMat4x3Tolocal(xVec3* o, const xMat4x3* m, const xVec3* v)
     o->z = v->z - m->pos.z;
 
     xMat3x3Tolocal(o, m, o);
+}
+
+inline void xBoxFromCapsule(xBox& box, const xVec3& s, const xVec3& e, F32 r)
+{
+    xVec3& l = box.lower;
+    xVec3& u = box.upper;
+
+    if (s.x < e.x) { l.x = s.x; u.x = e.x; }
+    else { l.x = e.x; u.x = s.x; }
+    if (s.y < e.y) { l.y = s.y; u.y = e.y; }
+    else { l.y = e.y; u.y = s.y; }
+    if (s.z < e.z) { l.z = s.z; u.z = e.z; }
+    else { l.z = e.z; u.z = s.z; }
+    l -= r;
+    u += r;
+}
+
+inline void xMat3x3LookVec(const xVec3& at, xVec3& right, xVec3& up)
+{
+    if (at.x > 0.8f || at.x < -0.8f) {
+        right.cross_ypos(at);
+    } else {
+        right.cross_xpos(at);
+    }
+
+    xVec3NormalizeSafe(right);
+
+    up.cross(at, right);
 }
 
 #endif
