@@ -6,6 +6,7 @@
 extern xGrid colls_grid;
 extern xGrid colls_oso_grid;
 extern xGrid npcs_grid;
+extern xGrid grabbable_grid;
 
 void zGridUpdateEnt(xEnt* ent);
 

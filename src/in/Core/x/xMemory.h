@@ -32,10 +32,11 @@ inline void xMemorySetV32A32(void* memory, U32 value, U32 count)
 
 inline void xMemoryCopyUpA32(void* dest, const void* source, U32 count)
 {
+    count /= 4;
+
     U32* destIterator = (U32*)dest;
     const U32* sourceIterator = (const U32*)source;
 
-    count /= 4;
     if (count) {
         do {
             *destIterator++ = *sourceIterator++;

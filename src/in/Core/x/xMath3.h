@@ -261,4 +261,52 @@ inline void xMat3x3LookVec(const xVec3& at, xVec3& right, xVec3& up)
     up.cross(at, right);
 }
 
+#define xBoxCenter(o, b)                        \
+do {                                            \
+    xVec3Add((o), &(b)->lower, &(b)->upper);    \
+    xVec3SMul((o), (o), 0.5f);                  \
+} while (0)
+
+#define xLine3FromRay(ln, r)                                                                                                                        \
+do {                                                                                                                                                \
+    if ((r)->flags & XRAY3_USE_MIN) {                                                                                                               \
+        xVec3 delta;                                                                                                                                \
+        delta.x = (r)->dir.x * (r)->min_t, delta.y = (r)->dir.y * (r)->min_t, delta.z = (r)->dir.z * (r)->min_t;                                    \
+        (ln).p1.x = (r)->origin.x + delta.x, (ln).p1.y = (r)->origin.y + delta.y, (ln).p1.z = (r)->origin.z + delta.z;                              \
+    } else {                                                                                                                                        \
+        (ln).p1.x = (r)->origin.x, (ln).p1.y = (r)->origin.y, (ln).p1.z = (r)->origin.z;                                                            \
+    }                                                                                                                                               \
+    if ((r)->flags & XRAY3_USE_MAX) {                                                                                                               \
+        F32 len;                                                                                                                                    \
+        if ((r)->flags & XRAY3_USE_MIN) {                                                                                                           \
+            len = (r)->max_t - (r)->min_t;                                                                                                          \
+        } else {                                                                                                                                    \
+            len = (r)->max_t;                                                                                                                       \
+        }                                                                                                                                           \
+        (ln).p2.x = (r)->dir.x * len, (ln).p2.y = (r)->dir.y * len, (ln).p2.z = (r)->dir.z * len;                                                   \
+    } else {                                                                                                                                        \
+        (ln).p2.x = (r)->dir.x, (ln).p2.y = (r)->dir.y, (ln).p2.z = (r)->dir.z;                                                                     \
+    }                                                                                                                                               \
+    (ln).p2.x = (ln).p1.x + (ln).p2.x, (ln).p2.y = (ln).p1.y + (ln).p2.y, (ln).p2.z = (ln).p1.z + (ln).p2.z;                                        \
+} while (0)
+
+inline void xBoxFromLine(xBox& box, const xLine3& line)
+{
+    box.upper.x = MAX(line.p1.x, line.p2.x);
+    box.upper.y = MAX(line.p1.y, line.p2.y);
+    box.upper.z = MAX(line.p1.z, line.p2.z);
+    box.lower.x = MIN(line.p1.x, line.p2.x);
+    box.lower.y = MIN(line.p1.y, line.p2.y);
+    box.lower.z = MIN(line.p1.z, line.p2.z);
+}
+
+inline void xBoxFromRay(xBox& box, const xRay3& ray)
+{
+    xLine3 line;
+
+    xLine3FromRay(line, &ray);
+
+    xBoxFromLine(box, line);
+}
+
 #endif

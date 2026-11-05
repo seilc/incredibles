@@ -61,6 +61,11 @@ inline void xQuickCullForLine(xQCData* q, const xLine3* r)
     xQuickCullForLine(&xqc_def_ctrl, q, r);
 }
 
+inline void xQuickCullForRay(xQCData* q, const xRay3* r)
+{
+    xQuickCullForRay(&xqc_def_ctrl, q, r);
+}
+
 inline void xQuickCullForBound(xQCData* q, const xBound* b)
 {
     xQuickCullForBound(&xqc_def_ctrl, q, b);

@@ -90,4 +90,39 @@ inline xGridBound* xGridIterNextCell(xGridIterator& it)
     return NULL;
 }
 
+template <class T>
+void xGridCheckBound(xGrid& grid, const xBound& bound, const xQCData& qcd, T& cb)
+{
+    xGridIterator it;
+    xBox box;
+    S32 lower_x, lower_z, upper_x, upper_z;
+
+    xGridCheckBoundSetup(box, lower_x, lower_z, upper_x, upper_z, grid, bound);
+
+    xGridBound* cell = xGridIterFirstCell(&grid.other, it);
+    S32 gx = lower_x, gz = lower_z;
+
+    while (true) {
+        while (cell) {
+            xBound* cellbound = (xBound*)(cell + 1);
+            if (xQuickCullIsects(&qcd, &cellbound->qcd)) {
+                if (!cb(*(xEnt*)cell->data)) {
+                    xGridIterClose(it);
+                    return;
+                }
+            }
+            cell = xGridIterNextCell(it);
+        }
+
+        if (gx > upper_x) break;
+
+        cell = xGridIterFirstCell(&grid, gx, gz, it);
+        gz++;
+        if (gz > upper_z) {
+            gz = lower_z;
+            gx++;
+        }
+    }
+}
+
 #endif

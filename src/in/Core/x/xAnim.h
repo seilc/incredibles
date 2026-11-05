@@ -159,6 +159,7 @@ struct xAnimPlay
     void (*BeforeAnimMatrices)(xAnimPlay*, xQuat*, xVec3*, S32);
 };
 
+void xAnimInit();
 xAnimTransition* xAnimTempTransitionAlloc(const xAnimTransition* source);
 xAnimState* xAnimTableGetState(xAnimTable* table, const char* name);
 void xAnimPlaySetState(xAnimSingle* single, xAnimState* state, F32 startTime);
@@ -167,6 +168,7 @@ void xAnimPlayStartTransition(xAnimPlay* play, xAnimTransition* transition);
 void xAnimPlayChooseTransition(xAnimPlay* play);
 void xAnimPlayUpdate(xAnimPlay* play, F32 timeDelta);
 void xAnimPlayEval(xAnimPlay* play);
+void xAnimPoolInit(xMemPool* pool, U32 count, U32 singles, U32 blendFlags, U32 effectMax);
 void xAnimPoolFree(xAnimPlay* play);
 
 inline F32 xAnimFileRawTime(xAnimFile* afile, F32 time)
