@@ -46,9 +46,9 @@ jobs:
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           gh run download "$RUN_ID" -R "$GITHUB_REPOSITORY" -p '*_report' -D cur
-          read -r prev prev_sha <<< "$(gh run list -R "$GITHUB_REPOSITORY" -w Build -b main -e push -s success -L 20 \
-              --json databaseId,headSha \
-              --jq "[.[] | select(.databaseId != $RUN_ID)][0] // empty | \"\\(.databaseId) \\(.headSha)\"")"
+          read -r prev prev_sha <<< "$(gh run list -R "$GITHUB_REPOSITORY" -w Build -b main -e push -L 20 \
+              --json databaseId,headSha,conclusion \
+              --jq "[.[] | select(.databaseId != $RUN_ID and .conclusion == \"success\")][0] // empty | \"\\(.databaseId) \\(.headSha)\"")"
           if [ -n "$prev" ] && gh run download "$prev" -R "$GITHUB_REPOSITORY" -p '*_report' -D prev; then
             echo "PREV=prev" >> "$GITHUB_ENV"
             echo "PREV_SHA=$prev_sha" >> "$GITHUB_ENV"
