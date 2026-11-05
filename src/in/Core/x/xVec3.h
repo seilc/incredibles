@@ -76,6 +76,22 @@ struct xVec3
 
     F32 dot(const xVec3& c) const;
     xVec3& negate() { x = -x; y = -y; z = -z; return *this; }
+
+    xVec3 cross(const xVec3& c) const
+    {
+        xVec3 v = { y * c.z - c.y * z, z * c.x - c.z * x, x * c.y - c.x * y };
+        return v;
+    }
+
+    F32 safe_normalize(const xVec3& safety)
+    {
+        F32 len = length();
+        if (len < 0.00001f)
+            *this = safety;
+        else
+            *this *= 1.0f / len;
+        return len;
+    }
 };
 
 F32 xVec3Normalize(xVec3* o, const xVec3* v);

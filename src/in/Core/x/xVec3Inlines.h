@@ -1,6 +1,11 @@
 #ifndef XVEC3INLINES_H
 #define XVEC3INLINES_H
 
+inline U32 xVec3Equals(const xVec3* a, const xVec3* b)
+{
+    return xeq(a->x, b->x, 0.0f) && xeq(a->y, b->y, 0.0f) && xeq(a->z, b->z, 0.0f);
+}
+
 inline void xVec3AddScaled(xVec3& a, const xVec3& b, F32 scale)
 {
     a.x += b.x * scale;
@@ -37,6 +42,13 @@ inline void xVec3SMul(xVec3& o, const xVec3& v, F32 s)
 inline void xVec3SMulBy(xVec3* v, F32 s)
 {
     v->x *= s, v->y *= s, v->z *= s;
+}
+
+inline void xVec3SMulBy(xVec3& v, F32 s)
+{
+    v.x *= s;
+    v.y *= s;
+    v.z *= s;
 }
 
 inline void xVec3ScaleC(xVec3& o, F32 scale)

@@ -145,6 +145,8 @@ public:
     static void blend3(xCamConfigFollow::zone_data& o, const xCamConfigFollow::zone_data& i0,
                        const xCamConfigFollow::zone_data& i1, const xCamConfigFollow::zone_data& i2, F32 s);
     static void spring_interp(F32& s, F32& v, F32 s0, F32 s1, F32 dt, F32 speed, F32 e);
+    static void spring_interp(xVec3& s, F32& v, const xVec3& s0, const xVec3& s1, F32 dt, F32 speed, F32 e);
+    static void spring_interp(xQuat& s, F32& v, const xQuat& s0, const xQuat& s1, F32 dt, F32 speed, F32 e);
     template <class T, class U>
     static void spring_interp(T& s, U& v, const T& s0, const T& s1, F32 dt, F32 speed);
 
@@ -337,6 +339,33 @@ inline void xCam::spring_interp(F32& s, F32& v, F32 s0, F32 s1, F32 dt, F32 spee
     F32 ds = s0 - s1;
     xDampSpring(ds, v, dt, speed, e);
     s = s1 + ds;
+}
+
+inline void xCam::spring_interp(xVec3& s, F32& v, const xVec3& s0, const xVec3& s1, F32 dt, F32 speed, F32 e)
+{
+    F32 dx = s0.x - s1.x, dy = s0.y - s1.y, dz = s0.z - s1.z;
+    F32 sdist = xsqrt(dx * dx + dy * dy + dz * dz);
+    if (sdist < 0.0001f) { s = s1; v = 0.0f; return; }
+    F32 dist = sdist;
+    xDampSpring(dist, v, dt, speed, e);
+    if (v > 0.0f) v = 0.0f;
+    if (dist <= 0.0f) { s = s1; return; }
+
+    F32 u = dist / sdist;
+    s.x = u * dx + s1.x;
+    s.y = u * dy + s1.y;
+    s.z = u * dz + s1.z;
+}
+
+inline void xCam::spring_interp(xQuat& s, F32& v, const xQuat& s0, const xQuat& s1, F32 dt, F32 speed, F32 e)
+{
+    F32 sa = xabs(xrmod(xQuatGetAngleDiff(&s0, &s1) + PI) - PI);
+    if (sa < 0.0001f) { s = s1; v = 0.0f; return; }
+    F32 a = sa;
+    xDampSpring(a, v, dt, speed, e);
+    if (v > 0.0f) v = 0.0f;
+    if (a <= 0.0f) { s = s1; return; }
+    xQuatSlerp(&s, &s1, &s0, a / sa);
 }
 
 template <class T, class U>
