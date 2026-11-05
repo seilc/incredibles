@@ -1,6 +1,13 @@
 #ifndef XVEC3INLINES_H
 #define XVEC3INLINES_H
 
+inline void xVec3AddScaled(xVec3& a, const xVec3& b, F32 scale)
+{
+    a.x += b.x * scale;
+    a.y += b.y * scale;
+    a.z += b.z * scale;
+}
+
 inline void xVec3AddScaled(xVec3& o, const xVec3& a, const xVec3& b, F32 scale)
 {
     o.x = a.x + b.x * scale;
@@ -20,11 +27,21 @@ inline void xVec3Cross(xVec3& o, const xVec3& a, const xVec3& b)
     o.x = a.y * b.z - b.y * a.z, o.y = a.z * b.x - b.z * a.x, o.z = a.x * b.y - b.x * a.y;
 }
 
+inline void xVec3SMulBy(xVec3* v, F32 s)
+{
+    v->x *= s, v->y *= s, v->z *= s;
+}
+
 inline void xVec3ScaleC(xVec3& o, F32 scale)
 {
     o.x *= scale;
     o.y *= scale;
     o.z *= scale;
+}
+
+inline F32 xVec3Length2(const xVec3* v)
+{
+    return v->x * v->x + v->y * v->y + v->z * v->z;
 }
 
 inline F32 xVec3Length(const xVec3* v)

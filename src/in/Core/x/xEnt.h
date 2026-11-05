@@ -41,6 +41,8 @@ struct xEntFrame
     U32 mode;
     xVec3 dpos;
 
+    xVec3& getDpos() const;
+
     xVec3& setDpos()
     {
         return dpos;
@@ -84,6 +86,8 @@ struct xEntShadow
 struct xFFX;
 struct xShadowSimpleCache;
 
+typedef void(*xEntUpdateCallback)(xEnt*, xScene*, F32);
+
 struct xEnt : xBase
 {
     struct anim_coll_data
@@ -119,7 +123,7 @@ struct xEnt : xBase
     xModelInstance* model;
     xModelInstance* collModel;
     xModelInstance* camcollModel;
-    void (*update)(xEnt*, xScene*, F32);
+    xEntUpdateCallback update;
     void (*endUpdate)(xEnt*, xScene*, F32);
     void (*bupdate)(xEnt*, xVec3*);
     void (*move)(xEnt*, xScene*, F32, xEntFrame*);
@@ -148,7 +152,9 @@ void xEntInitForType(xEnt* ent);
 void xEntSetup(xEnt* ent);
 void xEntReset(xEnt* ent);
 void xEntRender(xEnt* ent);
+void xEntBeginUpdate(xEnt* ent, xScene*, F32 dt);
 void xEntEndUpdate(xEnt* ent, xScene* sc, F32 dt);
+void xEntCollide(xEnt* ent, xScene* sc, F32 dt);
 void xEntMove(xEnt* ent, xScene* sc, F32 dt);
 void xEntApplyPhysics(xEnt* ent, xScene* sc, F32 dt);
 void xEntSetupPipeline(xSurface* surf, RpAtomic* model);

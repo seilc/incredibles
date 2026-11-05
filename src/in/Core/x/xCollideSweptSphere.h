@@ -5,6 +5,8 @@
 #include "xQuickCull.h"
 #include "xJSP.h"
 
+struct xScene;
+
 struct xSweptSphere
 {
     U8 detect_initial_penetration;
@@ -54,6 +56,7 @@ struct xCollideProcessedTri
 
 void xSweptSpherePrepare(xSweptSphere* sws, const xVec3* start, const xVec3* end, F32 radius);
 void xSweptSphereResetCollision(xSweptSphere* sws);
+S32 xSweptSphereToScene(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
 S32 xSweptSphereToSphere(xSweptSphere& sws, const xVec3& center, F32 radius);
 S32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph);
 S32 xSweptSphereToModel(xSweptSphere* sws, RpAtomic* model, const RwMatrix* mat);

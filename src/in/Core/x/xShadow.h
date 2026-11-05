@@ -26,6 +26,7 @@ struct xShadowCache
 
 extern S32 SHADOW_CACHE_POLY_MAX;
 
+void xShadowManager_Add(xEnt* ent);
 typedef void (*xShadowRenderCallback)(void*);
 
 void xShadowSetLight(xVec3* target_pos, xVec3* in_vec, F32);

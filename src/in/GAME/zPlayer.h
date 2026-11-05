@@ -101,6 +101,11 @@ struct zPlayer : zEnt
     virtual bool IsInteractioning();
     virtual void SetEnemyIsNear(bool isit);
 
+    xEntDrive* GetDrive()
+    {
+        return &drv;
+    }
+
     xVec3 trigLastFramePos;
     xOneLinerManager* pOneLinerSys;
     zHud::Incredimeter* pIncredimeter;
