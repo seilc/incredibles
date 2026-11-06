@@ -8,8 +8,7 @@ static bool init_done = false;
 
 void zTrainPathJunction::AddJunction(zTrainPathJunction* junction)
 {
-    if (init_done == true)
-    {
+    if (init_done == true) {
         all_junctions = NULL;
         init_done = false;
     }
@@ -22,20 +21,16 @@ void zTrainPathJunction::InitDone()
 {
     init_done = true;
 
-    for (zTrainPathJunction* junct = all_junctions; junct != NULL; junct = junct->next)
-    {
-        if (junct->junct_asset->in_spline)
-        {
+    for (zTrainPathJunction* junct = all_junctions; junct != NULL; junct = junct->next) {
+        if (junct->junct_asset->in_spline) {
             junct->in_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->in_spline, NULL);
         }
 
-        if (junct->junct_asset->out1_spline)
-        {
+        if (junct->junct_asset->out1_spline) {
             junct->out1_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->out1_spline, NULL);
         }
 
-        if (junct->junct_asset->out2_spline)
-        {
+        if (junct->junct_asset->out2_spline) {
             junct->out2_spline = (x::NURBS*)xSTFindAsset(junct->junct_asset->out2_spline, NULL);
         }
     }
@@ -43,11 +38,9 @@ void zTrainPathJunction::InitDone()
 
 zTrainPathJunction* zTrainPathJunction::GetPathEnd(x::NURBS* curve, bool along_increasing_u)
 {
-    for (zTrainPathJunction* junct = all_junctions; junct != NULL; junct = junct->next)
-    {
+    for (zTrainPathJunction* junct = all_junctions; junct != NULL; junct = junct->next) {
         if (junct->in_spline == curve &&
-            junct->junct_asset->in_is_from_forward == along_increasing_u)
-        {
+            junct->junct_asset->in_is_from_forward == along_increasing_u) {
             return junct;
         }
     }
@@ -69,8 +62,7 @@ void zTrainPathJunction::Init(zTrainPathJunctionAsset* asset)
 
     xBaseInit(this, asset);
 
-    if (linkCount)
-    {
+    if (linkCount) {
         link = (xLinkAsset*)(asset + 1);
     }
 
@@ -81,13 +73,10 @@ void zTrainPathJunction::Init(zTrainPathJunctionAsset* asset)
 
 void zTrainPathJunction::GetCurrentOut(x::NURBS*& out_curve, bool& travel_increasing_u)
 {
-    if (use_out1 == true)
-    {
+    if (use_out1 == true) {
         out_curve = out1_spline;
         travel_increasing_u = junct_asset->out1_is_forward;
-    }
-    else
-    {
+    } else {
         out_curve = out2_spline;
         travel_increasing_u = junct_asset->out2_is_forward;
     }
@@ -102,25 +91,20 @@ void zTrainPathJunction::Event(xBase* from, xBase* to, U32 toEvent, const F32* t
 void zTrainPathJunction::Event(xBase* from, U32 toEvent, const F32* toParam,
                                xBase* toParamWidget, U32 toParamWidgetID)
 {
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventTrainJunctOut1:
         use_out1 = true;
         break;
     case eEventTrainJunctOut2:
-        if (out2_spline)
-        {
+        if (out2_spline) {
             use_out1 = false;
         }
 
         break;
     case eEventTrainJunctToggle:
-        if (use_out1 == true)
-        {
+        if (use_out1 == true) {
             Event(from, eEventTrainJunctOut2, toParam, toParamWidget, toParamWidgetID);
-        }
-        else
-        {
+        } else {
             Event(from, eEventTrainJunctOut1, toParam, toParamWidget, toParamWidgetID);
         }
 

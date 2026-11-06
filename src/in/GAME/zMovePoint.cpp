@@ -23,13 +23,10 @@ void zMovePointInit(zMovePoint* m, xMovePointAsset* asset)
 
     m->eventFunc = zMovePointEventCB;
 
-    if (m->linkCount)
-    {
+    if (m->linkCount) {
         m->link = (xLinkAsset*)((U8*)asset + asset->numPoints * sizeof(U32) +
                                 sizeof(xMovePointAsset));
-    }
-    else
-    {
+    } else {
         m->link = NULL;
     }
 }
@@ -63,8 +60,7 @@ void zMovePointEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zMovePoint* m = (zMovePoint*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventOn:
         m->on = 1;
         break;

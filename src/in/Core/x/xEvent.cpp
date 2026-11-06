@@ -40,14 +40,11 @@ void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
     else if (toEvent == eEventEnable)
         xBaseEnable(to);
 
-    if (to->eventFunc && (xBaseIsEnabled(to) || forceEvent == FE_YES))
-    {
+    if (to->eventFunc && (xBaseIsEnabled(to) || forceEvent == FE_YES)) {
         to->eventFunc(from, to, toEvent, toParam, toParamWidget, toParamWidgetID);
 
-        if (to->baseFlags & 0x20)
-        {
-            if (toEvent == eEventCollisionOn || toEvent == eEventCollision_Visible_On)
-            {
+        if (to->baseFlags & 0x20) {
+            if (toEvent == eEventCollisionOn || toEvent == eEventCollision_Visible_On) {
                 ((xEnt*)to)->collisionEventReceived = 1;
             }
             else if (toEvent == eEventCollisionOff || toEvent == eEventCollision_Visible_Off) {
@@ -56,24 +53,18 @@ void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
         }
     }
 
-    if (xBaseIsEnabled(to) && to->linkCount)
-    {
+    if (xBaseIsEnabled(to) && to->linkCount) {
         xLinkAsset* idx = to->link;
 
-        for (S32 i = 0; i < to->linkCount; i++, idx++)
-        {
-            if (toEvent == idx->srcEvent)
-            {
-                if (idx->chkAssetID == 0 || (from && idx->chkAssetID == from->id))
-                {
+        for (S32 i = 0; i < to->linkCount; i++, idx++) {
+            if (toEvent == idx->srcEvent) {
+                if (idx->chkAssetID == 0 || (from && idx->chkAssetID == from->id)) {
                     xBase* sendTo = zSceneFindObject(idx->dstAssetID);
 
-                    if (sendTo)
-                    {
+                    if (sendTo) {
                         xBase* b = NULL;
 
-                        if (idx->paramWidgetAssetID)
-                        {
+                        if (idx->paramWidgetAssetID) {
                             b = zSceneFindObject(idx->paramWidgetAssetID);
 
                             if (!b)

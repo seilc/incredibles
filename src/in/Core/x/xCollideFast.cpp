@@ -10,20 +10,17 @@ U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
 
     F32 c = xVec3Dot(&diff, &diff) - s->r * s->r;
 
-    if (c <= 0.0f)
-    {
+    if (c <= 0.0f) {
         return TRUE;
     }
 
-    if ((r->flags & 0x800) && c > (2.0f * s->r + r->max_t) * r->max_t)
-    {
+    if ((r->flags & 0x800) && c > (2.0f * s->r + r->max_t) * r->max_t) {
         return FALSE;
     }
 
     F32 b = xVec3Dot(&diff, &r->dir);
 
-    if (b >= 0.0f)
-    {
+    if (b >= 0.0f) {
         return FALSE;
     }
 
@@ -50,12 +47,9 @@ U32 xRayHitsCylinderFast(const xRay3* r, const xCylinder* c)
 
 U32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
 {
-    if (b->type == k_XBOUNDTYPE_SPHERE)
-    {
+    if (b->type == k_XBOUNDTYPE_SPHERE) {
         return xRayHitsSphereFast(r, &b->sph);
-    }
-    else if (b->type == k_XBOUNDTYPE_OBB)
-    {
+    } else if (b->type == k_XBOUNDTYPE_OBB) {
         xRay3 lr;
         xMat3x3 mn;
         F32 ms = xVec3Length(&b->mat->right);
@@ -69,13 +63,9 @@ U32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
         lr.min_t = r->min_t / ms;
 
         return xRayHitsBoxFast(&lr, &b->box.box);
-    }
-    else if (b->type == k_XBOUNDTYPE_BOX)
-    {
+    } else if (b->type == k_XBOUNDTYPE_BOX) {
         return xRayHitsBoxFast(r, &b->box.box);
-    }
-    else if (b->type == k_XBOUNDTYPE_CYLINDER)
-    {
+    } else if (b->type == k_XBOUNDTYPE_CYLINDER) {
         return xRayHitsCylinderFast(r, &b->cyl);
     }
 

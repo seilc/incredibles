@@ -23,8 +23,7 @@ void xRenderStateSetZBias(F32 zbias)
 {
     RwCamera* camera = RwCameraGetCurrentCamera();
 
-    if (camera)
-    {
+    if (camera) {
         zbias *= 0.005f;
 
         old_near_plane = RwCameraGetNearClipPlane(camera);
@@ -41,8 +40,7 @@ void xRenderStateResetZBias()
 {
     RwCamera* camera = RwCameraGetCurrentCamera();
 
-    if (camera)
-    {
+    if (camera) {
         RwCameraEndUpdate(camera);
         RwCameraSetNearClipPlane(camera, old_near_plane);
         RwCameraSetFarClipPlane(camera, old_far_plane);
@@ -61,13 +59,10 @@ void xRenderStateSetAlphaDiscard(S32 value)
     RwGameCubeSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_AND, GX_GEQUAL, value);
     GXSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_AND, GX_GEQUAL, value);
 
-    if (value > 0)
-    {
+    if (value > 0) {
         _rwDlRenderStateSetZCompLoc(GX_FALSE);
         GXSetZCompLoc(GX_FALSE);
-    }
-    else
-    {
+    } else {
         _rwDlRenderStateSetZCompLoc(GX_TRUE);
         GXSetZCompLoc(GX_TRUE);
     }
@@ -80,13 +75,10 @@ void xRenderStateResetAlphaDiscard()
     RwGameCubeSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_AND, GX_GEQUAL, old_alpha_discard_value_gc);
     GXSetAlphaCompare(GX_ALWAYS, 0, GX_AOP_AND, GX_GEQUAL, old_alpha_discard_value_gc);
 
-    if (old_alpha_discard_value_gc & 0xff)
-    {
+    if (old_alpha_discard_value_gc & 0xff) {
         _rwDlRenderStateSetZCompLoc(GX_FALSE);
         GXSetZCompLoc(GX_FALSE);
-    }
-    else
-    {
+    } else {
         _rwDlRenderStateSetZCompLoc(GX_TRUE);
         GXSetZCompLoc(GX_TRUE);
     }

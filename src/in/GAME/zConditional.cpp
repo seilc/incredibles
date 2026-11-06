@@ -18,19 +18,14 @@ void zConditionalInit(xBase* b, zCondAsset* asset)
     c->eventFunc = zConditionalEventCB;
     c->asset = asset;
 
-    if (c->linkCount)
-    {
+    if (c->linkCount) {
         c->link = (xLinkAsset*)(c->asset + 1);
-    }
-    else
-    {
+    } else {
         c->link = NULL;
     }
 
-    for (S32 i = 0; i < eVarEntryCount; i++)
-    {
-        if (c->asset->expr1 == zVarEntryTable[i].varNameID)
-        {
+    for (S32 i = 0; i < eVarEntryCount; i++) {
+        if (c->asset->expr1 == zVarEntryTable[i].varNameID) {
             c->varEntry = &zVarEntryTable[i];
             break;
         }
@@ -57,38 +52,31 @@ U32 zConditional_GetCount(zConditional* c)
     zVarEntry* v = NULL;
     void* context = NULL;
 
-    for (S32 i = 0; i < eVarEntryCount; i++)
-    {
-        if (c->asset->expr1 == zVarEntryTable[i].varNameID)
-        {
+    for (S32 i = 0; i < eVarEntryCount; i++) {
+        if (c->asset->expr1 == zVarEntryTable[i].varNameID) {
             v = &zVarEntryTable[i];
 
-            if (zVarEntryNeedsContext(i))
-            {
+            if (zVarEntryNeedsContext(i)) {
                 U32 id = c->asset->value_asset;
 
-                if (id)
-                {
+                if (id) {
                     context = zSceneFindObject(id);
                 }
             }
         }
     }
 
-    if (!v)
-    {
+    if (!v) {
         return eEventUnknown;
     }
 
     U32 temp = v->varCB(context);
 
-    if (temp >= 1 && temp <= 20)
-    {
+    if (temp >= 1 && temp <= 20) {
         return eEventCount1 + (temp - 1);
     }
 
-    if (temp == 0)
-    {
+    if (temp == 0) {
         return eEventCount0;
     }
 
@@ -100,25 +88,21 @@ U32 zConditional_Evaluate(zConditional* c)
     U32 temp;
     void* context = NULL;
 
-    if (!c->varEntry)
-    {
+    if (!c->varEntry) {
         return FALSE;
     }
 
-    if (zVarEntryNeedsContext(c->varEntry->entry))
-    {
+    if (zVarEntryNeedsContext(c->varEntry->entry)) {
         U32 id = c->asset->value_asset;
 
-        if (id)
-        {
+        if (id) {
             context = zSceneFindObject(id);
         }
     }
 
     temp = c->varEntry->varCB(context);
 
-    switch (c->asset->op)
-    {
+    switch (c->asset->op) {
     case ZCOND_EQ:
         return (temp == c->asset->constNum) ? TRUE : FALSE;
     case ZCOND_GT:
@@ -140,16 +124,12 @@ void zConditionalEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32
 {
     zConditional* t = (zConditional*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventEvaluate:
     {
-        if (zConditional_Evaluate(t))
-        {
+        if (zConditional_Evaluate(t)) {
             zEntEvent(t, t, eEventTrue);
-        }
-        else
-        {
+        } else {
             zEntEvent(t, t, eEventFalse);
         }
 
@@ -159,8 +139,7 @@ void zConditionalEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32
     {
         U32 event = zConditional_GetCount(t);
 
-        if (event != eEventUnknown)
-        {
+        if (event != eEventUnknown) {
             zEntEvent(t, t, event);
         }
 

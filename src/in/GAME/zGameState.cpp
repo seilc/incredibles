@@ -139,10 +139,8 @@ void zGameSetOstrich(eGameOstrich o)
 S32 zGameStateFindEvent(U32* eventList, S32 eventCount, S32 targetMode, S32 targetEvent,
                            S32* new_mode, S32* new_state)
 {
-    for (S32 i = 0; i < eventCount; i++)
-    {
-        if (targetEvent == eventList[i])
-        {
+    for (S32 i = 0; i < eventCount; i++) {
+        if (targetEvent == eventList[i]) {
             *new_mode = targetMode;
             *new_state = i;
 
@@ -173,26 +171,21 @@ void zGameStateSwitchEvent(S32 event)
         zGameStateFindEvent(sTitleState_DoDispatchTable, eTitleState_Count, eGameMode_Title, event,
                             &new_mode, &new_state) ||
         zGameStateFindEvent(sIntroState_DoDispatchTable, eIntroState_Count, eGameMode_Intro, event,
-                            &new_mode, &new_state))
-    {
+                            &new_mode, &new_state)) {
         // yay
     }
 
-    if (new_mode != old_mode)
-    {
+    if (new_mode != old_mode) {
         zGameModeSwitch((eGameMode)new_mode);
     }
 
-    if (new_mode != old_mode || new_state != old_state)
-    {
+    if (new_mode != old_mode || new_state != old_state) {
         zGameStateSwitch(new_state);
 
-        if (new_state == eGameState_Exit)
-        {
+        if (new_state == eGameState_Exit) {
             xSerialWipeMainBuffer();
 
-            if (IsPS2Demo())
-            {
+            if (IsPS2Demo()) {
                 xglobals->PS2demo->quit = 1;
             }
         }
@@ -208,15 +201,13 @@ void zGameStateSwitch(S32 theNewState)
 
     gGameState = theNewState;
 
-    if (theNewState == eGameState_Play && stateOld == eGameState_FirstTime)
-    {
+    if (theNewState == eGameState_Play && stateOld == eGameState_FirstTime) {
         xTextureManager::Get().FreeMemory();
 
         startPressed = TRUE;
     }
 
-    switch (gGameMode)
-    {
+    switch (gGameMode) {
     case eGameMode_Intro:
         theEvent = sIntroState_DispatchTable[theNewState];
         break;
@@ -240,8 +231,7 @@ void zGameStateSwitch(S32 theNewState)
         break;
     }
 
-    if (theEvent)
-    {
+    if (theEvent) {
         zEntEventAllOfType(theEvent, eBaseTypeDispatcher);
     }
 }
@@ -251,25 +241,20 @@ void zGameModeSwitch(eGameMode modeNew)
     eGameMode modeOld = gGameMode;
 
     if ((modeOld == eGameMode_Game && modeNew == eGameMode_Pause) ||
-        (modeOld == eGameMode_Game && modeNew == eGameMode_Save))
-    {
+        (modeOld == eGameMode_Game && modeNew == eGameMode_Save)) {
         xSndMgrPauseSounds(4, true, true);
         xSndMgrPauseSounds(2, true, false);
         xSndMgrPauseSounds(1, true, true);
         xSndMgrPauseSounds(0, true, true);
         xSndMgrPauseSounds(3, true, true);
-    }
-    else if ((modeOld == eGameMode_Pause || modeOld == eGameMode_Save ||
+    } else if ((modeOld == eGameMode_Pause || modeOld == eGameMode_Save ||
               modeOld == eGameMode_Load) &&
-             modeNew == eGameMode_Game)
-    {
-        if (globals.sceneCur->sceneID != SCENE_ID_MNU_START)
-        {
+             modeNew == eGameMode_Game) {
+        if (globals.sceneCur->sceneID != SCENE_ID_MNU_START) {
             xSndMgrStopSounds(2, true);
         }
 
-        if (!globals.sceneCur->pendingPortal)
-        {
+        if (!globals.sceneCur->pendingPortal) {
             xSndMgrPauseSounds(4, false, true);
             xSndMgrPauseSounds(2, false, true);
             xSndMgrPauseSounds(1, false, true);

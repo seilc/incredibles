@@ -184,8 +184,7 @@ inline void xEntVisibilityCullOn(xEnt* ent)
 {
     ent->flags |= (U8)0x4;
 
-    if (ent->visUpdate)
-    {
+    if (ent->visUpdate) {
         ent->visUpdate(ent);
     }
 }
@@ -194,8 +193,7 @@ inline void xEntVisibilityCullOff(xEnt* ent)
 {
     ent->flags &= (U8)~0x4;
 
-    if (ent->visUpdate)
-    {
+    if (ent->visUpdate) {
         ent->visUpdate(ent);
     }
 }

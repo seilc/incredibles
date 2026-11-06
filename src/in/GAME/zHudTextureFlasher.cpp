@@ -23,39 +23,29 @@ namespace zHud
 
     void TextureFlasher::update(F32 dt)
     {
-        if (m_callback && !m_callback(m_context, this))
-        {
+        if (m_callback && !m_callback(m_context, this)) {
             m_timer = 0.0f;
-        }
-        else
-        {
+        } else {
             m_timer += dt;
 
-            if (m_timer >= m_onTime)
-            {
+            if (m_timer >= m_onTime) {
                 m_timer = m_offTime;
             }
         }
 
-        if (m_timer < 0.0f)
-        {
+        if (m_timer < 0.0f) {
             F32 timeoff = m_timer - m_offTime;
             F32 fPercentDecay = 1.0f;
 
-            if (m_offDecayTime > 0.0f)
-            {
+            if (m_offDecayTime > 0.0f) {
                 timeoff /= m_offDecayTime;
                 fPercentDecay = MIN(fPercentDecay, timeoff);
             }
 
             m_pImageWidget->set_layer_alpha(m_uFlashLayer, 1.0f - fPercentDecay);
-        }
-        else if (m_timer > 0.0f)
-        {
+        } else if (m_timer > 0.0f) {
             m_pImageWidget->set_layer_alpha(m_uFlashLayer, 1.0f);
-        }
-        else
-        {
+        } else {
             m_pImageWidget->set_layer_alpha(m_uFlashLayer, 0.0f);
         }
     }
@@ -65,12 +55,9 @@ namespace zHud
         m_offTime = -offTime;
         m_onTime = onTime;
 
-        if (m_timer >= m_onTime)
-        {
+        if (m_timer >= m_onTime) {
             m_timer = m_offTime;
-        }
-        else if (m_timer <= m_offTime)
-        {
+        } else if (m_timer <= m_offTime) {
             m_timer = m_offTime;
         }
     }

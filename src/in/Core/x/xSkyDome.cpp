@@ -28,29 +28,23 @@ void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, S32 lockY, S32 lockXZ)
 {
     S32 i, j;
 
-    if (xSkyDome_EntityIsSkyDome(ent))
-    {
+    if (xSkyDome_EntityIsSkyDome(ent)) {
         return;
     }
 
-    for (i = 0; i < sSkyCount; i++)
-    {
-        if (sSkyList[i].ent == ent)
-        {
+    for (i = 0; i < sSkyCount; i++) {
+        if (sSkyList[i].ent == ent) {
             return;
         }
     }
 
-    for (i = 0; i < sSkyCount; i++)
-    {
-        if (sortorder < sSkyList[i].sortorder)
-        {
+    for (i = 0; i < sSkyCount; i++) {
+        if (sortorder < sSkyList[i].sortorder) {
             break;
         }
     }
 
-    for (j = sSkyCount - 1; j >= i; j--)
-    {
+    for (j = sSkyCount - 1; j >= i; j--) {
         sSkyList[j + 1] = sSkyList[j];
         sSkyList[j + 1].ent->user_data = (void*)(j + 1);
     }
@@ -90,31 +84,26 @@ void xSkyDome_Render()
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)FALSE);
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, (void*)FALSE);
 
-    for (S32 i = 0; i < sSkyCount; i++)
-    {
+    for (S32 i = 0; i < sSkyCount; i++) {
         xEnt* ent = sSkyList[i].ent;
 
         ent->render = xSkyDome_EmptyRender;
         ent->model->Flags &= ~0x1;
 
-        if (ent->model && xEntIsVisible(ent))
-        {
+        if (ent->model && xEntIsVisible(ent)) {
             RwV3d pos;
             pos = ent->model->Mat->pos;
 
-            if (sSkyList[i].lockXZ)
-            {
+            if (sSkyList[i].lockXZ) {
                 ent->model->Mat->pos.x = cammat->pos.x;
                 ent->model->Mat->pos.z = cammat->pos.z;
             }
 
-            if (sSkyList[i].lockY)
-            {
+            if (sSkyList[i].lockY) {
                 ent->model->Mat->pos.y = cammat->pos.y;
             }
 
-            if (!xModelCullSingle(ent->model))
-            {
+            if (!xModelCullSingle(ent->model)) {
                 iModelRender(ent->model->Data, ent->model->Mat);
             }
 

@@ -34,36 +34,27 @@ xSoundFX* xSoundFXGet(U32 soundfxID);
 
 inline void xSoundFXSetSoundFXPlaying(xSoundFXAsset* asset, bool playing)
 {
-    if (playing)
-    {
+    if (playing) {
         asset->uFlags |= 0x2;
-    }
-    else
-    {
+    } else {
         asset->uFlags &= ~0x2;
     }
 }
 
 inline void xSoundFXSetSendsDone(xSoundFXAsset* asset, bool sendsDone)
 {
-    if (sendsDone)
-    {
+    if (sendsDone) {
         asset->uFlags |= 0x1;
-    }
-    else
-    {
+    } else {
         asset->uFlags &= ~0x1;
     }
 }
 
 inline void xSoundFXSetHandleSet(xSoundFXAsset* asset, bool handleSet)
 {
-    if (handleSet)
-    {
+    if (handleSet) {
         asset->uFlags |= 0x8;
-    }
-    else
-    {
+    } else {
         asset->uFlags &= ~0x8;
     }
 }

@@ -18,16 +18,13 @@ xLightKit* xLightKit_Prepare(void* data)
 
     xLightKitLight* currlight = lightList;
 
-    for (U32 i = 0; i < lkit->lightCount; i++)
-    {
-        if (currlight->platLight)
-        {
+    for (U32 i = 0; i < lkit->lightCount; i++) {
+        if (currlight->platLight) {
             return lkit;
         }
 
         if (currlight->color.red > 1.0f || currlight->color.green > 1.0f ||
-            currlight->color.blue > 1.0f)
-        {
+            currlight->color.blue > 1.0f) {
             F32 s =
                 MAX3(currlight->color.red, currlight->color.green, currlight->color.blue);
 
@@ -38,8 +35,7 @@ xLightKit* xLightKit_Prepare(void* data)
             currlight->color.blue *= s;
         }
 
-        switch (currlight->type)
-        {
+        switch (currlight->type) {
         case 1:
             currlight->platLight = RpLightCreate(rpLIGHTAMBIENT);
             break;
@@ -56,8 +52,7 @@ xLightKit* xLightKit_Prepare(void* data)
 
         RpLightSetColor(currlight->platLight, &currlight->color);
 
-        if (currlight->type >= 2)
-        {
+        if (currlight->type >= 2) {
             RwFrame* frame = RwFrameCreate();
 
             RwMatrix tmpmat;
@@ -85,13 +80,11 @@ xLightKit* xLightKit_Prepare(void* data)
             RpLightSetFrame(currlight->platLight, frame);
         }
 
-        if (currlight->type >= 3)
-        {
+        if (currlight->type >= 3) {
             RpLightSetRadius(currlight->platLight, currlight->radius);
         }
 
-        if (currlight->type >= 4)
-        {
+        if (currlight->type >= 4) {
             RpLightSetConeAngle(currlight->platLight, currlight->angle);
         }
 
@@ -103,27 +96,22 @@ xLightKit* xLightKit_Prepare(void* data)
 
 void xLightKit_Enable(xLightKit* lkit, RpWorld* world)
 {
-    if (lkit == gLastLightKit)
-    {
+    if (lkit == gLastLightKit) {
         return;
     }
 
     U32 i;
 
-    if (gLastLightKit)
-    {
-        for (i = 0; i < gLastLightKit->lightCount; i++)
-        {
+    if (gLastLightKit) {
+        for (i = 0; i < gLastLightKit->lightCount; i++) {
             RpWorldRemoveLight(world, gLastLightKit->lightList[i].platLight);
         }
     }
 
     gLastLightKit = lkit;
 
-    if (lkit)
-    {
-        for (i = 0; i < lkit->lightCount; i++)
-        {
+    if (lkit) {
+        for (i = 0; i < lkit->lightCount; i++) {
             RpWorldAddLight(world, lkit->lightList[i].platLight);
         }
     }
@@ -136,24 +124,20 @@ xLightKit* xLightKit_GetCurrent(RpWorld*)
 
 void xLightKit_Destroy(xLightKit* lkit)
 {
-    if (!lkit)
-    {
+    if (!lkit) {
         return;
     }
 
     U32 i;
     xLightKitLight* currLight = lkit->lightList;
 
-    for (i = 0; i < lkit->lightCount; i++)
-    {
-        if (currLight->platLight)
-        {
+    for (i = 0; i < lkit->lightCount; i++) {
+        if (currLight->platLight) {
             _rwFrameSyncDirty();
 
             RwFrame* tframe = RpLightGetFrame(currLight->platLight);
 
-            if (tframe)
-            {
+            if (tframe) {
                 RpLightSetFrame(currLight->platLight, NULL);
                 RwFrameDestroy(tframe);
             }

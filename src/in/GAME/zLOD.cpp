@@ -20,8 +20,7 @@ void AddToLODList(xEnt* ent);
 // func_800E05D8
 static xEnt* AddToLODList(xEnt* ent, xScene*, void*)
 {
-    if (ent->model == NULL)
-    {
+    if (ent->model == NULL) {
         return ent;
     }
     AddToLODList(ent);
@@ -31,17 +30,13 @@ static xEnt* AddToLODList(xEnt* ent, xScene*, void*)
 // func_800E0A68
 zLODTable* zLOD_Get(xEnt* ent)
 {
-    if (!ent->model)
-    {
+    if (!ent->model) {
         return 0;
     }
 
-    for (int i = 0; i < sLODTableCount; i++)
-    {
-        if (sLODTableList[i].baseBucket != NULL)
-        {
-            if ((*sLODTableList[i].baseBucket)->OriginalData == ent->model->Data)
-            {
+    for (int i = 0; i < sLODTableCount; i++) {
+        if (sLODTableList[i].baseBucket != NULL) {
+            if ((*sLODTableList[i].baseBucket)->OriginalData == ent->model->Data) {
                 return &sLODTableList[i];
             }
         }

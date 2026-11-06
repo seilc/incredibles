@@ -28,32 +28,27 @@ S32 xFactory::RegItemType(XGOFTypeInfo* info)
 {
     S32 rc = 0;
 
-    for (XGOFTypeInfo* tptr = info; tptr->tid != 0; tptr++)
-    {
+    for (XGOFTypeInfo* tptr = info; tptr->tid != 0; tptr++) {
         rc = 1;
 
-        if (!tptr->creator)
-        {
+        if (!tptr->creator) {
             rc = 0;
             break;
         }
 
-        if (!tptr->destroyer)
-        {
+        if (!tptr->destroyer) {
             rc = 0;
             break;
         }
 
-        if (infolist.cnt >= infolist.max)
-        {
+        if (infolist.cnt >= infolist.max) {
             rc = -2;
             break;
         }
 
         S32 idx = XOrdLookup(&infolist, tptr, OrdTest_infotype);
 
-        if (idx >= 0)
-        {
+        if (idx >= 0) {
             rc = -1;
             break;
         }
@@ -82,25 +77,21 @@ xFactoryInst* xFactory::CreateItem(S32 typeID, void* userdata, RyzMemGrow* calle
 
     idx = XOrdLookup(&infolist, &pattern, OrdTest_infotype);
 
-    if (idx >= 0)
-    {
+    if (idx >= 0) {
         darec = (XGOFTypeInfo*)infolist.list[idx];
     }
 
-    if (!darec)
-    {
+    if (!darec) {
         return NULL;
     }
 
-    if (!grow && growContextData.IsEnabled())
-    {
+    if (!grow && growContextData.IsEnabled()) {
         grow = &growContextData;
     }
 
     item = darec->creator(darec->tid, grow, userdata);
 
-    if (!item)
-    {
+    if (!item) {
         return item;
     }
 
@@ -108,14 +99,11 @@ xFactoryInst* xFactory::CreateItem(S32 typeID, void* userdata, RyzMemGrow* calle
     item->prevprod = NULL;
     item->nextprod = NULL;
 
-    if (products)
-    {
+    if (products) {
         item->nextprod = products;
         products->prevprod = item;
         products = item;
-    }
-    else
-    {
+    } else {
         products = item;
     }
 
@@ -124,8 +112,7 @@ xFactoryInst* xFactory::CreateItem(S32 typeID, void* userdata, RyzMemGrow* calle
 
 void xFactory::DestroyAll()
 {
-    while (products)
-    {
+    while (products) {
         DestroyItem(products);
     }
 }
@@ -137,25 +124,20 @@ void xFactory::DestroyItem(xFactoryInst* item)
 
     pattern.tid = item->itemType;
 
-    if (item)
-    {
-        if (products == item)
-        {
+    if (item) {
+        if (products == item) {
             products = item->nextprod;
 
-            if (products)
-            {
+            if (products) {
                 products->prevprod = NULL;
             }
         }
 
-        if (item->prevprod)
-        {
+        if (item->prevprod) {
             item->prevprod->nextprod = item->nextprod;
         }
 
-        if (item->nextprod)
-        {
+        if (item->nextprod) {
             item->nextprod->prevprod = item->prevprod;
         }
 
@@ -172,16 +154,11 @@ static S32 OrdTest_infotype(const void* vkey, void* vitem)
 {
     S32 rc;
 
-    if (((XGOFTypeInfo*)vkey)->tid < ((XGOFTypeInfo*)vitem)->tid)
-    {
+    if (((XGOFTypeInfo*)vkey)->tid < ((XGOFTypeInfo*)vitem)->tid) {
         rc = -1;
-    }
-    else if (((XGOFTypeInfo*)vkey)->tid > ((XGOFTypeInfo*)vitem)->tid)
-    {
+    } else if (((XGOFTypeInfo*)vkey)->tid > ((XGOFTypeInfo*)vitem)->tid) {
         rc = 1;
-    }
-    else
-    {
+    } else {
         rc = 0;
     }
 
@@ -192,16 +169,11 @@ static S32 OrdComp_infotype(void* vkey, void* vitem)
 {
     S32 rc;
 
-    if (((XGOFTypeInfo*)vkey)->tid < ((XGOFTypeInfo*)vitem)->tid)
-    {
+    if (((XGOFTypeInfo*)vkey)->tid < ((XGOFTypeInfo*)vitem)->tid) {
         rc = -1;
-    }
-    else if (((XGOFTypeInfo*)vkey)->tid > ((XGOFTypeInfo*)vitem)->tid)
-    {
+    } else if (((XGOFTypeInfo*)vkey)->tid > ((XGOFTypeInfo*)vitem)->tid) {
         rc = 1;
-    }
-    else
-    {
+    } else {
         rc = 0;
     }
 

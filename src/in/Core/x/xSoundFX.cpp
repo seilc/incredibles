@@ -10,12 +10,10 @@ static void xSoundFXStop(xSoundFX* sfx);
 
 static bool xSoundFXWillSendDone(xSoundFX* sfx)
 {
-    if (sfx->linkCount)
-    {
+    if (sfx->linkCount) {
         xLinkAsset* l = sfx->link;
 
-        for (S32 i = 0; i < sfx->linkCount; i++, l++)
-        {
+        for (S32 i = 0; i < sfx->linkCount; i++, l++) {
             if (l->srcEvent == eEventDone)
                 return true;
         }
@@ -36,12 +34,10 @@ void xSoundFXInit(xSoundFX* t, xSoundFXAsset* asset)
     t->eventFunc = xSoundFXEventCB;
     t->asset = asset;
 
-    if (!xSoundFXIsHandleSet(asset))
-    {
+    if (!xSoundFXIsHandleSet(asset)) {
         t->asset->soundAsset = xSndMgrGetSoundGroup(t->asset->soundAssetID);
 
-        if (asset->soundAsset != ISND_INVALID_SND_GROUP_HANDLE)
-        {
+        if (asset->soundAsset != ISND_INVALID_SND_GROUP_HANDLE) {
             xSoundFXSetHandleSet(asset, true);
         }
     }
@@ -51,8 +47,7 @@ void xSoundFXInit(xSoundFX* t, xSoundFXAsset* asset)
     else
         t->link = NULL;
 
-    if (xSoundFXWillSendDone(t))
-    {
+    if (xSoundFXWillSendDone(t)) {
         xSoundFXSetSendsDone(asset, true);
     }
 
@@ -70,47 +65,40 @@ void xSoundFXEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*,
 {
     xSoundFX* t = (xSoundFX*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventReset:
         xSoundFXReset(t);
         break;
     case eEventPlay:
         xSoundFXSetSoundFXPlaying(t->asset, true);
 
-        if (!xSndMgrIsEnvironmentalStream(t->asset->soundAsset))
-        {
+        if (!xSndMgrIsEnvironmentalStream(t->asset->soundAsset)) {
             xSoundFXPlay(t);
         }
 
         break;
     case eEventPlayMaybe:
-        if (xrand_RandomChoice(100) >= toParam[0])
-        {
+        if (xrand_RandomChoice(100) >= toParam[0]) {
             xSoundFXSetSoundFXPlaying(t->asset, true);
 
-            if (!xSndMgrIsEnvironmentalStream(t->asset->soundAsset))
-            {
+            if (!xSndMgrIsEnvironmentalStream(t->asset->soundAsset)) {
                 xSoundFXPlay(t);
             }
         }
 
         break;
     case eEventStop:
-        if (t->sndHandle != ISNDHANDLE_INVALID)
-        {
+        if (t->sndHandle != ISNDHANDLE_INVALID) {
             xSoundFXSetSoundFXPlaying(t->asset, false);
 
-            if (!xSndMgrIsEnvironmentalStream(t->asset->soundAsset))
-            {
+            if (!xSndMgrIsEnvironmentalStream(t->asset->soundAsset)) {
                 xSoundFXStop(t);
             }
         }
 
         break;
     case eEventPause:
-        while (true)
-        {
+        while (true) {
         }
 
         break;
@@ -119,23 +107,18 @@ void xSoundFXEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*,
 
 static void xSoundFXPlay(xSoundFX* sfx)
 {
-    if (sfx->sndHandle != ISNDHANDLE_INVALID)
-    {
+    if (sfx->sndHandle != ISNDHANDLE_INVALID) {
         xSndMgrStop(sfx->sndHandle);
     }
 
-    if (xSoundFXIsAttached(sfx->asset))
-    {
+    if (xSoundFXIsAttached(sfx->asset)) {
         xEnt* attachEnt = (xEnt*)zSceneFindObject(sfx->asset->attachID);
 
-        if (attachEnt)
-        {
+        if (attachEnt) {
             sfx->sndHandle =
                 xSndMgrPlay(sfx->asset->soundAsset, 0x800, xEntGetPos(attachEnt), NULL, attachEnt, NULL, NULL);
         }
-    }
-    else
-    {
+    } else {
         sfx->sndHandle = xSndMgrPlay(sfx->asset->soundAsset, 0, &sfx->asset->pos, NULL, NULL, NULL, NULL);
     }
 }
@@ -151,8 +134,7 @@ xSoundFX* xSoundFXGet(U32 soundfxID)
     S32 count = s->baseCount[eBaseTypeSoundFX];
     xSoundFX* sfx = NULL;
 
-    for (S32 i = 0; i < count; i++)
-    {
+    for (S32 i = 0; i < count; i++) {
         sfx = &((xSoundFX*)s->baseList[eBaseTypeSoundFX])[i];
 
         if (sfx->id == soundfxID)

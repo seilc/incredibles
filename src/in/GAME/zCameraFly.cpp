@@ -14,12 +14,9 @@ void zCameraFly_Init(zCameraFly* fly, CameraFly_asset* asset)
     fly->casset = asset;
     fly->eventFunc = zCameraFlyEventCB;
 
-    if (fly->linkCount)
-    {
+    if (fly->linkCount) {
         fly->link = (xLinkAsset*)(asset + 1);
-    }
-    else
-    {
+    } else {
         fly->link = NULL;
     }
 }
@@ -47,8 +44,7 @@ void zCameraFlyEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     zCameraFly* fly = (zCameraFly*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventEnable:
         xBaseEnable(fly);
         break;

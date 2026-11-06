@@ -68,8 +68,7 @@ U32 zHitTargetCCs[] =
 
 S32 getSourceCCIdx(U32 value)
 {
-    for (S32 i = 0; i < zHS_COUNT; i++)
-    {
+    for (S32 i = 0; i < zHS_COUNT; i++) {
         char tag[4];
 
         tag[0] = (zHitSourceCCs[i] >> 24) & 0xFF;
@@ -77,8 +76,7 @@ S32 getSourceCCIdx(U32 value)
         tag[2] = (zHitSourceCCs[i] >> 8) & 0xFF;
         tag[3] = zHitSourceCCs[i] & 0xFF;
 
-        if (value == xStrHash(tag))
-        {
+        if (value == xStrHash(tag)) {
             return i;
         }
     }

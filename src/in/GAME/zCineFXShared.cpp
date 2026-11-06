@@ -2,12 +2,9 @@
 
 void zCinFX_CycleOnce_Upd(const zCutsceneMgr*, NCINEntry* fxrec, S32 killit)
 {
-    if (killit)
-    {
+    if (killit) {
         fxrec->flg_stat |= 0x2;
-    }
-    else if (!(fxrec->flg_stat & 0x4))
-    {
+    } else if (!(fxrec->flg_stat & 0x4)) {
         fxrec->flg_stat |= 0x2;
     }
 }

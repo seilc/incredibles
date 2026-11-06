@@ -5,21 +5,18 @@
 
 const char* xTextFindString(U32 key, U32* len)
 {
-    if (key == 0)
-    {
+    if (key == 0) {
         return NULL;
     }
 
     U32 size;
     xTextAsset* asset = (xTextAsset*)xSTFindAsset(key, &size);
 
-    if (!asset)
-    {
+    if (!asset) {
         return NULL;
     }
 
-    if (len)
-    {
+    if (len) {
         *len = asset->len;
     }
 

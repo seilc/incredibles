@@ -37,27 +37,22 @@ namespace zHud
 
         xhud::init();
 
-        for (hud_element* element = elements; element != NULL; element = element->next())
-        {
+        for (hud_element* element = elements; element != NULL; element = element->next()) {
             element->init();
         }
     }
 
     void hud_system::update(F32 dt)
     {
-        if (!last_paused && zGameIsPaused())
-        {
+        if (!last_paused && zGameIsPaused()) {
             hide();
             last_paused = true;
-        }
-        else if (last_paused && !zGameIsPaused())
-        {
+        } else if (last_paused && !zGameIsPaused()) {
             show();
             last_paused = false;
         }
 
-        for (hud_element* element = elements; element != NULL; element = element->next())
-        {
+        for (hud_element* element = elements; element != NULL; element = element->next()) {
             element->update(dt);
         }
 
@@ -66,8 +61,7 @@ namespace zHud
 
     void hud_system::render()
     {
-        if (!globals.cmgr)
-        {
+        if (!globals.cmgr) {
             xhud::render();
         }
     }
@@ -76,15 +70,12 @@ namespace zHud
     {
         hide_count--;
 
-        if (hide_count < 0)
-        {
+        if (hide_count < 0) {
             hide_count = 0;
         }
 
-        if (hide_count == 0)
-        {
-            for (hud_element* element = elements; element != NULL; element = element->next())
-            {
+        if (hide_count == 0) {
+            for (hud_element* element = elements; element != NULL; element = element->next()) {
                 element->show();
             }
         }
@@ -94,10 +85,8 @@ namespace zHud
     {
         hide_count++;
 
-        if (hide_count == 1)
-        {
-            for (hud_element* element = elements; element != NULL; element = element->next())
-            {
+        if (hide_count == 1) {
+            for (hud_element* element = elements; element != NULL; element = element->next()) {
                 element->hide();
             }
         }
@@ -112,8 +101,7 @@ namespace zHud
 
     void hud_system::destroy()
     {
-        for (hud_element* element = elements; element != NULL; element = element->next())
-        {
+        for (hud_element* element = elements; element != NULL; element = element->next()) {
             element->destroy();
         }
 

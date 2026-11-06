@@ -18,8 +18,7 @@ void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* 
     bound->count = count;
     bound->nodes = (xHierarchyNode*)xMEMALLOC((count + extraBounds) * sizeof(xHierarchyNode), 0);
 
-    for (U32 i = 0; i < count; i++)
-    {
+    for (U32 i = 0; i < count; i++) {
         xHierarchyNode& node = bound->nodes[i];
 
         node.bone = init[i].bone;
@@ -43,29 +42,23 @@ bool xHierarchyBoundTest(const xHierarchyBound* bound, const xRay3* testRay, U16
 
     iSphereIsectRay(&bound->master, testRay, &localIsect);
 
-    if (localIsect.penned > 0.0f)
-    {
+    if (localIsect.penned > 0.0f) {
         return false;
     }
 
-    for (U32 i = 0; i < bound->count; i++)
-    {
+    for (U32 i = 0; i < bound->count; i++) {
         iSphereIsectRay(&bound->nodes[i].sphere, testRay, &localIsect);
 
-        if (localIsect.penned <= 0.0f)
-        {
-            if (boundUserData)
-            {
+        if (localIsect.penned <= 0.0f) {
+            if (boundUserData) {
                 *boundUserData = bound->nodes[i].userData;
             }
 
-            if (isect)
-            {
+            if (isect) {
                 *isect = localIsect;
             }
 
-            if (subsphere)
-            {
+            if (subsphere) {
                 *subsphere = i;
             }
 
@@ -84,10 +77,8 @@ bool xHierarchyBoundTest(const xHierarchyBound* bound, xSweptSphere* sphere, U16
 
     xSweptSphereResetCollision(sphere);
 
-    for (U32 i = 0; i < bound->count; i++)
-    {
-        if (xSweptSphereToSphere(sphere, &bound->nodes[i].sphere))
-        {
+    for (U32 i = 0; i < bound->count; i++) {
+        if (xSweptSphereToSphere(sphere, &bound->nodes[i].sphere)) {
             if (boundUserData)
                 *boundUserData = bound->nodes[i].userData;
             if (subsphere)

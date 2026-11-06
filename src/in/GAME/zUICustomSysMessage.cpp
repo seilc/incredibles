@@ -35,11 +35,9 @@ void zUICustomSysMessageManager::Init()
 
 bool zUICustomSysMessageManager::IsSignalAllowed(U32 toEvent)
 {
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventPadPressTriangle:
-        if (itemOk->focus)
-        {
+        if (itemOk->focus) {
             return false;
         }
 
@@ -54,8 +52,7 @@ bool zUICustomSysMessageManager::HandleEvent(xBase* from, U32 toEvent, const F32
 {
     zUICustom::HandleEvent(from, toEvent, toParam, toParamWidget, toParamWidgetID);
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventUISignalActivateScreen:
         itemOk->visible = false;
         break;
@@ -65,21 +62,18 @@ bool zUICustomSysMessageManager::HandleEvent(xBase* from, U32 toEvent, const F32
         gSysMessageManager_active = true;
         fromUI->focus = false;
 
-        if (toParamWidgetID)
-        {
+        if (toParamWidgetID) {
             itemMsg->SetText(xTextFindString(toParamWidgetID, NULL));
         }
 
         break;
     case eEventPadPressX:
-        if ((itemOk->focus || itemYes->focus) && cb_function)
-        {
+        if ((itemOk->focus || itemYes->focus) && cb_function) {
             fromUI->HandleEvent(ui, eEventUISysMessageActionConfirmed, NULL, NULL, 0);
             cb_function(from, toCBto, toCBEvent, toCBParams, toCBParamWidget, toCBParamWidgetID);
         }
 
-        if (!itemOk->focus && !itemYes->focus)
-        {
+        if (!itemOk->focus && !itemYes->focus) {
             fromUI->HandleEvent(ui, eEventUISysMessageActionDeclined, NULL, NULL, 0);
         }
     case eEventPadPressTriangle:
@@ -87,8 +81,7 @@ bool zUICustomSysMessageManager::HandleEvent(xBase* from, U32 toEvent, const F32
         gSysMessageManager_active = false;
         globals.pad0->pressed = 0;
 
-        if (toEvent == eEventPadPressTriangle)
-        {
+        if (toEvent == eEventPadPressTriangle) {
             fromUI->HandleEvent(ui, eEventUISysMessageActionDeclined, NULL, NULL, 0);
         }
 

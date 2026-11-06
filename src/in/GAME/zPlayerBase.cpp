@@ -15,17 +15,13 @@ void zPlayerUpdate(xEnt* ent, xScene* sc, F32 dt)
 {
     zPlayer* player = (zPlayer*)ent;
 
-    if (globals.cmgr && globals.cmgr->csn->Ready)
-    {
-        if (player->Get_cutsceneReady())
-        {
+    if (globals.cmgr && globals.cmgr->csn->Ready) {
+        if (player->Get_cutsceneReady()) {
             return;
         }
 
         player->Set_cutsceneReady();
-    }
-    else
-    {
+    } else {
         player->Clear_cutsceneReady();
     }
 
@@ -37,8 +33,7 @@ void zPlayerUpdate(xEnt* ent, xScene* sc, F32 dt)
 
 void zPlayerRender(zEnt* ent)
 {
-    if (!((zPlayer*)ent)->Get_cutsceneReady())
-    {
+    if (!((zPlayer*)ent)->Get_cutsceneReady()) {
         ((zPlayer*)ent)->Render();
     }
 }
@@ -57,15 +52,11 @@ void zPlayerLoadHIP(U32 sceneID)
 {
     U32 tagPlayer = zConfig_getPlayerTag(sceneID, 0);
 
-    if (tagPlayer == globals.playerTag)
-    {
-        if (globals.playerLoaded)
-        {
+    if (tagPlayer == globals.playerTag) {
+        if (globals.playerLoaded) {
             return;
         }
-    }
-    else if (globals.playerLoaded)
-    {
+    } else if (globals.playerLoaded) {
         zPlayerUnloadHIP();
     }
 
@@ -101,8 +92,7 @@ void zPlayer_StoreCheckPoint(const xVec3& pos, F32 rot, U32 initialCameraID)
     globals.player.checkpoint.rot = rot;
     globals.player.checkpoint.initCamID = initialCameraID;
 
-    if (!globals.player.checkpoint.jsp_active)
-    {
+    if (!globals.player.checkpoint.jsp_active) {
         globals.player.checkpoint.jsp_active =
             (bool*)xMEMALLOC(globals.sceneCur->env->geom->jsp_count * sizeof(bool), 0);
     }
@@ -128,8 +118,7 @@ void zPlayer_LoadCheckPoint()
 
     xMat4x3Copy(&f.oldmat, &f.mat);
 
-    if (globals.player.checkpoint.currentEffect != xSndMgrGetEffect())
-    {
+    if (globals.player.checkpoint.currentEffect != xSndMgrGetEffect()) {
         xSndMgrSetEffect(globals.player.checkpoint.currentEffect);
     }
 

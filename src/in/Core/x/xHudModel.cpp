@@ -54,8 +54,7 @@ namespace xhud
     {
         updater(dt);
 
-        if (!visible() || rc.a <= 0.5f / 255)
-        {
+        if (!visible() || rc.a <= 0.5f / 255) {
             return;
         }
 
@@ -78,8 +77,7 @@ namespace xhud
 
     void model_widget::render()
     {
-        if (rc.a >= -0.00001f && rc.a <= 0.00001f)
-        {
+        if (rc.a >= -0.00001f && rc.a <= 0.00001f) {
             return;
         }
 

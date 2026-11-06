@@ -66,20 +66,15 @@ void zCameraTweakGlobal_Add(U32 owner, F32 priority, F32 time, F32 pitch,
 {
     S32 i, j;
 
-    for (i = 0; i < sCamTweakCount; i++)
-    {
-        if (owner == sCamTweakList[i].owner)
-        {
+    for (i = 0; i < sCamTweakCount; i++) {
+        if (owner == sCamTweakList[i].owner) {
             return;
         }
     }
 
-    for (i = 0; i < sCamTweakCount; i++)
-    {
-        if (priority >= sCamTweakList[i].priority)
-        {
-            for (j = sCamTweakCount; j >= i + 1; j--)
-            {
+    for (i = 0; i < sCamTweakCount; i++) {
+        if (priority >= sCamTweakList[i].priority) {
+            for (j = sCamTweakCount; j >= i + 1; j--) {
                 sCamTweakList[j] = sCamTweakList[j - 1];
             }
 
@@ -95,8 +90,7 @@ void zCameraTweakGlobal_Add(U32 owner, F32 priority, F32 time, F32 pitch,
 
     sCamTweakCount++;
 
-    if (i == 0)
-    {
+    if (i == 0) {
         sCamTweakPitch[1] =
             (sCamTweakPitch[1] * sCamTweakLerp) + (sCamTweakPitch[0] * (1.0f - sCamTweakLerp));
         sCamTweakDistMult[1] = (sCamTweakDistMult[1] * sCamTweakLerp) +
@@ -112,12 +106,9 @@ void zCameraTweakGlobal_Remove(U32 owner)
 {
     S32 i, j;
 
-    for (i = 0; i < sCamTweakCount; i++)
-    {
-        if (owner == sCamTweakList[i].owner)
-        {
-            if (i == 0)
-            {
+    for (i = 0; i < sCamTweakCount; i++) {
+        if (owner == sCamTweakList[i].owner) {
+            if (i == 0) {
                 sCamTweakPitch[1] = (sCamTweakPitch[1] * sCamTweakLerp) +
                                     (sCamTweakPitch[0] * (1.0f - sCamTweakLerp));
                 sCamTweakDistMult[1] = (sCamTweakDistMult[1] * sCamTweakLerp) +
@@ -125,20 +116,16 @@ void zCameraTweakGlobal_Remove(U32 owner)
                 sCamTweakLerp = 1.0f;
                 sCamTweakTime = sCamTweakList[0].time;
 
-                if (sCamTweakCount > 1)
-                {
+                if (sCamTweakCount > 1) {
                     sCamTweakPitch[0] = sCamTweakList[1].pitch;
                     sCamTweakDistMult[0] = sCamTweakList[1].distMult;
-                }
-                else
-                {
+                } else {
                     sCamTweakPitch[0] = 0.0f;
                     sCamTweakDistMult[0] = 1.0f;
                 }
             }
 
-            for (j = i; j < sCamTweakCount - 1; j++)
-            {
+            for (j = i; j < sCamTweakCount - 1; j++) {
                 sCamTweakList[j] = sCamTweakList[j + 1];
             }
 
@@ -174,12 +161,9 @@ void zCameraTweak_Init(zCameraTweak* tweak, CameraTweak_asset* asset)
     tweak->casset = asset;
     tweak->eventFunc = zCameraTweak_EventCB;
 
-    if (tweak->linkCount)
-    {
+    if (tweak->linkCount) {
         tweak->link = (xLinkAsset*)(asset + 1);
-    }
-    else
-    {
+    } else {
         tweak->link = NULL;
     }
 }
@@ -198,8 +182,7 @@ void zCameraTweak_EventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U3
 {
     zCameraTweak* tweak = (zCameraTweak*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventEnable:
         xBaseEnable(tweak);
         break;
@@ -207,15 +190,13 @@ void zCameraTweak_EventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U3
         xBaseDisable(tweak);
         break;
     case eEventRun:
-        if (xBaseIsEnabled(tweak))
-        {
+        if (xBaseIsEnabled(tweak)) {
             zCameraTweakGlobal_Add(tweak->id, tweak->casset->priority, tweak->casset->time,
                                    tweak->casset->pitch_adjust, tweak->casset->dist_adjust);
         }
         break;
     case eEventStop:
-        if (xBaseIsEnabled(tweak))
-        {
+        if (xBaseIsEnabled(tweak)) {
             zCameraTweakGlobal_Remove(tweak->id);
         }
         break;

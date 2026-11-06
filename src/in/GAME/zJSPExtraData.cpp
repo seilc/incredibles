@@ -8,33 +8,24 @@ S32 zJSPExtraData::sNumPairs = 0;
 
 void zJSPExtraData::ShowAssociatedGroup(U32 jspAssetId, bool show)
 {
-    for (S32 i = 0; i < sNumPairs; i++)
-    {
-        if (sJspGroupPairs[i].jspID == jspAssetId)
-        {
-            if (show)
-            {
-                if (!sJspGroupPairs[i].pGroup && sJspGroupPairs[i].groupID)
-                {
+    for (S32 i = 0; i < sNumPairs; i++) {
+        if (sJspGroupPairs[i].jspID == jspAssetId) {
+            if (show) {
+                if (!sJspGroupPairs[i].pGroup && sJspGroupPairs[i].groupID) {
                     sJspGroupPairs[i].pGroup = zSceneFindObject(sJspGroupPairs[i].groupID);
                 }
 
-                if (sJspGroupPairs[i].pGroup)
-                {
+                if (sJspGroupPairs[i].pGroup) {
                     zEntEvent(sJspGroupPairs[i].pGroup, eEventVisibilityCullOff);
                 }
 
                 zEntEvent(sJspGroupPairs[i].pWidget, eEventOn);
-            }
-            else
-            {
-                if (!sJspGroupPairs[i].pGroup && sJspGroupPairs[i].groupID)
-                {
+            } else {
+                if (!sJspGroupPairs[i].pGroup && sJspGroupPairs[i].groupID) {
                     sJspGroupPairs[i].pGroup = zSceneFindObject(sJspGroupPairs[i].groupID);
                 }
 
-                if (sJspGroupPairs[i].pGroup)
-                {
+                if (sJspGroupPairs[i].pGroup) {
                     zEntEvent(sJspGroupPairs[i].pGroup, eEventVisibilityCullOn);
                 }
 
@@ -63,12 +54,9 @@ void zJSPExtraData::LoadPrivate(const zJSPExtraDataAsset& asset)
 {
     xBaseInit(this, &asset);
 
-    if (linkCount)
-    {
+    if (linkCount) {
         link = (xLinkAsset*)(&asset + 1);
-    }
-    else
-    {
+    } else {
         link = NULL;
     }
 

@@ -95,46 +95,36 @@ void zCamReset(const xMat4x3& mat)
 
 void zCamUpdate(F32 dt)
 {
-    if (globals.player.ControlOff)
-    {
+    if (globals.player.ControlOff) {
         globals.cam->analog.ang = 0.0f;
         globals.cam->analog.dir.assign(1.0f, 0.0f);
         globals.cam->analog.mag = 0.0f;
         globals.cam->analog.offset.assign(0.0f);
-    }
-    else
-    {
+    } else {
         globals.cam->analog = globals.pad0->analog[1];
     }
 
-    if (globals.invertCameraY)
-    {
+    if (globals.invertCameraY) {
         globals.cam->analog.offset.y = -globals.cam->analog.offset.y;
         globals.cam->analog.dir.y = -globals.cam->analog.dir.y;
         globals.cam->analog.ang = 2.0f * PI - globals.cam->analog.ang;
     }
 
-    if (globals.invertCameraX)
-    {
+    if (globals.invertCameraX) {
         globals.cam->analog.offset.x = -globals.cam->analog.offset.x;
         globals.cam->analog.dir.x = -globals.cam->analog.dir.x;
 
-        if (globals.cam->analog.ang >= PI)
-        {
+        if (globals.cam->analog.ang >= PI) {
             globals.cam->analog.ang = 3.0f * PI - globals.cam->analog.ang;
-        }
-        else
-        {
+        } else {
             globals.cam->analog.ang = PI - globals.cam->analog.ang;
         }
     }
 
     globals.cam->update(*globals.sceneCur, dt);
 
-    if (!update_debug_cam(dt))
-    {
-        if (globals.screen->fov != globals.cam->fov)
-        {
+    if (!update_debug_cam(dt)) {
+        if (globals.screen->fov != globals.cam->fov) {
             globals.screen->set_fov(globals.cam->fov);
         }
 
@@ -158,25 +148,19 @@ static void zCamNotifyTriggers()
     zEntTrigger** it = (zEntTrigger**)s.trigs;
     zEntTrigger** end = it + s.num_trigs;
 
-    while (it != end)
-    {
+    while (it != end) {
         zEntTrigger& trig = **it;
 
-        if (xBaseIsEnabled(&trig) && !(zEntTriggerAsset(trig)->flags & 0x1))
-        {
+        if (xBaseIsEnabled(&trig) && !(zEntTriggerAsset(trig)->flags & 0x1)) {
             bool want_enter = false;
             bool want_exit = false;
             xLinkAsset* link = trig.link;
             xLinkAsset* end_link = link + trig.linkCount;
 
-            while (link != end_link)
-            {
-                if (link->srcEvent == eEventEnterCamera)
-                {
+            while (link != end_link) {
+                if (link->srcEvent == eEventEnterCamera) {
                     want_enter = true;
-                }
-                else if (link->srcEvent == eEventExitCamera)
-                {
+                } else if (link->srcEvent == eEventExitCamera) {
                     want_exit = true;
                 }
 
@@ -186,25 +170,18 @@ static void zCamNotifyTriggers()
             want_enter = want_enter && !(trig.entered & ZENTTRIGGER_CAM);
             want_exit = want_exit && (trig.entered & ZENTTRIGGER_CAM);
 
-            if (want_enter || want_exit)
-            {
+            if (want_enter || want_exit) {
                 bool inside = zEntTriggerHitsSphere(trig, camSphere, dummyDir);
 
-                if (inside)
-                {
+                if (inside) {
                     trig.entered |= ZENTTRIGGER_CAM;
-                }
-                else
-                {
+                } else {
                     trig.entered &= ~ZENTTRIGGER_CAM;
                 }
 
-                if (want_enter && inside)
-                {
+                if (want_enter && inside) {
                     zEntEvent(&trig, eEventEnterCamera);
-                }
-                else if (want_exit && !inside)
-                {
+                } else if (want_exit && !inside) {
                     zEntEvent(&trig, eEventExitCamera);
                 }
             }
@@ -231,15 +208,13 @@ void zCamEndRender()
 
 void zCamSetMode(zcam_mode_enum mode)
 {
-    if (mode == current_mode)
-    {
+    if (mode == current_mode) {
         return;
     }
 
     globals.cam->add(*mode_cams[mode], false);
 
-    if (current_mode != ZCAM_MODE_INVALID)
-    {
+    if (current_mode != ZCAM_MODE_INVALID) {
         globals.cam->remove(*mode_cams[current_mode], false);
     }
 

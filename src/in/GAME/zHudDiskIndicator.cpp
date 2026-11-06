@@ -21,8 +21,7 @@ namespace zHud
         U32 meterID = xStrHash("DiskSpinner");
         xhud::widget_chunk* chunk = (xhud::widget_chunk*)zSceneFindObject(meterID);
 
-        if (chunk)
-        {
+        if (chunk) {
             RwTexCoords upperleft, lowerright;
 
             m_pImageWidget = (xhud::image_widget*)&chunk->w;
@@ -83,43 +82,36 @@ namespace zHud
 
     void DiskIndicator::update(F32 dt)
     {
-        if (m_fDisplayTimeLeft > 0.0f)
-        {
+        if (m_fDisplayTimeLeft > 0.0f) {
             m_fDisplayTimeLeft -= dt;
 
-            if (m_fDisplayTimeLeft < 0.0f)
-            {
+            if (m_fDisplayTimeLeft < 0.0f) {
                 m_fDisplayTimeLeft = 0.0f;
                 m_pImageWidget->hide(xhud::widget::RIGHT, true, false);
             }
 
             m_fCircleValue = dt * m_fCircleSpeed + m_fCircleValue;
 
-            while (m_fCircleValue > 1.0f)
-            {
+            while (m_fCircleValue > 1.0f) {
                 m_fCircleValue -= 1.0f;
             }
 
             m_pImageWidget->set_layer_value(1, m_fCircleValue);
-        }
-        else if (!m_pImageWidget->active())
-        {
+        } else if (!m_pImageWidget->active()) {
             m_pImageWidget->disable();
         }
     }
 
     void DiskIndicator::show()
     {
-        if (m_pImageWidget)
-        {
+        if (m_pImageWidget) {
             m_pImageWidget->show(xhud::widget::RIGHT, true, true);
         }
     }
 
     void DiskIndicator::hide()
     {
-        if (m_pImageWidget)
-        {
+        if (m_pImageWidget) {
             m_pImageWidget->hide(xhud::widget::RIGHT, true, true);
         }
     }

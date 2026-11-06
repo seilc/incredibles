@@ -14,8 +14,7 @@ void zReferenceInit(zReference* ref, zReferenceAsset* asset)
 
     ref->current = NULL;
 
-    if (asset->initial)
-    {
+    if (asset->initial) {
         ref->current = zSceneFindObject(asset->initial);
     }
 
@@ -27,16 +26,11 @@ void zReferenceEventCB(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
 {
     zReference* ref = (zReference*)to;
 
-    if (toEvent == eEventSetReference)
-    {
+    if (toEvent == eEventSetReference) {
         ref->current = toParamWidget;
-    }
-    else if (toEvent == eEventCopyReference)
-    {
+    } else if (toEvent == eEventCopyReference) {
         ref->current = ((zReference*)toParamWidget)->current;
-    }
-    else if (ref->current && ref->current->eventFunc)
-    {
+    } else if (ref->current && ref->current->eventFunc) {
         zEntEvent(from, ref->current, toEvent, toParam, toParamWidget, toParamWidgetID);
     }
 }

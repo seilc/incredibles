@@ -49,8 +49,7 @@ void pool_list_base::reset(S32 node_size)
 
     U8* mem = (U8*)buffer, *end_mem = mem + (_max_size-1) * node_size;
 
-    while (mem != end_mem)
-    {
+    while (mem != end_mem) {
         ((node_base*)mem)->next = (node_base*)(mem + node_size);
 
         mem += node_size;

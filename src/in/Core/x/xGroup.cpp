@@ -36,26 +36,20 @@ void xGroupInit(xBase* b, xGroupAsset* asset)
 
 void xGroupSetup(xGroup* g)
 {
-    if (!(g->flg_group & 0x1))
-    {
+    if (!(g->flg_group & 0x1)) {
         U32 count = xGroupGetCount(g);
 
-        for (U32 i = 0; i < count; i++)
-        {
+        for (U32 i = 0; i < count; i++) {
             U32 id = xGroupGetItem(g, i);
 
             g->item[i] = zSceneFindObject(id);
 
-            if (g->item[i])
-            {
+            if (g->item[i]) {
                 g->flg_group |= XGRP_FLG_HASWIDGET;
-            }
-            else
-            {
+            } else {
                 g->item[i] = (xBase*)xSTFindAsset(id, NULL);
 
-                if (g->item[i])
-                {
+                if (g->item[i]) {
                     g->flg_group |= XGRP_FLG_HASASSET;
                 }
             }
@@ -85,8 +79,7 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
 {
     xGroup* g = (xGroup*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventReset:
         xGroupReset(g);
         break;
@@ -97,13 +90,11 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
 
     S32 rand = -1;
 
-    if (g->asset->groupFlags & 0x1)
-    {
+    if (g->asset->groupFlags & 0x1) {
         rand = xrand_RandomChoice(g->asset->itemCount);
     }
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventFastVisible:
     case eEventFastInvisible:
     case eEventVisibilityCullOn:
@@ -111,8 +102,7 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
     {
         xEntVisUpdateCallback entVisEventHandler;
 
-        switch (toEvent)
-        {
+        switch (toEvent) {
         case eEventFastVisible:
             entVisEventHandler = xEntShow;
             break;
@@ -127,21 +117,15 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
             break;
         }
 
-        for (S32 i = 0; i < g->asset->itemCount; i++)
-        {
-            if (rand == -1 || rand == i)
-            {
+        for (S32 i = 0; i < g->asset->itemCount; i++) {
+            if (rand == -1 || rand == i) {
                 xBase* b = g->item[i];
 
-                if (b)
-                {
-                    if (b->baseFlags & k_XBASE_IS_ENTITY)
-                    {
+                if (b) {
+                    if (b->baseFlags & k_XBASE_IS_ENTITY) {
                         if (xBaseIsEnabled(b))
                             entVisEventHandler((xEnt*)b);
-                    }
-                    else
-                    {
+                    } else {
                         zEntEvent(b, toEvent, toParam, toParamWidget, toParamWidgetID);
                     }
                 }
@@ -152,14 +136,11 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
     }
     default:
     {
-        for (S32 i = 0; i < g->asset->itemCount; i++)
-        {
-            if (rand == -1 || rand == i)
-            {
+        for (S32 i = 0; i < g->asset->itemCount; i++) {
+            if (rand == -1 || rand == i) {
                 xBase* b = g->item[i];
 
-                if (b)
-                {
+                if (b) {
                     zEntEvent(b, toEvent, toParam, toParamWidget, toParamWidgetID);
                 }
             }
@@ -175,13 +156,11 @@ U32 xGroupGetCount(xGroup* g)
 
 xBase* xGroupGetItemPtr(xGroup* g, U32 index)
 {
-    if (!(g->flg_group & 0x1))
-    {
+    if (!(g->flg_group & 0x1)) {
         xGroupSetup(g);
     }
 
-    if (g->item)
-    {
+    if (g->item) {
         return g->item[index];
     }
 
@@ -195,8 +174,7 @@ U32 xGroupGetItem(xGroup* g, U32 index)
 
 U32 xGroup::get_any()
 {
-    if (!asset->itemCount)
-    {
+    if (!asset->itemCount) {
         return 0;
     }
 

@@ -128,8 +128,7 @@ void xTimerEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U
 {
     xTimer* t = (xTimer*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventRun:
     {
         t->state = 1;
@@ -137,8 +136,7 @@ void xTimerEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U
     }
     case eEventStop:
     {
-        if (t->state == 1)
-        {
+        if (t->state == 1) {
             t->state = 0;
         }
 
@@ -171,14 +169,11 @@ void xTimerUpdate(xBase* to, xScene*, F32 dt)
 {
     xTimer* t = (xTimer*)to;
 
-    if (t->state == 1)
-    {
-        if (!(t->flags & 0x1) || !globals.player.ControlOff || !ztalkbox::get_active())
-        {
+    if (t->state == 1) {
+        if (!(t->flags & 0x1) || !globals.player.ControlOff || !ztalkbox::get_active()) {
             t->secondsLeft -= dt;
 
-            if (t->secondsLeft <= 0.0f)
-            {
+            if (t->secondsLeft <= 0.0f) {
                 zEntEvent(t, t, eEventExpired);
             }
         }

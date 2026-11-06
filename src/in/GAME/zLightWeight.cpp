@@ -14,56 +14,49 @@ namespace z
 
         void exit()
         {
-            for (S32 i = 0; i < system_count; i++)
-            {
+            for (S32 i = 0; i < system_count; i++) {
                 system[i]->exit();
             }
         }
 
         void reset()
         {
-            for (S32 i = 0; i < system_count; i++)
-            {
+            for (S32 i = 0; i < system_count; i++) {
                 system[i]->reset();
             }
         }
 
         void update(F32 dt)
         {
-            for (S32 i = 0; i < system_count; i++)
-            {
+            for (S32 i = 0; i < system_count; i++) {
                 system[i]->update(dt);
             }
         }
 
         void render()
         {
-            for (S32 i = 0; i < system_count; i++)
-            {
+            for (S32 i = 0; i < system_count; i++) {
                 system[i]->render();
             }
         }
 
         void post_render_2d()
         {
-            for (S32 i = 0; i < system_count; i++)
-            {
+            for (S32 i = 0; i < system_count; i++) {
                 system[i]->post_render_2d();
             }
         }
 
         void post_render_3d()
         {
-            for (S32 i = 0; i < system_count; i++)
-            {
+            for (S32 i = 0; i < system_count; i++) {
                 system[i]->post_render_3d();
             }
         }
 
         void scene_setup()
         {
-            for (S32 i = 0; i < system_count; i++)
-            {
+            for (S32 i = 0; i < system_count; i++) {
                 system[i]->scene_setup();
             }
         }

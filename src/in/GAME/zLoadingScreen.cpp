@@ -51,18 +51,15 @@ void zLoadingScreen::Init()
 
     show_stats = true;
 
-    for (S16 i = 0; i < group->itemCount; i++)
-    {
+    for (S16 i = 0; i < group->itemCount; i++) {
         U32 size;
         xDynAsset* asset = (xDynAsset*)xSTFindAsset(((U32*)(group + 1))[i], &size);
 
-        if (asset)
-        {
+        if (asset) {
             void* test;
             zUI* element = NULL;
 
-            switch (asset->type)
-            {
+            switch (asset->type) {
             case UI_IMAGE_ID:
                 test = RwMalloc(sizeof(zUIImage), 0);
                 element = (zUI*)test;
@@ -86,8 +83,7 @@ void zLoadingScreen::Init()
                 break;
             }
 
-            if (element)
-            {
+            if (element) {
                 controls[controlCount++] = element;
                 allocations[allocationCount++] = element;
             }
@@ -98,8 +94,7 @@ void zLoadingScreen::Init()
     zUISetCustomSignalHandler(CustomSignalHandler, this);
     zUIMgrSortList(controls, controlCount);
 
-    for (S32 i = 0; i < controlCount; i++)
-    {
+    for (S32 i = 0; i < controlCount; i++) {
         controls[i]->HandleEvent(controls[i], eEventVisible, NULL, NULL, 0);
         controls[i]->Signal(eEventVisible);
     }
@@ -107,10 +102,8 @@ void zLoadingScreen::Init()
 
 void zLoadingScreen::Update(F32 dt)
 {
-    for (S32 i = 0; i < controlCount; i++)
-    {
-        if (controls[i]->visible)
-        {
+    for (S32 i = 0; i < controlCount; i++) {
+        if (controls[i]->visible) {
             controls[i]->Update(dt);
         }
     }
@@ -118,10 +111,8 @@ void zLoadingScreen::Update(F32 dt)
 
 void zLoadingScreen::Render()
 {
-    for (S32 i = controlCount - 1; i >= 0; i--)
-    {
-        if (controls[i]->visible)
-        {
+    for (S32 i = controlCount - 1; i >= 0; i--) {
+        if (controls[i]->visible) {
             controls[i]->Render();
         }
     }
@@ -131,15 +122,13 @@ void zLoadingScreen::Render()
 
 void zLoadingScreen::Exit()
 {
-    for (S32 j = 0; j < controlCount; j++)
-    {
+    for (S32 j = 0; j < controlCount; j++) {
         controls[j]->Exit();
     }
 
     zUISetCustomSignalHandler(NULL, NULL);
 
-    for (S32 i = 0; i < allocationCount; i++)
-    {
+    for (S32 i = 0; i < allocationCount; i++) {
         RwFree(allocations[i]);
     }
 
@@ -156,10 +145,8 @@ void* zLoadingScreen::CustomAllocate(U32 size)
 void zLoadingScreen::CustomSignal(zUI* from, U32 dest, U32 event, const F32* param,
                                   xBase* paramWidget, U32 paramWidgetID)
 {
-    for (S32 i = 0; i < controlCount; i++)
-    {
-        if (dest == controls[i]->GetAsset()->id)
-        {
+    for (S32 i = 0; i < controlCount; i++) {
+        if (dest == controls[i]->GetAsset()->id) {
             controls[i]->HandleEvent(from, event, param, paramWidget, paramWidgetID);
             break;
         }

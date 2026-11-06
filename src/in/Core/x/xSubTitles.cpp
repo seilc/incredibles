@@ -21,8 +21,7 @@ void xSubTitlesInit()
 {
     subtitleSize = 0.25f;
 
-    switch (xSTGetLocalizationEnum())
-    {
+    switch (xSTGetLocalizationEnum()) {
     case eRegionJP:
         subtitleFontWidth = 30.0f;
         subtitleFontHeight = 30.0f;
@@ -55,51 +54,42 @@ void xSubTitlesUnloaded(void*, U32)
 
 bool xSubTitlesRender(U32 aid, F32 fTime)
 {
-    if (aid == 0 || !zVarEntryCB_SubtitlesOn(NULL))
-    {
+    if (aid == 0 || !zVarEntryCB_SubtitlesOn(NULL)) {
         return false;
     }
 
-    if (!m_pCurrentAsset || m_pCurrentAsset->id != aid)
-    {
+    if (!m_pCurrentAsset || m_pCurrentAsset->id != aid) {
         m_pCurrentAsset = (xSubtitlesAsset*)xSTFindAsset(aid, NULL);
         m_uLastTimeKey = 0;
     }
 
-    if (!m_pCurrentAsset)
-    {
+    if (!m_pCurrentAsset) {
         return false;
     }
 
-    if (m_pCurrentAsset->m_uAssetNumLines == 0)
-    {
+    if (m_pCurrentAsset->m_uAssetNumLines == 0) {
         return false;
     }
 
     if (fTime >
             m_pCurrentAsset->m_paSubtitleLines[m_pCurrentAsset->m_uAssetNumLines - 1].fStopTime ||
-        fTime < m_pCurrentAsset->m_paSubtitleLines[0].fStartTime)
-    {
+        fTime < m_pCurrentAsset->m_paSubtitleLines[0].fStartTime) {
         return false;
     }
 
     U32 uSearchIndex = 0;
 
-    if (fTime > m_pCurrentAsset->m_paSubtitleLines[m_uLastTimeKey].fStartTime)
-    {
+    if (fTime > m_pCurrentAsset->m_paSubtitleLines[m_uLastTimeKey].fStartTime) {
         uSearchIndex = m_uLastTimeKey;
     }
 
-    while (uSearchIndex < m_pCurrentAsset->m_uAssetNumLines)
-    {
+    while (uSearchIndex < m_pCurrentAsset->m_uAssetNumLines) {
         if (fTime >= m_pCurrentAsset->m_paSubtitleLines[uSearchIndex].fStartTime &&
-            fTime < m_pCurrentAsset->m_paSubtitleLines[uSearchIndex].fStopTime)
-        {
+            fTime < m_pCurrentAsset->m_paSubtitleLines[uSearchIndex].fStopTime) {
             m_uLastTimeKey = uSearchIndex;
         }
         else if (fTime >= m_pCurrentAsset->m_paSubtitleLines[uSearchIndex].fStopTime &&
-                 fTime < m_pCurrentAsset->m_paSubtitleLines[uSearchIndex + 1].fStartTime)
-        {
+                 fTime < m_pCurrentAsset->m_paSubtitleLines[uSearchIndex + 1].fStartTime) {
             return false;
         }
 

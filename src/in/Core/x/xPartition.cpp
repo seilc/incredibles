@@ -27,8 +27,7 @@ static void PartitionSpaceInsert(PartSpace* space, void* data)
     space->total++;
     PartLink* head = &space->head;
     PartLink* tmp = head;
-    while (tmp->next != NULL)
-    {
+    while (tmp->next != NULL) {
         tmp = tmp->next;
     }
     head = PartitionGetFreeLink();

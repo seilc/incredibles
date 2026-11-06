@@ -158,48 +158,41 @@ void zGameExtras_SceneInit()
     S32 somethingIsEnabled = 0;
     EGGItem* egg_next = g_eggBasket;
 
-    while (egg_next->fun_check)
-    {
+    while (egg_next->fun_check) {
         EGGItem* egg = egg_next;
 
         egg_next++;
 
         egg->enabled = egg->fun_check(egg);
 
-        if (egg->enabled)
-        {
+        if (egg->enabled) {
             somethingIsEnabled++;
 
-            if (egg->funcs->fun_init)
-            {
+            if (egg->funcs->fun_init) {
                 egg->funcs->fun_init(egg);
             }
         }
     }
 
-    if (somethingIsEnabled)
-    {
+    if (somethingIsEnabled) {
         g_enableGameExtras = TRUE;
     }
 }
 
 void zGameExtras_SceneReset()
 {
-    if (!g_enableGameExtras)
-    {
+    if (!g_enableGameExtras) {
         return;
     }
 
     EGGItem* egg_next = g_eggBasket;
 
-    while (egg_next->fun_check)
-    {
+    while (egg_next->fun_check) {
         EGGItem* egg = egg_next;
 
         egg_next++;
 
-        if (egg->enabled && egg->funcs->fun_reset)
-        {
+        if (egg->enabled && egg->funcs->fun_reset) {
             egg->funcs->fun_reset(egg);
         }
     }
@@ -207,35 +200,29 @@ void zGameExtras_SceneReset()
 
 void zGameExtras_SceneExit()
 {
-    if (!g_enableGameExtras)
-    {
+    if (!g_enableGameExtras) {
         return;
     }
 
-    if (globals.cmgr)
-    {
+    if (globals.cmgr) {
         return;
     }
 
-    if (zGameIsPaused())
-    {
+    if (zGameIsPaused()) {
         return;
     }
 
     EGGItem* egg_next = g_eggBasket;
 
-    while (egg_next->fun_check)
-    {
+    while (egg_next->fun_check) {
         EGGItem* egg = egg_next;
 
         egg_next++;
 
-        if (egg->enabled)
-        {
+        if (egg->enabled) {
             egg->enabled = FALSE;
 
-            if (egg->funcs->fun_done)
-            {
+            if (egg->funcs->fun_done) {
                 egg->funcs->fun_done(egg);
             }
         }
@@ -250,31 +237,26 @@ void zGameExtras_SceneUpdate(F32 dt)
 {
     zGameCheatsUpdate(dt);
 
-    if (!g_enableGameExtras)
-    {
+    if (!g_enableGameExtras) {
         return;
     }
 
-    if (globals.cmgr)
-    {
+    if (globals.cmgr) {
         return;
     }
 
-    if (zGameIsPaused())
-    {
+    if (zGameIsPaused()) {
         return;
     }
 
     EGGItem* egg_next = g_eggBasket;
 
-    while (egg_next->fun_check)
-    {
+    while (egg_next->fun_check) {
         EGGItem* egg = egg_next;
 
         egg_next++;
 
-        if (egg->enabled && egg->funcs->fun_update)
-        {
+        if (egg->enabled && egg->funcs->fun_update) {
             egg->funcs->fun_update(dt, egg);
         }
     }
@@ -282,12 +264,10 @@ void zGameExtras_SceneUpdate(F32 dt)
 
 static S32 EGG_check_ExtrasFlags(EGGItem*)
 {
-    switch (g_currMonth)
-    {
+    switch (g_currMonth) {
     case 1:
     {
-        if (g_currDay == 1)
-        {
+        if (g_currDay == 1) {
             g_gameExtraFlags |= 0x1;
         }
 
@@ -295,8 +275,7 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 2:
     {
-        if (g_currDay == 2)
-        {
+        if (g_currDay == 2) {
             g_gameExtraFlags |= 0x100;
         }
 
@@ -304,28 +283,23 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 3:
     {
-        if (g_currDay == 15)
-        {
+        if (g_currDay == 15) {
             g_gameExtraFlags |= 0x8;
         }
 
-        if (g_currDay == 17)
-        {
+        if (g_currDay == 17) {
             g_gameExtraFlags |= 0x4;
         }
 
-        if (g_currDay == 18)
-        {
+        if (g_currDay == 18) {
             g_gameExtraFlags |= 0x100;
         }
 
-        if (g_currDay == 21)
-        {
+        if (g_currDay == 21) {
             g_gameExtraFlags |= 0x100;
         }
 
-        if (g_currDay == 22)
-        {
+        if (g_currDay == 22) {
             g_gameExtraFlags |= 0x100;
         }
 
@@ -333,8 +307,7 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 4:
     {
-        if (g_currDay == 1)
-        {
+        if (g_currDay == 1) {
             g_gameExtraFlags |= 0x80;
         }
 
@@ -346,8 +319,7 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 6:
     {
-        if (g_currDay == 6)
-        {
+        if (g_currDay == 6) {
             g_gameExtraFlags |= 0x40;
         }
 
@@ -355,8 +327,7 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 7:
     {
-        if (g_currDay == 4)
-        {
+        if (g_currDay == 4) {
             g_gameExtraFlags |= 0x2;
         }
 
@@ -364,8 +335,7 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 8:
     {
-        if (g_currDay == 8)
-        {
+        if (g_currDay == 8) {
             g_gameExtraFlags |= 0x100;
         }
 
@@ -373,8 +343,7 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 9:
     {
-        if (g_currDay == 8)
-        {
+        if (g_currDay == 8) {
             g_gameExtraFlags |= 0x2;
         }
 
@@ -382,23 +351,19 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 10:
     {
-        if (g_currDay == 5)
-        {
+        if (g_currDay == 5) {
             g_gameExtraFlags |= 0x100;
         }
 
-        if (g_currDay == 14)
-        {
+        if (g_currDay == 14) {
             g_gameExtraFlags |= 0x100;
         }
 
-        if (g_currDay == 22)
-        {
+        if (g_currDay == 22) {
             g_gameExtraFlags |= 0x100;
         }
 
-        if (g_currDay == 31)
-        {
+        if (g_currDay == 31) {
             g_gameExtraFlags |= 0x20;
         }
 
@@ -406,8 +371,7 @@ static S32 EGG_check_ExtrasFlags(EGGItem*)
     }
     case 11:
     {
-        if (g_currDay == 5)
-        {
+        if (g_currDay == 5) {
             g_gameExtraFlags |= 0x100;
         }
 
@@ -444,15 +408,12 @@ static S32 TestCheat(U32* cheat_info)
 {
     S32 i = CHEAT_COUNT - 1;
 
-    if (cheat_info[CHEAT_COUNT - 1] == 0)
-    {
+    if (cheat_info[CHEAT_COUNT - 1] == 0) {
         return FALSE;
     }
 
-    while (i >= 0)
-    {
-        if (cheat_info[i] != sCheatPressed[i])
-        {
+    while (i >= 0) {
+        if (cheat_info[i] != sCheatPressed[i]) {
             return FALSE;
         }
 
@@ -464,8 +425,7 @@ static S32 TestCheat(U32* cheat_info)
 
 static void AddToCheatPressed(U32 button)
 {
-    for (S32 i = 1; i < CHEAT_COUNT; i++)
-    {
+    for (S32 i = 1; i < CHEAT_COUNT; i++) {
         sCheatPressed[i - 1] = sCheatPressed[i];
     }
 
@@ -484,52 +444,39 @@ inline void GEC_CheatFlagToggle(S32 flg)
 
 void zGameCheatsUpdate(F32 dt)
 {
-    if (GCN_DEMO_PARAM)
-    {
+    if (GCN_DEMO_PARAM) {
         return;
     }
 
-    if (zGameModeGet() != eGameMode_Pause)
-    {
+    if (zGameModeGet() != eGameMode_Pause) {
         return;
     }
 
     S32 startover = FALSE;
 
-    if ((globals.pad0->pressed & ~0x61100) || (globals.pad0->on & ~0x61100))
-    {
+    if ((globals.pad0->pressed & ~0x61100) || (globals.pad0->on & ~0x61100)) {
         startover = TRUE;
-    }
-    else if ((globals.pad0->on & 0x1100) != 0x1100)
-    {
+    } else if ((globals.pad0->on & 0x1100) != 0x1100) {
         startover = TRUE;
-    }
-    else if (!(globals.pad0->pressed & 0x60000))
-    {
+    } else if (!(globals.pad0->pressed & 0x60000)) {
         sCheatTimer -= dt;
 
-        if (sCheatTimer <= 0.0f)
-        {
+        if (sCheatTimer <= 0.0f) {
             startover = TRUE;
-        }
-        else
-        {
+        } else {
             return;
         }
     }
 
-    if (!startover)
-    {
-        if (sCheatInputCount > 32)
-        {
+    if (!startover) {
+        if (sCheatInputCount > 32) {
             startover = TRUE;
         }
 
         sCheatInputCount++;
     }
 
-    if (startover)
-    {
+    if (startover) {
         sCheatInputCount = 0;
         sCheatTimer = CHEAT_TIME;
 
@@ -545,34 +492,27 @@ void zGameCheatsUpdate(F32 dt)
     S32 match = 0;
     GECheat* rec_next = cheatList;
 
-    while (rec_next->key_code)
-    {
+    while (rec_next->key_code) {
         GECheat* rec_curr = rec_next;
 
         rec_next++;
 
-        if (TestCheat(rec_curr->key_code))
-        {
+        if (TestCheat(rec_curr->key_code)) {
             match++;
 
-            if (rec_curr->flg_mode & 0x1)
-            {
+            if (rec_curr->flg_mode & 0x1) {
                 GEC_CheatFlagToggle(rec_curr->flg_keep);
-            }
-            else
-            {
+            } else {
                 GEC_CheatFlagAdd(rec_curr->flg_keep);
             }
 
-            if (rec_curr->fun_cheat)
-            {
+            if (rec_curr->fun_cheat) {
                 rec_curr->fun_cheat();
             }
         }
     }
 
-    if (match != 0)
-    {
+    if (match != 0) {
         sCheatTimer = -1.0f;
         memset(sCheatPressed, 0, sizeof(sCheatPressed));
     }

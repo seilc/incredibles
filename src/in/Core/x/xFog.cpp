@@ -47,8 +47,7 @@ void xFogEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
 {
     xFog* t = (xFog*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventOn:
     {
         iFogParams fog;

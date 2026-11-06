@@ -6,8 +6,7 @@ xEnv* gCurXEnv = NULL;
 
 void xEnvLoadJSPList(xEnv* env, S32 dataType)
 {
-    if (dataType == 0)
-    {
+    if (dataType == 0) {
         U32 bufsize;
         void* buf;
 
@@ -19,8 +18,7 @@ void xEnvLoadJSPList(xEnv* env, S32 dataType)
 
         S32 index = 0;
 
-        for (S32 i = 0; i < jsp_count; i++)
-        {
+        for (S32 i = 0; i < jsp_count; i++) {
             PKRAssetTOCInfo info;
             buf = xSTFindAssetByType('JSP ', i, &bufsize);
 
@@ -28,8 +26,7 @@ void xEnvLoadJSPList(xEnv* env, S32 dataType)
 
             S32 rc = iEnvLoadJSP(env->geom, info.aid, buf, bufsize, dataType, index);
 
-            if (rc)
-            {
+            if (rc) {
                 index++;
             }
         }
@@ -54,8 +51,7 @@ void xEnvSetup(xEnv* env)
 
 void xEnvFree(xEnv* env)
 {
-    if (env->geom)
-    {
+    if (env->geom) {
         iEnvFree(env->geom);
 
         env->geom = NULL;
@@ -64,20 +60,16 @@ void xEnvFree(xEnv* env)
 
 void xEnvRender(xEnv* env, bool alpha)
 {
-    if (env->geom)
-    {
+    if (env->geom) {
         iEnvRender(env->geom, alpha);
     }
 
-    if (env->geom->jsp_count > 0)
-    {
-        for (S32 i = 0; i < env->geom->jsp_count; i++)
-        {
+    if (env->geom->jsp_count > 0) {
+        for (S32 i = 0; i < env->geom->jsp_count; i++) {
             // do nothing
         }
 
-        if (env->geom->jsp_count == 1)
-        {
+        if (env->geom->jsp_count == 1) {
             env->geom->jsp_visibilityCount[0] = 1;
         }
     }

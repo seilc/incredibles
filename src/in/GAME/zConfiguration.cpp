@@ -67,10 +67,8 @@ namespace
 
 U32 zConfig_getPlayerEnumIdx(U32 _player_tag)
 {
-    for (S32 i = 0; i < PLAYER_COUNT; i++)
-    {
-        if (player_tag[i] == _player_tag)
-        {
+    for (S32 i = 0; i < PLAYER_COUNT; i++) {
+        if (player_tag[i] == _player_tag) {
             return i;
         }
     }
@@ -80,10 +78,8 @@ U32 zConfig_getPlayerEnumIdx(U32 _player_tag)
 
 void zConfig_setScenePlayer_MapEntry_Fixed(U32 sceneID, U32 _player_tag, U32 idx)
 {
-    for (S32 i = 0; i < scene_player_map_max; i++)
-    {
-        if (sceneID == scene_player_map[i].scene_tag)
-        {
+    for (S32 i = 0; i < scene_player_map_max; i++) {
+        if (sceneID == scene_player_map[i].scene_tag) {
             scene_player_map[i].player_enum[idx] =
                 (PLAYER_ENUM)zConfig_getPlayerEnumIdx(_player_tag);
 
@@ -94,10 +90,8 @@ void zConfig_setScenePlayer_MapEntry_Fixed(U32 sceneID, U32 _player_tag, U32 idx
 
 void zConfig_setScenePlayer_MapEntry(U32 sceneID, U32 _player_tag)
 {
-    for (S32 i = 0; i < scene_player_map_max; i++)
-    {
-        if (sceneID == scene_player_map[i].scene_tag)
-        {
+    for (S32 i = 0; i < scene_player_map_max; i++) {
+        if (sceneID == scene_player_map[i].scene_tag) {
             scene_player_map[i].player_enum[scene_player_map[i].playerCount] =
                 (PLAYER_ENUM)zConfig_getPlayerEnumIdx(_player_tag);
             scene_player_map[i].playerCount++;
@@ -107,10 +101,8 @@ void zConfig_setScenePlayer_MapEntry(U32 sceneID, U32 _player_tag)
 
     U32 sceneMask = 0xffffffff;
 
-    for (S32 i = 0; i < 4; i++)
-    {
-        if ((sceneID >> (i * 8) & 0xff) == '?')
-        {
+    for (S32 i = 0; i < 4; i++) {
+        if ((sceneID >> (i * 8) & 0xff) == '?') {
             sceneMask &= ~(0xff << (i * 8));
         }
     }
@@ -127,8 +119,7 @@ void zConfig_setScenePlayer_MapEntry(U32 sceneID, U32 _player_tag)
 
 U32 zConfig_findNextScene(U32 sceneID, U32 numChars, U32& startIdx)
 {
-    for (U32 i = startIdx; i < scene_player_map_max; i++)
-    {
+    for (U32 i = startIdx; i < scene_player_map_max; i++) {
         S8 c0 = (scene_player_map[i].scene_tag >> 24) & 0xff;
         S8 c1 = (scene_player_map[i].scene_tag >> 16) & 0xff;
         S8 c2 = (scene_player_map[i].scene_tag >> 8) & 0xff;
@@ -138,32 +129,27 @@ U32 zConfig_findNextScene(U32 sceneID, U32 numChars, U32& startIdx)
         S8 s2 = (sceneID >> 8) & 0xff;
         S8 s3 = sceneID & 0xff;
 
-        switch (numChars)
-        {
+        switch (numChars) {
         case 1:
-            if (c0 == s0)
-            {
+            if (c0 == s0) {
                 startIdx = i;
                 return scene_player_map[i].scene_tag;
             }
             break;
         case 2:
-            if (c0 == s0 && c1 == s1)
-            {
+            if (c0 == s0 && c1 == s1) {
                 startIdx = i;
                 return scene_player_map[i].scene_tag;
             }
             break;
         case 3:
-            if (c0 == s0 && c1 == s1 && c2 == s2)
-            {
+            if (c0 == s0 && c1 == s1 && c2 == s2) {
                 startIdx = i;
                 return scene_player_map[i].scene_tag;
             }
             break;
         case 4:
-            if (c0 == s0 && c1 == s1 && c2 == s2 && c3 == s3)
-            {
+            if (c0 == s0 && c1 == s1 && c2 == s2 && c3 == s3) {
                 startIdx = i;
                 return scene_player_map[i].scene_tag;
             }
@@ -176,13 +162,10 @@ U32 zConfig_findNextScene(U32 sceneID, U32 numChars, U32& startIdx)
 
 U32 zConfig_getPlayerTag(U32 sceneID, S32 playerIdx)
 {
-    for (S32 i = 0; i < scene_player_map_max; i++)
-    {
+    for (S32 i = 0; i < scene_player_map_max; i++) {
         if ((sceneID & scene_player_map[i].scene_mask) ==
-            (scene_player_map[i].scene_mask & scene_player_map[i].scene_tag))
-        {
-            if (playerIdx >= 0 || playerIdx < scene_player_map[i].playerCount)
-            {
+            (scene_player_map[i].scene_mask & scene_player_map[i].scene_tag)) {
+            if (playerIdx >= 0 || playerIdx < scene_player_map[i].playerCount) {
                 return player_tag[scene_player_map[i].player_enum[playerIdx]];
             }
 
@@ -195,10 +178,8 @@ U32 zConfig_getPlayerTag(U32 sceneID, S32 playerIdx)
 
 const char* zConfig_getPlayerModelInfoString(U32 _tag)
 {
-    for (S32 i = 0; i < PLAYER_COUNT; i++)
-    {
-        if (_tag == player_tag[i])
-        {
+    for (S32 i = 0; i < PLAYER_COUNT; i++) {
+        if (_tag == player_tag[i]) {
             return player_model_info[i];
         }
     }
@@ -208,12 +189,9 @@ const char* zConfig_getPlayerModelInfoString(U32 _tag)
 
 U32 zConfig_getPlayerLorezModelID(U32 _tag)
 {
-    for (S32 i = 0; i < PLAYER_COUNT; i++)
-    {
-        if (_tag == player_tag[i])
-        {
-            if (player_lorez_model[i])
-            {
+    for (S32 i = 0; i < PLAYER_COUNT; i++) {
+        if (_tag == player_tag[i]) {
+            if (player_lorez_model[i]) {
                 return xStrHash(player_lorez_model[i]);
             }
 
@@ -226,12 +204,9 @@ U32 zConfig_getPlayerLorezModelID(U32 _tag)
 
 PLAYER_ENUM zConfig_getPlayerEnum(U32 sceneID, S32 playerIdx)
 {
-    for (S32 i = 0; i < scene_player_map_max; i++)
-    {
-        if (sceneID == scene_player_map[i].scene_tag)
-        {
-            if (playerIdx >= 0 || playerIdx < scene_player_map[i].playerCount)
-            {
+    for (S32 i = 0; i < scene_player_map_max; i++) {
+        if (sceneID == scene_player_map[i].scene_tag) {
+            if (playerIdx >= 0 || playerIdx < scene_player_map[i].playerCount) {
                 return scene_player_map[i].player_enum[playerIdx];
             }
 

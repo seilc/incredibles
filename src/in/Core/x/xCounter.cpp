@@ -48,12 +48,9 @@ void xCounterReset(xBase* b)
 
     xBaseInit(t, t->asset);
 
-    if (t->linkCount)
-    {
+    if (t->linkCount) {
         t->link = (xLinkAsset*)(t->asset + 1);
-    }
-    else
-    {
+    } else {
         t->link = NULL;
     }
 
@@ -82,16 +79,13 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
 {
     xCounter* t = (xCounter*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventDecrement:
     {
-        if (t->state != 1)
-        {
+        if (t->state != 1) {
             t->count--;
 
-            if (t->count <= 0)
-            {
+            if (t->count <= 0) {
                 zEntEvent(t, t, eEventExpired);
             }
             else if (t->count > 0 && t->count <= 20) {
@@ -103,12 +97,10 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
     }
     case eEventIncrement:
     {
-        if (t->state != 1)
-        {
+        if (t->state != 1) {
             t->count++;
 
-            if (t->count <= 0)
-            {
+            if (t->count <= 0) {
                 zEntEvent(t, t, eEventExpired);
             }
             else if (t->count > 0 && t->count <= 20) {
@@ -132,10 +124,8 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
     }
     case eEventSetCount:
     {
-        if (t->state != 1)
-        {
-            if (toParamWidget && toParamWidget->baseType == eBaseTypeCounter)
-            {
+        if (t->state != 1) {
+            if (toParamWidget && toParamWidget->baseType == eBaseTypeCounter) {
                 t->count = ((xCounter*)toParamWidget)->count;
             } else
                 t->count = toParam[0];
@@ -145,10 +135,8 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
     }
     default:
     {
-        if (t->state != 1)
-        {
-            if (toEvent >= eEventCount1 && toEvent <= eEventCount20)
-            {
+        if (t->state != 1) {
+            if (toEvent >= eEventCount1 && toEvent <= eEventCount20) {
                 t->count = toEvent - (eEventCount1 - 1);
             }
             else if (toEvent == eEventCount0) {

@@ -25,13 +25,10 @@ void zScriptInit(xBase* b, xScriptAsset* tasset)
     t->eventFunc = zScriptEventCB;
     t->tasset = tasset;
 
-    if (t->linkCount)
-    {
+    if (t->linkCount) {
         t->link = (xLinkAsset*)(t->tasset + 1);
         t->link = (xLinkAsset*)((xScriptEventAsset*)t->link + tasset->eventCount);
-    }
-    else
-    {
+    } else {
         t->link = NULL;
     }
 
@@ -62,32 +59,27 @@ void zScriptEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, 
 {
     zScript* t = (zScript*)to;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventRun:
         t->state = ZSCRIPT_RUNNING;
 
-        if (0.0f == t->time)
-        {
+        if (0.0f == t->time) {
             zScriptExecuteEvents(t, 0.0f, 0.000000001f);
 
-            if (t->state == ZSCRIPT_RUNNING)
-            {
+            if (t->state == ZSCRIPT_RUNNING) {
                 t->time = 0.000000001f;
             }
         }
 
         break;
     case eEventStop:
-        if (t->state == ZSCRIPT_RUNNING)
-        {
+        if (t->state == ZSCRIPT_RUNNING) {
             t->state = ZSCRIPT_STOPPED;
         }
 
         break;
     case eEventTimerSet:
-        if (toParam)
-        {
+        if (toParam) {
             t->time = toParam[0];
             t->current = (xScriptEventAsset*)(t->tasset + 1);
         }
@@ -96,8 +88,7 @@ void zScriptEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, 
     case eEventExpired:
         zScriptReset(t);
 
-        if (t->tasset->loop)
-        {
+        if (t->tasset->loop) {
             t->state = ZSCRIPT_RUNNING;
         }
 
@@ -112,8 +103,7 @@ void zScriptEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, 
         gSceneReset = true;
         break;
     case eEventSetScaleFactor:
-        if (toParam)
-        {
+        if (toParam) {
             t->scaleFactor = toParam[0];
         }
 
@@ -131,37 +121,27 @@ static bool zScriptExecuteEvents(zScript* t, F32 start, F32 end)
 
     currentScript += eventCount;
 
-    while (t->current != currentScript)
-    {
-        if (t->current->time >= start)
-        {
-            if (t->current->time < end)
-            {
-                if (t->current->paramEvent != eEventScriptNoOp)
-                {
+    while (t->current != currentScript) {
+        if (t->current->time >= start) {
+            if (t->current->time < end) {
+                if (t->current->paramEvent != eEventScriptNoOp) {
                     xBase* b = zSceneFindObject(t->current->widget);
 
-                    if (b)
-                    {
+                    if (b) {
                         xBase* paramWidget = NULL;
 
-                        if (t->current->paramWidget)
-                        {
+                        if (t->current->paramWidget) {
                             paramWidget = zSceneFindObject(t->current->paramWidget);
 
-                            if (!paramWidget)
-                            {
+                            if (!paramWidget) {
                                 paramWidget = (xBase*)xSTFindAsset(t->current->paramWidget, NULL);
                             }
                         }
 
-                        if (b != t)
-                        {
+                        if (b != t) {
                             zEntEvent(t, b, t->current->paramEvent, t->current->param, paramWidget,
                                       t->current->paramWidget);
-                        }
-                        else
-                        {
+                        } else {
                             currentScript = t->current++;
 
                             zEntEvent(t, t, currentScript->paramEvent, currentScript->param,
@@ -172,13 +152,10 @@ static bool zScriptExecuteEvents(zScript* t, F32 start, F32 end)
                     }
                 }
 
-                if (gSceneReset)
-                {
+                if (gSceneReset) {
                     return true;
                 }
-            }
-            else
-            {
+            } else {
                 return false;
             }
         }
@@ -195,8 +172,7 @@ void zScriptUpdate(xBase* to, xScene*, F32 dt)
 {
     zScript* t = (zScript*)to;
 
-    if (t->state == ZSCRIPT_RUNNING && !zScriptExecuteEvents(t, t->time, t->time + dt))
-    {
+    if (t->state == ZSCRIPT_RUNNING && !zScriptExecuteEvents(t, t->time, t->time + dt)) {
         t->time += dt / t->scaleFactor;
     }
 }

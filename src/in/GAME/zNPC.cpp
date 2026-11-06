@@ -16,10 +16,8 @@ namespace zNPC
     {
         U32 soundID = group->ID;
 
-        if (group->count > 1)
-        {
-            if (sound_id_offset == 0xFFFF)
-            {
+        if (group->count > 1) {
+            if (sound_id_offset == 0xFFFF) {
                 sound_id_offset = xrand_RandomChoice(group->count);
             }
 
@@ -44,14 +42,11 @@ namespace zNPC
         F32 scale;
 
         if (!use_bounding_box && get_parameter("BoundCenter", &offset, g_O3) &&
-            get_parameter("BoundRadius", &scale, 1.0f))
-        {
+            get_parameter("BoundRadius", &scale, 1.0f)) {
             bound.type = k_XBOUNDTYPE_SPHERE;
             bound.sph.center = offset;
             bound.sph.r = scale;
-        }
-        else
-        {
+        } else {
             get_parameter("BoundOffset", &offset, g_O3);
             get_parameter("BoundScale", &scale, 1.0f);
 
@@ -65,8 +60,7 @@ namespace zNPC
     {
         xVec3Copy(&bound_offset, &offset);
 
-        if (use_bounding_box)
-        {
+        if (use_bounding_box) {
             bound.type = k_XBOUNDTYPE_OBB;
 
             xBoxForModel(bound.box.box, model, true);
@@ -95,9 +89,7 @@ namespace zNPC
 
             *(RwV3d*)&bound.box.center = model->Mat->pos;
             bound.box.center.y += (bound.box.box.upper.y - bound.box.box.lower.y) / 2.0f;
-        }
-        else
-        {
+        } else {
             bound.type = k_XBOUNDTYPE_SPHERE;
 
             xSphereForModel(bound.sph, model, true);
@@ -114,16 +106,12 @@ namespace zNPC
 
     void base::update_bounds()
     {
-        switch (bound.type)
-        {
+        switch (bound.type) {
         case k_XBOUNDTYPE_SPHERE:
         {
-            if (bound_bone != -1)
-            {
+            if (bound_bone != -1) {
                 bound.sph.center = get_bone_world_position(bound_bone);
-            }
-            else
-            {
+            } else {
                 bound.sph.center = *(xVec3*)&model->Mat->pos;
                 xVec3AddScaled(&bound.sph.center, (xVec3*)&model->Mat->up, bound.sph.r);
             }
@@ -155,8 +143,7 @@ namespace zNPC
         }
         }
 
-        if (bound.type != k_XBOUNDTYPE_NONE)
-        {
+        if (bound.type != k_XBOUNDTYPE_NONE) {
             xQuickCullForBound(&bound.qcd, &bound);
         }
 
@@ -165,13 +152,11 @@ namespace zNPC
 
     void base::update_npc(F32 dt)
     {
-        if (pflags & 0x2)
-        {
+        if (pflags & 0x2) {
             xEntApplyPhysics(this, globals.sceneCur, dt);
         }
 
-        if (pflags & 0x1)
-        {
+        if (pflags & 0x1) {
             xEntMove(this, globals.sceneCur, dt);
         }
     }
@@ -188,8 +173,7 @@ namespace zNPC
 
     xVec3 base::get_bone_world_position(S32 bone)
     {
-        if (bone == -1)
-        {
+        if (bone == -1) {
             return *(xVec3*)&model->Mat->pos;
         }
 
@@ -214,8 +198,7 @@ namespace zNPC
     {
         const char* text;
 
-        if (get_parameter(name, &text, NULL))
-        {
+        if (get_parameter(name, &text, NULL)) {
             *value = atoi(text);
             return true;
         }
@@ -228,8 +211,7 @@ namespace zNPC
     {
         const char* text;
 
-        if (get_parameter(name, &text, NULL))
-        {
+        if (get_parameter(name, &text, NULL)) {
             *value = atoi(text);
             return true;
         }
@@ -242,8 +224,7 @@ namespace zNPC
     {
         const char* text;
 
-        if (get_parameter(name, &text, NULL))
-        {
+        if (get_parameter(name, &text, NULL)) {
             *value = atoi(text);
             return true;
         }
@@ -256,8 +237,7 @@ namespace zNPC
     {
         const char* text;
 
-        if (get_parameter(name, &text, NULL))
-        {
+        if (get_parameter(name, &text, NULL)) {
             *value = (stricmp(text, "true") == 0 || atoi(text) != 0);
             return true;
         }
@@ -270,8 +250,7 @@ namespace zNPC
     {
         const char* text;
 
-        if (get_parameter(name, &text, NULL))
-        {
+        if (get_parameter(name, &text, NULL)) {
             *value = xatof(text);
             return true;
         }
@@ -284,12 +263,10 @@ namespace zNPC
     {
         const char* text;
 
-        if (get_parameter(name, &text, NULL))
-        {
+        if (get_parameter(name, &text, NULL)) {
             S32 size = xStrParseFloatList((F32*)value, text, 3);
 
-            if (size < 3)
-            {
+            if (size < 3) {
                 *value = default_value;
                 return false;
             }
@@ -305,18 +282,15 @@ namespace zNPC
     {
         const char* text = NULL;
 
-        if (local_parameters)
-        {
+        if (local_parameters) {
             text = zParamGetString(local_parameters, local_parameters_size, name, NULL);
         }
 
-        if (!text)
-        {
+        if (!text) {
             text = zParamGetString(global_parameters, global_parameters_size, name, NULL);
         }
 
-        if (!text)
-        {
+        if (!text) {
             *value = default_value;
             return false;
         }

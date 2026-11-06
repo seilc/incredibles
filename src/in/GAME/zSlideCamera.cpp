@@ -68,8 +68,7 @@ void zSlideCam::update(xScene&, F32 dt)
     setCurrTgtPos(target->pos, target->up);
 
     if (xVec3Length(curr_tgt_pos.x - prev_tgt_pos.x, curr_tgt_pos.y - prev_tgt_pos.y,
-                    curr_tgt_pos.z - prev_tgt_pos.z) > 0.001f)
-    {
+                    curr_tgt_pos.z - prev_tgt_pos.z) > 0.001f) {
         cam_pos = SpringDamp(cam_pos, curr_tgt_pos, prev_tgt_pos, dt, cfg.spring_const,
                              cfg.damp_const, cfg.spring_len);
     }

@@ -7,12 +7,9 @@ void XOrdInit(st_XORDEREDARRAY* array, S32 size, S32 tempAlloc)
 {
     size = (size<1) ? 1 : size;
 
-    if (tempAlloc)
-    {
+    if (tempAlloc) {
         array->list = (void**)xMEMPUSHTEMP(size * sizeof(void*));
-    }
-    else
-    {
+    } else {
         array->list = (void**)xMEMALLOC(size * sizeof(void*), 0);
     }
 
@@ -20,16 +17,14 @@ void XOrdInit(st_XORDEREDARRAY* array, S32 size, S32 tempAlloc)
     array->max = size;
     array->warnlvl = 0.95f * size;
 
-    if (array->warnlvl == array->max)
-    {
+    if (array->warnlvl == array->max) {
         array->warnlvl = (array->max-1 < 0) ? 0 : array->max-1;
     }
 }
 
 void XOrdDone(st_XORDEREDARRAY* array, S32 wasTempAlloc)
 {
-    if (array->max && wasTempAlloc)
-    {
+    if (array->max && wasTempAlloc) {
         xMEMPOPTEMP(array->list);
     }
 
@@ -41,27 +36,21 @@ void XOrdDone(st_XORDEREDARRAY* array, S32 wasTempAlloc)
 
 void XOrdAppend(st_XORDEREDARRAY* array, void* elt)
 {
-    if (array->cnt < array->max)
-    {
+    if (array->cnt < array->max) {
         array->list[array->cnt++] = elt;
     }
 }
 
 void XOrdInsert(st_XORDEREDARRAY* array, void* elt, XOrdCompareCallback compare)
 {
-    if (array->cnt < array->max)
-    {
+    if (array->cnt < array->max) {
         array->cnt++;
 
-        for (S32 i = array->cnt - 1; i > 0; i--)
-        {
-            if (compare(array->list[i - 1], elt) <= 0)
-            {
+        for (S32 i = array->cnt - 1; i > 0; i--) {
+            if (compare(array->list[i - 1], elt) <= 0) {
                 array->list[i] = elt;
                 return;
-            }
-            else
-            {
+            } else {
                 array->list[i] = array->list[i - 1];
             }
         }
@@ -76,13 +65,11 @@ S32 XOrdLookup(st_XORDEREDARRAY* array, const void* key, XOrdTestCallback test)
     S32 k0 = 0;
     S32 k1 = array->cnt;
 
-    while (k1 > k0)
-    {
+    while (k1 > k0) {
         S32 k = (k0 + k1) / 2;
         S32 v = test(key, array->list[k]);
 
-        if (v == 0)
-        {
+        if (v == 0) {
             da_idx = k;
             break;
         }
@@ -103,12 +90,10 @@ void XOrdSort(st_XORDEREDARRAY* array, XOrdCompareCallback test)
 
     while (h <= num) h = h*3+1;
 
-    while (h != 1)
-    {
+    while (h != 1) {
         h /= 3;
 
-        for (i = h; i < num; i++)
-        {
+        for (i = h; i < num; i++) {
             void* v = list[i]; for (j = i; j >= h && test(v, list[j - h]) < 0; j -= h) {
                 list[j] = list[j - h];
             }

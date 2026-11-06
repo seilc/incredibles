@@ -20,8 +20,7 @@ void zEnvInit(zEnv* env, xEnvAsset* easset)
     env->easset = easset;
     env->eventFunc = zEnvEventCB;
 
-    if (env->linkCount)
-    {
+    if (env->linkCount) {
         env->link = (xLinkAsset*)(env->easset + 1);
     }
 
@@ -32,16 +31,14 @@ void zEnvInit(zEnv* env, xEnvAsset* easset)
 
     S32 mapper_count = xSTAssetCountByType('MAPR');
 
-    for (S32 i = 0; i < mapper_count; i++)
-    {
+    for (S32 i = 0; i < mapper_count; i++) {
         U32 size;
         xBase* material_map = (xBase*)xSTFindAssetByType('MAPR', i, &size);
 
         zSurfaceRegisterMapper(material_map->id);
     }
 
-    if (globals.sceneCur->env && globals.sceneCur->env->geom)
-    {
+    if (globals.sceneCur->env && globals.sceneCur->env->geom) {
         zLightResetAll(globals.sceneCur->env);
         iLightInit(globals.sceneCur->env->geom->world);
     }
@@ -49,10 +46,8 @@ void zEnvInit(zEnv* env, xEnvAsset* easset)
     xEntGrowGlobalBoundingBox(&easset->minBounds);
     xEntGrowGlobalBoundingBox(&easset->maxBounds);
 
-    if (easset->flags & XENVASSET_FLAGS_0x1)
-    {
-        for (S32 i = 0; i < globals.sceneCur->env->geom->jsp_count; i++)
-        {
+    if (easset->flags & XENVASSET_FLAGS_0x1) {
+        for (S32 i = 0; i < globals.sceneCur->env->geom->jsp_count; i++) {
             xEntGrowGlobalBoundingBox(&globals.sceneCur->env->geom->jsp_bound[i].upper);
             xEntGrowGlobalBoundingBox(&globals.sceneCur->env->geom->jsp_bound[i].lower);
         }
@@ -74,26 +69,21 @@ void zEnvRender(xEnv* env)
     RpWorld* world = env->geom->world;
     S32 num = RpWorldGetNumMaterials(world);
 
-    for (S32 i = 0; i < num; i++)
-    {
+    for (S32 i = 0; i < num; i++) {
         xSurface* sp = zSurfaceGetSurface(i);
         zSurfaceProps* pp = zSurfaceGetProps(sp);
 
-        if (pp && pp->asset && (pp->texanim_flags & 0x1))
-        {
+        if (pp && pp->asset && (pp->texanim_flags & 0x1)) {
             RpMaterial* mp = RpWorldGetMaterial(world, i);
 
-            if (mp)
-            {
+            if (mp) {
                 xGroup* g = (xGroup*)pp->texanim[0].group_ptr;
 
-                if (g)
-                {
+                if (g) {
                     U32 texid = xGroupGetItem(g, pp->texanim[0].group_idx);
                     RwTexture* texptr = (RwTexture*)xSTFindAsset(texid, NULL);
 
-                    if (texptr)
-                    {
+                    if (texptr) {
                         RpMaterialSetTexture(mp, texptr);
                     }
                 }
@@ -121,8 +111,7 @@ void zEnvReset(zEnv* env)
 
 void zEnvEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase* toParamWidget, U32)
 {
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventReset:
         zEnvReset((zEnv*)to);
         break;

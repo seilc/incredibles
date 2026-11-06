@@ -29,48 +29,37 @@ xFunctionGenerator::xFunctionGenerator(const xFunctionGeneratorAsset* asset)
 
 void xFunctionGenerator::Update(F32 dt)
 {
-    if (!IsEnabled())
-    {
+    if (!IsEnabled()) {
         return;
     }
 
     currentTime += dt;
 
-    if (!override)
-    {
-        if (asset->middleEnabled)
-        {
-            if (currentTime < asset->middleTime)
-            {
+    if (!override) {
+        if (asset->middleEnabled) {
+            if (currentTime < asset->middleTime) {
                 F32 t = currentTime / asset->middleTime;
 
                 currentCycleWidth =
                     t * (asset->middleCycleWidth - asset->startCycleWidth) + asset->startCycleWidth;
                 currentPulseWidth =
                     t * (asset->middlePulseWidth - asset->startPulseWidth) + asset->startPulseWidth;
-            }
-            else
-            {
+            } else {
                 currentCycleWidth = asset->middleCycleWidth;
                 currentPulseWidth = asset->middlePulseWidth;
             }
         }
 
-        if (asset->endEnabled)
-        {
-            if (currentTime < asset->endTime)
-            {
-                if (!asset->middleEnabled)
-                {
+        if (asset->endEnabled) {
+            if (currentTime < asset->endTime) {
+                if (!asset->middleEnabled) {
                     F32 t = currentTime / asset->endTime;
 
                     currentCycleWidth = t * (asset->endCycleWidth - asset->startCycleWidth) +
                                         asset->startCycleWidth;
                     currentPulseWidth = t * (asset->endPulseWidth - asset->startPulseWidth) +
                                         asset->startPulseWidth;
-                }
-                else if (currentTime > asset->middleTime)
-                {
+                } else if (currentTime > asset->middleTime) {
                     F32 t =
                         (currentTime - asset->middleTime) / (asset->endTime - asset->middleTime);
 
@@ -79,32 +68,26 @@ void xFunctionGenerator::Update(F32 dt)
                     currentPulseWidth = t * (asset->endPulseWidth - asset->middlePulseWidth) +
                                         asset->middlePulseWidth;
                 }
-            }
-            else
-            {
+            } else {
                 currentCycleWidth = asset->endCycleWidth;
                 currentPulseWidth = asset->endPulseWidth;
             }
         }
     }
 
-    while (true)
-    {
+    while (true) {
         bool firedAny = false;
 
-        if (!currentState)
-        {
+        if (!currentState) {
             F32 currentOffWidth = currentCycleWidth - currentPulseWidth;
 
-            if (currentTime - lastDownTime > currentOffWidth)
-            {
+            if (currentTime - lastDownTime > currentOffWidth) {
                 currentState = true;
                 firedAny = true;
 
                 zEntEvent(this, this, eEventTrue);
 
-                if (!IsEnabled())
-                {
+                if (!IsEnabled()) {
                     return;
                 }
 
@@ -112,17 +95,14 @@ void xFunctionGenerator::Update(F32 dt)
             }
         }
 
-        if (currentState)
-        {
-            if (currentTime - lastUpTime > currentPulseWidth)
-            {
+        if (currentState) {
+            if (currentTime - lastUpTime > currentPulseWidth) {
                 currentState = false;
                 firedAny = true;
 
                 zEntEvent(this, this, eEventFalse);
 
-                if (!IsEnabled())
-                {
+                if (!IsEnabled()) {
                     return;
                 }
 
@@ -130,14 +110,12 @@ void xFunctionGenerator::Update(F32 dt)
             }
         }
 
-        if (!firedAny)
-        {
+        if (!firedAny) {
             break;
         }
     }
 
-    if (asset->endEnabled && currentTime >= asset->endTime)
-    {
+    if (asset->endEnabled && currentTime >= asset->endTime) {
         zEntEvent(this, this, eEventExpired);
 
         started = false;
@@ -146,8 +124,7 @@ void xFunctionGenerator::Update(F32 dt)
 
 void xFunctionGenerator::HandleEvent(xBase*, U32 toEvent, const F32* toParam, xBase*, U32)
 {
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventEnable:
         xBaseEnable(this);
         break;

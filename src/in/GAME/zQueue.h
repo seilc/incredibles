@@ -13,8 +13,7 @@ public:
 
     T* fetch_queue_ptr(S32 index)
     {
-        if (size <= 0)
-        {
+        if (size <= 0) {
             return NULL;
         }
 
@@ -23,8 +22,7 @@ public:
 
     void get_queue(T& d)
     {
-        if (size <= 0)
-        {
+        if (size <= 0) {
             return;
         }
 

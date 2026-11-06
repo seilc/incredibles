@@ -30,13 +30,11 @@ namespace
 {
     void scale_model(xModelInstance* model, F32 scale)
     {
-        if (scale == 1.0f)
-        {
+        if (scale == 1.0f) {
             return;
         }
 
-        do
-        {
+        do {
             model->Scale.assign(scale);
             model = model->Next;
         } while (model);
@@ -60,13 +58,11 @@ namespace zNPC
     {
         void update_wrapper(xEnt* ent, xScene* xscn, F32 dt)
         {
-            if (!xEntIsVisible(ent))
-            {
+            if (!xEntIsVisible(ent)) {
                 return;
             }
 
-            if (ent->model && ent->frame)
-            {
+            if (ent->model && ent->frame) {
                 xVec3Copy(&ent->frame->oldvel, &ent->frame->vel);
                 ent->frame->oldmat = ent->frame->mat;
                 xRotCopy(&ent->frame->oldrot, &ent->frame->rot);
@@ -76,28 +72,23 @@ namespace zNPC
                 ent->frame->mode = 0;
             }
 
-            if (((common*)ent)->alive())
-            {
+            if (((common*)ent)->alive()) {
                 common* npc = (common*)ent;
 
                 npc->update_npc(dt);
 
                 if (npc->commonFlags.cast_shadow && !npc->commonFlags.complex_shadow &&
-                    npc->simpShadow->alpha != 0)
-                {
+                    npc->simpShadow->alpha != 0) {
                     xShadowSimple_Add(npc->simpShadow, npc, npc->shadow_radius, 1.0f);
                 }
             }
 
-            if (((common*)ent)->alive())
-            {
-                if (ent->model)
-                {
+            if (((common*)ent)->alive()) {
+                if (ent->model) {
                     xModelUpdate(ent->model, dt);
                 }
 
-                if (zCombatGetFrom(ent))
-                {
+                if (zCombatGetFrom(ent)) {
                     zCombatSystemUpdateEntity(ent, dt);
                 }
             }
@@ -107,16 +98,14 @@ namespace zNPC
 
         void move_wrapper(xEnt* ent, xScene*, F32, xEntFrame*)
         {
-            if (((common*)ent)->alive())
-            {
+            if (((common*)ent)->alive()) {
                 ((common*)ent)->move();
             }
         }
 
         void bupdate_wrapper(xEnt* ent, xVec3*)
         {
-            if (((common*)ent)->alive())
-            {
+            if (((common*)ent)->alive()) {
                 ((common*)ent)->update_bounds();
             }
         }
@@ -129,8 +118,7 @@ namespace zNPC
 
         void render_wrapper(xEnt* ent)
         {
-            if (xEntIsVisible(ent) && !(ent->model->Flags & 0x400))
-            {
+            if (xEntIsVisible(ent) && !(ent->model->Flags & 0x400)) {
                 ((common*)ent)->render_npc();
             }
         }
@@ -147,8 +135,7 @@ namespace zNPC
 
     void common::apply_anim_physics()
     {
-        if (model->Anim && model->Anim->Single->SingleFlags & 0x4)
-        {
+        if (model->Anim && model->Anim->Single->SingleFlags & 0x4) {
             model->Anim->Single->State->Speed = move_speed_multiply;
             model->Anim->Single->CurrentSpeed = move_speed_multiply;
 
@@ -162,8 +149,7 @@ namespace zNPC
 
     bool common::can_attack()
     {
-        if (globals.player.ControlOff && invincible)
-        {
+        if (globals.player.ControlOff && invincible) {
             return false;
         }
 
@@ -172,8 +158,7 @@ namespace zNPC
 
     bool common::can_attack_cinematic()
     {
-        if (group_data)
-        {
+        if (group_data) {
             return group_data->can_attack();
         }
 
@@ -192,10 +177,8 @@ namespace zNPC
         zTransient::damage_result* hit = hits;
         zTransient::damage_result* end_hit = hits + hits_found;
 
-        while (hit != end_hit)
-        {
-            if (xBoundHitsBound(bound, hit->bound))
-            {
+        while (hit != end_hit) {
+            if (xBoundHitsBound(bound, hit->bound)) {
                 xVec3* npccenter = xBoundCenter(&bound);
                 xVec3* hitcenter = xBoundCenter(&hit->bound);
 
@@ -229,20 +212,17 @@ namespace zNPC
 
         apply_anim_physics();
 
-        if (!alive())
-        {
+        if (!alive()) {
             return;
         }
 
         manager.update(dt);
 
-        if (!alive())
-        {
+        if (!alive()) {
             return;
         }
 
-        if (navigation_behavior)
-        {
+        if (navigation_behavior) {
             navigation_behavior->collide(dt);
             navigation_behavior->apply_dpos(dt);
             navigation_behavior->update_stuck(dt);
@@ -251,8 +231,7 @@ namespace zNPC
         base::update_npc(dt);
 
         if (senses.targetDist <= near_target_radius &&
-            (!get_combat() || get_combat()->currentHitPoints > 0))
-        {
+            (!get_combat() || get_combat()->currentHitPoints > 0)) {
             ZPLAYER->SetEnemyIsNear(true);
         }
     }
@@ -274,10 +253,8 @@ namespace zNPC
 
     void common::deliver_damage(const zCombatDamageInfo& damageInfo)
     {
-        if (damageInfo.from && damageInfo.from->baseType == eBaseTypeNPC)
-        {
-            switch (damageInfo.source)
-            {
+        if (damageInfo.from && damageInfo.from->baseType == eBaseTypeNPC) {
+            switch (damageInfo.source) {
             case zHS_MELEE_HIGH:
             case zHS_MELEE_MID:
             case zHS_MELEE_LOW:
@@ -287,22 +264,19 @@ namespace zNPC
             }
         }
 
-        if (damageInfo.from == this)
-        {
+        if (damageInfo.from == this) {
             return;
         }
 
         zCombat* combat = get_combat();
 
-        if (!combat)
-        {
+        if (!combat) {
             return;
         }
 
         combat->currentHitPoints -= damageInfo.damage;
 
-        if (combat->currentHitPoints <= 0)
-        {
+        if (combat->currentHitPoints <= 0) {
             combat->currentHitPoints = 0;
         }
 
@@ -310,14 +284,10 @@ namespace zNPC
         combat->lastHitSource = damageInfo.source;
         combat->lastHitTarget = damageInfo.target;
 
-        if (ZPLAYER == damageInfo.from)
-        {
-            if (is_human())
-            {
+        if (ZPLAYER == damageInfo.from) {
+            if (is_human()) {
                 ZPLAYER->pOneLinerSys->Inform(0x1B, this, -1.0f);
-            }
-            else
-            {
+            } else {
                 ZPLAYER->pOneLinerSys->Inform(0x1A, this, -1.0f);
             }
         }
@@ -325,20 +295,16 @@ namespace zNPC
 
     bool common::valid_damage(const zCombatDamageInfo& damageInfo)
     {
-        if (commonFlags.take_no_damage)
-        {
+        if (commonFlags.take_no_damage) {
             return false;
         }
 
-        if (!damageInfo.from)
-        {
+        if (!damageInfo.from) {
             return true;
         }
 
-        if (damageInfo.from->baseType == eBaseTypeNPC)
-        {
-            switch (damageInfo.source)
-            {
+        if (damageInfo.from->baseType == eBaseTypeNPC) {
+            switch (damageInfo.source) {
             case zHS_MELEE_HIGH:
             case zHS_MELEE_MID:
             case zHS_MELEE_LOW:
@@ -353,8 +319,7 @@ namespace zNPC
 
     void common::damage(const zCombatDamageInfo& damageInfo)
     {
-        if (!valid_damage(damageInfo))
-        {
+        if (!valid_damage(damageInfo)) {
             return;
         }
 
@@ -411,37 +376,28 @@ namespace zNPC
 
         npc_asset = (xEntNPCAssetIN*)(asset + 1);
 
-        if (linkCount != 0)
-        {
+        if (linkCount != 0) {
             link = (xLinkAsset*)(npc_asset + 1);
-        }
-        else
-        {
+        } else {
             link = NULL;
         }
 
         global_parameters = zEntGetModelParams(asset->modelInfoID, &global_parameters_size);
 
-        if (npc_asset && npc_asset->settings != 0)
-        {
+        if (npc_asset && npc_asset->settings != 0) {
             U32 bufsize;
             void* info = xSTFindAsset(npc_asset->settings, &bufsize);
 
             local_parameters_size = bufsize - sizeof(U32);
             local_parameters = (xModelAssetParam*)((U32*)info + 1);
-        }
-        else
-        {
+        } else {
             local_parameters_size = 0;
             local_parameters = NULL;
         }
 
-        if (movepoint_asset_id != 0)
-        {
+        if (movepoint_asset_id != 0) {
             movepoint = (xMovePoint*)zSceneFindObject(movepoint_asset_id);
-        }
-        else
-        {
+        } else {
             movepoint = NULL;
         }
 
@@ -450,8 +406,7 @@ namespace zNPC
         get_parameter("Collision", &tempBool, true);
         get_parameter("NoAttackDuringCinematic", &invincible, true);
 
-        if (!tempBool)
-        {
+        if (!tempBool) {
             chkby &= (U8)~0x10;
             commonFlags.old_chkby = chkby;
         }
@@ -485,8 +440,7 @@ namespace zNPC
 
     void common::deactivate()
     {
-        if (model->Anim)
-        {
+        if (model->Anim) {
             xAnimPlaySetState(model->Anim->Single, xAnimTableGetState(model->Anim->Table, "ERROR"),
                               0.0f);
         }
@@ -501,13 +455,11 @@ namespace zNPC
 
     void common::imminent_death()
     {
-        if (commonFlags.dying)
-        {
+        if (commonFlags.dying) {
             return;
         }
 
-        if (incredi_power_points != 0 && commonFlags.shouldGivePower)
-        {
+        if (incredi_power_points != 0 && commonFlags.shouldGivePower) {
             S32 powerMult = zCombo_GetPowerMult();
 
             ZPLAYER->GiveIncrediPower(incredi_power_points * powerMult, false);
@@ -518,27 +470,22 @@ namespace zNPC
 
     void common::kill(bool still_collide)
     {
-        if (commonFlags.active && get_type() != NPC_TYPE_MINE)
-        {
+        if (commonFlags.active && get_type() != NPC_TYPE_MINE) {
             stats::add("Killed", 1.0f);
         }
 
         imminent_death();
 
-        if (!still_collide)
-        {
+        if (!still_collide) {
             deactivate();
-        }
-        else
-        {
+        } else {
             commonFlags.active = false;
         }
 
         manager.exit_states();
         manager.kill();
 
-        if (navigation_behavior)
-        {
+        if (navigation_behavior) {
             navigation_behavior->remove();
         }
 
@@ -556,8 +503,7 @@ namespace zNPC
 
     bool common::grabbable(GrabType grabType)
     {
-        if (manager.get_current_behavior())
-        {
+        if (manager.get_current_behavior()) {
             return manager.get_current_behavior()->grabbable(grabType);
         }
 
@@ -566,8 +512,7 @@ namespace zNPC
 
     S32 common::grabOffset(xVec3* offset)
     {
-        if (offset)
-        {
+        if (offset) {
             xVec3Copy(offset, &grab_offset);
         }
 
@@ -576,8 +521,7 @@ namespace zNPC
 
     bool common::punchable()
     {
-        if (manager.get_current_behavior())
-        {
+        if (manager.get_current_behavior()) {
             return manager.get_current_behavior()->punchable();
         }
 
@@ -586,8 +530,7 @@ namespace zNPC
 
     void common::render_extra()
     {
-        if (!xEntIsVisible(this) || (model->Flags & 0x400))
-        {
+        if (!xEntIsVisible(this) || (model->Flags & 0x400)) {
             return;
         }
 
@@ -601,13 +544,11 @@ namespace zNPC
     bool common::system_event(xBase* from, xBase* to, U32 to_event, const F32* to_param,
                               xBase* to_param_widget, U32 to_param_widget_id)
     {
-        if (duplicator && from != duplicator && to_event != eEventExplode)
-        {
+        if (duplicator && from != duplicator && to_event != eEventExplode) {
             zEntEvent(this, duplicator, to_event, to_param, to_param_widget, to_param_widget_id);
         }
 
-        switch (to_event)
-        {
+        switch (to_event) {
         case eEventThrown:
         case eEventDrop:
         {
@@ -643,14 +584,10 @@ namespace zNPC
         }
         case eEventSetUpdateDistance:
         {
-            if (globals.updateMgr)
-            {
-                if (to_param[0] <= 0.0f)
-                {
+            if (globals.updateMgr) {
+                if (to_param[0] <= 0.0f) {
                     xUpdateCull_SetCB(globals.updateMgr, this, xUpdateCull_AlwaysTrueCB, NULL);
-                }
-                else
-                {
+                } else {
                     FloatAndVoid dist;
                     dist.f = xsqr(to_param[0]);
 
@@ -673,8 +610,7 @@ namespace zNPC
         }
         case eEventNPCSetActiveOff:
         {
-            if (ZPLAYER->GetCarriedEntity() != this)
-            {
+            if (ZPLAYER->GetCarriedEntity() != this) {
                 deactivate();
                 manager.exit_states();
                 manager.kill();
@@ -689,8 +625,7 @@ namespace zNPC
         }
         case eEventTarget:
         {
-            if (to_param_widget && xBaseIsEntity(to_param_widget))
-            {
+            if (to_param_widget && xBaseIsEntity(to_param_widget)) {
                 senses.targetEnt = (xEnt*)to_param_widget;
             }
 
@@ -708,12 +643,10 @@ namespace zNPC
         }
         case eEventKill:
         {
-            if (ZPLAYER->GetCarriedEntity() != this)
-            {
+            if (ZPLAYER->GetCarriedEntity() != this) {
                 zCombat* combat = get_combat();
 
-                if (combat)
-                {
+                if (combat) {
                     zCombatDamageInfo info;
                     info.damage = combat->currentHitPoints;
                     info.from = NULL;
@@ -750,23 +683,16 @@ namespace zNPC
 
     void common::set_shadow_strength(F32 percent)
     {
-        if (!commonFlags.cast_shadow)
-        {
+        if (!commonFlags.cast_shadow) {
             return;
         }
 
-        if (commonFlags.complex_shadow)
-        {
+        if (commonFlags.complex_shadow) {
             shadow_strength = 0.3f * percent;
-        }
-        else
-        {
-            if (xeq(percent, 1.0f, EPSILON))
-            {
+        } else {
+            if (xeq(percent, 1.0f, EPSILON)) {
                 simpShadow->alpha = 80;
-            }
-            else
-            {
+            } else {
                 simpShadow->alpha = 0;
             }
         }
@@ -774,19 +700,16 @@ namespace zNPC
 
     void common::setup()
     {
-        if (!duplicator && get_type() != NPC_TYPE_MINE)
-        {
+        if (!duplicator && get_type() != NPC_TYPE_MINE) {
             stats::add("Created", 1.0f);
         }
 
         commonFlags.take_no_damage = false;
 
-        if (commonFlags.cast_shadow)
-        {
+        if (commonFlags.cast_shadow) {
             simpShadow = (xShadowSimpleCache*)xMEMALLOC(sizeof(xShadowSimpleCache), 0);
 
-            if (commonFlags.complex_shadow)
-            {
+            if (commonFlags.complex_shadow) {
                 entShadow = (xEntShadow*)xMEMALLOC(sizeof(xEntShadow), 0);
 
                 xVec3Copy(&entShadow->pos, &asset->pos);
@@ -820,16 +743,12 @@ namespace zNPC
         scale_model(model, scale);
         initialize_bounds(scale);
 
-        if (commonFlags.cast_shadow)
-        {
+        if (commonFlags.cast_shadow) {
             xShadowSimple_CacheInit(simpShadow, this, 80);
 
-            if (commonFlags.complex_shadow)
-            {
+            if (commonFlags.complex_shadow) {
                 shadow_strength = 0.3f;
-            }
-            else
-            {
+            } else {
                 xSphere s;
                 xBoundGetSphere(s, bound);
 
@@ -857,17 +776,14 @@ namespace zNPC
 
         model->Anim->BeforeAnimMatrices = BeforeAnimMatrices;
 
-        if (model_asset->CombatID != 0)
-        {
+        if (model_asset->CombatID != 0) {
             char prefix[128] = {};
 
             zNPCCombatSetCombat(this, model_asset->CombatID, prefix, xStrHash(table),
                                 asset->modelInfoID, hit_points, scale);
 
             get_parameter("HitPoints", &get_combat()->currentHitPoints, 50);
-        }
-        else
-        {
+        } else {
             user_data = NULL;
         }
 
@@ -879,13 +795,11 @@ namespace zNPC
 
         get_parameter("NearPlayerRadius", &near_target_radius, 15.0f);
 
-        if (!alive() || (npc_asset->npcFlags & 0x1))
-        {
+        if (!alive() || (npc_asset->npcFlags & 0x1)) {
             deactivate();
         }
 
-        switch (get_type())
-        {
+        switch (get_type()) {
         case NPC_TYPE_MELEE:
         case NPC_TYPE_SHOOTER:
         case NPC_TYPE_VIOLET_GUN:
@@ -908,12 +822,9 @@ namespace zNPC
 
         cull_distance = xsqr(cull_distance);
 
-        if (cull_distance == 0.0f)
-        {
+        if (cull_distance == 0.0f) {
             xUpdateCull_SetCB(globals.updateMgr, this, xUpdateCull_AlwaysTrueCB, NULL);
-        }
-        else
-        {
+        } else {
             FloatAndVoid dist;
             dist.f = cull_distance;
 
@@ -925,8 +836,7 @@ namespace zNPC
     {
         xEntReset(this);
 
-        if (navigation_behavior)
-        {
+        if (navigation_behavior) {
             navigation_behavior->reset();
         }
 
@@ -944,20 +854,15 @@ namespace zNPC
         chkby = commonFlags.old_chkby;
         penby = 0x10;
 
-        if (commonFlags.cast_shadow)
-        {
-            if (commonFlags.complex_shadow)
-            {
+        if (commonFlags.cast_shadow) {
+            if (commonFlags.complex_shadow) {
                 shadow_strength = 0.3f;
-            }
-            else
-            {
+            } else {
                 simpShadow->alpha = 80;
             }
         }
 
-        if (get_combat())
-        {
+        if (get_combat()) {
             get_combat()->currentHitPoints = get_combat()->maximumHitPoints;
         }
 
@@ -971,8 +876,7 @@ namespace zNPC
         commonFlags.carried = false;
         commonFlags.take_no_damage = false;
 
-        if (!alive() || (npc_asset->npcFlags & 0x1))
-        {
+        if (!alive() || (npc_asset->npcFlags & 0x1)) {
             deactivate();
         }
     }
@@ -984,8 +888,7 @@ namespace zNPC
 
         zCombat* combat = get_combat();
 
-        if (combat)
-        {
+        if (combat) {
             combat->RenderEffectModel(this);
         }
     }

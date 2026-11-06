@@ -6,12 +6,9 @@ void xVolume::Init(xVolumeAsset* asset)
 
     this->asset = asset;
 
-    if (linkCount)
-    {
+    if (linkCount) {
         link = (xLinkAsset*)(this->asset + 1);
-    }
-    else
-    {
+    } else {
         link = NULL;
     }
 }

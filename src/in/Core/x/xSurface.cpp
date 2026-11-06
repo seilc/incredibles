@@ -11,17 +11,13 @@ void xSurfaceInit(U16 num_surfs)
 {
     nsurfs = num_surfs;
 
-    if (nsurfs)
-    {
+    if (nsurfs) {
         surfs = (xSurface*)xMEMALLOC(nsurfs * sizeof(xSurface), 0);
 
-        for (U16 i = 0; i < nsurfs; i++)
-        {
+        for (U16 i = 0; i < nsurfs; i++) {
             surfs[i].idx = i;
         }
-    }
-    else
-    {
+    } else {
         surfs = NULL;
     }
 }
@@ -55,8 +51,7 @@ U16 xSurfaceGetNumSurfaces()
 
 xSurface* xSurfaceGetByIdx(U16 n)
 {
-    if (surfs)
-    {
+    if (surfs) {
         return &surfs[n];
     }
 

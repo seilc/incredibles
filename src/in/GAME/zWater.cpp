@@ -39,8 +39,7 @@ void zWaterBody::load(const asset_type& a)
     baseType = eBaseTypeWaterBody;
     eventFunc = cb_dispatch;
 
-    if (linkCount)
-    {
+    if (linkCount) {
         link = (xLinkAsset*)(asset + 1);
     }
 
@@ -57,8 +56,7 @@ void zWaterBody::cb_dispatch(xBase*, xBase* to, U32 event, const F32*, xBase*, U
 {
     zWaterBody& e = *(zWaterBody*)to;
 
-    switch (event)
-    {
+    switch (event) {
     case eEventVisible:
         e.show();
         break;

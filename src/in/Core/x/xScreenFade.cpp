@@ -63,8 +63,7 @@ void xScreenFade::cb_dispatch(xBase* from, xBase* to, U32 event, const F32*, xBa
 {
     xScreenFade& e = *(xScreenFade*)to;
 
-    switch (event)
-    {
+    switch (event) {
     case eEventReset:
     case eEventSceneEnd:
         e.reset();

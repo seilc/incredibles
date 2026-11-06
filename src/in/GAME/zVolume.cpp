@@ -25,20 +25,16 @@ void zVolumeInit()
 
     nvols = xSTAssetCountByType('VOLU');
 
-    if (nvols)
-    {
+    if (nvols) {
         vols = (zVolume*)xMEMALLOC(nvols * sizeof(zVolume), 0);
 
-        for (i = 0; i < nvols; i++)
-        {
+        for (i = 0; i < nvols; i++) {
             U32 size;
             xVolumeAsset* asset = (xVolumeAsset*)xSTFindAssetByType('VOLU', i, &size);
 
             zVolumeInit(&vols[i], asset);
         }
-    }
-    else
-    {
+    } else {
         vols = NULL;
     }
 }
@@ -47,8 +43,7 @@ void zVolumeSetup()
 {
     U32 i;
 
-    for (i = 0; i < nvols; i++)
-    {
+    for (i = 0; i < nvols; i++) {
         xQuickCullForEverything(&vols[i].asset->bound.qcd);
     }
 }
@@ -71,8 +66,7 @@ void zVolume_OccludePrecalc(xVec3* camPos)
 
     gOccludeCalcCount = 0;
 
-    for (i = 0; i < gOccludeCount; i++)
-    {
+    for (i = 0; i < gOccludeCount; i++) {
         a = gOccludeList[i]->asset;
         c = icos(a->rot);
         s = isin(a->rot);
@@ -104,23 +98,20 @@ void zVolume_OccludePrecalc(xVec3* camPos)
         depthdot = xVec3Dot((xVec3*)&calc->DepthVec, &corner[0]);
         camdot = xVec3Dot((xVec3*)&calc->DepthVec, camPos);
 
-        if (camdot > depthdot)
-        {
+        if (camdot > depthdot) {
             xVec3Inv((xVec3*)&calc->DepthVec, (xVec3*)&calc->DepthVec);
 
             camdot = -camdot;
             depthdot = -depthdot;
         }
 
-        if (iabs(camdot - depthdot) < 1.0f)
-        {
+        if (iabs(camdot - depthdot) < 1.0f) {
             continue;
         }
 
         calc->DepthVec.w = depthdot;
 
-        for (j = 0; j < NUM_FRUST_VECS; j++)
-        {
+        for (j = 0; j < NUM_FRUST_VECS; j++) {
             xVec3Sub(&d1, &corner[j], camPos);
             xVec3Sub(&d2, &corner[j + 1], camPos);
             xVec3Cross((xVec3*)&locFrustVec[j], &d1, &d2);
@@ -130,16 +121,13 @@ void zVolume_OccludePrecalc(xVec3* camPos)
         testdot1 = xVec3Dot((xVec3*)&locFrustVec[0], &corner[0]);
         testdot2 = xVec3Dot((xVec3*)&locFrustVec[0], &corner[2]);
 
-        if (testdot1 > testdot2)
-        {
-            for (j = 0; j < NUM_FRUST_VECS; j++)
-            {
+        if (testdot1 > testdot2) {
+            for (j = 0; j < NUM_FRUST_VECS; j++) {
                 xVec3Inv((xVec3*)&locFrustVec[j], (xVec3*)&locFrustVec[j]);
             }
         }
 
-        for (j = 0; j < NUM_FRUST_VECS; j++)
-        {
+        for (j = 0; j < NUM_FRUST_VECS; j++) {
             locFrustVec[j].w = xVec3Dot((xVec3*)&locFrustVec[j], &corner[j]);
         }
 
@@ -169,8 +157,7 @@ void zVolumeEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
     zVolume* vol = (zVolume*)to;
     S32 i;
 
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventReset:
     {
         vol->Reset();
@@ -178,15 +165,12 @@ void zVolumeEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
     }
     case eEventOccludeOn:
     {
-        if (gOccludeCount == 10)
-        {
+        if (gOccludeCount == 10) {
             break;
         }
 
-        for (i = 0; i < gOccludeCount; i++)
-        {
-            if (gOccludeList[i] == vol)
-            {
+        for (i = 0; i < gOccludeCount; i++) {
+            if (gOccludeList[i] == vol) {
                 return;
             }
         }
@@ -198,10 +182,8 @@ void zVolumeEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
     }
     case eEventOccludeOff:
     {
-        for (i = 0; i < gOccludeCount; i++)
-        {
-            if (gOccludeList[i] == vol)
-            {
+        for (i = 0; i < gOccludeCount; i++) {
+            if (gOccludeList[i] == vol) {
                 gOccludeList[gOccludeCount] = gOccludeList[gOccludeCount - 1];
                 gOccludeCount--;
                 break;

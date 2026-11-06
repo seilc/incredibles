@@ -15,8 +15,7 @@ void zPortalInit(zPortal* portal, xPortalAsset* passet)
     portal->passet = passet;
     portal->eventFunc = zPortalEventCB;
 
-    if (portal->linkCount)
-    {
+    if (portal->linkCount) {
         portal->link = (xLinkAsset*)(portal->passet + 1);
     }
 }
@@ -38,8 +37,7 @@ void zPortalLoad(zPortal* ent, xSerial* s)
 
 void zPortalEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, U32)
 {
-    switch (toEvent)
-    {
+    switch (toEvent) {
     case eEventReset:
     {
         zPortalReset((zPortal*)to);
@@ -47,14 +45,12 @@ void zPortalEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase*, 
     }
     case eEventTeleportPlayer:
     {
-        if (ZPLAYER->IsDead())
-        {
+        if (ZPLAYER->IsDead()) {
             break;
         }
 
         if ((globals.demoType != zDT_PUBLICITY && globals.demoType != zDT_E3) ||
-            ((zPortal*)to)->passet->sceneID == globals.sceneCur->sceneID)
-        {
+            ((zPortal*)to)->passet->sceneID == globals.sceneCur->sceneID) {
             zSceneSwitch((zPortal*)to, toParam[0] != 0.0f);
         }
 

@@ -56,10 +56,8 @@ static st_HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsiz
     S32 i;
     S32 uselock = -1;
 
-    for (i = 0; i < MAX_LOADINST; i++)
-    {
-        if (!(g_loadlock & (1 << i)))
-        {
+    for (i = 0; i < MAX_LOADINST; i++) {
+        if (!(g_loadlock & (1 << i))) {
             g_loadlock |= (1 << i);
             uselock = i;
             lddata = &g_hiploadinst[i];
@@ -67,8 +65,7 @@ static st_HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsiz
         }
     }
 
-    if (lddata)
-    {
+    if (lddata) {
         memset(lddata, 0, sizeof(st_HIPLOADDATA));
 
         lddata->lockid = uselock;
@@ -81,8 +78,7 @@ static st_HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsiz
         lddata->pos = 0;
         lddata->readTop = 0;
 
-        for (i = 0; i < MAX_OPENBLK; i++)
-        {
+        for (i = 0; i < MAX_OPENBLK; i++) {
             tmp_blk = &lddata->stk[i];
             tmp_blk->endpos = 0;
             tmp_blk->blk_id = 0;
@@ -92,16 +88,13 @@ static st_HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsiz
 
         fli = xBinioLoadCreate(filename, fileflags);
 
-        if (fli)
-        {
+        if (fli) {
             lddata->fli = fli;
             lddata->base_sector = fli->basesector;
 
             if (dblbuf && bufsize > 0)
                 fli->setDoubleBuf(fli, dblbuf, bufsize);
-        }
-        else
-        {
+        } else {
             HIPLDestroy(lddata);
             lddata = NULL;
         }
@@ -114,8 +107,7 @@ static void HIPLDestroy(st_HIPLOADDATA* lddata)
 {
     S32 lockid;
 
-    if (lddata)
-    {
+    if (lddata) {
         if (lddata->fli) lddata->fli->destroy(lddata->fli);
 
         lockid = lddata->lockid;
@@ -135,24 +127,19 @@ static S32 HIPLSetBypass(st_HIPLOADDATA* lddata, S32 enable, S32 use_async)
 {
     lddata->fli->discardDblBuf(lddata->fli);
 
-    if (enable && lddata->bypass)
-    {
+    if (enable && lddata->bypass) {
         return FALSE;
     }
 
-    if (!enable && !lddata->bypass)
-    {
+    if (!enable && !lddata->bypass) {
         return FALSE;
     }
 
-    if (enable)
-    {
+    if (enable) {
         lddata->bypass = TRUE;
         lddata->use_async = use_async;
         lddata->bypass_recover = lddata->fli->position;
-    }
-    else
-    {
+    } else {
         lddata->fli->seekSpot(lddata->fli, lddata->bypass_recover);
         lddata->bypass = FALSE;
         lddata->use_async = FALSE;
@@ -164,8 +151,7 @@ static S32 HIPLSetBypass(st_HIPLOADDATA* lddata, S32 enable, S32 use_async)
 
 static void HIPLSetSpot(st_HIPLOADDATA* lddata, S32 spot)
 {
-    if (lddata->bypass)
-    {
+    if (lddata->bypass) {
         lddata->pos = spot;
         lddata->fli->seekSpot(lddata->fli, spot);
     }
@@ -177,13 +163,11 @@ static U32 HIPLBlockEnter(st_HIPLOADDATA* lddata)
     U32 cid = 0;
     S32 size = 0;
 
-    if (lddata->bypass)
-    {
+    if (lddata->bypass) {
         return 0;
     }
 
-    if (lddata->top >= 0)
-    {
+    if (lddata->top >= 0) {
         if (lddata->stk[lddata->top].blk_remain <= 0)
             return 0;
     }
@@ -209,8 +193,7 @@ static void HIPLBlockExit(st_HIPLOADDATA* lddata)
 {
     st_HIPLOADBLOCK* top;
 
-    if (!lddata->bypass)
-    {
+    if (!lddata->bypass) {
         top = &lddata->stk[lddata->top--];
 
         lddata->fli->skipBytes(lddata->fli, top->endpos - lddata->pos);
@@ -235,8 +218,7 @@ static S32 HIPLBlockRead(st_HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
         left = top->blk_remain / size;
     }
 
-    if (cnt < 0)
-    {
+    if (cnt < 0) {
         cnt = -cnt;
         head = TRUE;
 
@@ -268,8 +250,7 @@ static S32 HIPLBypassRead(st_HIPLOADDATA* lddata, void* data, S32 cnt, S32 size)
 
     if (!lddata->bypass) return 0;
 
-    if (lddata->use_async)
-    {
+    if (lddata->use_async) {
         return HIPLReadAsync(lddata, lddata->pos, (char*)data, cnt, size);
     }
 
@@ -304,20 +285,17 @@ static en_READ_ASYNC_STATUS HIPLPollRead(st_HIPLOADDATA* lddata)
     en_READ_ASYNC_STATUS rdstat = HIP_RDSTAT_INPROG;
     en_BIO_ASYNC_ERRCODES pollstat;
 
-    if (!lddata->bypass)
-    {
+    if (!lddata->bypass) {
         return HIP_RDSTAT_NOBYPASS;
     }
 
-    if (!lddata->use_async)
-    {
+    if (!lddata->use_async) {
         return HIP_RDSTAT_NOASYNC;
     }
 
     pollstat = lddata->fli->asyncReadStatus(lddata->fli);
 
-    switch (pollstat)
-    {
+    switch (pollstat) {
     case BINIO_ASYNC_INPROG:
         rdstat = HIP_RDSTAT_INPROG;
         break;
@@ -378,25 +356,18 @@ static S32 HIPLReadString(st_HIPLOADDATA* lddata, char* buf)
     S32 n = 0;
     char pad = '\0';
 
-    if (lddata->bypass)
-    {
-        while (HIPLBypassRead(lddata, &buf[n], 1, 1))
-        {
-            if (buf[n] == '\0')
-            {
+    if (lddata->bypass) {
+        while (HIPLBypassRead(lddata, &buf[n], 1, 1)) {
+            if (buf[n] == '\0') {
                 if ((n & 1) == 0) HIPLBypassRead(lddata, &pad, 1, 1);
                 break;
             }
 
             n++;
         }
-    }
-    else
-    {
-        while (HIPLBlockRead(lddata, &buf[n], 1, 1))
-        {
-            if (buf[n] == '\0')
-            {
+    } else {
+        while (HIPLBlockRead(lddata, &buf[n], 1, 1)) {
+            if (buf[n] == '\0') {
                 if ((n & 1) == 0) HIPLBlockRead(lddata, &pad, 1, 1);
                 break;
             }
