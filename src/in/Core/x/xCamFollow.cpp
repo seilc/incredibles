@@ -197,7 +197,7 @@ static void SweptSphereHitsCamFollowEnt(xScene*, xRay3* ray, xQCData* qcd, xEnt*
         return;
     }
 
-    U32 result = 0;
+    U32 result = FALSE;
 
     switch (ent->bound.type) {
     case k_XBOUNDTYPE_SPHERE: {

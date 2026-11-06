@@ -276,7 +276,7 @@ static U32 xCMrender(F32 time, xCreditsData* data)
     xCMheader* hdr = (xCMheader*)data;
 
     if (!hdr || hdr->magic != 0xBEEEEEEF)
-        return 0;
+        return FALSE;
 
     char* dp;
     xCMcredits* cp;

@@ -145,7 +145,7 @@ S32 xCutscene_Destroy(xCutscene* csn)
         cutscene_stopped(csn);
     }
 
-    csn->Ready = 0;
+    csn->Ready = FALSE;
 
     iSndSetExternalCallback(NULL);
 
@@ -154,7 +154,7 @@ S32 xCutscene_Destroy(xCutscene* csn)
         if (csn->SndNumChannel == 2) {
             xSndMgrStop(csn->SndHandle[1]);
         }
-        csn->SndStarted = 0;
+        csn->SndStarted = FALSE;
     }
 
     xSndMgrCutscenePause(-3, false, true);
@@ -183,17 +183,17 @@ S32 xCutscene_Destroy(xCutscene* csn)
 
     memset(csn, 0, sizeof(xCutscene));
 
-    return 1;
+    return TRUE;
 }
 
 S32 xCutscene_LoadStart(xCutscene* csn)
 {
     if (!iCSFileOpen(csn)) {
-        return 0;
+        return FALSE;
     }
-    csn->Opened = 1;
+    csn->Opened = TRUE;
 
-    return 1;
+    return TRUE;
 }
 
 static F32 xCutsceneConvertBreak(F32 time, xCutsceneBreak* breaklist, U32 breakcount, S32 idx)
@@ -218,7 +218,7 @@ S32 xCutscene_Update(xCutscene* csn, F32 dt)
     if (!csn->SndStarted) {
         if (csn->SndNumChannel) {
             xSndMgrStartStereo(csn->SndHandle[0], csn->SndHandle[1]);
-            csn->SndStarted = 1;
+            csn->SndStarted = TRUE;
         }
     }
 
@@ -233,16 +233,16 @@ S32 xCutscene_Update(xCutscene* csn, F32 dt)
     if (csn->Time > csn->Play->EndTime || csn->BadReadPause) {
         if (csn->PlayIndex == csn->Info->NumTime - 1) {
             csn->Time = csn->Play->EndTime;
-            return 0;
+            return FALSE;
         }
 
         if (csn->BadReadPause && !csn->Waiting) {
-            csn->BadReadPause = 0;
+            csn->BadReadPause = FALSE;
             xCutscene_SetSpeed(csn, csn->BadReadSpeed);
         }
 
         if (csn->CamTime != csn->Time) {
-            return 1;
+            return TRUE;
         }
 
         if (csn->Waiting) {
@@ -251,9 +251,9 @@ S32 xCutscene_Update(xCutscene* csn, F32 dt)
             if (!csn->BadReadPause) {
                 csn->BadReadSpeed = csn->PlaybackSpeed;
                 xCutscene_SetSpeed(csn, 0.0f);
-                csn->BadReadPause = 1;
+                csn->BadReadPause = TRUE;
             }
-            return 1;
+            return TRUE;
         }
 
         xCutsceneTime* oldChunk = csn->Play;
@@ -266,7 +266,7 @@ S32 xCutscene_Update(xCutscene* csn, F32 dt)
         }
     }
 
-    return 1;
+    return TRUE;
 }
 
 void xCutscene_SetSpeed(xCutscene* csn, F32 speed)
@@ -569,7 +569,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
 
     xModelPipe* pipeCurr;
     U32 idx = 0;
-    U32 hacked_model = 0;
+    U32 hacked_model = FALSE;
     S32 tableIdx = -1;
     XCSNNosey* nosey = csn->cb_nosey;
 
@@ -606,7 +606,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
 
             if (model) {
                 shadowModel = model;
-                hacked_model = 0;
+                hacked_model = FALSE;
 
                 tableIdx = -1;
                 idx = 0;
@@ -617,7 +617,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
                     zCutsceneHack& cutsceneHackTableData = zCutsceneMgrGetHackTableDataByIdx(h);
 
                     if (model == cutsceneHackTableData.dataPtr && xStrHash(cutsceneHackTableData.cinname) == csn->Info->AssetID) {
-                        tableIdx = h; hacked_model = 1;
+                        tableIdx = h; hacked_model = TRUE;
                         zCutsceneHack& cutsceneHackTableData2 = zCutsceneMgrGetHackTableDataByIdx(tableIdx);
                         tmpModel = (RpAtomic*)cutsceneHackTableData2.atomic_dataPtr[cutsceneHackTableData2.atomic_Idx[idx++]];
                         model = tmpModel;
@@ -746,7 +746,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
                                         fakeCount++;
                                     }
                                 } else {
-                                    S32 culled = 0;
+                                    S32 culled = FALSE;
                                     if (iModelNumBones(model)) {
                                         xBox worldbox;
                                         iModelAnimBoundWorld(&worldbox, &combinedAnimBound, model, animMat, &animMat[1]);
@@ -791,7 +791,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
                                 fakeCount++;
                             }
                         } else {
-                            S32 culled = 0;
+                            S32 culled = FALSE;
                             if (iModelNumBones(model)) {
                                 xBox worldbox;
                                 iModelAnimBoundWorld(&worldbox, &combinedAnimBound, model, animMat, &animMat[1]);

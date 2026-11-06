@@ -176,7 +176,7 @@ S32 xSTQueueSceneAssets(U32 sid, S32 flg_hiphop)
 {
     S32 result = 1;
     st_STRAN_SCENE* sdata = NULL;
-    S32 doTheHOP = 0;
+    S32 doTheHOP = FALSE;
 
     sdata = XST_find_bySID(sid, flg_hiphop);
     if (!sdata) result = 0;
@@ -190,7 +190,7 @@ S32 xSTQueueSceneAssets(U32 sid, S32 flg_hiphop)
 void xSTUnLoadScene(U32 sid, S32 flg_hiphop)
 {
     st_STRAN_SCENE* sdata = NULL;
-    S32 cnt = 0, i = 0, doTheHOP = 0;
+    S32 cnt = 0, i = 0, doTheHOP = FALSE;
 
     if (sid == 0) {
         cnt = XST_cnt_locked();
@@ -252,7 +252,7 @@ F32 xSTLoadStep(U32)
     F32 pct = 0.0f;
     S32 rc = 0;
 
-    rc = PKRLoadStep(0);
+    rc = PKRLoadStep(FALSE);
     if (rc)
         pct = 0.0f;
     else
@@ -404,7 +404,7 @@ void* xSTFindAssetByType(U32 type, S32 idx, U32* size)
 
 S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
 {
-    S32 found = 0, scncnt, i;
+    S32 found = FALSE, scncnt, i;
     st_STRAN_SCENE* sdata;
     S32 rc;
 
@@ -414,7 +414,7 @@ S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
 
         rc = g_pkrf->GetAssetInfo(sdata->spkg, aid, tocainfo);
         if (rc) {
-            found = 1;
+            found = TRUE;
             break;
         }
     }
@@ -424,7 +424,7 @@ S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
 
 S32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo)
 {
-    S32 found = 0;
+    S32 found = FALSE;
     S32 sum = 0;
     S32 cnt = 0;
     S32 scncnt, i;
@@ -439,7 +439,7 @@ S32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo)
         if (idx >= sum && idx < sum + cnt) {
             rc = g_pkrf->GetAssetInfoByType(sdata->spkg, type, idx - sum, tocainfo);
             if (rc) {
-                found = 1;
+                found = TRUE;
                 break;
             }
         }

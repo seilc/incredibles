@@ -6,7 +6,7 @@
 #include <string.h>
 
 static S32 g_xutilinit;
-static S32 g_crc_needinit = 1;
+static S32 g_crc_needinit = TRUE;
 #define CRC32_TABLE_SIZE 256
 
 static U32 g_crc32_table[CRC32_TABLE_SIZE] = { 0 };
@@ -31,7 +31,7 @@ char* xUtil_idtag2string(U32 srctag, S32 bufidx)
     U32 tag = srctag;
     char* strptr = NULL;
     char* uc = (char*)&tag;
-    S32 is_mot = 0;
+    S32 is_mot = FALSE;
     static char buf[6][10] = { 0 };
 
     if (bufidx < 0 || bufidx >= 7) strptr = buf[0];
@@ -96,7 +96,7 @@ U32 xUtil_crc_init()
             g_crc32_table[i] = crc_accum;
         }
 
-        g_crc_needinit = 0;
+        g_crc_needinit = FALSE;
     }
 
     return 0xFFFFFFFF;
@@ -120,10 +120,10 @@ U32 xUtil_crc_update(U32 crc_accum, char* data, S32 datasize)
 
 S32 xUtil_yesno(F32 wt_yes)
 {
-    if (wt_yes == 0.0f) return 0;
-    if (wt_yes == 1.0f) return 1;
-    if (xurand() <= wt_yes) return 1;
-    return 0;
+    if (wt_yes == 0.0f) return FALSE;
+    if (wt_yes == 1.0f) return TRUE;
+    if (xurand() <= wt_yes) return TRUE;
+    return FALSE;
 }
 
 namespace {

@@ -314,7 +314,7 @@ xCamBlend* xCamGroup::create_blend()
 
 void xCamScreen::create(S32 w, S32 h)
 {
-    icam = iCameraCreate(w, h, 1);
+    icam = iCameraCreate(w, h, TRUE);
 }
 
 void xCamScreen::destroy()

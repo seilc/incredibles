@@ -146,9 +146,9 @@ static S32 SkipBytes(st_FILELOADINFO* fli, S32 fwd)
     xFile* file = (xFile*)fli->privdata;
     S32 rc = 0;
 
-    if (fli->error != FIOERR_NONE) return 0;
+    if (fli->error != FIOERR_NONE) return FALSE;
 
-    if (fwd == 0) return 1;
+    if (fwd == 0) return TRUE;
     if (fwd < 0) fwd = 0;
 
     rc = BFD_seek(file, fli->position + fwd, 0, fli->xtradata);
@@ -158,8 +158,8 @@ static S32 SkipBytes(st_FILELOADINFO* fli, S32 fwd)
         fli->position += fwd;
     }
 
-    if (fli->error != FIOERR_NONE) return 0;
-    else return 1;
+    if (fli->error != FIOERR_NONE) return FALSE;
+    else return TRUE;
 }
 
 static S32 ReadSeek(st_FILELOADINFO* fli, S32 pos)
@@ -167,7 +167,7 @@ static S32 ReadSeek(st_FILELOADINFO* fli, S32 pos)
     xFile* file = (xFile*)fli->privdata;
     S32 rc = 0;
 
-    if (fli->error != FIOERR_NONE) return 0;
+    if (fli->error != FIOERR_NONE) return FALSE;
 
     pos = (pos < fli->filesize) ? pos : fli->filesize;
 
@@ -178,8 +178,8 @@ static S32 ReadSeek(st_FILELOADINFO* fli, S32 pos)
         fli->remain = fli->filesize - pos;
     }
 
-    if (fli->error != FIOERR_NONE) return 0;
-    else return 1;
+    if (fli->error != FIOERR_NONE) return FALSE;
+    else return TRUE;
 }
 
 static void SetBuffer(st_FILELOADINFO* fli, char* dblbuffer, S32 bufsize)
@@ -415,7 +415,7 @@ static S32 BFD_read(void* data, S32 elesize, S32 elecnt, xFile* bffp, void* xtra
     st_BINIO_XTRADATA* xtra = (st_BINIO_XTRADATA*)xtradata;
     char* dest = (char*)data;
     S32 readbeg = 0;
-    S32 refill = 0;
+    S32 refill = FALSE;
     S32 remain = 0;
     S32 actual = 0;
     U32 holdpos = 0;
@@ -440,13 +440,13 @@ static S32 BFD_read(void* data, S32 elesize, S32 elecnt, xFile* bffp, void* xtra
                 xtra->dbl_beg = xtra->fpos - (xtra->fpos % xtra->dblbuf_size);
                 xtra->dbl_end = xtra->dbl_beg + xtra->dblbuf_size;
                 xtra->dbl_amt = 0;
-                refill = 1;
+                refill = TRUE;
             }
             else if (xtra->fpos >= xtra->dbl_end) {
                 xtra->dbl_beg = xtra->fpos - (xtra->fpos % xtra->dblbuf_size);
                 xtra->dbl_end = xtra->dbl_beg + xtra->dblbuf_size;
                 xtra->dbl_amt = 0;
-                refill = 1;
+                refill = TRUE;
             }
 
             if (refill) {
@@ -530,12 +530,12 @@ static S32 BFD_AsyncRead(st_FILELOADINFO* fli, S32 pos, void* data, S32 size, S3
 {
     xFile* file = (xFile*)fli->privdata;
     st_BINIO_XTRADATA* xtra = (st_BINIO_XTRADATA*)fli->xtradata;
-    S32 result = 0;
+    S32 result = FALSE;
     U32 rdsec = 0;
     S32 rc = 0;
 
-    if (fli->error != FIOERR_NONE) return 0;
-    if (g_async_context) return 0;
+    if (fli->error != FIOERR_NONE) return FALSE;
+    if (g_async_context) return FALSE;
 
     g_async_context = xtra;
 
@@ -543,16 +543,16 @@ static S32 BFD_AsyncRead(st_FILELOADINFO* fli, S32 pos, void* data, S32 size, S3
     xtra->asyn_data = (char*)data;
     xtra->asyn_elesize = size;
     xtra->asyn_amt = n;
-    xtra->asyn_ismot = 1;
+    xtra->asyn_ismot = TRUE;
 
     rc = iFileSeek(file, pos, 0);
 
     xFileSetUserData(file, fli);
     rc = iFileReadAsync(file, data, size * n, BFD_cb_GCP2_readasync, 0);
-    if (rc < 0) result = 0;
+    if (rc < 0) result = FALSE;
     else {
         xtra->gcaskey = rc;
-        result = 1;
+        result = TRUE;
     }
 
     if (!result) {
@@ -560,7 +560,7 @@ static S32 BFD_AsyncRead(st_FILELOADINFO* fli, S32 pos, void* data, S32 size, S3
         xtra->asyn_status = BINIO_ASYNC_NOOP;
     }
 
-    return (rdsec == 0) ? 1 : 0;
+    return (rdsec == 0) ? TRUE : FALSE;
 }
 
 static en_BIO_ASYNC_ERRCODES BFD_AsyncReadStatus(st_FILELOADINFO* fli)

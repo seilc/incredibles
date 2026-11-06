@@ -157,7 +157,7 @@ void xModelBucket_PreCountAlloc(S32 maxAlphaModels)
     sBucketDummyWorld = RpWorldCreate(&bbox);
     iAsyncUnlockRW();
 
-    sBucketDummyCamera = iCameraCreate(0, 0, 0);
+    sBucketDummyCamera = iCameraCreate(0, 0, FALSE);
 
     iAsyncLockRW();
     RpWorldAddCamera(sBucketDummyWorld, sBucketDummyCamera);

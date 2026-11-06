@@ -102,7 +102,7 @@ U32 zConditional_Evaluate(zConditional* c)
 
     if (!c->varEntry)
     {
-        return 0;
+        return FALSE;
     }
 
     if (zVarEntryNeedsContext(c->varEntry->entry))
@@ -120,19 +120,19 @@ U32 zConditional_Evaluate(zConditional* c)
     switch (c->asset->op)
     {
     case ZCOND_EQ:
-        return (temp == c->asset->constNum) ? 1 : 0;
+        return (temp == c->asset->constNum) ? TRUE : FALSE;
     case ZCOND_GT:
-        return (temp > c->asset->constNum) ? 1 : 0;
+        return (temp > c->asset->constNum) ? TRUE : FALSE;
     case ZCOND_LT:
-        return (temp < c->asset->constNum) ? 1 : 0;
+        return (temp < c->asset->constNum) ? TRUE : FALSE;
     case ZCOND_GE:
-        return (temp >= c->asset->constNum) ? 1 : 0;
+        return (temp >= c->asset->constNum) ? TRUE : FALSE;
     case ZCOND_LE:
-        return (temp <= c->asset->constNum) ? 1 : 0;
+        return (temp <= c->asset->constNum) ? TRUE : FALSE;
     case ZCOND_NE:
-        return (temp != c->asset->constNum) ? 1 : 0;
+        return (temp != c->asset->constNum) ? TRUE : FALSE;
     default:
-        return 0;
+        return FALSE;
     }
 }
 

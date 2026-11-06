@@ -156,7 +156,7 @@ static S32 DisplayMessage(TRCState state)
     if (standalone || RwCameraGetCurrentCamera()) {
         RwCamera* cam = NULL;
         if (standalone) {
-            cam = iCameraCreate(FB_XRES, FB_YRES, 0);
+            cam = iCameraCreate(FB_XRES, FB_YRES, FALSE);
             RwRGBA bg = { 0, 0, 0, 0 };
             RwCameraClear(cam, &bg, rwCAMERACLEARIMAGE | rwCAMERACLEARZ);
             RwCameraBeginUpdateWrapper(cam);

@@ -267,7 +267,7 @@ void xScrFxLetterBoxSetAlpha(U8 alpha)
 void xScrFxLetterbox(S32 enable)
 {
     if (zMenuRunning()) {
-        enable = 0;
+        enable = FALSE;
     }
 
     if (enable) {
@@ -1165,7 +1165,7 @@ static void xScrFxLensFlare_RenderElements(RwRaster*, RwFrame* frame, U8 vCol, v
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)FALSE);
     RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, (void*)rwFILTERLINEAR);
 
-    S32 done = 0;
+    S32 done = FALSE;
     xScrFxLensFlareElement* ep;
     iScrFxLensFlare* flare = (iScrFxLensFlare*)flr;
     xScrFxLensFlareSource* source = (xScrFxLensFlareSource*)flare->source;

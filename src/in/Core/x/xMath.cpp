@@ -18,7 +18,7 @@ void xMathInit()
         return;
     }
 
-    xmath_inited = 1;
+    xmath_inited = TRUE;
     rndseed = 0;
     xBinomInit();
 }
@@ -29,7 +29,7 @@ void xMathExit()
         return;
     }
 
-    xmath_exited = 1;
+    xmath_exited = TRUE;
 }
 
 F32 xatof(const char* x)

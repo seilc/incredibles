@@ -270,12 +270,12 @@ S32 xStrParseFloatList(F32* dest, const char* strbuf, S32 max)
         char* numstart;
 
         if (*str == '-') {
-            negate = 1;
+            negate = TRUE;
             ++str;
             while (*str == '\t' || *str == ' ')
                 ++str;
         } else {
-            negate = 0;
+            negate = FALSE;
         }
 
         numstart = str;

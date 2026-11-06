@@ -40,7 +40,7 @@ void zCamSceneEnter(zScene& scene, const xMat4x3& mat)
     xCam::scene_enter();
 
     have_default_orientation = false;
-    input_disabled = 0;
+    input_disabled = FALSE;
 
     globals.screen = &global_screen;
     globals.screen->create(FB_XRES, FB_YRES);
@@ -74,7 +74,7 @@ void zCamSceneExit()
 
 void zCamReset(const xMat4x3& mat)
 {
-    input_disabled = 0;
+    input_disabled = FALSE;
 
     globals.cam->reset();
 

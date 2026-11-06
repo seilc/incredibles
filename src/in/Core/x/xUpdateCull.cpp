@@ -69,13 +69,13 @@ static void xUpdateCull_MakeInactive(xUpdateCullMgr* m, xUpdateCullEnt* cent)
 
 U32 xUpdateCull_AlwaysTrueCB(void*, void*)
 {
-    return 1;
+    return TRUE;
 }
 
 U32 xUpdateCull_DistanceSquaredCB(void* ent, void* cbdata)
 {
     if (((xEnt*)ent)->baseFlags & k_XBASE_UNK_0x80)
-        return 1;
+        return TRUE;
 
     FloatAndVoid fandv;
     fandv.v = cbdata;
@@ -197,7 +197,7 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
             }
         }
         if (entsInThisGroup) {
-            m->grpList[grpIndex].active = 1;
+            m->grpList[grpIndex].active = TRUE;
             m->grpList[grpIndex].startIndex = startIndex;
             m->grpList[grpIndex].endIndex = mgrIndex - 1;
             m->grpList[grpIndex].groupObject = group[i];
@@ -242,7 +242,7 @@ void xUpdateCull_Update(xUpdateCullMgr* m, U32 percent_update)
         xUpdateCullEnt* cent = &m->mgrList[m->mgrCurr];
         U32 result = cent->update_cull_cb(m->ent[cent->index], cent->cbdata);
         if (cent->groupIndex == -1) {
-            if (result == 1) {
+            if (result == TRUE) {
                 xUpdateCull_MakeActive(m, cent);
             } else {
                 xUpdateCull_MakeInactive(m, cent);
@@ -251,10 +251,10 @@ void xUpdateCull_Update(xUpdateCullMgr* m, U32 percent_update)
             numiters--;
         } else {
             xUpdateCullGroup* grp = &m->grpList[cent->groupIndex];
-            if (result == 1) {
+            if (result == TRUE) {
                 if (grp) {
                     if (!grp->active) {
-                        grp->active = 1;
+                        grp->active = TRUE;
                         for (i = grp->startIndex; i <= grp->endIndex; i++) {
                             xUpdateCull_MakeActive(m, &m->mgrList[i]);
                         }
@@ -267,7 +267,7 @@ void xUpdateCull_Update(xUpdateCullMgr* m, U32 percent_update)
                 }
             } else {
                 if (grp && m->mgrCurr == grp->endIndex && grp->active) {
-                    grp->active = 0;
+                    grp->active = FALSE;
                     for (i = grp->startIndex; i <= grp->endIndex; i++) {
                         cent = &m->mgrList[i];
                         for (xUpdateCullEnt* curr = cent->nextInGroup; curr && curr != cent; curr = curr->nextInGroup) {

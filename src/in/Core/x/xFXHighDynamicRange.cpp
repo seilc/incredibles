@@ -443,7 +443,7 @@ void xFXHighDynamicRangeRender(RwCamera*)
 
     GXDrawDone();
 
-    hdr_dump_efb = 0;
+    hdr_dump_efb = FALSE;
 }
 
 U32 xFXHighDynamicRangeBrightenPtank(RpAtomic* ptank, bool bright, S32)

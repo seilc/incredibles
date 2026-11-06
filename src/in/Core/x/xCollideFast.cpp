@@ -12,19 +12,19 @@ U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
 
     if (c <= 0.0f)
     {
-        return 1;
+        return TRUE;
     }
 
     if ((r->flags & 0x800) && c > (2.0f * s->r + r->max_t) * r->max_t)
     {
-        return 0;
+        return FALSE;
     }
 
     F32 b = xVec3Dot(&diff, &r->dir);
 
     if (b >= 0.0f)
     {
-        return 0;
+        return FALSE;
     }
 
     return (b * b >= c);
@@ -79,5 +79,5 @@ U32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
         return xRayHitsCylinderFast(r, &b->cyl);
     }
 
-    return 0;
+    return FALSE;
 }
