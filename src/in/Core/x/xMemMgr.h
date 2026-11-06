@@ -98,7 +98,7 @@ void xMemInitHeap(xMemHeap* heap, U32 base, U32 size, U32 flags);
 S32 xMemPushBase(U32 heapID);
 S32 xMemPushBase();
 void* xMemAllocFreeable(void* alloced_memory, S32 asked_for_size, xMemFreeFunc func, void* param);
-void xMemFreeDefault(void* addr_of_ptr);
+void xMemFreeDefault(void* addr_of_ptr); // UNUSED
 S32 xMemPopBase(U32 heapID, S32 depth);
 S32 xMemPopBase(S32 depth);
 S32 xMemGetBase(U32 heapID);

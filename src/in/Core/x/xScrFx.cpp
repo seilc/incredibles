@@ -1263,7 +1263,7 @@ static void xScrFxLensFlare_RenderElements(RwRaster*, RwFrame* frame, U8 vCol, v
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)TRUE);
 }
 
-static S32 lfcmp(const void* a, const void* b);
+static S32 lfcmp(const void* a, const void* b); // UNUSED
 
 static void dumpFlare(iScrFxLensFlare* flare)
 {

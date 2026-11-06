@@ -165,7 +165,7 @@ void xEntBoulder_BUpdate(xEnt*, xVec3*)
 {
 }
 
-// RESTORED: from RotU GC, Rat GC
+// UNUSED: ported from RotU GC, Rat GC, TSSM GC, BFBB GC
 void xEntBoulder_RealBUpdate(xEnt* ent, xVec3* pos)
 {
     xEntBoulder* boul = (xEntBoulder*)ent;
@@ -176,7 +176,6 @@ void xEntBoulder_RealBUpdate(xEnt* ent, xVec3* pos)
     xBoundUpdate(&boul->bound);
     zGridUpdateEnt(boul);
 }
-// END RESTORED
 
 void xEntBoulder_Update(xEntBoulder* ent, xScene* sc, F32 dt)
 {

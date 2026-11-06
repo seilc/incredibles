@@ -222,14 +222,13 @@ public:
 
     widget(const asset& a);
 
-    // RESTORED: from Rat MAP
+    // UNUSED: speculative
     ~widget() {}
-    // END RESTORED
 
     static void init_base(xBase& data, const xBaseAsset& asset, size_t chunk_size);
     static void scene_enter();
     static void disable_all(bool destroy_widgets);
-    static void setup_all();
+    static void setup_all(); // UNUSED
     static void update_all(F32 dt);
     static void render_all();
     static void cb_dispatch(xBase* from, xBase* to, U32 event, const F32* argf, xBase* argw, U32 argwi);
@@ -246,7 +245,7 @@ public:
     void hide(move_direction d, bool clearmotives, bool bSkipHideMotive);
     void add_motive(const motive& m);
     void clear_motives();
-    void clear_motives(motive_update_callback fp_update, void* context);
+    void clear_motives(motive_update_callback fp_update, void* context); // UNUSED
     bool active();
     bool enabled() const { return flag.enabled; }
     bool visible() const { return flag.visible && enabled(); }
@@ -282,11 +281,11 @@ xModelInstance* load_model(U32 id);
 void render_model(xModelInstance& m, const render_context& rc);
 bool linear_motive_update(widget& w, motive& m, F32 dt);
 bool accelerate_motive_update(widget&, motive& m, F32 dt);
-void top_hide_widget(widget& w, motive&);
-void bottom_hide_widget(widget& w, motive&);
-void left_hide_widget(widget& w, motive&);
-void right_hide_widget(widget& w, motive&);
-bool delay_motive_update(widget& w, motive& m, F32 dt);
+void top_hide_widget(widget& w, motive&); // UNUSED
+void bottom_hide_widget(widget& w, motive&); // UNUSED
+void left_hide_widget(widget& w, motive&); // UNUSED
+void right_hide_widget(widget& w, motive&); // UNUSED
+bool delay_motive_update(widget& w, motive& m, F32 dt); // UNUSED
 
 inline F32 widget::get_timer() const { return flag.timer; }
 inline void widget::set_timer(F32 value) { flag.timer = value; }

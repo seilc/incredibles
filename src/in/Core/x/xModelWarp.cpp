@@ -26,15 +26,15 @@ namespace
         }
     } // namespace tweak
 
-    void get_screen_rect(xFRect& rect, const xMat4x3& mat, const xBox& box);
+    void get_screen_rect(xFRect& rect, const xMat4x3& mat, const xBox& box); // UNUSED
 
     void destroy_render_context(render_context& context)
     {
         RpAtomicSetRenderCallBack(context.original_atomic, context.original_render_callback);
     }
 
-    U8 write_screen(xFRect& scr_rect, const xFColor& color);
-    RpAtomic* render_callback(RpAtomic* atomic);
+    U8 write_screen(xFRect& scr_rect, const xFColor& color); // UNUSED
+    RpAtomic* render_callback(RpAtomic* atomic); // UNUSED
 } // namespace
 
 void xModelWarpSceneEnter()

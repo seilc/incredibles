@@ -22,9 +22,8 @@ public:
 
     meter_widget(const meter_asset& a);
 
-    // RESTORED: from Rat MAP
+    // UNUSED: speculative
     ~meter_widget() {}
-    // END RESTORED
 
     void destruct();
     

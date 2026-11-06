@@ -8,9 +8,9 @@
 extern xGrid colls_grid;
 extern xGrid colls_oso_grid;
 
-static void SweptSphereHitsCamFollowEnt(xScene*, xRay3* ray, xQCData* qcd, xEnt* ent, void* data);
+static void SweptSphereHitsCamFollowEnt(xScene*, xRay3* ray, xQCData* qcd, xEnt* ent, void* data); // UNUSED
 
-// RESTORED: speculative
+// UNUSED: speculative
 void xCamFollow::start()
 {
     xCam::start();
@@ -28,6 +28,7 @@ void xCamFollow::start()
     drift_vel = 0.0f;
 }
 
+// UNUSED: speculative
 void xCamFollow::face_target()
 {
     xVec3 heading = *target;
@@ -44,6 +45,7 @@ void xCamFollow::face_target()
     end_coord.theta = xatan2(heading.x, heading.z);
 }
 
+// UNUSED: speculative
 void xCamFollow::apply_analog_input(F32 dt)
 {
     F32 sstick = analog.offset.x;
@@ -71,6 +73,7 @@ void xCamFollow::apply_analog_input(F32 dt)
     end_face = zone.face;
 }
 
+// UNUSED: speculative
 void xCamFollow::apply_spring(F32 dt)
 {
     F32 emove = xDampSpringCoeff(dt, cfg.speed_move);
@@ -87,6 +90,7 @@ void xCamFollow::apply_spring(F32 dt)
     coord.cylinder.theta = end_coord.theta + theta_diff;
 }
 
+// UNUSED: speculative
 void xCamFollow::collide_inward(xScene& scene, xCamCoordCylinder& coord, const xVec3& face, F32 width)
 {
     xVec3 loc;
@@ -121,6 +125,7 @@ void xCamFollow::collide_inward(xScene& scene, xCamCoordCylinder& coord, const x
     }
 }
 
+// UNUSED: speculative
 void xCamFollow::apply_vel_drift(F32 dt)
 {
     xVec2 B0, B1;
@@ -179,6 +184,7 @@ void xCamFollow::apply_vel_drift(F32 dt)
     }
 }
 
+// UNUSED: speculative
 static void SweptSphereHitsCamFollowEnt(xScene*, xRay3* ray, xQCData* qcd, xEnt* ent, void* data)
 {
     xSweptSphere* sws = (xSweptSphere*)data;
@@ -241,4 +247,3 @@ static void SweptSphereHitsCamFollowEnt(xScene*, xRay3* ray, xQCData* qcd, xEnt*
         xSweptSphereToModel(sws, collmod->Data, collmod->Mat);
     }
 }
-// END RESTORED

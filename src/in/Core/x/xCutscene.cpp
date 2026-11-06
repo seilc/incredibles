@@ -280,7 +280,7 @@ void xCutscene_SetSpeed(xCutscene* csn, F32 speed)
     csn->PlaybackSpeed = speed;
 }
 
-// RESTORED: speculative
+// UNUSED: speculative
 void xCutscene_SetCameraMatrix(xCutscene* csn, xMat4x3* mat)
 {
     xCutsceneData* data;
@@ -338,7 +338,6 @@ void xCutscene_SetCameraMatrix(xCutscene* csn, xMat4x3* mat)
     *mat = camMat;
     xglobals->cam->fov = camFOV;
 }
-// END RESTORED
 
 struct xCutsceneAnimHdr
 {

@@ -7,7 +7,7 @@
 static zMovePoint* g_mvpt_list = NULL;
 static S32 g_mvpt_cnt = 0;
 
-static S32 MVPT_dflt_chklos(void*, xVec3*, const zMovePoint*);
+static S32 MVPT_dflt_chklos(void*, xVec3*, const zMovePoint*); // UNUSED
 
 zMovePoint* zMovePoint_GetMemPool(S32 cnt)
 {

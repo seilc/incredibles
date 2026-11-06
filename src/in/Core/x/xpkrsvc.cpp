@@ -104,8 +104,8 @@ static void PKR_alloc_chkidx();
 static void* PKR_getmem(U32 id, S32 amount, U32 aid, S32 align);
 static void* PKR_getmem(U32 id, S32 amount, U32, S32 align, S32 isTemp, char** memtru);
 static void PKR_relmem(U32 id, S32 blksize, void* memptr, U32, S32 isTemp);
-static void PKR_special_loadbuf_killed(RwResEntry*);
-static void* PKR_specialGet_loadbuf(st_PACKER_READ_DATA* pr, S32 amount, S32 align);
+static void PKR_special_loadbuf_killed(RwResEntry*); // UNUSED
+static void* PKR_specialGet_loadbuf(st_PACKER_READ_DATA* pr, S32 amount, S32 align); // UNUSED
 static void PKR_push_memmark();
 static void PKR_pop_memmark();
 

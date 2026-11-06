@@ -384,7 +384,7 @@ struct cache_entity_callback
     }
 };
 
-// RESTORED: speculative
+// UNUSED: speculative
 bool pivot_depen_bar(xVec3& cap_offset, xVec3& impact, xVec3& rot_axis, const xCapsule& cap, F32 impact_t, F32, const xVec3& tohit)
 {
     cap_offset.assign(cap.end.x - cap.start.x, cap.end.y - cap.start.y, cap.end.z - cap.start.z);
@@ -413,7 +413,6 @@ bool pivot_depen_bar(xVec3& cap_offset, xVec3& impact, xVec3& rot_axis, const xC
 
     return true;
 }
-// END RESTORED
 
 F32 arc_sphere_to_plane(const xMat4x3& circle_mat, F32 Rc, F32 Rs, const xVec3& Nplane, F32 Dplane)
 {

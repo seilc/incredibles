@@ -73,7 +73,7 @@ S32 xSweptSphereToBound(xSweptSphere* sws, const xBound* bound);
 S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent);
 S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent, xRay3* ray);
 S32 xSweptSphereToScene(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
-S32 xSweptSphereToNonMoving(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
+S32 xSweptSphereToNonMoving(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby); // UNUSED
 S32 xSweptSphereToStatDyn(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
 S32 xSweptSphereToNPC(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
 

@@ -77,11 +77,11 @@ void xSceneAddEnt(xScene* sc, xEnt* ent);
 xBase* xSceneResolvID(xScene* sc, U32 id);
 void xSceneForAllEnts(xScene* sc, xSceneEntCallback func, void* data);
 void xRayHitsGrid(xGrid* grid, xScene* sc, xRay3* r, xRayEntCallback rentcb, xQCData* qcr, void* data);
-void xRayHitsTikiLandableEnt(xScene*, xRay3* r, xQCData* qcr, xEnt* ent, void* colldata);
+void xRayHitsTikiLandableEnt(xScene*, xRay3* r, xQCData* qcr, xEnt* ent, void* colldata); // UNUSED
 void xRayHitsEnt(xScene*, xRay3* r, xQCData* qcr, xEnt* ent, void* colldata);
 void xRayHitsScene(xScene* sc, xRay3* r, xCollis* coll);
 void xRayHitsSceneFlags(xScene* sc, xRay3* r, xCollis* coll, U8 collType, U8 chk);
-void xSphereHitsScene(xScene* sc, const xSphere* sphere, xCollis* coll, U8 collType, U8 chk);
+void xSphereHitsScene(xScene* sc, const xSphere* sphere, xCollis* coll, U8 collType, U8 chk); // UNUSED
 U32 xSceneNearestFloorPoly(xScene* sc, xNearFloorPoly* nfpoly, U8 collType, U8 chk);
 
 #endif

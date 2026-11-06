@@ -294,14 +294,13 @@ void xCamGroup::set_child_flags(S32 add, S32 remove)
     child_flags = add & child_flags_mask;
 }
 
-// RESTORED: speculative
+// UNUSED: speculative
 void xCamGroup::get_view_window(xVec2& vw)
 {
     F32 t = itan(0.5f * fov);
     vw.x = t;
     vw.y = 0.75f * t;
 }
-// END RESTORED
 
 xCamBlend* xCamGroup::create_blend()
 {
@@ -355,13 +354,14 @@ void xCamScreen::set_fov(F32 fov)
     iCameraSetFOV(icam, (180.0f/PI) * fov);
 }
 
-// RESTORED: from Incredibles PS2
+// UNUSED: ported from Incredibles PS2
 struct plane_type
 {
     xVec3 norm;
     F32 dist;
 };
 
+// UNUSED: ported from Incredibles PS2
 void xCamScreen::create_frustum_planes(xVec4* frust_planes, const xMat4x3& ltm, const xVec2& view_offset, const xVec2& view_window, F32 near_plane, F32 far_plane)
 {
     plane_type* planes = (plane_type*)frust_planes;
@@ -410,7 +410,6 @@ void xCamScreen::create_frustum_planes(xVec4* frust_planes, const xMat4x3& ltm, 
     planes[5].norm.normalize();
     planes[5].dist = planes[5].norm.dot(corners[3]);
 }
-// END RESTORED
 
 void xCamBlend::create()
 {
@@ -545,7 +544,7 @@ void xCamBlend::blend_orient(F32 s)
     }
 }
 
-// RESTORED: from Rat GC
+// UNUSED: ported from Rat GC
 void xCamDebug::create()
 {
     xCam::create();
@@ -553,6 +552,7 @@ void xCamDebug::create()
     orient_type = XCAM_ORIENT_EULER;
 }
 
+// UNUSED: ported from Rat GC
 void xCamDebug::start()
 {
     xCam::start();
@@ -563,6 +563,7 @@ void xCamDebug::start()
     orient.euler.roll = 0.0f;
 }
 
+// UNUSED: ported from Rat GC
 void xCamDebug::update(xScene&, F32 dt)
 {
     F32 turn_mult = 1.0f + (cfg.slow_turn - 1.0f) * slow_input;
@@ -591,4 +592,3 @@ void xCamDebug::update(xScene&, F32 dt)
 
     coord_to_world(mat.pos, coord.cart);
 }
-// END RESTORED

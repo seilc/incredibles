@@ -51,7 +51,7 @@ void xEntBoulder_ApplyForces(xEntCollis* collis);
 void xEntBoulder_AddInstantForce(xEntBoulder* ent, xVec3* force);
 void xEntBoulder_AddForce(xEntBoulder* ent, xVec3* force);
 void xEntBoulder_BUpdate(xEnt*, xVec3*);
-void xEntBoulder_RealBUpdate(xEnt* ent, xVec3* pos);
+void xEntBoulder_RealBUpdate(xEnt* ent, xVec3* pos); // UNUSED
 void xEntBoulder_Update(xEntBoulder* ent, xScene* sc, F32 dt);
 S32 xEntBoulder_KilledBySurface(xEntBoulder* ent, xScene*, F32);
 void xEntBoulder_Kill(xEntBoulder* ent);

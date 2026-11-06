@@ -370,12 +370,11 @@ struct functor_update
     void operator()(widget& w) { if (w.enabled()) w.update(dt); }
 };
 
-// RESTORED: from BFBB GC
+// UNUSED: ported from BFBB GC
 void fp_setup(widget& w)
 {
     w.setup();
 }
-// END RESTORED
 
 void fp_render(widget& w)
 {
@@ -384,8 +383,8 @@ void fp_render(widget& w)
     }
 }
 
-void fp_show(widget& w);
-void fp_hide(widget& w);
+void fp_show(widget& w); // UNUSED
+void fp_hide(widget& w); // UNUSED
 
 }
 
@@ -396,14 +395,13 @@ void widget::disable_all(bool destroy_widgets)
         for_each(known_types[i].type, known_types[i].size, f);
 }
 
-// RESTORED: from BFBB GC
+// UNUSED: ported from BFBB GC
 void widget::setup_all()
 {
     for (size_t i = 0; i < ARRAY_LENGTH(known_types); i++) {
         for_each(known_types[i].type, known_types[i].size, fp_setup);
     }
 }
-// END RESTORED
 
 void widget::update_all(F32 dt)
 {

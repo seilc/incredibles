@@ -34,7 +34,7 @@ struct xSerial
 
     S32 Read(char* buf, S32 elesize, S32 n);
     S32 Read_b1(S32* bits);
-    S32 Read_b1(U32* bits);
+    S32 Read_b1(U32* bits); // UNUSED
     S32 Read(U8* buf);
     S32 Read(S16* buf);
     S32 Read(S32* buf);

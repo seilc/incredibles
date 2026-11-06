@@ -472,7 +472,7 @@ namespace {
         }
     };
 
-    // RESTORED: speculative
+    // UNUSED: speculative
     struct cb_sphere_hits_ent
     {
         const xSphere* sphere;
@@ -532,7 +532,6 @@ namespace {
             return true;
         }
     };
-    // END RESTORED
 }
 
 void xRayHitsSceneFlags(xScene* sc, xRay3* r, xCollis* coll, U8 collType, U8 chk)
@@ -571,7 +570,7 @@ void xRayHitsSceneFlags(xScene* sc, xRay3* r, xCollis* coll, U8 collType, U8 chk
     }
 }
 
-// RESTORED: from RotU GC
+// UNUSED: ported from RotU GC
 void xSphereHitsScene(xScene* sc, const xSphere* sphere, xCollis* coll, U8 collType, U8 chk)
 {
     coll->dist = 1e38f;
@@ -606,7 +605,6 @@ void xSphereHitsScene(xScene* sc, const xSphere* sphere, xCollis* coll, U8 collT
         }
     }
 }
-// END RESTORED
 
 static void ProjectTriangle(xVec3* rkD, xVec3* apkTri, F32* rfMin, F32* rfMax)
 {

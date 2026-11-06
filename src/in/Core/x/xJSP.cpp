@@ -582,7 +582,7 @@ xJSPNodeTree* xJSPNodeTreeBuild(xJSPHeader* jsp)
     return jntree;
 }
 
-static S32 JSPApplyLightCB(xJSPHeader* jsp, xJSPNodeTreeLeaf* leaf, RwBBox* box, void* data);
+static S32 JSPApplyLightCB(xJSPHeader* jsp, xJSPNodeTreeLeaf* leaf, RwBBox* box, void* data); // UNUSED
 
 xVec3* xJSP_GetTriangleVertData(xJSPHeader* jsp, xClumpCollBSPTriangle* tri, xColor* color, xVec3* normal, F32* uv)
 {

@@ -18,7 +18,7 @@ enum xRandomChoiceRule
 void init_genrand(U32 s);
 void init_by_array(U32* init_key, U32 key_length);
 void xrand_RandomInit();
-void xrand_SetRandomSeed(U32 nNewSeed);
+void xrand_SetRandomSeed(U32 nNewSeed); // UNUSED
 U32 xrand_GenRandInt32();
 F32 xrand_GenRandFloat();
 U32 xrand_RandomChoice(U32& chosenMask, U8& setBits, U32 maxCount, xRandomChoiceRule rule);

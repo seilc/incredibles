@@ -204,21 +204,19 @@ void quicksort_istr(void* base, size_t num, size_t width, size_t key_offset)
     quicksort(base, num, width, sort_istr_functor(key_offset));
 }
 
-// RESTORED: speculative
+// UNUSED: speculative
 void isort_int(void* base, size_t num, size_t width, size_t key_offset)
 {
     isort(base, num, width, sort_int_functor(key_offset));
 }
-// END RESTORED
 
 void isort_float(void* base, size_t num, size_t width, size_t key_offset)
 {
     isort(base, num, width, sort_float_functor(key_offset));
 }
 
-// RESTORED: speculative
+// UNUSED: speculative
 void isort_istr(void* base, size_t num, size_t width, size_t key_offset)
 {
     isort(base, num, width, sort_istr_functor(key_offset));
 }
-// END RESTORED

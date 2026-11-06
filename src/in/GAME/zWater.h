@@ -29,25 +29,25 @@ struct zWaterBody : xBase
     bool visible;
 
     static void load(xBase& data, xDynAsset& asset, size_t);
-    static void setup_all();
-    static void reset_all();
-    static void update_all(F32 dt);
+    static void setup_all(); // UNUSED
+    static void reset_all(); // UNUSED
+    static void update_all(F32 dt); // UNUSED
     static void cb_dispatch(xBase*, xBase* to, U32 event, const F32*, xBase*, U32);
 
     void show();
     void hide();
     void load(const asset_type& a);
-    void setup();
-    S32 count_ents(xBase* base, const char* type, S32 depth) const;
-    xEnt** load_ents(xEnt** ents, xBase* base) const;
-    xEnt** load_ents(S32& size, U32 id, const char* type) const;
+    void setup(); // UNUSED
+    S32 count_ents(xBase* base, const char* type, S32 depth) const; // UNUSED
+    xEnt** load_ents(xEnt** ents, xBase* base) const; // UNUSED
+    xEnt** load_ents(S32& size, U32 id, const char* type) const; // UNUSED
     U32 get_bodyID();
-    void get_shading(xWaterShading& shading) const;
+    void get_shading(xWaterShading& shading) const; // UNUSED
 };
 
-void zWaterStartup();
-void zWaterSceneEnter();
-void zWaterSceneExit();
+void zWaterStartup(); // UNUSED
+void zWaterSceneEnter(); // UNUSED
+void zWaterSceneExit(); // UNUSED
 
 #define ZWATERBODY_VISIBLE 0x1
 

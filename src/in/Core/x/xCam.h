@@ -123,7 +123,7 @@ public:
     static void coord_to_world(xVec3& loc, const xCamCoordCylinder& c);
     static void coord_to_world(xVec3& loc, const xCamCoordSphere& c);
     static void orient_to_local(xQuat& o, const xMat3x3& mat);
-    static void orient_to_local(xCamOrientEuler& o, const xMat3x3& mat);
+    static void orient_to_local(xCamOrientEuler& o, const xMat3x3& mat); // UNUSED
     static void orient_to_world(xMat3x3& mat, const xQuat& o);
     static void orient_to_world(xMat3x3& mat, const xCamOrientEuler& o);
     static xVec3& convert(xVec3& o, const xCamCoordCylinder& i);
@@ -190,12 +190,11 @@ inline void xCam::orient_to_local(xQuat& o, const xMat3x3& mat)
     xQuatFromMat(&o, &mat);
 }
 
-// RESTORED: from Rat GC
+// UNUSED: ported from Rat GC
 inline void xCam::orient_to_local(xCamOrientEuler& o, const xMat3x3& mat)
 {
     xMat3x3GetEuler(&mat, (xVec3*)&o);
 }
-// END RESTORED
 
 inline void xCam::orient_to_world(xMat3x3& mat, const xQuat& o)
 {
@@ -411,9 +410,9 @@ struct xCamDebug : xCam
         F32 slow_move;
     };
 
-    virtual void create();
-    virtual void start();
-    virtual void update(xScene&, F32 dt);
+    virtual void create(); // UNUSED
+    virtual void start(); // UNUSED
+    virtual void update(xScene&, F32 dt); // UNUSED
 
     config cfg;
     xPad::analog_data* analog_move;
@@ -516,7 +515,7 @@ public:
     void flush_dead();
     void notify_released(xCam& cam);
     void set_child_flags(S32 add, S32 remove);
-    void get_view_window(xVec2& vw);
+    void get_view_window(xVec2& vw); // UNUSED
     xCamBlend* create_blend();
 
     S32 insert(xCam& cam)
@@ -559,7 +558,7 @@ public:
     void set_world_matrix(const xMat4x3& mat);
     void set_fov(F32 fov);
 
-    static void create_frustum_planes(xVec4* frust_planes, const xMat4x3& ltm, const xVec2& view_offset, const xVec2& view_window, F32 near_plane, F32 far_plane);
+    static void create_frustum_planes(xVec4* frust_planes, const xMat4x3& ltm, const xVec2& view_offset, const xVec2& view_window, F32 near_plane, F32 far_plane); // UNUSED
 };
 
 #endif

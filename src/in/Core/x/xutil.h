@@ -11,19 +11,19 @@ S32 xUtilShutdown();
 char* xUtil_idtag2string(U32 srctag, S32 bufidx);
 U32 xUtil_crc_init();
 U32 xUtil_crc_update(U32 crc_accum, char* data, S32 datasize);
-void strtosjis(U8* string, U8* dest);
-U8 BCDtoi(U8 hex);
-U8 itoBCD(U8 dec);
-U8 itoBCD(U16 dec);
+void strtosjis(U8* string, U8* dest); // UNUSED
+U8 BCDtoi(U8 hex); // UNUSED
+U8 itoBCD(U8 dec); // UNUSED
+U8 itoBCD(U16 dec); // UNUSED
 S32 xUtil_yesno(F32 wt_yes);
 F32 xClampAngle0_2PI(F32 angle);
 void quicksort_int(void* base, size_t num, size_t width, size_t key_offset);
 void quicksort_uint(void* base, size_t num, size_t width, size_t key_offset);
 void quicksort_float(void* base, size_t num, size_t width, size_t key_offset);
 void quicksort_istr(void* base, size_t num, size_t width, size_t key_offset);
-void isort_int(void* base, size_t num, size_t width, size_t key_offset);
+void isort_int(void* base, size_t num, size_t width, size_t key_offset); // UNUSED
 void isort_float(void* base, size_t num, size_t width, size_t key_offset);
-void isort_istr(void* base, size_t num, size_t width, size_t key_offset);
+void isort_istr(void* base, size_t num, size_t width, size_t key_offset); // UNUSED
 
 template <class T, class V, class C>
 T binary_find(T first, T last, const V& value, C cmp)

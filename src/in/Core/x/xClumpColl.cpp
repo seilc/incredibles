@@ -171,7 +171,7 @@ void xClumpColl_InstancePointers(xClumpCollBSPTree*, RpClump*)
 {
 }
 
-// RESTORED: speculative
+// UNUSED: speculative
 xClumpCollBSPTree* xClumpColl_ForAllLeafNodes(xClumpCollBSPTree* tree, xClumpCollBSPLeafCB callBack, void* data)
 {
     S32 nStack;
@@ -204,7 +204,6 @@ xClumpCollBSPTree* xClumpColl_ForAllLeafNodes(xClumpCollBSPTree* tree, xClumpCol
 
     return tree;
 }
-// END RESTORED
 
 xClumpCollBSPTree* xClumpColl_ForAllBoxLeafNodeIntersections(xClumpCollBSPTree* tree, RwBBox* box, xClumpCollBSPLeafCB callBack, void* data)
 {
@@ -662,4 +661,4 @@ xClumpCollBSPTree* xClumpColl_ForAllIntersections(xClumpCollBSPTree* tree, RpInt
     return NULL;
 }
 
-static S32 FastIntersectSphereTriangle(RwSphere* sphere, RwV3d* v0, RwV3d* v1, RwV3d* v2, RwV3d* normal, RwReal* distance, RwV3d* vc);
+static S32 FastIntersectSphereTriangle(RwSphere* sphere, RwV3d* v0, RwV3d* v1, RwV3d* v2, RwV3d* normal, RwReal* distance, RwV3d* vc); // UNUSED
