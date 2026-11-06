@@ -87,14 +87,8 @@ S32 XOrdLookup(st_XORDEREDARRAY* array, const void* key, XOrdTestCallback test)
             break;
         }
 
-        if (v > 0)
-        {
-            k0 = k + 1;
-        }
-        else
-        {
-            k1 = k;
-        }
+        if (v > 0) k0 = k + 1;
+        else k1 = k;
     }
 
     return da_idx;
@@ -107,10 +101,7 @@ void XOrdSort(st_XORDEREDARRAY* array, XOrdCompareCallback test)
     S32 i, j;
     S32 h = 1;
 
-    while (h <= num)
-    {
-        h = h * 3 + 1;
-    }
+    while (h <= num) h = h*3+1;
 
     while (h != 1)
     {
@@ -118,10 +109,7 @@ void XOrdSort(st_XORDEREDARRAY* array, XOrdCompareCallback test)
 
         for (i = h; i < num; i++)
         {
-            void* v = list[i];
-
-            for (j = i; j >= h && test(v, list[j - h]) < 0; j -= h)
-            {
+            void* v = list[i]; for (j = i; j >= h && test(v, list[j - h]) < 0; j -= h) {
                 list[j] = list[j - h];
             }
 

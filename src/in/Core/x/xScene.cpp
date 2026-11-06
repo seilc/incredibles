@@ -15,7 +15,7 @@
 #include <rpcollis.h>
 #include <string.h>
 
-static const S32 NUM_TRI_VERTS = 3;
+#define NUM_TRI_VERTS 3
 
 xScene* g_xSceneCur;
 

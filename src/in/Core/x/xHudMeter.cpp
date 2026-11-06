@@ -38,10 +38,7 @@ meter_widget::meter_widget(const meter_asset& a)
     }
 }
 
-void meter_widget::destruct()
-{
-    widget::destruct();
-}
+void meter_widget::destruct() { widget::destruct(); }
 
 U32 meter_widget::type() const
 {

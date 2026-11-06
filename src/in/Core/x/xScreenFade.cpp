@@ -23,28 +23,17 @@ void xScreenFade::load(asset_type& a)
     asset = &a;
     eventFunc = cb_dispatch;
 
-    if (linkCount)
-    {
-        link = (xLinkAsset*)(&a + 1);
-    }
+    if (linkCount) link = (xLinkAsset*)(&a + 1);
 
     state = eScreenFadeStateOff;
     src = g_CLEAR;
 
     if (asset->fadeDownTime < 0.0f)
-    {
         asset->fadeDownTime = 2.0f;
-    }
-
     if (asset->fadeUpTime < 0.0f)
-    {
         asset->fadeUpTime = 2.0f;
-    }
-
     if (asset->waitTime < 0.0f)
-    {
         asset->waitTime = 2.0f;
-    }
 
     owner = NULL;
 }

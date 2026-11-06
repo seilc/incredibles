@@ -81,9 +81,8 @@ void xTextureHandle::Reference(U32 assetID, bool clearPrev)
             if (!found) {
                 m_pNode = NULL;
                 m_pTexture = NULL;
-            } else {
+            } else
                 xTextureManager::Get().AddTexture(this, &info);
-            }
         } else {
             dereference(true);
             m_pTexture = pTexture;
@@ -130,9 +129,8 @@ RwTexture* xTextureHandle::GetTexture()
     if (IsReady()) {
         if (m_pMovie) {
             return m_pMovie->pTexture;
-        } else if (m_pNode) {
+        } else if (m_pNode)
             return m_pNode->pTexture;
-        }
     }
 
     if (m_pPrevNode && m_pPrevNode->Ready()) {

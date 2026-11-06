@@ -63,8 +63,7 @@ void xMovePointSplineSetup(xMovePoint* m)
     xVec3 points[2];
     xVec3 p1, p2;
 
-    if (m->asset->bezIndex != 1) return;
-    if (m->spl) return;
+    if (m->asset->bezIndex != 1) return; if (m->spl) return;
 
     w0 = m->prev;
     w1 = m;
@@ -127,11 +126,10 @@ F32 xMovePointGetNext(const xMovePoint* m, const xMovePoint* prev, xMovePoint** 
     }
 
     if (!*next) {
-        if (previousOption) {
+        if (previousOption)
             *next = previousOption;
-        } else {
+        else
             return 0.0f;
-        }
     }
 
     if (hdng) {

@@ -15,15 +15,13 @@ static void xUpdateCull_Swap(xUpdateCullMgr* m, U32 a, U32 b)
     while (true) {
         curr->index = b;
         curr = curr->nextInGroup;
-        if (!curr) break;
-        if (curr == cullA) break;
+        if (!curr || curr == cullA) break;
     }
     curr = cullB;
     while (true) {
         curr->index = a;
         curr = curr->nextInGroup;
-        if (!curr) break;
-        if (curr == cullB) break;
+        if (!curr || curr == cullB) break;
     }
 
     void* tmpent = m->ent[a];
@@ -127,8 +125,7 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
             for (k = 0; k < entCount; k++) {
                 if (base == ent[k]) {
                     inGroupArray[k] = true;
-                    entsInGroups++;
-                    entsInThisGroup++;
+                    entsInGroups++; entsInThisGroup++;
                 }
             }
         }
@@ -166,8 +163,7 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
     m->deactivateCB = NULL;
     memcpy(m->ent, ent, sizeof(void*) * entCount);
     
-    U32 grpIndex = 0;
-    U32 mgrIndex = 0;
+    U32 grpIndex = 0, mgrIndex = 0;
     for (i = 0; i < groupCount; i++) {
         U32 startIndex = mgrIndex;
         entsInThisGroup = 0;
@@ -225,16 +221,16 @@ xUpdateCullMgr* xUpdateCull_Init(void** ent, U32 entCount, xGroup** group, U32 g
     }
 
     RwFree(inGroupArray);
-    if (tempEnt) {
-        RwFree(tempEnt);
-    }
+    if (tempEnt) RwFree(tempEnt);
 
     return m;
 }
 
 void xUpdateCull_Update(xUpdateCullMgr* m, U32 percent_update)
 {
-    if (m->mgrCount == 0) return;
+    if (m->mgrCount == 0) {
+        return;
+    }
 
     S32 numiters = m->mgrCount * percent_update / 100;
     if (numiters <= 0) {
@@ -283,8 +279,7 @@ void xUpdateCull_Update(xUpdateCullMgr* m, U32 percent_update)
                         loc_80101E10:;
                     }
                 }
-                m->mgrCurr++;
-                numiters--;
+                m->mgrCurr++; numiters--;
             }
         }
         if (m->mgrCurr >= m->mgrCount) {

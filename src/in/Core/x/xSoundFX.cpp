@@ -47,13 +47,9 @@ void xSoundFXInit(xSoundFX* t, xSoundFXAsset* asset)
     }
 
     if (t->linkCount)
-    {
         t->link = (xLinkAsset*)(t->asset + 1);
-    }
     else
-    {
         t->link = NULL;
-    }
 
     if (xSoundFXWillSendDone(t))
     {

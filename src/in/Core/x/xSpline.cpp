@@ -35,26 +35,19 @@ static void Tridiag_Solve(F32* a, F32* b, F32* c, xVec3* d, xVec3* x, S32 n)
 
     gamma[0] = c[0] / b[0];
     
-    for (idx = 0; idx < 3; idx++) {
-        ((F32*)delta)[idx] = ((F32*)d)[idx] / b[0];
-    }
+    for (idx = 0; idx < 3; idx++) ((F32*)delta)[idx] = ((F32*)d)[idx] / b[0];
 
     for (j = 1; j < n; j++) {
         beta = b[j] - a[j] * gamma[j - 1];
         gamma[j] = c[j] / beta;
-        for (idx = 0; idx < 3; idx++) {
+        for (idx = 0; idx < 3; idx++)
             ((F32*)&delta[j])[idx] = (((F32*)&d[j])[idx] - a[j] * ((F32*)&delta[j - 1])[idx]) / beta;
-        }
     }
 
-    for (idx = 0; idx < 3; idx++) {
-        ((F32*)&x[n - 1])[idx] = ((F32*)&delta[n - 1])[idx];
-    }
+    for (idx = 0; idx < 3; idx++) ((F32*)&x[n - 1])[idx] = ((F32*)&delta[n - 1])[idx];
 
     for (j = n - 2; j >= 0; j--) {
-        for (idx = 0; idx < 3; idx++) {
-            ((F32*)&x[j])[idx] = ((F32*)&delta[j])[idx] - gamma[j] * ((F32*)&x[j + 1])[idx];
-        }
+        for (idx = 0; idx < 3; idx++) ((F32*)&x[j])[idx] = ((F32*)&delta[j])[idx] - gamma[j] * ((F32*)&x[j + 1])[idx];
     }
 
     RwFree(gamma);
@@ -117,9 +110,8 @@ static F32 ArcLength3(xCoef3* coef, F64 ustart, F64 uend)
     for (i = 2; i <= 50; i++) {
         if (i % 2 != 0) {
             sum += 2.0 * sqrt((((A * u + B) * u + C) * u + D) * u + E);
-        } else {
+        } else
             sum += 4.0 * sqrt((((A * u + B) * u + C) * u + D) * u + E);
-        }
         u += h;
     }
 
@@ -203,19 +195,13 @@ static void BasisBspline(F32 N[7][4], F32* t)
     N[0][3] = 0.0f, N[1][3] = 0.0f, N[2][3] = 0.0f, N[3][3] = 1.0f,
         N[4][3] = 0.0f, N[5][3] = 0.0f, N[6][3] = 0.0f;
     
-    for (k = 2; k <= 4; k++) {
+    for (k = 2; k <= 4; k++)
         for (i = 0; i < 8 - k; i++) {
             F32 Ntemp[4] = {};
 
-            d1 = t[i + k - 1] - t[i];
-            if (d1 != 0.0f) {
-                d1 = 1.0f / d1;
-            }
+            d1 = t[i + k - 1] - t[i]; if (d1 != 0.0f) d1 = 1.0f / d1;
 
-            d2 = t[i + k] - t[i + 1];
-            if (d2 != 0.0f) {
-                d2 = 1.0f / d2;
-            }
+            d2 = t[i + k] - t[i + 1]; if (d2 != 0.0f) d2 = 1.0f / d2;
 
             for (c = 5 - k; c <= 3; c++) {
                 Ntemp[c - 1] += d1 * N[i][c] - d2 * N[i + 1][c];
@@ -227,17 +213,12 @@ static void BasisBspline(F32 N[7][4], F32* t)
             N[i][2] = Ntemp[2];
             N[i][3] = Ntemp[3];
         }
-    }
 }
 
 static F32 ClampBspline(xSpline3* spl, F32 u)
 {
-    if (u < 0.0f) {
-        u = 0.0f;
-    }
-    if (u > spl->knot[spl->N + 3]) {
-        u = spl->knot[spl->N + 3];
-    }
+    if (u < 0.0f) u = 0.0f;
+    if (u > spl->knot[spl->N + 3]) u = spl->knot[spl->N + 3];
     return u;
 }
 
@@ -249,11 +230,8 @@ static U32 SegBspline(xSpline3* spl, F32 u)
     max = spl->N + 3;
     while (min + 1 != max) {
         mid = (max + min) / 2;
-        if (spl->knot[mid] >= u) {
-            max = mid;
-        } else {
-            min = mid;
-        }
+        if (spl->knot[mid] >= u) max = mid;
+        else min = mid;
     }
 
     return min - 3;
@@ -262,11 +240,11 @@ static U32 SegBspline(xSpline3* spl, F32 u)
 static void EvalBspline3(xSpline3* spl, F32 u, U32 deriv, xVec3* o)
 {
     U32 seg;
-    F32 N[7][4];
-    xCoef3 coef;
 
     u = ClampBspline(spl, u);
     seg = SegBspline(spl, u);
+    F32 N[7][4];
+    xCoef3 coef;
 
     BasisBspline(N, spl->knot + seg);
     BasisToCoef3(&coef, N,
@@ -327,15 +305,12 @@ void xSpline3_EvalSeg(xSpline3* spl, F32 u, U32 deriv, xVec3* o)
         return;
     }
 
-    if (u < 0.0f) {
-        u = 0.0f;
-    }
+    if (u < 0.0f) u = 0.0f;
 
     flr = std::floorf(u);
     seg = (U32)flr;
     if (seg >= spl->N) {
-        u = 1.0f;
-        seg = spl->N - 1;
+        u = 1.0f; seg = spl->N - 1;
     } else {
         u -= flr;
     }
@@ -377,11 +352,10 @@ static F32 ArcEvalIterate(xSpline3* spl, F32 s, U32 deriv, xVec3* o, U32 iterati
 
     while (min + 1 != max) {
         test = (min + max) >> 1;
-        if (s > spl->arcLength[test]) {
+        if (s > spl->arcLength[test])
             min = test;
-        } else {
+        else
             max = test;
-        }
     }
 
     seg = max / (S32)spl->arcSample;
@@ -423,11 +397,8 @@ static F32 ArcEvalIterate(xSpline3* spl, F32 s, U32 deriv, xVec3* o, U32 iterati
         utest = umin;
     } else {
         utest = umin + (umax - umin) * (s - smin) / (smax - smin);
-        if (utest < 0.0f) {
-            utest = 0.0f;
-        } else if (utest > 1.0f) {
-            utest = 1.0f;
-        }
+        if (utest < 0.0f) utest = 0.0f;
+        else if (utest > 1.0f) utest = 1.0f;
     }
 
     EvalCoef3(coef, utest, deriv, o);
@@ -448,13 +419,11 @@ void xSpline3_ArcInit(xSpline3* spl, U32 sample)
 {
     U32 i, seg, oldalloc;
     F32 len, arcsum;
-    xCoef3 tempCoef, *coef;
 
     len = 0.0f;
+    xCoef3 tempCoef, *coef;
 
-    if (sample < 1) {
-        sample = 1;
-    }
+    if (sample < 1) sample = 1;
     spl->arcSample = sample;
 
     oldalloc = spl->arcLength ? spl->allocN * spl->arcSample : 0;
@@ -475,9 +444,7 @@ void xSpline3_ArcInit(xSpline3* spl, U32 sample)
 
 static xSpline3* AllocSpline3(xVec3* points, F32* time, U32 numpoints, U32 numalloc, U32 flags, U32 type)
 {
-    xSpline3* spl;
-
-    spl = (xSpline3*)xMEMALLOC(sizeof(xSpline3), 0);
+    xSpline3* spl = (xSpline3*)xMEMALLOC(sizeof(xSpline3), 0);
 
     if (numalloc < numpoints) {
         numalloc = numpoints;

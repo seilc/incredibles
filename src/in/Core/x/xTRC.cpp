@@ -90,12 +90,11 @@ static bool ShouldDisplayMessage()
 
 void xTRCRender()
 {
-    if (ShouldDisplayMessage()) {
+    if (ShouldDisplayMessage())
         if (composed_message_text[0] != '\0')
             render_message(composed_message_text);
         else if (message_text)
             render_message(message_text);
-    }
 }
 
 void xTRCReset()

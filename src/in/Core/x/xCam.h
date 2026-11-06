@@ -483,7 +483,7 @@ inline xCamOrientEuler& xCamBlend::convert(const xCam& cam, xCamOrientEuler& c) 
     }
 }
 
-static const S32 MAX_OWNED_CAMS = 32;
+#define MAX_OWNED_CAMS 32
 
 class xCamGroup
 {

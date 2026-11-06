@@ -333,18 +333,18 @@ void xJSP_Destroy(xJSPHeader* jsp)
 
 static void xJSPNodeLightBuild(xJSPHeader* jsp)
 {
+    jsp->nodelight = (xJSPNodeLight*)RwMalloc(jsp->jspNodeCount * sizeof(xJSPNodeLight), rwMEMHINTDUR_NADURATION);
+    memset(jsp->nodelight, 0, jsp->jspNodeCount * sizeof(xJSPNodeLight));
+
     xJSPNodeLight* nlight;
     RwLLLink* cur;
     RwLLLink* end;
     RpClump* clump;
-    RpAtomic* apAtom;
-
-    jsp->nodelight = (xJSPNodeLight*)RwMalloc(jsp->jspNodeCount * sizeof(xJSPNodeLight), rwMEMHINTDUR_NADURATION);
-    memset(jsp->nodelight, 0, jsp->jspNodeCount * sizeof(xJSPNodeLight));
 
     clump = jsp->clump; nlight = jsp->nodelight;
     cur = rwLinkListGetFirstLLLink(&clump->atomicList);
     end = rwLinkListGetTerminator(&clump->atomicList);
+    RpAtomic* apAtom;
     while (cur != end) {
         apAtom = rwLLLinkGetData(cur, RpAtomic, inClumpLink);
 
@@ -401,15 +401,13 @@ static F32 GetSplitVolumeSum(xJSPNodeTreeLeaf* tleaf, S32 count, S32 axis, F32 c
            (rightbox.sup.x - rightbox.inf.x) * (rightbox.sup.y - rightbox.inf.y) * (rightbox.sup.z - rightbox.inf.z);
 }
 
-static const S32 NUM_SPLIT_TESTS = 3;
+#define NUM_SPLIT_TESTS 3
 
 static S32 ChooseSplit_MeanMinSum(xJSPNodeTreeLeaf* tleaf, S32 count, S32& bestaxis, F32& bestcoord)
 {
     F32 bestvolume = HUGE;
     S32 i, axis;
     RwV3d mean = { 0.0f, 0.0f, 0.0f };
-    F32 testarray[NUM_SPLIT_TESTS];
-    F32 meancoord, coord, testvol;
 
     for (i = 0; i < count; i++) {
         mean.x += tleaf[i].box.inf.x + tleaf[i].box.sup.x;
@@ -420,6 +418,7 @@ static S32 ChooseSplit_MeanMinSum(xJSPNodeTreeLeaf* tleaf, S32 count, S32& besta
     mean.x /= 2 * count;
     mean.y /= 2 * count;
     mean.z /= 2 * count;
+    F32 testarray[NUM_SPLIT_TESTS], meancoord, coord, testvol;
 
     for (axis = 0; axis < sizeof(RwV3d); axis += sizeof(F32)) {
         meancoord = GETCOORD(mean, axis);
@@ -440,8 +439,7 @@ static S32 ChooseSplit_MeanMinSum(xJSPNodeTreeLeaf* tleaf, S32 count, S32& besta
         for (i = 0; i < NUM_SPLIT_TESTS; i++) {
             testvol = GetSplitVolumeSum(tleaf, count, axis, testarray[i]);
             if (testvol < bestvolume) {
-                bestaxis = axis;
-                bestvolume = testvol;
+                bestaxis = axis; bestvolume = testvol;
                 bestcoord = testarray[i];
             }
         }
@@ -450,8 +448,7 @@ static S32 ChooseSplit_MeanMinSum(xJSPNodeTreeLeaf* tleaf, S32 count, S32& besta
     return bestvolume != HUGE;
 }
 
-static TempSplit* sSplitList;
-static TempSplit* sSplitCurr;
+static TempSplit* sSplitList, *sSplitCurr;
 static xJSPNodeTreeLeaf* sSplitLeaf;
 
 static void RecurseSplitJSPNode(xJSPNodeTreeLeaf* tleaf, S32 count, TempSplitChild* childptr)
@@ -515,8 +512,7 @@ static void RecurseSplitJSPNode(xJSPNodeTreeLeaf* tleaf, S32 count, TempSplitChi
 xJSPNodeTree* xJSPNodeTreeBuild(xJSPHeader* jsp)
 {
     RpClump* clump = jsp->clump;
-    S32 i, j;
-    S32 atomCount = RpClumpGetNumAtomics(clump);
+    S32 i, j, atomCount = RpClumpGetNumAtomics(clump);
     if (!atomCount) {
         return NULL;
     }

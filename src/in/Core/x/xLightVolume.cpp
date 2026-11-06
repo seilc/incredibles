@@ -26,8 +26,7 @@ void xLightVolume::scene_exit()
 
 void xLightVolume::reset_all()
 {
-    activity_type* act = activities;
-    activity_type* end_act = act + activities_used;
+    activity_type* act = activities, *end_act = act + activities_used;
 
     for (; act != end_act; act++) {
         act->owner->activity = 0;

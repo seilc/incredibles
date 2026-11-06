@@ -19,7 +19,7 @@
 
 #include <string.h>
 
-static const S32 MAX_SUBDIV_SIZE = 16;
+#define MAX_SUBDIV_SIZE 16
 
 #define xMATCH_SIGN(x, s)                                                                         \
     if ((s) < 0.0f) { if ((x) > 0.0f) (x) = -(x); }                                               \
@@ -342,7 +342,7 @@ struct ent_cache_entry
     xEnt* ent;
 };
 
-static const S32 MAX_ENT_CACHE_SIZE = 128;
+#define MAX_ENT_CACHE_SIZE 128
 
 ent_cache_entry ent_cache[MAX_ENT_CACHE_SIZE];
 S32 ent_cache_size;

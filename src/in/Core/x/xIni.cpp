@@ -20,24 +20,16 @@ static char* TrimWhitespace(char* str)
 
 xIniFile* xIniParse(char* buf, S32 len)
 {
-    S32 valueAlloc, sectionAlloc, i;
-    S32 ccr = 1;
-    S32 clf = 1;
-    S32 copen = 0;
-    S32 lastCRLF = -1;
+    S32 valueAlloc, sectionAlloc, i, ccr = 1, clf = 1, copen = 0, lastCRLF = -1;
     char* c, *tok, *val, *lastLine, *line, *ltoken;
     xIniFile* ini;
 
     for (i = 0; i < len; i++) {
         switch (buf[i]) {
         case '\n':
-            lastCRLF = i;
-            clf++;
-            break;
+            lastCRLF = i; clf++; break;
         case '\r':
-            lastCRLF = i;
-            ccr++;
-            break;
+            lastCRLF = i; ccr++; break;
         case '[':
             copen++;
             break;
@@ -65,11 +57,10 @@ xIniFile* xIniParse(char* buf, S32 len)
     strncpy(lastLine, buf + (lastCRLF + 1), len - (lastCRLF + 1));
     lastLine[len - (lastCRLF + 1)] = '\0';
 
-    if (lastCRLF >= 0) {
+    if (lastCRLF >= 0)
         buf[lastCRLF] = '\0';
-    } else {
+    else
         buf[0] = '\0';
-    }
 
     line = xStrTok(buf, "\n\r", &ltoken);
     if (!line) {
@@ -81,8 +72,7 @@ xIniFile* xIniParse(char* buf, S32 len)
         line = TrimWhitespace(line);
         if (line[0] != '#' && line[0] != '\0') {
             if (line[0] == '[') {
-                c = std::strstr(line, "]");
-                if (c) {
+                if (c = std::strstr(line, "]")) {
                     *c = '\0';
                     c = TrimWhitespace(line + 1);
                     if (*c != '\0') {
@@ -93,21 +83,18 @@ xIniFile* xIniParse(char* buf, S32 len)
                     }
                 }
             } else {
-                c = std::strstr(line, "=");
-                if (c) {
+                if (c = std::strstr(line, "=")) {
                     *c = '\0';
                     tok = TrimWhitespace(line);
                     if (*tok != '\0') {
                         line = c + 1;
-                        c = std::strstr(line, "#");
-                        if (c) *c = '\0';
+                        if (c = std::strstr(line, "#")) *c = '\0';
                         val = TrimWhitespace(line);
                         ini->Values[ini->NumValues].tok = tok;
                         ini->Values[ini->NumValues].val = val;
                         ini->NumValues++;
-                        if (ini->NumSections != 0) {
+                        if (ini->NumSections != 0)
                             ini->Sections[ini->NumSections-1].count++;
-                        }
                     }
                 }
             }
@@ -131,11 +118,9 @@ void xIniDestroy(xIniFile* ini)
 
 S32 xIniGetIndex(xIniFile* ini, const char* tok)
 {
-    for (S32 i = 0; i < ini->NumValues; i++) {
-        if (xStricmp(ini->Values[i].tok, tok) == 0) {
+    for (S32 i = 0; i < ini->NumValues; i++)
+        if (xStricmp(ini->Values[i].tok, tok) == 0)
             return i;
-        }
-    }
     return -1;
 }
 
@@ -168,11 +153,9 @@ const char* xIniGetString(xIniFile* ini, const char* tok, const char* def)
 
 S32 xIniGetIndex(xIniFile* ini, const char* tok, S32 idx)
 {
-    for (S32 i = idx; i < ini->NumValues; i++) {
-        if (xStricmp(ini->Values[i].tok, tok) == 0) {
+    for (S32 i = idx; i < ini->NumValues; i++)
+        if (xStricmp(ini->Values[i].tok, tok) == 0)
             return i;
-        }
-    }
     return -1;
 }
 

@@ -132,11 +132,7 @@ public:
     void update(xScene& scene, F32 dt);
     void snap_to(const xMat4x3& mat);
 
-    void set_start_theta(F32 theta)
-    {
-        start_zone.theta = theta;
-        start_zone.which |= 0x4;
-    }
+    void set_start_theta(F32 theta) { start_zone.theta = theta; start_zone.which |= 4; }
 };
 
 #endif

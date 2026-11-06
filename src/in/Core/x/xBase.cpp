@@ -19,13 +19,9 @@ void xBaseSetup(xBase*)
 void xBaseSave(xBase* ent, xSerial* s)
 {
     if (xBaseIsEnabled(ent))
-    {
         s->Write_b1(1);
-    }
     else
-    {
         s->Write_b1(0);
-    }
 }
 
 void xBaseLoad(xBase* ent, xSerial* s)
@@ -35,13 +31,9 @@ void xBaseLoad(xBase* ent, xSerial* s)
     s->Read_b1(&b);
 
     if (b)
-    {
         xBaseEnable(ent);
-    }
     else
-    {
         xBaseDisable(ent);
-    }
 }
 
 void xBaseReset(xBase* xb, xBaseAsset* asset)

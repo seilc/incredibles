@@ -7,7 +7,7 @@
 
 static S32 g_xutilinit;
 static S32 g_crc_needinit = 1;
-static const S32 CRC32_TABLE_SIZE = 256;
+#define CRC32_TABLE_SIZE 256
 
 static U32 g_crc32_table[CRC32_TABLE_SIZE] = { 0 };
 

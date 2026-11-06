@@ -21,10 +21,7 @@ enum xEntMotionFlags
     k_XENTMOTION_LOOP = 0x10
 };
 
-enum xEntMotionMPFlags
-{
-    k_XENTMOTIONMP_STOP_AT_END = 0x1
-};
+#define k_XENTMOTIONMP_STOP_AT_END 0x1
 
 enum xEntMotionMechType
 {

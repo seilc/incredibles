@@ -4,12 +4,13 @@
 
 #include <stdlib.h>
 
-static const S32 CHAR_MAP_SIZE = 32;
+#define CHAR_MAP_SIZE 32
 
 U32 xStrHash(const char* str)
 {
-    U32 i = 0;
-    for (; *str != '\0'; ++str) {
+    U32 i;
+
+    for (i = 0; *str != '\0'; ++str) {
         char c = *str;
         c = c - (c & (c >> 1) & 0x20);
         i = i * 131 + c;
@@ -30,8 +31,9 @@ U32 xStrHash(const char* s, size_t size)
 
 U32 xStrHashCat(U32 prefix, const char* str)
 {
-    U32 i = prefix;
-    for (; *str != '\0'; ++str) {
+    U32 i;
+
+    for (i = prefix; *str != '\0'; ++str) {
         char c = *str;
         c = c - (c & (c >> 1) & 0x20);
         i = i * 131 + c;
@@ -45,28 +47,24 @@ char* xStrTok(char* string, const char* control, char** nextoken)
     const U8* ctrl = (const U8*)control;
     U8 map[CHAR_MAP_SIZE];
 
-    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count) {
+    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count)
         map[count] = 0;
-    }
     do {
         map[*ctrl >> 3] |= (U8)(1 << (*ctrl & 0x7));
     } while (*ctrl++);
 
-    if (string) {
+    if (string)
         str = (U8*)string;
-    } else {
+    else
         str = (U8*)*nextoken;
-    }
-    while ((map[*str >> 3] & (1 << (*str & 0x7))) && *str) {
+    while ((map[*str >> 3] & (1 << (*str & 0x7))) && *str)
         ++str;
-    }
 
     string = (char*)str;
 
     while (*str) {
         if (map[*str >> 3] & (1 << (*str & 0x7))) {
-            *str = '\0';
-            ++str;
+            *str = '\0'; ++str;
             break;
         }
         ++str;
@@ -83,16 +81,13 @@ char* xStrTok(char* string, const char* control, char** nextoken)
 
 U32 xStrTokCount(const char* string, const char* control, U32* maxsize)
 {
-    U32 num = 0;
-    U32 max = 0;
-    U32 test = 0;
+    U32 num = 0, max = 0, test = 0;
     const U8* str;
     const U8* ctrl = (const U8*)control;
     U8 map[CHAR_MAP_SIZE];
 
-    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count) {
+    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count)
         map[count] = 0;
-    }
     do {
         map[*ctrl >> 3] |= (U8)(1 << (*ctrl & 0x7));
     } while (*ctrl++);
@@ -100,33 +95,27 @@ U32 xStrTokCount(const char* string, const char* control, U32* maxsize)
     str = (const U8*)string;
 
     while (true) {
-        while ((map[*str >> 3] & (1 << (*str & 0x7))) && *str) {
+        while ((map[*str >> 3] & (1 << (*str & 0x7))) && *str)
             ++str;
-        }
 
         string = (const char*)str;
 
         test = 0;
-        while (*str) {
+        for (; *str; ++str) {
             if (map[*str >> 3] & (1 << (*str & 0x7))) {
                 ++str;
                 break;
             }
             ++test;
-            ++str;
         }
 
         if (string == (const char*)str) {
-            if (maxsize) {
-                *maxsize = max;
-            }
+            if (maxsize) *maxsize = max;
 
             return num;
         }
 
-        if (test > max) {
-            max = test;
-        }
+        if (test > max) max = test;
 
         ++num;
     }
@@ -140,25 +129,22 @@ const char* xStrTokBuffer(const char* string, const char* control, void* buffer)
     const U8* ctrl = (const U8*)control;
     U8 map[CHAR_MAP_SIZE];
 
-    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count) {
+    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count)
         map[count] = 0;
-    }
     do {
         map[*ctrl >> 3] |= (U8)(1 << (*ctrl & 0x7));
     } while (*ctrl++);
 
-    if (string) {
+    if (string)
         str = (const U8*)string;
-    } else {
+    else
         str = (const U8*)*nextoken;
-    }
-    while ((map[*str >> 3] & (1 << (*str & 0x7))) && *str) {
+    while ((map[*str >> 3] & (1 << (*str & 0x7))) && *str)
         ++str;
-    }
 
     string = (const char*)str;
 
-    while (*str) {
+    for (; *str; ++str) {
         if (map[*str >> 3] & (1 << (*str & 0x7))) {
             ++str;
             break;
@@ -166,7 +152,6 @@ const char* xStrTokBuffer(const char* string, const char* control, void* buffer)
 
         *dest = *str;
         ++dest;
-        ++str;
     }
 
     *dest = '\0';
@@ -209,10 +194,10 @@ S32 xStricmp(const char* string1, const char* string2)
     while (xToUpper(*string1) == xToUpper(*string2) && result == 0) {
         if (*string1 == '\0' || *string2 == '\0') {
             result = 1;
-            continue;
+        } else {
+            ++string1;
+            ++string2;
         }
-        ++string1;
-        ++string2;
     }
 
     result = 0;
@@ -255,9 +240,7 @@ char* xStrupr(char* string)
 S32 xStrParseFloatList(F32* dest, const char* strbuf, S32 max)
 {
     char* str = (char*)strbuf;
-    if (str == NULL) {
-        return 0;
-    }
+    if (str == NULL) return 0;
     
     S32 index = 0;
 
@@ -289,9 +272,8 @@ S32 xStrParseFloatList(F32* dest, const char* strbuf, S32 max)
         if (*str == '-') {
             negate = 1;
             ++str;
-            while (*str == '\t' || *str == ' ') {
+            while (*str == '\t' || *str == ' ')
                 ++str;
-            }
         } else {
             negate = 0;
         }
@@ -304,9 +286,8 @@ S32 xStrParseFloatList(F32* dest, const char* strbuf, S32 max)
                *str == 'e' ||
                *str == 'E' ||
                *str == 'f') {
-            if (*str >= '0' && *str <= '9') {
+            if (*str >= '0' && *str <= '9')
                 ++digits;
-            }
             ++str;
         }
 
@@ -319,13 +300,9 @@ S32 xStrParseFloatList(F32* dest, const char* strbuf, S32 max)
 
         dest[index] = xatof(numstart);
 
-        if (negate) {
-            dest[index] = -dest[index];
-        }
+        if (negate) dest[index] = -dest[index];
 
-        *str = tmpc;
-
-        ++index;
+        *str = tmpc; ++index;
     }
 
     return index;
@@ -345,15 +322,11 @@ namespace {
 
 S32 imemcmp(const void* d1, const void* d2, size_t size)
 {
-    const char* s1 = (const char*)d1;
-    const char* s2 = (const char*)d2;
+    const char* s1 = (const char*)d1, *s2 = (const char*)d2;
 
     for (size_t i = 0; i < size; ++i, ++s1, ++s2) {
-        S32 c1 = tolower(*s1);
-        S32 c2 = tolower(*s2);
-        if (c1 != c2) {
-            return c1 - c2;
-        }
+        S32 c1 = tolower(*s1), c2 = tolower(*s2);
+        if (c1 != c2) return c1 - c2;
     }
 
     return 0;
@@ -363,17 +336,11 @@ S32 icompare(const substr& s1, const substr& s2)
 {
     size_t len = MIN(s1.size, s2.size);
     S32 c = imemcmp(s1.text, s2.text, len);
-    if (c != 0) {
-        return c;
-    }
+    if (c != 0) return c;
 
-    if (s1.size == s2.size) {
-        return 0;
-    }
+    if (s1.size == s2.size) return 0;
 
-    if (s1.size < s2.size) {
-        return -1;
-    }
+    if (s1.size < s2.size) return -1;
 
     return 1;
 }
@@ -383,28 +350,19 @@ U32 atox(const substr& s, size_t& read_size)
     const char* p = s.text;
     size_t size = s.size;
 
-    if (p == NULL) {
-        return 0;
-    }
+    if (p == NULL) return 0;
 
     U32 total = 0;
 
-    if (size > 8) {
-        size = 8;
-    }
+    if (size > 8) size = 8;
 
     for (read_size = 0; read_size < size; ++read_size, ++p) {
         char c = *p;
         U32 v;
-        if (c >= '0' && c <= '9') {
-            v = c - '0';
-        } else if (c >= 'a' && c <= 'f') {
-            v = c - ('a' - 10);
-        } else if (c >= 'A' && c <= 'F') {
-            v = c - ('A' - 10);
-        } else {
-            break;
-        }
+        if (c >= '0' && c <= '9') v = c - '0';
+        else if (c >= 'a' && c <= 'f') v = c - ('a' - 10);
+        else if (c >= 'A' && c <= 'F') v = c - ('A' - 10);
+        else break;
         total = (total << 4) + v;
     }
 
@@ -413,9 +371,7 @@ U32 atox(const substr& s, size_t& read_size)
 
 const char* find_char(const substr& s, const substr& cs)
 {
-    if (s.text == NULL || cs.text == NULL) {
-        return NULL;
-    }
+    if (s.text == NULL || cs.text == NULL) return NULL;
 
     const char* p = s.text;
     const char* d = cs.text;
@@ -568,11 +524,8 @@ const char* find_char(const substr& s, const substr& cs)
         break;
     default:
         for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            for (const char* s = cs.text; *s != '\0'; ++s) {
-                if (*p == *s) {
-                    return p;
-                }
-            }
+            for (const char* s = cs.text; *s != '\0'; ++s)
+                if (*p == *s) return p;
         }
         break;
     }

@@ -19,7 +19,7 @@
 
 #include <string.h>
 
-static const S32 MAX_TRANSIENT_HITS = 8;
+#define MAX_TRANSIENT_HITS 8
 
 DECOMP_FORCEFLOAT(0.0f)
 DECOMP_FORCEFLOAT(1.0f)

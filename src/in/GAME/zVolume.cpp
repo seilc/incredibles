@@ -4,7 +4,7 @@
 #include "xstransvc.h"
 #include "xEvent.h"
 
-static const S32 NUM_FRUST_VECS = 4;
+#define NUM_FRUST_VECS 4
 
 static zVolume* vols;
 static U16 nvols;

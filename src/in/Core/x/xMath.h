@@ -26,7 +26,7 @@ T range_limit(T v, T minv, T maxv)
     return v <= minv ? minv : (v >= maxv ? maxv : v);
 }
 
-static const S32 MAX_BINOM_SIZE = 528;
+enum { MAX_BINOM_SIZE = 528 };
 extern S32 binom_triangle[MAX_BINOM_SIZE];
 
 inline S32 xBinom(S32 n, S32 r)

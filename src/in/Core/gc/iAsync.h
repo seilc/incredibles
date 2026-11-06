@@ -22,15 +22,9 @@ inline void iAsyncUnlockRW()
 
 struct iAsyncLockRWSentry
 {
-    iAsyncLockRWSentry()
-    {
-        iAsyncLockRW();
-    }
+    iAsyncLockRWSentry() { iAsyncLockRW(); }
 
-    ~iAsyncLockRWSentry()
-    {
-        iAsyncUnlockRW();
-    }
+    ~iAsyncLockRWSentry() { iAsyncUnlockRW(); }
 };
 
 #endif

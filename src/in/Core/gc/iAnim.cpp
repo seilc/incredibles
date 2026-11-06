@@ -32,15 +32,13 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
                 U32 BoneCount, xVec3* Tran1, xQuat* Quat1, xVec3* Tran2, xQuat* Quat2,
                 xVec3* TranDest, xQuat* QuatDest)
 {
-    U32 i;
-    U32 invert = 0;
+    U32 i, invert = 0;
     RtQuat* q2;
     RtQuat ident = {0.0f, 0.0f, 0.0f, 1.0f};
     xVec3* t2;
 
     if (!Quat2) {
-        q2 = &ident;
-        invert = 1;
+        q2 = &ident; invert = 1;
         t2 = (xVec3*)&ident;
     } else {
         q2 = (RtQuat*)Quat2;
@@ -55,15 +53,10 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
     if (!BoneTable && !BlendTimeOffset) {
         RwReal lerp = BlendFactor * BlendRecip;
 
-        if (lerp < 0.0f) {
-            lerp = 0.0f;
-        } else if (lerp > 1.0f) {
-            lerp = 1.0f;
-        }
+        if (lerp < 0.0f) lerp = 0.0f;
+        else if (lerp > 1.0f) lerp = 1.0f;
 
-        if (invert) {
-            lerp = 1.0f - lerp;
-        }
+        if (invert) lerp = 1.0f - lerp;
 
         if (Quat1) {
             for (i = 0; i < BoneCount; i++) {
@@ -74,9 +67,7 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
 
                 Quat1++;
 
-                if (Quat2) {
-                    q2++;
-                }
+                if (Quat2) q2++;
 
                 QuatDest++;
             }
@@ -90,9 +81,7 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
 
                 Tran1++;
 
-                if (Quat2) {
-                    t2++;
-                }
+                if (Quat2) t2++;
 
                 TranDest++;
             }
@@ -103,15 +92,10 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
         if (!BlendTimeOffset) {
             baselerp = BlendFactor * BlendRecip;
 
-            if (baselerp < 0.0f) {
-                baselerp = 0.0f;
-            } else if (baselerp > 1.0f) {
-                baselerp = 1.0f;
-            }
+            if (baselerp < 0.0f) baselerp = 0.0f;
+            else if (baselerp > 1.0f) baselerp = 1.0f;
 
-            if (invert) {
-                baselerp = 1.0f - baselerp;
-            }
+            if (invert) baselerp = 1.0f - baselerp;
         }
 
         for (i = 0; i < BoneCount; i++) {
@@ -123,22 +107,14 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
                 if (BlendTimeOffset[i * 2 + 1] != 0) {
                     baselerp *= 1 / 1024.0f * BlendTimeOffset[i * 2 + 1];
 
-                    if (baselerp < 0.0f) {
-                        baselerp = 0.0f;
-                    } else if (baselerp > 1.0f) {
-                        baselerp = 1.0f;
-                    }
+                    if (baselerp < 0.0f) baselerp = 0.0f;
+                    else if (baselerp > 1.0f) baselerp = 1.0f;
                 } else {
-                    if (baselerp < 0.0f) {
-                        baselerp = 0.0f;
-                    } else {
-                        baselerp = 1.0f;
-                    }
+                    if (baselerp < 0.0f) baselerp = 0.0f;
+                    else baselerp = 1.0f;
                 }
 
-                if (invert) {
-                    baselerp = 1.0f - baselerp;
-                }
+                if (invert) baselerp = 1.0f - baselerp;
             }
 
             if (BoneTable) {
@@ -155,9 +131,7 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
 
                 Quat1++;
 
-                if (Quat2) {
-                    q2++;
-                }
+                if (Quat2) q2++;
 
                 QuatDest++;
             }
@@ -169,9 +143,7 @@ void iAnimBlend(F32 BlendFactor, F32 BlendRecip, U16* BlendTimeOffset, F32* Bone
 
                 Tran1++;
 
-                if (Quat2) {
-                    t2++;
-                }
+                if (Quat2) t2++;
 
                 TranDest++;
             }

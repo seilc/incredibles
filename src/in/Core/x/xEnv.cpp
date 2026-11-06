@@ -21,9 +21,8 @@ void xEnvLoadJSPList(xEnv* env, S32 dataType)
 
         for (S32 i = 0; i < jsp_count; i++)
         {
-            buf = xSTFindAssetByType('JSP ', i, &bufsize);
-
             PKRAssetTOCInfo info;
+            buf = xSTFindAssetByType('JSP ', i, &bufsize);
 
             xSTGetAssetInfoByType('JSP ', i, &info);
 

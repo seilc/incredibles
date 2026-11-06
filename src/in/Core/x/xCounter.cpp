@@ -32,13 +32,9 @@ void xCounterInit(xBase* b, xCounterAsset* asset)
     t->asset = asset;
 
     if (t->linkCount)
-    {
         t->link = (xLinkAsset*)(t->asset + 1);
-    }
     else
-    {
         t->link = NULL;
-    }
 
     t->state = 0;
     t->count = asset->count;
@@ -98,8 +94,7 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
             {
                 zEntEvent(t, t, eEventExpired);
             }
-            else if (t->count > 0 && t->count <= 20)
-            {
+            else if (t->count > 0 && t->count <= 20) {
                 zEntEvent(t, t, eEventCount1 + (U32)(t->count - 1));
             }
         }
@@ -116,8 +111,7 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
             {
                 zEntEvent(t, t, eEventExpired);
             }
-            else if (t->count > 0 && t->count <= 20)
-            {
+            else if (t->count > 0 && t->count <= 20) {
                 zEntEvent(t, t, eEventCount1 + (U32)(t->count - 1));
             }
         }
@@ -143,11 +137,8 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
             if (toParamWidget && toParamWidget->baseType == eBaseTypeCounter)
             {
                 t->count = ((xCounter*)toParamWidget)->count;
-            }
-            else
-            {
+            } else
                 t->count = toParam[0];
-            }
         }
 
         break;
@@ -160,8 +151,7 @@ void xCounterEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam,
             {
                 t->count = toEvent - (eEventCount1 - 1);
             }
-            else if (toEvent == eEventCount0)
-            {
+            else if (toEvent == eEventCount0) {
                 t->count = 0;
             }
         }

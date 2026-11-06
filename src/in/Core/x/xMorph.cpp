@@ -37,9 +37,7 @@ xMorphSeqFile* xMorphSeqSetup(void* data, xMorphFindAssetCallback FindAssetCB)
             assetPtr = FindAssetCB(assetlist[i], namelist);
             assetlist[i] = (U32)assetPtr;
         }
-        if (namelist) {
-            namelist = strlen(namelist) + 1 + namelist;
-        }
+        if (namelist) namelist = strlen(namelist) + 1 + namelist;
     }
 
     for (i = 0; i < (S32)header->ModelCount; i++) {
@@ -92,8 +90,10 @@ void xMorphRender(xMorphSeqFile* seq, RwMatrix* mat, F32 time)
     if (time > times[tcount-1]) time = times[tcount-1];
 
     tidx = (tcount-1) & 0x3;
-    while (times[tidx] < time) tidx += 4;
-    while (tidx && time < times[tidx]) tidx--;
+    while (times[tidx] < time)
+        tidx += 4;
+    while (tidx && time < times[tidx])
+        tidx--;
 
     frame += tidx;
 

@@ -41,8 +41,8 @@ protected:
 private:
     struct DebugAllocationHeader
     {
-        static const U32 MAGIC = 0xDEADBEEF;
         static const U32 NUM_MAGIC = 1;
+        static const U32 MAGIC = 0xDEADBEEF;
 
         const char* file;
         S32 line;
@@ -56,8 +56,8 @@ private:
 
     struct DebugAllocationTrailer
     {
-        static const U32 MAGIC = 0x31173D0D;
         static const U32 NUM_MAGIC = 8;
+        static const U32 MAGIC = 0x31173D0D;
 
         U32 magic[NUM_MAGIC];
     };

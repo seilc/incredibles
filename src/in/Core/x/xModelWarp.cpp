@@ -49,15 +49,9 @@ void xModelWarpSceneEnter()
 
 void xModelWarpSceneExit()
 {
-    render_context* context = &render_contexts[0];
-    render_context* end_context = context + render_contexts_size;
-
-    while (context != end_context)
-    {
+    render_context* context = render_contexts, *end_context = context + render_contexts_size;
+    for (; context != end_context; context++)
         destroy_render_context(*context);
-        context++;
-    }
-
     render_contexts_size = 0;
 
     camtex.destroy();
@@ -67,12 +61,8 @@ void xModelWarpSphereMapUVsByNormals(xVec2* uv, S32 verts_size, const xVec3* nor
 {
     xVec2* end_uv = uv + verts_size;
 
-    while (uv != end_uv)
-    {
+    for (; uv != end_uv; uv++, norm++) {
         uv->x = xasin(norm->x) * (1/PI) + 0.5f;
         uv->y = -(xasin(norm->y) * (1/PI) + 0.5f);
-
-        uv++;
-        norm++;
     }
 }

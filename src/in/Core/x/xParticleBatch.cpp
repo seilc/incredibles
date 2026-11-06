@@ -11,9 +11,8 @@
 
 namespace {
 
-    static const S32 MAX_SYSTEMS = 128;
-    static const S32 MAX_SYSTEMS_PER_GROUP = 16;
-    static const S32 MAX_BLOCKS = 32;
+    enum { MAX_SYSTEMS = 128, MAX_SYSTEMS_PER_GROUP = 16 };
+#define MAX_BLOCKS 32
 
     S32 BATCH_BLOCK_SIZE = 0x500;
     S32 BUFFER_SIZE = MAX_BLOCKS * BATCH_BLOCK_SIZE;
@@ -237,9 +236,8 @@ namespace {
         for (; b; pb = &b->next, b = b->next) {
             if (b->used < s0->used) {
                 s1 = s0; s0 = b; ps0 = pb;
-            } else if (b->used < s1->used) {
+            } else if (b->used < s1->used)
                 s1 = b;
-            }
         }
 
         S32 total = s0->used + s1->used;
@@ -489,9 +487,8 @@ S32 xParticleBatchGroup::create_system(const xParticleBatchSystem& system)
     const U8* end_elements = elements + elements_size;
     const U8* found = binary_find((const U8*)elements, end_elements, system, compare_group_systems_functor());
 
-    if (found != end_elements) {
+    if (found != end_elements)
         return *found;
-    }
 
     S32 system_id = xParticleBatchAddSystem(system);
     elements[elements_size] = system_id;

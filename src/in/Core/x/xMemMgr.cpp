@@ -98,9 +98,8 @@ void xMemInitHeap(xMemHeap* heap, U32 base, U32 size, U32 flags)
 static U32 xMemGetBlockInfo(xMemHeap* heap, U32 size, S32 align, xMemBlkInfo* info)
 {
     S32 header_size, total, hdr, pre, block, post, dir;
-    xHeapState* sp;
 
-    sp = &heap->state[heap->state_idx];
+    xHeapState* sp = &heap->state[heap->state_idx];
     dir = (heap->flags & eMemHeapGrowsDown) ? -1 : 1;
     header_size = (heap->flags & eMemHeapHeaderInBlock) ? (S32)sizeof(xMemBlock) : 0;
 
@@ -395,7 +394,7 @@ U32 scratch_mem_used;
 
 namespace
 {
-static const S32 MAX_SCRATCH_ALLOC = 128;
+#define MAX_SCRATCH_ALLOC 128
 
 static U16 scratch_stack[MAX_SCRATCH_ALLOC];
 static U8 scratch_buffer[0x4000] ALIGN(16);

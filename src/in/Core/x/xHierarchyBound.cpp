@@ -13,9 +13,7 @@ void xHierarchyBoundInit(xHierarchyBound* bound, const xHierarchyBoundInitData* 
     U32 count = 0;
 
     while (init[count].bone >= -1)
-    {
         count++;
-    }
 
     bound->count = count;
     bound->nodes = (xHierarchyNode*)xMEMALLOC((count + extraBounds) * sizeof(xHierarchyNode), 0);
@@ -93,14 +91,9 @@ bool xHierarchyBoundTest(const xHierarchyBound* bound, xSweptSphere* sphere, U16
         if (xSweptSphereToSphere(sphere, &bound->nodes[i].sphere))
         {
             if (boundUserData)
-            {
                 *boundUserData = bound->nodes[i].userData;
-            }
-
             if (subsphere)
-            {
                 *subsphere = i;
-            }
 
             return true;
         }

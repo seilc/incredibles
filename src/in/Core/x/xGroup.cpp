@@ -22,14 +22,10 @@ void xGroupInit(xBase* b, xGroupAsset* asset)
     g->asset = asset;
 
     if (g->linkCount)
-    {
         g->link = (xLinkAsset*)((U8*)g->asset + asset->itemCount * sizeof(U32) +
                                 sizeof(xGroupAsset));
-    }
     else
-    {
         g->link = NULL;
-    }
 
     U32 count = xGroupGetCount(g);
 
@@ -142,9 +138,7 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
                     if (b->baseFlags & k_XBASE_IS_ENTITY)
                     {
                         if (xBaseIsEnabled(b))
-                        {
                             entVisEventHandler((xEnt*)b);
-                        }
                     }
                     else
                     {

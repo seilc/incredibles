@@ -28,10 +28,7 @@ font_meter_widget::font_meter_widget(const font_meter_asset& a)
     xf.clip = screen_bounds;
 }
 
-void font_meter_widget::destruct()
-{
-    meter_widget::destruct();
-}
+void font_meter_widget::destruct() { meter_widget::destruct(); }
 
 void font_meter_widget::destroy()
 {

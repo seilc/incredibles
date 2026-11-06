@@ -49,12 +49,7 @@ public:
     void stop_render() const;
     void irender(const char* text, F32 x, F32 y) const;
 
-    void render(const char* text, F32 x, F32 y) const
-    {
-        start_render();
-        irender(text, x, y);
-        stop_render();
-    }
+    void render(const char* text, F32 x, F32 y) const { start_render(); irender(text, x, y); stop_render(); }
 };
 
 class xtextbox
@@ -161,10 +156,7 @@ public:
         return r;
     }
 
-    void render(bool cache) const
-    {
-        render(temp_layout(cache), 0, -1);
-    }
+    void render(bool cache) const { render(temp_layout(cache), 0, -1); }
 
 private:
     const char** texts;

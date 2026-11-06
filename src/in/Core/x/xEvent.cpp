@@ -11,9 +11,7 @@ void zEntEvent(char* to, U32 toEvent)
     xBase* sendTo = zSceneFindObject(id);
 
     if (sendTo)
-    {
         zEntEvent(sendTo, toEvent);
-    }
 }
 
 void zEntEvent(U32 toID, U32 toEvent)
@@ -21,9 +19,7 @@ void zEntEvent(U32 toID, U32 toEvent)
     xBase* sendTo = zSceneFindObject(toID);
 
     if (sendTo)
-    {
         zEntEvent(sendTo, toEvent);
-    }
 }
 
 #ifndef NO_HACKS
@@ -40,13 +36,9 @@ void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
                xBase* toParamWidget, U32 toParamWidgetID, ForceEvent forceEvent)
 {
     if (toEvent == eEventDisable)
-    {
         xBaseDisable(to);
-    }
     else if (toEvent == eEventEnable)
-    {
         xBaseEnable(to);
-    }
 
     if (to->eventFunc && (xBaseIsEnabled(to) || forceEvent == FE_YES))
     {
@@ -58,8 +50,7 @@ void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
             {
                 ((xEnt*)to)->collisionEventReceived = 1;
             }
-            else if (toEvent == eEventCollisionOff || toEvent == eEventCollision_Visible_Off)
-            {
+            else if (toEvent == eEventCollisionOff || toEvent == eEventCollision_Visible_Off) {
                 ((xEnt*)to)->collisionEventReceived = 2;
             }
         }
@@ -86,9 +77,7 @@ void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
                             b = zSceneFindObject(idx->paramWidgetAssetID);
 
                             if (!b)
-                            {
                                 b = (xBase*)xSTFindAsset(idx->paramWidgetAssetID, NULL);
-                            }
                         }
 
                         zEntEvent(to, toEvent, sendTo, idx->dstEvent, idx->param, b,

@@ -110,9 +110,7 @@ bool xSubTitlesRender(U32 aid, F32 fTime)
         (char*)(m_pCurrentAsset->m_paSubtitleLines + m_pCurrentAsset->m_uAssetNumLines);
 
     if (m_uLastTimeKey >= m_pCurrentAsset->m_uAssetNumLines)
-    {
         return false;
-    }
 
     pszDisplay += m_pCurrentAsset->m_paSubtitleLines[m_uLastTimeKey].uStringOffset;
 

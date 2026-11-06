@@ -219,9 +219,8 @@ void xSTUnLoadSceneMany(U32 sceneID, S32 type)
     if (type & 0x1) {
         st_STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_OPTS_HIP);
         if (sdata) {
-            if (sdata->spkg) {
+            if (sdata->spkg)
                 g_pkrf->Done(sdata->spkg);
-            }
             sdata->spkg = NULL;
             XST_unlock(sdata);
         }
@@ -230,9 +229,8 @@ void xSTUnLoadSceneMany(U32 sceneID, S32 type)
     if (type & 0x4) {
         st_STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_OPTS_LOCAL);
         if (sdata) {
-            if (sdata->spkg) {
+            if (sdata->spkg)
                 g_pkrf->Done(sdata->spkg);
-            }
             sdata->spkg = NULL;
             XST_unlock(sdata);
         }
@@ -241,9 +239,8 @@ void xSTUnLoadSceneMany(U32 sceneID, S32 type)
     if (type & 0x2) {
         st_STRAN_SCENE* sdata = XST_find_bySID(sceneID, XST_OPTS_HOP);
         if (sdata) {
-            if (sdata->spkg) {
+            if (sdata->spkg)
                 g_pkrf->Done(sdata->spkg);
-            }
             sdata->spkg = NULL;
             XST_unlock(sdata);
         }
@@ -281,7 +278,8 @@ void xSTDisconnect(U32 sid, S32 flg_hiphop)
 S32 xSTSwitchScene(U32 sid, void* userdata, S32(*progmon)(void*, F32))
 {
     st_STRAN_SCENE* sdata = NULL;
-    S32 rc = 0, i = 0;
+    S32 rc = 0;
+    S32 i = 0;
 
     S32 types[3] = { XST_OPTS_HIP, XST_OPTS_HOP, XST_OPTS_LOCAL };
     for (i = 2; i >= 0; i--) {
@@ -291,9 +289,8 @@ S32 xSTSwitchScene(U32 sid, void* userdata, S32(*progmon)(void*, F32))
 
             rc = g_pkrf->SetActive(sdata->spkg, PKR_LTYPE_ALL);
 
-            if (progmon) {
+            if (progmon)
                 progmon(userdata, 1.0f);
-            }
         }
     }
 
@@ -339,16 +336,14 @@ en_pkrfindmyass xSTRandMemToAsset(PKRAssetTOCInfo* ainfo, const void* addr)
 
 void* xSTFindAsset(U32 aid, U32* size)
 {
-    void* memloc;
-    S32 scncnt, i;
-    st_STRAN_SCENE* sdata;
-    S32 asssize;
-
     if (!aid) {
         return NULL;
     }
 
-    memloc = NULL;
+    void* memloc = NULL;
+    S32 scncnt, i;
+    st_STRAN_SCENE* sdata;
+    S32 asssize;
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
         sdata = XST_nth_locked(i);
@@ -368,9 +363,11 @@ void* xSTFindAsset(U32 aid, U32* size)
 
 S32 xSTAssetCountByType(U32 type)
 {
-    S32 sum = 0, cnt = 0;
+    S32 sum = 0;
+    S32 cnt = 0;
     st_STRAN_SCENE* sdata = NULL;
-    S32 scncnt = 0, i = 0;
+    S32 scncnt = 0;
+    S32 i = 0;
 
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
@@ -386,7 +383,10 @@ void* xSTFindAssetByType(U32 type, S32 idx, U32* size)
 {
     st_STRAN_SCENE* sdata = NULL;
     void* memptr = NULL;
-    S32 scncnt = 0, i = 0, sum = 0, cnt = 0;
+    S32 scncnt = 0;
+    S32 i = 0;
+    S32 sum = 0;
+    S32 cnt = 0;
 
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
@@ -424,7 +424,10 @@ S32 xSTGetAssetInfo(U32 aid, PKRAssetTOCInfo* tocainfo)
 
 S32 xSTGetAssetInfoByType(U32 type, S32 idx, PKRAssetTOCInfo* tocainfo)
 {
-    S32 found = 0, sum = 0, cnt = 0, scncnt, i;
+    S32 found = 0;
+    S32 sum = 0;
+    S32 cnt = 0;
+    S32 scncnt, i;
     st_STRAN_SCENE* sdata;
     S32 rc;
 
@@ -455,7 +458,9 @@ char* xST_xAssetID_HIPFullPath(U32 aid, U32* sceneID)
 {
     const char* da_hipname = NULL;
     st_STRAN_SCENE* sdata = NULL;
-    S32 rc = 0, scncnt = 0, i = 0;
+    S32 rc = 0;
+    S32 scncnt = 0;
+    S32 i = 0;
 
     scncnt = XST_cnt_locked();
     for (i = 0; i < scncnt; i++) {
@@ -626,12 +631,11 @@ static st_STRAN_SCENE* XST_find_bySID(U32 sid, S32 flagHipHop)
     for (i = 0; i < STRAN_MAX_SCENES; i++) {
         if (g_xstdata.loadlock & (1 << i)) {
             tmp_sdata = &g_xstdata.hipscn[i];
-            if (tmp_sdata->scnid == sid) {
+            if (tmp_sdata->scnid == sid)
                 if ((tmp_sdata->flgHipHop & XST_OPTS_MASKHH) == (flagHipHop & XST_OPTS_MASKHH)) {
                     da_sdata = tmp_sdata;
                     break;
                 }
-            }
         }
     }
 

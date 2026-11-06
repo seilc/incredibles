@@ -13,7 +13,7 @@
 
 #include <stdint.h>
 
-static const S32 NUM_QUAD_VERTS = 4;
+#define NUM_QUAD_VERTS 4
 
 const U32 CM_ALIGN_CENTER = 0;
 const U32 CM_ALIGN_LEFT = 1;
@@ -128,9 +128,8 @@ static void Decrypt(void* buffer_, U32 size, const void* key_, U32 keySize)
 static void xCMprep(xCreditsData* data)
 {
     xCMheader* hdr = (xCMheader*)data;
-    if (hdr->magic != 0xBEEEEEEF) {
+    if (hdr->magic != 0xBEEEEEEF)
         return;
-    }
 
     xCMhunk* hp;
     char* dp;
@@ -151,19 +150,15 @@ static void xCMprep(xCreditsData* data)
             case CM_ALIGN_RIGHT:
             case CM_ALIGN_INNER:
                 if ((hdr->state & 0x1) == 0) {
-                    if (hp->text1) {
+                    if (hp->text1)
                         hp->text1 = (const char*)((uintptr_t)hp->text1 - (uintptr_t)data);
-                    }
-                    if (hp->text2) {
+                    if (hp->text2)
                         hp->text2 = (const char*)((uintptr_t)hp->text2 - (uintptr_t)data);
-                    }
                 } else {
-                    if (hp->text1) {
+                    if (hp->text1)
                         hp->text1 = (const char*)((uintptr_t)hp->text1 + (uintptr_t)data);
-                    }
-                    if (hp->text2) {
+                    if (hp->text2)
                         hp->text2 = (const char*)((uintptr_t)hp->text2 + (uintptr_t)data);
-                    }
                 }
                 break;
             case CM_ALIGN_TEXTURE:
@@ -277,16 +272,15 @@ static const char* preset_names[] = {
 static U32 xCMrender(F32 time, xCreditsData* data)
 {
     xCMhunk* hp;
-    xCMheader* hdr;
+
+    xCMheader* hdr = (xCMheader*)data;
+
+    if (!hdr || hdr->magic != 0xBEEEEEEF)
+        return 0;
+
     char* dp;
     xCMcredits* cp;
     xCMpreset* pp;
-
-    hdr = (xCMheader*)data;
-
-    if (!hdr || hdr->magic != 0xBEEEEEEF) {
-        return 0;
-    }
 
     if ((hdr->state & 0x1) == 1) {
         xCMprep(data);
@@ -323,9 +317,8 @@ static U32 xCMrender(F32 time, xCreditsData* data)
                 switch (preset->align) {
                 case CM_ALIGN_TEXTURE: {
                     xCMtexture* tex = (xCMtexture*)&preset->box[0];
-                    if (!tex->texture) {
+                    if (!tex->texture)
                         tex->texture = (RwTexture*)xSTFindAsset(tex->assetID, NULL);
-                    }
                     if (tex->texture) {
                         RwRaster* raster = RwTextureGetRaster(tex->texture);
                         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, (void*)raster);

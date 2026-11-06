@@ -10,15 +10,9 @@ struct zUIControllerAsset : zUIAsset
 class zUIController : public zUI
 {
 public:
-    zUIControllerAsset* GetAsset() const
-    {
-        return (zUIControllerAsset*)zUI::GetAsset();
-    }
+    zUIControllerAsset* GetAsset() const { return (zUIControllerAsset*)zUI::GetAsset(); }
 
-    U32 GetSortKey() const
-    {
-        return GetAsset()->id;
-    }
+    U32 GetSortKey() const { return GetAsset()->id; }
 
     void DoInit();
     void DoRender() const;
