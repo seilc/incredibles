@@ -14,7 +14,7 @@ namespace
 
 void xCounterInit()
 {
-    xTWEAKREMOVE("Widgets|Counters");
+    xTWEAK_REMOVE("Widgets|Counters");
 }
 
 void xCounterInit(void* b, void* asset)

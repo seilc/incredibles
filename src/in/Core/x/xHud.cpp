@@ -103,7 +103,7 @@ void init()
 
 void destroy()
 {
-    xTWEAKREMOVE("HUD");
+    xTWEAK_REMOVE("HUD");
     widget::disable_all(true);
 }
 

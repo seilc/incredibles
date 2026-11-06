@@ -77,7 +77,7 @@ inline void xDebugRemoveTweak(const char* name) {}
 inline void xDebugRemoveTweaks(const char*, bool (*)(const tweak_info&, void*), void*) {}
 
 #define xTWEAK(name, v, vmin, vmax, cb, context, flags) xDebugAddTweak(name, v, vmin, vmax, cb, context, flags)
-#define xTWEAKREMOVE(name) xDebugRemoveTweak(name)
+#define xTWEAK_REMOVE(name) xDebugRemoveTweak(name)
 
 #define xTWEAKABLE const
 

@@ -31,7 +31,7 @@ void xCam::scene_enter()
 
 void xCam::scene_exit()
 {
-    xTWEAKREMOVE("Camera");
+    xTWEAK_REMOVE("Camera");
 }
 
 void xCam::refresh_mat()
