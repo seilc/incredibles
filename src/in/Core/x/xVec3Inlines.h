@@ -68,13 +68,17 @@ inline F32 xVec3Length(const xVec3* v)
     return xsqrt(v->x * v->x + v->y * v->y + v->z * v->z);
 }
 
+inline F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b)
+{
+    F32 d;
+    xVec3HdngMacro(hdng, a, b, &d);
+    return d;
+}
+
 inline F32 xVec3Dist(const xVec3* a, const xVec3* b)
 {
     F32 d;
-    F32 dx__ = a->x - b->x;
-    F32 dy__ = a->y - b->y;
-    F32 dz__ = a->z - b->z;
-    d = xsqrt(dx__ * dx__ + dy__ * dy__ + dz__ * dz__);
+    xVec3DistMacro(a, b, &d);
     return d;
 }
 

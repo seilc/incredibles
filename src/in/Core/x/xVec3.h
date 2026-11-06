@@ -121,33 +121,6 @@ inline void xVec3Add(xVec3* o, const xVec3* a, const xVec3* b)
     o->z = a->z + b->z;
 }
 
-inline F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b)
-{
-    F32 d;
-    F32 dx__ = b->x - a->x;
-    F32 dy__ = b->y - a->y;
-    F32 dz__ = b->z - a->z;
-    F32 dist2 = dx__*dx__ + dy__*dy__ + dz__*dz__;
-    if (xeq(dist2, 1.0f, 0.00001f)) {
-        hdng->x = dx__;
-        hdng->y = dy__;
-        hdng->z = dz__;
-        d = 1.0f;
-    } else if (xeq(dist2, 0.0f, 0.00001f)) {
-        hdng->x = 0.0f;
-        hdng->y = 1.0f;
-        hdng->z = 0.0f;
-        d = 0.0f;
-    } else {
-        d = xsqrt(dist2);
-        F32 dist_inv = 1.0f / d;
-        hdng->x = dx__ * dist_inv;
-        hdng->y = dy__ * dist_inv;
-        hdng->z = dz__ * dist_inv;
-    }
-    return d;
-}
-
 #define xVec3AddScaleMacro(o, a, b, s)          \
 {                                               \
     (o)->x = (a)->x + (s) * (b)->x;             \
@@ -176,6 +149,39 @@ inline F32 xVec3Hdng(xVec3* hdng, const xVec3* a, const xVec3* b)
         (o)->z = (v)->z * len_inv;                                                                \
     }                                                                                             \
 }
+
+#define xVec3HdngMacro(o, a, b, outlen)                                                           \
+do {                                                                                              \
+    F32 dx__ = (b)->x - (a)->x;                                                                   \
+    F32 dy__ = (b)->y - (a)->y;                                                                   \
+    F32 dz__ = (b)->z - (a)->z;                                                                   \
+    F32 dist2 = dx__*dx__ + dy__*dy__ + dz__*dz__;                                                \
+    if (xeq(dist2, 1.0f, 0.00001f)) {                                                             \
+        (o)->x = dx__;                                                                            \
+        (o)->y = dy__;                                                                            \
+        (o)->z = dz__;                                                                            \
+        *(outlen) = 1.0f;                                                                         \
+    } else if (xeq(dist2, 0.0f, 0.00001f)) {                                                      \
+        (o)->x = 0.0f;                                                                            \
+        (o)->y = 1.0f;                                                                            \
+        (o)->z = 0.0f;                                                                            \
+        *(outlen) = 0.0f;                                                                         \
+    } else {                                                                                      \
+        *(outlen) = xsqrt(dist2);                                                                 \
+        F32 dist_inv = 1.0f / *(outlen);                                                          \
+        (o)->x = dx__ * dist_inv;                                                                 \
+        (o)->y = dy__ * dist_inv;                                                                 \
+        (o)->z = dz__ * dist_inv;                                                                 \
+    }                                                                                             \
+} while (0)
+
+#define xVec3DistMacro(a, b, outlen)                                                              \
+do {                                                                                              \
+    F32 dx__ = (a)->x - (b)->x;                                                                   \
+    F32 dy__ = (a)->y - (b)->y;                                                                   \
+    F32 dz__ = (a)->z - (b)->z;                                                                   \
+    *(outlen) = xsqrt(dx__ * dx__ + dy__ * dy__ + dz__ * dz__);                                   \
+} while (0)
 
 #include "xVec3Inlines.h"
 

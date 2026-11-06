@@ -369,6 +369,12 @@ U32 atox(const substr& s, size_t& read_size)
     return total;
 }
 
+#define FIND_CHAR_LOOP(cond)                                                                      \
+    for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {                                         \
+        char c = *p;                                                                              \
+        if (cond) return p;                                                                       \
+    }
+
 const char* find_char(const substr& s, const substr& cs)
 {
     if (s.text == NULL || cs.text == NULL) return NULL;
@@ -377,157 +383,23 @@ const char* find_char(const substr& s, const substr& cs)
     const char* d = cs.text;
 
     switch (cs.size) {
-    case 0:
-        break;
-    case 1:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0]) {
-                return p;
-            }
-        }
-        break;
-    case 2:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1]) {
-                return p;
-            }
-        }
-        break;
-    case 3:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2]) {
-                return p;
-            }
-        }
-        break;
-    case 4:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3]) {
-                return p;
-            }
-        }
-        break;
-    case 5:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3] ||
-                c == d[4]) {
-                return p;
-            }
-        }
-        break;
-    case 6:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3] ||
-                c == d[4] ||
-                c == d[5]) {
-                return p;
-            }
-        }
-        break;
-    case 7:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3] ||
-                c == d[4] ||
-                c == d[5] ||
-                c == d[6]) {
-                return p;
-            }
-        }
-        break;
-    case 8:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3] ||
-                c == d[4] ||
-                c == d[5] ||
-                c == d[6] ||
-                c == d[7]) {
-                return p;
-            }
-        }
-        break;
-    case 9:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3] ||
-                c == d[4] ||
-                c == d[5] ||
-                c == d[6] ||
-                c == d[7] ||
-                c == d[8]) {
-                return p;
-            }
-        }
-        break;
-    case 10:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3] ||
-                c == d[4] ||
-                c == d[5] ||
-                c == d[6] ||
-                c == d[7] ||
-                c == d[8] ||
-                c == d[9]) {
-                return p;
-            }
-        }
-        break;
-    case 11:
-        for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
-            char c = *p;
-            if (c == d[0] ||
-                c == d[1] ||
-                c == d[2] ||
-                c == d[3] ||
-                c == d[4] ||
-                c == d[5] ||
-                c == d[6] ||
-                c == d[7] ||
-                c == d[8] ||
-                c == d[9] ||
-                c == d[10]) {
-                return p;
-            }
-        }
-        break;
+    case 0: break;
+    case 1: FIND_CHAR_LOOP(c == d[0]); break;
+    case 2: FIND_CHAR_LOOP(c == d[0] || c == d[1]); break;
+    case 3: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2]); break;
+    case 4: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3]); break;
+    case 5: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3] || c == d[4]); break;
+    case 6: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3] || c == d[4] || c == d[5]); break;
+    case 7: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3] || c == d[4] || c == d[5] || c == d[6]); break;
+    case 8: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3] || c == d[4] || c == d[5] || c == d[6] || c == d[7]); break;
+    case 9: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3] || c == d[4] || c == d[5] || c == d[6] || c == d[7] || c == d[8]); break;
+    case 10: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3] || c == d[4] || c == d[5] || c == d[6] || c == d[7] || c == d[8] || c == d[9]); break;
+    case 11: FIND_CHAR_LOOP(c == d[0] || c == d[1] || c == d[2] || c == d[3] || c == d[4] || c == d[5] || c == d[6] || c == d[7] || c == d[8] || c == d[9] || c == d[10]); break;
     default:
         for (S32 i = s.size; i > 0 && *p != '\0'; --i, ++p) {
             for (const char* s = cs.text; *s != '\0'; ++s)
                 if (*p == *s) return p;
         }
-        break;
     }
 
     return NULL;
