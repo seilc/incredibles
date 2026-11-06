@@ -80,9 +80,7 @@ bool xHierarchyBoundTest(const xHierarchyBound* bound, xSweptSphere* sphere, U16
                          S8* subsphere)
 {
     if (!xSweptSphereToSphere(sphere, &bound->master))
-    {
         return false;
-    }
 
     xSweptSphereResetCollision(sphere);
 

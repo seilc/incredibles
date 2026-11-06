@@ -376,9 +376,8 @@ static xFile* BFD_open(const char* filename, const char* mode, U32 lockid, S32, 
         strncpy(bffp->relname, filename, XFILE_RELNAME_MAX - 1);
         bffp->relname[XFILE_RELNAME_MAX - 1] = '\0';
 
-        if (fileflags) {
+        if (fileflags)
             xfflg |= fileflags;
-        }
 
         orc = iFileOpen(filename, xfflg, bffp);
         if (orc) {
@@ -474,9 +473,8 @@ static S32 BFD_read(void* data, S32 elesize, S32 elecnt, xFile* bffp, void* xtra
             if (actual == (S32)numBytes) break;
             else if (xtra->dbl_amt < 1) break;
 
-            if (safety++ > 60000) {
+            if (safety++ > 60000)
                 break;
-            }
         }
     }
 
@@ -510,9 +508,8 @@ static U32 BFD_startSector(const char* filename, S32 fileflags)
     U32 fsize = 0;
 
     U32 rc = iFileFind(filename, fileflags, &xf);
-    if (!rc) {
+    if (!rc)
         iFileGetInfo(&xf, &sect_start, &fsize);
-    }
     iFileClose(&xf);
 
     return sect_start;

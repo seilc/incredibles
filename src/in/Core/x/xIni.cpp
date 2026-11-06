@@ -127,27 +127,24 @@ S32 xIniGetIndex(xIniFile* ini, const char* tok)
 S32 xIniGetInt(xIniFile* ini, const char* tok, S32 def)
 {
     S32 index = xIniGetIndex(ini, tok);
-    if (index == -1) {
+    if (index == -1)
         return def;
-    }
     return atoi(ini->Values[index].val);
 }
 
 F32 xIniGetFloat(xIniFile* ini, const char* tok, F32 def)
 {
     S32 index = xIniGetIndex(ini, tok);
-    if (index == -1) {
+    if (index == -1)
         return def;
-    }
     return atof(ini->Values[index].val);
 }
 
 const char* xIniGetString(xIniFile* ini, const char* tok, const char* def)
 {
     S32 index = xIniGetIndex(ini, tok);
-    if (index == -1) {
+    if (index == -1)
         return def;
-    }
     return ini->Values[index].val;
 }
 
@@ -162,8 +159,7 @@ S32 xIniGetIndex(xIniFile* ini, const char* tok, S32 idx)
 const char* xIniGetString(xIniFile* ini, const char* tok, const char* def, S32& idx)
 {
     idx = xIniGetIndex(ini, tok, idx);
-    if (idx == -1) {
+    if (idx == -1)
         return def;
-    }
     return ini->Values[idx++].val;
 }

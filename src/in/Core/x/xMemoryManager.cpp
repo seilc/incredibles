@@ -9,9 +9,8 @@ namespace {
 
 void* xMemoryManager::Allocate(U32 size, U32 options)
 {
-    if (size == 0) {
+    if (size == 0)
         return &zeroMemoryAddress;
-    }
 
     size = xALIGN(size, 4);
 
@@ -23,23 +22,20 @@ void* xMemoryManager::Allocate(U32 size, U32 options)
 
     if (IsDebugging()) {
         memory = SetupDebugBlock(memory, size, NULL, NULL, 0);
-        if (!(options & 0x1)) {
+        if (!(options & 0x1))
             xMemorySetV32A32(memory, MEM_CLEAR_VALUE, size);
-        }
     }
 
-    if (options & 0x1) {
+    if (options & 0x1)
         xMemorySetV32A32(memory, 0, size);
-    }
 
     return memory;
 }
 
 void xMemoryManager::Free(void* pointer)
 {
-    if (!pointer || pointer == &zeroMemoryAddress) {
+    if (!pointer || pointer == &zeroMemoryAddress)
         return;
-    }
 
     if (IsDebugging()) {
         U32 size;
@@ -52,9 +48,8 @@ void xMemoryManager::Free(void* pointer)
 
 void* xMemoryManager::Reallocate(void* pointer, U32 size, U32 options)
 {
-    if (!pointer) {
+    if (!pointer)
         return Allocate(size, options);
-    }
 
     if (size == 0) {
         if (pointer != &zeroMemoryAddress)
@@ -62,9 +57,8 @@ void* xMemoryManager::Reallocate(void* pointer, U32 size, U32 options)
         return &zeroMemoryAddress;
     }
 
-    if (IsDebugging()) {
+    if (IsDebugging())
         pointer = RemoveDebugBlock(pointer, NULL);
-    }
 
     size = xALIGN(size, 4);
 
@@ -74,9 +68,8 @@ void* xMemoryManager::Reallocate(void* pointer, U32 size, U32 options)
         return NULL;
     }
 
-    if (IsDebugging()) {
+    if (IsDebugging())
         newBlock = SetupDebugBlock(newBlock, size, NULL, NULL, 0);
-    }
 
     return newBlock;
 }
@@ -105,14 +98,12 @@ void xMemoryManager::HandleOutOfMemory(U32 size, U32 options)
 void* xMemoryManager::DoReallocate(void* pointer, U32 size, U32 options)
 {
     U32 copySize = DoGetBlockSize(pointer);
-    if (copySize > size) {
+    if (copySize > size)
         copySize = size;
-    }
 
     void* newBlock = DoAllocate(size, options);
-    if (!newBlock) {
+    if (!newBlock)
         return NULL;
-    }
 
     xMemoryCopyUpA32(newBlock, pointer, copySize);
     DoFree(pointer);
@@ -166,9 +157,8 @@ void* xMemoryManager::RemoveDebugBlock(void* memory, U32* size)
     if (header->next)
         header->next->prev = header->prev;
 
-    if (size) {
+    if (size)
         *size = header->size + debugDataSize;
-    }
 
     return (void*)header;
 }

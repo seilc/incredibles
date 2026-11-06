@@ -133,9 +133,8 @@ U32 xrand_RandomChoice(U32& chosenMask, U8& setBits, U32 maxCount, xRandomChoice
         for (;;) {
             if (!(testMask & chosenMask)) {
                 ithUnplayed--;
-                if (ithUnplayed == 0) {
+                if (ithUnplayed == 0)
                     break;
-                }
             }
             testMask <<= 1;
             choice++;

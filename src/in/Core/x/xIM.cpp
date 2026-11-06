@@ -35,17 +35,14 @@ void xIMLock(xIMLockContext& context, xIMFormat format, S32 vertCount, const xIM
     S32 color_qwords = (vertCount * sizeof(xColor) + (16-1)) / 16;
     S32 alloc_qwords = 0;
 
-    if (!(params.flags & 0x1)) {
+    if (!(params.flags & 0x1))
         alloc_qwords += pos_qwords;
-    }
 
-    if (!(params.flags & 0x4)) {
+    if (!(params.flags & 0x4))
         alloc_qwords += uv_qwords;
-    }
 
-    if (!(params.flags & 0x10)) {
+    if (!(params.flags & 0x10))
         alloc_qwords += color_qwords;
-    }
 
     context.data = xMEMPUSHTEMP((alloc_qwords*16));
 
