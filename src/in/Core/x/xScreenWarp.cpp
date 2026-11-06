@@ -124,7 +124,8 @@ namespace {
 
     void change_warp_type(warper* warp, type_enum type)
     {
-        if (warp->type == type) return;
+        if (warp->type == type)
+            return;
 
         if (warp->next) {
             warp->next->prev = warp->prev;
@@ -202,7 +203,8 @@ namespace {
                     radius = warp->radius * iz;
                 }
 
-                if (radius <= tweak::radius_cull) continue;
+                if (radius <= tweak::radius_cull)
+                    continue;
 
                 if (loc.x - radius > 1.0f) continue;
 
@@ -210,7 +212,8 @@ namespace {
 
                 if (loc.y - radius > 1.0f) continue;
 
-                if (loc.y + radius < 0.0f) continue;
+                if (loc.y + radius < 0.0f)
+                    continue;
 
                 if (!need_render) {
                     reset_uvmap(uvmap);
@@ -288,7 +291,8 @@ void xScreenWarp::reset()
 
 void xScreenWarp::update(F32 dt)
 {
-    if (!tweak::debug::enable) return;
+    if (!tweak::debug::enable)
+        return;
 
     debug_update(dt);
 
@@ -317,10 +321,12 @@ void xScreenWarp::pre_render()
 
 void xScreenWarp::render(RwCamera* cam)
 {
-    if (!tweak::debug::enable) return;
+    if (!tweak::debug::enable)
+        return;
 
     uvmap_buffer = (xVec2*)xMEMPUSHTEMP((17 * 17 + 1) * sizeof(xVec2));
-    if (uvmap_buffer == NULL) return;
+    if (uvmap_buffer == NULL)
+        return;
 
     render_this_frame = animate_uvmap(uvmap_buffer, cam);
 

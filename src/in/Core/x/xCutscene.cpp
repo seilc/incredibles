@@ -301,12 +301,10 @@ void xCutscene_SetCameraMatrix(xCutscene* csn, xMat4x3* mat)
             zFlyKey* keys = (zFlyKey*)((U32*)(data + 1) + 1);
             if (frame < keys[0].frame) {
                 lerp = 0.0f;
-            }
-            else if (frame >= keys[count - 1].frame) {
+            } else if (frame >= keys[count - 1].frame) {
                 lerp = 1.0f;
                 keys = &keys[count - 2];
-            }
-            else {
+            } else {
                 lerp = 30.0f * csn->CamTime - std::floorf(30.0f * csn->CamTime);
                 keys = &keys[frame - keys[0].frame];
             }
@@ -452,8 +450,7 @@ static void JDeltaEval(RpAtomic* model, void* deltaModel, void* deltaAnim, F32 t
     }
     else if (time >= times[numFrames - 1]) {
         memcpy(outweight, weights + (numFrames - 1) * numWeights, numWeights * sizeof(F32));
-    }
-    else {
+    } else {
         while (time > times[1]) {
             times++;
             weights += numWeights;
@@ -935,8 +932,7 @@ namespace {
                     else if (frame >= keys[count - 1].frame) {
                         lerp = 1.0f;
                         keys = &keys[count - 2];
-                    }
-                    else {
+                    } else {
                         lerp = 30.0f * csn->CamTime - std::floorf(30.0f * csn->CamTime);
                         keys = &keys[frame - keys[0].frame];
                     }

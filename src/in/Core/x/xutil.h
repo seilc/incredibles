@@ -29,8 +29,7 @@ template <class T, class V, class C>
 T binary_find(T first, T last, const V& value, C cmp)
 {
     const T notfound = last;
-    while (first < last)
-    {
+    while (first < last) {
         const T mid = first + (last - first) / 2;
         S32 c = cmp(value, *mid);
         if (c < 0)

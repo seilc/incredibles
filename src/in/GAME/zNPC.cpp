@@ -5,6 +5,7 @@
 #include "zGrid.h"
 #include "zMain.h"
 #include "xString.h"
+#include "xModelAsset.h"
 
 #include <string.h>
 #include <stdlib.h>

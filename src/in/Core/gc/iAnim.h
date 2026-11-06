@@ -5,6 +5,8 @@
 
 #define IANIM_MAX_BONES 64
 
+extern U8* g_iAnim_workBuffer;
+
 void iAnimInit();
 F32 iAnimDuration(void* RawData);
 U32 iAnimBoneCount(void* RawData);

@@ -123,9 +123,8 @@ static S32 DisplayMessage(TRCState state)
             const char* msg = message_text;
             char c;
             while ((c = *msg++) != '\0' && c != '<') {}
-            if (c == '\0') {
+            if (c == '\0')
                 break;
-            }
             U32 sub_len = msg - message_text;
             memcpy(composed_message_text, message_text, sub_len);
             composed_message_text[sub_len - 1] = '1' + globals.pad0->port;
@@ -218,7 +217,6 @@ void RenderText(const char* text, bool enabled)
     tb.bounds.y = 0.5f - 0.5f * tb.bounds.h;
     tb.render(true);
     xColor c2 = { 0x00, 0x00, 0x00, 0x96 };
-    if (!enabled) {
+    if (!enabled)
         render_fill_rect(tb.font.clip, c2);
-    }
 }

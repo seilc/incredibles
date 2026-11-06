@@ -45,4 +45,6 @@ public:
     // clang-format on
 };
 
+zParticleSystem** zParticleSystemCreateAll();
+
 #endif

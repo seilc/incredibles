@@ -8,6 +8,7 @@
 
 struct xEnt;
 struct xScene;
+struct xEntCollis;
 
 struct xEntAsset : xBaseAsset
 {
@@ -49,6 +50,9 @@ struct xEntFrame
     }
 };
 
+typedef void(*xEntCollisPostCallback)(xEnt*, xScene*, F32, xEntCollis*);
+typedef U32(*xEntCollisDepenQueryCallback)(xEnt*, xEnt*, xScene*, F32, xCollis*);
+
 struct xEntCollis
 {
     U8 chk;
@@ -63,8 +67,8 @@ struct xEntCollis
     U8 stat_eidx;
     U8 idx;
     xCollis colls[18];
-    void (*post)(xEnt*, xScene*, F32, xEntCollis*);
-    U32 (*depenq)(xEnt*, xEnt*, xScene*, F32, xCollis*);
+    xEntCollisPostCallback post;
+    xEntCollisDepenQueryCallback depenq;
 };
 
 struct xEntShadow
@@ -86,7 +90,13 @@ struct xEntShadow
 struct xFFX;
 struct xShadowSimpleCache;
 
+typedef void(*xEntVisUpdateCallback)(xEnt*);
 typedef void(*xEntUpdateCallback)(xEnt*, xScene*, F32);
+typedef void(*xEntEndUpdateCallback)(xEnt*, xScene*, F32);
+typedef void(*xEntBoundUpdateCallback)(xEnt*, xVec3*);
+typedef void(*xEntMoveCallback)(xEnt*, xScene*, F32, xEntFrame*);
+typedef void(*xEntRenderCallback)(xEnt*);
+typedef void(*xEntTranslateCallback)(xEnt*, xVec3*, xMat4x3*);
 
 struct xEnt : xBase
 {
@@ -119,20 +129,20 @@ struct xEnt : xBase
     U8 collLev;
     U8 chkby;
     U8 penby;
-    void (*visUpdate)(xEnt*);
+    xEntVisUpdateCallback visUpdate;
     xModelInstance* model;
     xModelInstance* collModel;
     xModelInstance* camcollModel;
     xEntUpdateCallback update;
-    void (*endUpdate)(xEnt*, xScene*, F32);
-    void (*bupdate)(xEnt*, xVec3*);
-    void (*move)(xEnt*, xScene*, F32, xEntFrame*);
-    void (*render)(xEnt*);
+    xEntEndUpdateCallback endUpdate;
+    xEntBoundUpdateCallback bupdate;
+    xEntMoveCallback move;
+    xEntRenderCallback render;
     xEntFrame* frame;
     xEntCollis* collis;
     xGridBound gridb;
     xBound bound;
-    void (*transl)(xEnt*, xVec3*, xMat4x3*);
+    xEntTranslateCallback transl;
     xFFX* ffx;
     xEnt* driver;
     xEnt* driven;
@@ -142,9 +152,6 @@ struct xEnt : xBase
     anim_coll_data* anim_coll;
     void* user_data;
 };
-
-
-typedef void (*xEntVisHandler)(xEnt* ent);
 
 void xEntInit(xEnt* ent, xEntAsset* asset);
 void xEntGrowGlobalBoundingBox(const xVec3* pos);

@@ -78,9 +78,8 @@ void xIMLock(xIMLockContext& context, xIMFormat format, S32 vertCount, const xIM
 
 void xIMUnlock(xIMLockContext& context)
 {
-    if (context.data) {
+    if (context.data)
         xMEMPOPTEMP(context.data);
-    }
 }
 
 void xIMRender(xIMLockContext& context, const xMat4x3* mat)

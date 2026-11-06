@@ -5,6 +5,9 @@
 #include "xFactory.h"
 #include "xMovePoint.h"
 
+struct xModelAssetInfo;
+struct xModelAssetParam;
+
 struct xEntNPCAsset
 {
     S32 npcFlags;

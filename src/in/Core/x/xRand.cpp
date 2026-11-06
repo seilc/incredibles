@@ -180,9 +180,8 @@ void xRandUniformSpherePoints(xVec3* loc, S32 amount, F32 zmin, F32 zmax)
 {
     F32 z_frac = 0.5f * (zmax - zmin);
     S32 z_sectors = std::ceilf(z_frac * xsqrt(amount));
-    if (z_sectors <= 0) {
+    if (z_sectors <= 0)
         z_sectors = 1;
-    }
     S32 yaw_sectors = (amount + z_sectors - 1) / z_sectors;
     S32 sectors = yaw_sectors * z_sectors;
 

@@ -16,10 +16,10 @@ void xBoundMakeSphere(xBound& b, const xVec3& center, F32 radius)
 void xBoundUpdate(xBound* b)
 {
     if (b->type == k_XBOUNDTYPE_BOX) {
-        xVec3Add(&b->box.center, &b->box.box.lower, &b->box.box.upper); xVec3SMul(&b->box.center, &b->box.center, 0.5f);
+        xBoxCenter(&b->box.center, &b->box.box);
     }
     else if (b->type == k_XBOUNDTYPE_OBB) {
-        xVec3Add(&b->box.center, &b->box.box.lower, &b->box.box.upper); xVec3SMul(&b->box.center, &b->box.center, 0.5f);
+        xBoxCenter(&b->box.center, &b->box.box);
         xMat4x3Toworld(&b->box.center, b->mat, &b->box.center);
     }
 

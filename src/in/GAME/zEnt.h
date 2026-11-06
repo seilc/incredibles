@@ -3,6 +3,8 @@
 
 #include "xEnt.h"
 
+struct xModelAssetParam;
+
 struct zEnt : xEnt
 {
     xAnimTable* atbl;

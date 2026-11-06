@@ -161,7 +161,9 @@ void xEntBoulder_AddForce(xEntBoulder* ent, xVec3* force)
     }
 }
 
-void xEntBoulder_BUpdate(xEnt*, xVec3*) {}
+void xEntBoulder_BUpdate(xEnt*, xVec3*)
+{
+}
 
 // RESTORED: from RotU GC, Rat GC
 void xEntBoulder_RealBUpdate(xEnt* ent, xVec3* pos)

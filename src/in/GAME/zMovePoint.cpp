@@ -7,6 +7,8 @@
 static zMovePoint* g_mvpt_list = NULL;
 static S32 g_mvpt_cnt = 0;
 
+static S32 MVPT_dflt_chklos(void*, xVec3*, const zMovePoint*);
+
 zMovePoint* zMovePoint_GetMemPool(S32 cnt)
 {
     g_mvpt_list = (cnt) ? (zMovePoint*)xMEMALLOC(cnt * sizeof(zMovePoint), 0) : NULL;
@@ -64,10 +66,10 @@ void zMovePointEventCB(xBase*, xBase* to, U32 toEvent, const F32*, xBase*, U32)
     switch (toEvent)
     {
     case eEventOn:
-        m->on = true;
+        m->on = 1;
         break;
     case eEventOff:
-        m->on = false;
+        m->on = 0;
         break;
     case eEventReset:
         zMovePointReset(m);

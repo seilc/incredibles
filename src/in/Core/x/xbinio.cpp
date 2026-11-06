@@ -474,7 +474,9 @@ static S32 BFD_read(void* data, S32 elesize, S32 elecnt, xFile* bffp, void* xtra
             if (actual == (S32)numBytes) break;
             else if (xtra->dbl_amt < 1) break;
 
-            if (safety++ > 60000) break;
+            if (safety++ > 60000) {
+                break;
+            }
         }
     }
 

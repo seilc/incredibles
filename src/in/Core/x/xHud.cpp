@@ -14,6 +14,7 @@
 #include "xLightKit.h"
 #include "xMath.h"
 #include "xMemMgr.h"
+#include "xModelAsset.h"
 #include "xString.h"
 #include "xstransvc.h"
 #include "xutil.h"
@@ -398,8 +399,9 @@ void widget::disable_all(bool destroy_widgets)
 // RESTORED: from BFBB GC
 void widget::setup_all()
 {
-    for (size_t i = 0; i < ARRAY_LENGTH(known_types); i++)
+    for (size_t i = 0; i < ARRAY_LENGTH(known_types); i++) {
         for_each(known_types[i].type, known_types[i].size, fp_setup);
+    }
 }
 // END RESTORED
 

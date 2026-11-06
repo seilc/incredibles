@@ -7,6 +7,8 @@
 
 #include <stdio.h>
 
+static const S32 NUM_METER_MODELS = 2;
+
 namespace xhud {
 
 namespace {
@@ -76,8 +78,8 @@ void unit_meter_widget::setup()
 
     char tempString[128];
     S32 i;
-    char* modelName[2] = { "ModelEmpty", "ModelFull" };
-    for (i = 0; i < 2; i++) {
+    char* modelName[NUM_METER_MODELS] = { "ModelEmpty", "ModelFull" };
+    for (i = 0; i < NUM_METER_MODELS; i++) {
         sprintf(tempString, "%s|Location \001X", modelName[i]);
 
         sprintf(tempString, "%s|Location \001Y", modelName[i]);
@@ -120,7 +122,8 @@ void unit_meter_widget::update(F32 dt)
 void unit_meter_widget::render()
 {
     render_context unitrc = rc;
-    if (xfeq0(rc.a)) return;
+    if (xfeq0(rc.a))
+        return;
 
     S32 units = 0.5f + max_value;
     if (units > 6) units = 6;

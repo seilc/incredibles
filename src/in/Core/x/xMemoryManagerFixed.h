@@ -6,6 +6,8 @@
 class xMemoryManagerFixed : public xMemoryManager
 {
 public:
+    xMemoryManagerFixed() {}
+
     void Init(void* start, U32 elements, U32 elementSize);
 
 protected:

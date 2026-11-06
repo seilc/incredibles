@@ -7,6 +7,7 @@
 #define ACTIONLINES_ID 0x7830BF69 // xStrHash("ACTIONLINES")
 
 #define ACTION_LINE_COUNT 8
+#define STRIP_VERT_COUNT 4
 
 static ActionLine* sActionLine[ACTION_LINE_COUNT];
 static RwRaster* sActionLineRaster;
@@ -48,11 +49,11 @@ void zActionLineUpdate(F32 seconds)
 
 static void RenderActionLine(ActionLine* l)
 {
-    static RwIm3DVertex sStripVert[4];
+    static RwIm3DVertex sStripVert[STRIP_VERT_COUNT];
 
     RwIm3DVertex* vert = &sStripVert[0];
 
-    for (S32 i = 0; i < 4; i++, vert++)
+    for (S32 i = 0; i < STRIP_VERT_COUNT; i++, vert++)
     {
         RwIm3DVertexSetPos(vert, l->pos[i].x, l->pos[i].y, l->pos[i].z);
         RwIm3DVertexSetUV(vert, 0.0f, 0.0f);
@@ -64,7 +65,7 @@ static void RenderActionLine(ActionLine* l)
     sStripVert[3].u = 1.0f;
     sStripVert[3].v = 1.0f;
 
-    if (RwIm3DTransform(sStripVert, 4, NULL,
+    if (RwIm3DTransform(sStripVert, STRIP_VERT_COUNT, NULL,
                         rwIM3D_VERTEXUV | rwIM3D_VERTEXXYZ | rwIM3D_VERTEXRGBA))
     {
         RwIm3DRenderPrimitive(rwPRIMTYPETRISTRIP);

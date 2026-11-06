@@ -461,8 +461,9 @@ void xCamBlend::start()
 void xCamBlend::stop()
 {
     src->stop();
-    if (time < cfg_common.blend_time)
+    if (time < cfg_common.blend_time) {
         dst->stop();
+    }
 
     group->notify_released(*src);
     group->notify_released(*dst);

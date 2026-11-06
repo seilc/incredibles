@@ -379,8 +379,7 @@ void xTextureManager::FreeMemory()
 
     for (U32 i = 0; i < maxStreamingMovies; i++) {
         xInternalMovieNode* pNode = &m_movie_nodes[i];
-        if (pNode->used) {
+        if (pNode->used)
             freeNode(pNode);
-        }
     }
 }

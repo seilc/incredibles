@@ -6,6 +6,7 @@
 #include "xMemMgr.h"
 #include "xstransvc.h"
 #include "xutil.h"
+#include "xModelAsset.h"
 #include "iSnd.h"
 
 static S32 sMemDepthJustHIPStartPlayer = -1;

@@ -94,9 +94,8 @@ void text_widget::update(F32 dt)
     tb.bounds.w = rc.size.x;
     tb.bounds.h = rc.size.y;
 
-    if (rc.size.x < 1.0f) {
+    if (rc.size.x < 1.0f)
         tb.bounds.w = 640.0f * rc.size.x / FB_XRES;
-    }
 
     if (rc.size.y < 1.0f) {
         tb.bounds.h = 480.0f * rc.size.y / FB_YRES;

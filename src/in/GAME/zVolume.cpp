@@ -4,6 +4,8 @@
 #include "xstransvc.h"
 #include "xEvent.h"
 
+static const S32 NUM_FRUST_VECS = 4;
+
 static zVolume* vols;
 static U16 nvols;
 S32 gOccludeCount;
@@ -20,8 +22,6 @@ static void zVolumeInit(zVolume* volume, xVolumeAsset* asset)
 void zVolumeInit()
 {
     U16 i;
-    U32 size;
-    xVolumeAsset* asset;
 
     nvols = xSTAssetCountByType('VOLU');
 
@@ -31,7 +31,8 @@ void zVolumeInit()
 
         for (i = 0; i < nvols; i++)
         {
-            asset = (xVolumeAsset*)xSTFindAssetByType('VOLU', i, &size);
+            U32 size;
+            xVolumeAsset* asset = (xVolumeAsset*)xSTFindAssetByType('VOLU', i, &size);
 
             zVolumeInit(&vols[i], asset);
         }
@@ -65,7 +66,7 @@ void zVolume_OccludePrecalc(xVec3* camPos)
     F32 c, s;
     PreCalcOcclude* calc;
     xVec3 d1, d2;
-    xVec4 locFrustVec[4];
+    xVec4 locFrustVec[NUM_FRUST_VECS];
     F32 depthdot, camdot, testdot1, testdot2;
 
     gOccludeCalcCount = 0;
@@ -118,7 +119,7 @@ void zVolume_OccludePrecalc(xVec3* camPos)
 
         calc->DepthVec.w = depthdot;
 
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < NUM_FRUST_VECS; j++)
         {
             xVec3Sub(&d1, &corner[j], camPos);
             xVec3Sub(&d2, &corner[j + 1], camPos);
@@ -131,13 +132,13 @@ void zVolume_OccludePrecalc(xVec3* camPos)
 
         if (testdot1 > testdot2)
         {
-            for (j = 0; j < 4; j++)
+            for (j = 0; j < NUM_FRUST_VECS; j++)
             {
                 xVec3Inv((xVec3*)&locFrustVec[j], (xVec3*)&locFrustVec[j]);
             }
         }
 
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < NUM_FRUST_VECS; j++)
         {
             locFrustVec[j].w = xVec3Dot((xVec3*)&locFrustVec[j], &corner[j]);
         }

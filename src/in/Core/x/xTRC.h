@@ -36,6 +36,8 @@ typedef struct _tagTRCDiskInfo
     TRCState id;
 } TRCDiskInfo;
 
+extern TRCPadInfo gTrcPad[k_MAX_TRC_PADS];
+
 void xTRCInit();
 void xTRCInitMessages();
 void xTRCClearPadMsg();

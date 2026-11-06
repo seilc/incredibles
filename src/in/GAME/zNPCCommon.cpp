@@ -13,10 +13,13 @@
 #include "zDuplicator.h"
 #include "xString.h"
 #include "zNPCCombat.h"
+#include "xModelAsset.h"
 
 #include "decomp.h"
 
 #include <string.h>
+
+static const S32 MAX_TRANSIENT_HITS = 8;
 
 DECOMP_FORCEFLOAT(0.0f)
 DECOMP_FORCEFLOAT(1.0f)
@@ -179,12 +182,12 @@ namespace zNPC
 
     void common::check_transient_damage()
     {
-        zTransient::damage_result hits[8];
+        zTransient::damage_result hits[MAX_TRANSIENT_HITS];
         xBox box;
 
         xBoundGetBox(box, bound);
 
-        S32 hits_found = zTransient::check_damage(hits, box, 8, 8, 3);
+        S32 hits_found = zTransient::check_damage(hits, box, MAX_TRANSIENT_HITS, 8, 3);
 
         zTransient::damage_result* hit = hits;
         zTransient::damage_result* end_hit = hits + hits_found;

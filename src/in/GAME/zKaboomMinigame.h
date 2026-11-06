@@ -1,4 +1,0 @@
-#ifndef ZKABOOMMINIGAME_H
-#define ZKABOOMMINIGAME_H
-
-#endif

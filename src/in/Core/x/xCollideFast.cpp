@@ -4,11 +4,11 @@
 
 U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
 {
-    xVec3 v;
+    xVec3 diff;
 
-    xVec3Sub(&v, &r->origin, &s->center);
+    xVec3Sub(&diff, &r->origin, &s->center);
 
-    F32 c = xVec3Dot(&v, &v) - s->r * s->r;
+    F32 c = xVec3Dot(&diff, &diff) - s->r * s->r;
 
     if (c <= 0.0f)
     {
@@ -20,7 +20,7 @@ U32 xRayHitsSphereFast(const xRay3* r, const xSphere* s)
         return 0;
     }
 
-    F32 b = xVec3Dot(&v, &r->dir);
+    F32 b = xVec3Dot(&diff, &r->dir);
 
     if (b >= 0.0f)
     {
@@ -50,24 +50,23 @@ U32 xRayHitsCylinderFast(const xRay3* r, const xCylinder* c)
 
 U32 xRayHitsBoundFast(const xRay3* r, const xBound* b)
 {
-    xRay3 lr;
-
     if (b->type == k_XBOUNDTYPE_SPHERE)
     {
         return xRayHitsSphereFast(r, &b->sph);
     }
     else if (b->type == k_XBOUNDTYPE_OBB)
     {
-        F32 len = xVec3Length(&b->mat->right);
+        xRay3 lr;
         xMat3x3 mn;
+        F32 ms = xVec3Length(&b->mat->right);
 
         xMat3x3Normalize(&mn, b->mat);
         xMat4x3Tolocal(&lr.origin, b->mat, &r->origin);
         xMat3x3Tolocal(&lr.dir, &mn, &r->dir);
 
         lr.flags = r->flags;
-        lr.max_t = r->max_t / len;
-        lr.min_t = r->min_t / len;
+        lr.max_t = r->max_t / ms;
+        lr.min_t = r->min_t / ms;
 
         return xRayHitsBoxFast(&lr, &b->box.box);
     }

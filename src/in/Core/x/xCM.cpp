@@ -13,6 +13,8 @@
 
 #include <stdint.h>
 
+static const S32 NUM_QUAD_VERTS = 4;
+
 const U32 CM_ALIGN_CENTER = 0;
 const U32 CM_ALIGN_LEFT = 1;
 const U32 CM_ALIGN_RIGHT = 2;
@@ -190,7 +192,7 @@ static void xCMprep(xCreditsData* data)
 
 static S32 Im2DRenderQuadAlpha(F32 x1, F32 y1, F32 x2, F32 y2, F32 alpha, F32 z, F32 recipCamZ, F32 uvOffset)
 {
-    RwIm2DVertex vx[4];
+    RwIm2DVertex vx[NUM_QUAD_VERTS];
     U8 alphaI = 255.0f * alpha;
 
     RwIm2DVertexSetScreenX(&vx[0], x1);
@@ -221,7 +223,7 @@ static S32 Im2DRenderQuadAlpha(F32 x1, F32 y1, F32 x2, F32 y2, F32 alpha, F32 z,
     RwIm2DVertexSetU(&vx[3], 1.0f + uvOffset, recipCamZ);
     RwIm2DVertexSetV(&vx[3], 1.0f + uvOffset, recipCamZ);
 
-    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, 4);
+    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, NUM_QUAD_VERTS);
 
     return 1;
 }
@@ -522,16 +524,14 @@ void xCMstart(xCreditsData* data, F32, xBase* parent)
 
     credits_time = 0.0f;
 
-    if (parent) {
+    if (parent)
         credits_parentID = parent->id;
-    }
 }
 
 void xCMstop()
 {
-    if (!credits_data) {
+    if (!credits_data)
         return;
-    }
 
     credits_time = 10000.0f;
     credits_data = NULL;

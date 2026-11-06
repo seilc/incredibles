@@ -17,9 +17,7 @@ static bool xSoundFXWillSendDone(xSoundFX* sfx)
         for (S32 i = 0; i < sfx->linkCount; i++, l++)
         {
             if (l->srcEvent == eEventDone)
-            {
                 return true;
-            }
         }
     }
 
@@ -162,9 +160,7 @@ xSoundFX* xSoundFXGet(U32 soundfxID)
         sfx = &((xSoundFX*)s->baseList[eBaseTypeSoundFX])[i];
 
         if (sfx->id == soundfxID)
-        {
             break;
-        }
     }
 
     return sfx;

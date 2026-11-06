@@ -6,21 +6,17 @@
 
 void* xJaw_FindData(U32 soundID)
 {
-    S32 i;
-    S32 numJawTables = xSTAssetCountByType('JAW ');
+    S32 i, numJawTables = xSTAssetCountByType('JAW ');
 
-    for (i = 0; i < numJawTables; i++)
-    {
+    for (i = 0; i < numJawTables; i++) {
         U32 j;
         void* data = xSTFindAssetByType('JAW ', i, NULL);
         U32 jawcount = *(U32*)data;
         xJawDataTable* tbl = (xJawDataTable*)((U32*)data + 1);
         void* rawdata = (void*)(tbl + jawcount);
 
-        for (j = 0; j < jawcount; j++)
-        {
-            if (soundID == tbl[j].soundHashID)
-            {
+        for (j = 0; j < jawcount; j++) {
+            if (soundID == tbl[j].soundHashID) {
                 return (U8*)rawdata + tbl[j].dataStart;
             }
         }
@@ -50,8 +46,7 @@ F32 xJaw_EvalData(void* data, F32 time)
 
     numdata = *(S32*)data;
 
-    if (numdata > (U32)0xFFFF)
-    {
+    if (numdata > (U32)0xFFFF) {
         swap(data);
     }
 
@@ -60,16 +55,11 @@ F32 xJaw_EvalData(void* data, F32 time)
     idx = std::floorf(time);
     lerp = time - std::floorf(time);
 
-    if (idx < 0)
-    {
+    if (idx < 0) {
         return 0.0f;
-    }
-    else if (idx >= numdata - 1)
-    {
+    } else if (idx >= numdata - 1) {
         return 0.0f;
-    }
-    else
-    {
+    } else {
         U8* jawdata = (U8*)data + sizeof(S32);
 
         return ((1.0f - lerp) * jawdata[idx] + lerp * jawdata[idx + 1]) / 255.0f;

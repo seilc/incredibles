@@ -3,6 +3,7 @@
 #include "xRand.h"
 #include "xIM.h"
 #include "xstransvc.h"
+#include "xutil.h"
 
 #include <cmath>
 
@@ -171,7 +172,9 @@ namespace {
         }
 
         if (!(g->flags & 0x4)) {
-            if (dot <= g->cfg.vis_angle) return;
+            if (dot <= g->cfg.vis_angle) {
+                return;
+            }
 
             h *= (g->size + noise) * dot;
             w *= (g->size + noise) * dot;
@@ -243,7 +246,7 @@ namespace {
         vert++;
         
         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, (void*)g->raster);
-        xIMRenderLegacy(sStripVert, 4, NULL, rwPRIMTYPETRISTRIP);
+        xIMRenderLegacy(sStripVert, ARRAY_LENGTH(sStripVert), NULL, rwPRIMTYPETRISTRIP);
     }
 
 }
@@ -275,18 +278,16 @@ xPulseGlare& xPulseGlareMgr::get(U32 i)
 void xPulseGlareMgr::update(F32 dt)
 {
     for (S32 i = 0; i < zMAX_PULSE_GLARES; i++) {
-        if (glares[i].flags & 0x1) {
+        if (glares[i].flags & 0x1)
             update_pulse_glare(glares[i], dt);
-        }
     }
 }
 
 void xPulseGlareMgr::render(const xMat4x3& mat)
 {
     for (S32 i = 0; i < zMAX_PULSE_GLARES; i++) {
-        if (glares[i].flags & 0x1) {
+        if (glares[i].flags & 0x1)
             render_pulse_glare(mat, &glares[i]);
-        }
     }
 }
 

@@ -57,9 +57,8 @@ void* xMemoryManager::Reallocate(void* pointer, U32 size, U32 options)
     }
 
     if (size == 0) {
-        if (pointer != &zeroMemoryAddress) {
+        if (pointer != &zeroMemoryAddress)
             Free(pointer);
-        }
         return &zeroMemoryAddress;
     }
 
@@ -84,9 +83,8 @@ void* xMemoryManager::Reallocate(void* pointer, U32 size, U32 options)
 
 U32 xMemoryManager::GetBlockSize(void* pointer) const
 {
-    if (pointer == &zeroMemoryAddress) {
+    if (pointer == &zeroMemoryAddress)
         return 0;
-    }
 
     return DoGetBlockSize(pointer) - debugDataSize;
 }
@@ -135,9 +133,8 @@ void* xMemoryManager::SetupDebugBlock(void* memory, U32 size, const char* file, 
     header->prev = NULL;
     header->manager = this;
 
-    if (activeList) {
+    if (activeList)
         activeList->prev = header;
-    }
 
     activeList = header;
 

@@ -4,6 +4,7 @@
 #include "xScene.h"
 #include "xSpline.h"
 #include "xRand.h"
+#include "xutil.h"
 
 void xMovePointInit(xMovePoint* m, xMovePointAsset* asset)
 {
@@ -85,7 +86,7 @@ void xMovePointSplineSetup(xMovePoint* m)
         points[1] = *w2->pos;
     }
 
-    m->spl = xSpline3_Bezier(points, NULL, 2, 0, &p1, &p2);
+    m->spl = xSpline3_Bezier(points, NULL, ARRAY_LENGTH(points), 0, &p1, &p2);
     xSpline3_ArcInit(m->spl, 20);
 }
 

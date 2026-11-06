@@ -117,18 +117,18 @@ U32 zFMVPlay(const char* name, U32 buttons, F32 time, U32 uSubtitlesAID,
     {
         zMenuPause(true);
 
-        F32 oldSubtitlesSize = xSubTitlesGetSize();
+        F32 oldSize = xSubTitlesGetSize();
 
         xSubTitlesSetSize(0.18f);
 
-        xSndEffect oldSndEffect = xSndMgrGetEffect();
+        xSndEffect currentEffect = xSndMgrGetEffect();
 
         xSndMgrSetEffect(xSndEffect_NONE);
 
         retval = iFMVPlay(name, buttons, time, uSubtitlesAID, skippable, lockController, displayDemoBlink);
 
-        xSndMgrSetEffect(oldSndEffect);
-        xSubTitlesSetSize(oldSubtitlesSize);
+        xSndMgrSetEffect(currentEffect);
+        xSubTitlesSetSize(oldSize);
         xPadUpdate(0, 0.0001f);
         xPadUpdate(0, 0.0001f);
         zMenuPause(false);

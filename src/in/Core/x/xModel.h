@@ -4,7 +4,6 @@
 #include "iModel.h"
 #include "xAnim.h"
 #include "xModelBucket.h"
-#include "xModelAsset.h"
 #include "xSurface.h"
 #include "xLightKit.h"
 
@@ -85,6 +84,7 @@ extern xModelPipeTable* xModelPipeData[16];
 extern S32 xModelLookupCount;
 extern xModelPipeLookup* xModelLookupList;
 extern S32 xModelInstStaticAlloc;
+extern xModelPipe modelDefaultPipe;
 
 struct xModelTag
 {

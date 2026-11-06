@@ -37,7 +37,9 @@ static void xUpdateCull_Swap(xUpdateCullMgr* m, U32 a, U32 b)
 
 static void xUpdateCull_MakeActive(xUpdateCullMgr* m, xUpdateCullEnt* cent)
 {
-    if (cent->index < m->entActive) return;
+    if (cent->index < m->entActive) {
+        return;
+    }
 
     if (cent->index != m->entActive) {
         xUpdateCull_Swap(m, cent->index, m->entActive);
@@ -52,7 +54,9 @@ static void xUpdateCull_MakeActive(xUpdateCullMgr* m, xUpdateCullEnt* cent)
 
 static void xUpdateCull_MakeInactive(xUpdateCullMgr* m, xUpdateCullEnt* cent)
 {
-    if (cent->index >= m->entActive) return;
+    if (cent->index >= m->entActive) {
+        return;
+    }
 
     if (cent->index != m->entActive - 1) {
         xUpdateCull_Swap(m, cent->index, m->entActive - 1);
@@ -72,9 +76,8 @@ U32 xUpdateCull_AlwaysTrueCB(void*, void*)
 
 U32 xUpdateCull_DistanceSquaredCB(void* ent, void* cbdata)
 {
-    if (((xEnt*)ent)->baseFlags & k_XBASE_UNK_0x80) {
+    if (((xEnt*)ent)->baseFlags & k_XBASE_UNK_0x80)
         return 1;
-    }
 
     FloatAndVoid fandv;
     fandv.v = cbdata;

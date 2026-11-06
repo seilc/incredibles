@@ -510,7 +510,6 @@ static xSpline3* AllocSpline3(xVec3* points, F32* time, U32 numpoints, U32 numal
 xSpline3* xSpline3_Bezier(xVec3* points, F32* time, U32 numpoints, U32 numalloc, xVec3* p1, xVec3* p2)
 {
     xSpline3* spl;
-    U32 i;
 
     spl = AllocSpline3(points, time, numpoints, numalloc, 0, 3);
     spl->p12 = (xVec3*)xMEMALLOC(spl->allocN * 2 * sizeof(xVec3), 0);
@@ -518,7 +517,7 @@ xSpline3* xSpline3_Bezier(xVec3* points, F32* time, U32 numpoints, U32 numalloc,
     if (!p1 || !p2) {
         xSpline3_Catmullize(spl);
     } else {
-        for (i = 0; i < spl->N; i++) {
+        for (U32 i = 0; i < spl->N; i++) {
             spl->p12[i * 2] = p1[i];
             spl->p12[i * 2 + 1] = p2[i];
         }

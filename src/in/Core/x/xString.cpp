@@ -4,6 +4,8 @@
 
 #include <stdlib.h>
 
+static const S32 CHAR_MAP_SIZE = 32;
+
 U32 xStrHash(const char* str)
 {
     U32 i = 0;
@@ -41,9 +43,9 @@ char* xStrTok(char* string, const char* control, char** nextoken)
 {
     U8* str;
     const U8* ctrl = (const U8*)control;
-    U8 map[32];
+    U8 map[CHAR_MAP_SIZE];
 
-    for (S32 count = 0; count < 32; ++count) {
+    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count) {
         map[count] = 0;
     }
     do {
@@ -86,9 +88,9 @@ U32 xStrTokCount(const char* string, const char* control, U32* maxsize)
     U32 test = 0;
     const U8* str;
     const U8* ctrl = (const U8*)control;
-    U8 map[32];
+    U8 map[CHAR_MAP_SIZE];
 
-    for (S32 count = 0; count < 32; ++count) {
+    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count) {
         map[count] = 0;
     }
     do {
@@ -136,9 +138,9 @@ const char* xStrTokBuffer(const char* string, const char* control, void* buffer)
     char* dest = (char*)(nextoken + 1);
     const U8* str;
     const U8* ctrl = (const U8*)control;
-    U8 map[32];
+    U8 map[CHAR_MAP_SIZE];
 
-    for (S32 count = 0; count < 32; ++count) {
+    for (S32 count = 0; count < CHAR_MAP_SIZE; ++count) {
         map[count] = 0;
     }
     do {
@@ -231,9 +233,8 @@ S32 xMemicmp(const void* string1, const void* string2, size_t chars)
 
     while (chars--) {
         S32 ret = xToUpper(*str2) - xToUpper(*str1);
-        if (ret != 0) {
+        if (ret != 0)
             return ret;
-        }
         ++str1;
         ++str2;
     }

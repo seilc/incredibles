@@ -15,9 +15,8 @@ void xFMVPauseSound(bool doPause)
 {
     sxFMVPauseSoundCB(doPause);
 
-    if (doPause) {
+    if (doPause)
         xSndMgrUpdate();
-    }
 }
 
 static void DefaultFMVPauseSoundCB(bool doPause)

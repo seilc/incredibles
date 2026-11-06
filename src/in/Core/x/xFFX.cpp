@@ -25,7 +25,9 @@ void xFFXPoolInit(U32 num_ffx)
 
 xFFX* xFFXAlloc()
 {
-    if (!alist) return NULL;
+    if (!alist) {
+        return NULL;
+    }
 
     xFFX* f = alist;
     alist = alist->next;
@@ -118,7 +120,9 @@ void xFFXShakePoolInit(U32 num)
 
 xFFXShakeState* xFFXShakeAlloc()
 {
-    if (!shake_alist) return NULL;
+    if (!shake_alist) {
+        return NULL;
+    }
 
     xFFXShakeState* s = shake_alist;
     shake_alist = shake_alist->next;

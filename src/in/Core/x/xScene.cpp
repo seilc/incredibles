@@ -15,6 +15,8 @@
 #include <rpcollis.h>
 #include <string.h>
 
+static const S32 NUM_TRI_VERTS = 3;
+
 xScene* g_xSceneCur;
 
 void xSceneInit(xScene* sc, U16 num_trigs, U16 num_stats, U16 num_dyns, U16 num_npcs)
@@ -708,7 +710,7 @@ static RpCollisionTriangle* nearestFloorCB(RpIntersection*, RpCollisionTriangle*
     xVec3 xformVert[4], xformNorm;
     U32 potentialOID;
     S32 i;
-    F32 pdx[3], pdz[3];
+    F32 pdx[NUM_TRI_VERTS], pdz[NUM_TRI_VERTS];
     F32 numer, denom, t, testdist2, neardx, neardz, nearmag;
 
     if (sUseJSP) {
@@ -738,7 +740,7 @@ static RpCollisionTriangle* nearestFloorCB(RpIntersection*, RpCollisionTriangle*
         return collTriangle;
     }
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < NUM_TRI_VERTS; i++) {
         pdx[i] = nfpoly->center.x - xformVert[i].x;
         pdz[i] = nfpoly->center.z - xformVert[i].z;
     }

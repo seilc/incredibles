@@ -62,8 +62,9 @@ S32 xCamSupportPath::polar_subdivide(const xCamCoordPolar& start, const xCamCoor
     S32 vert_used = polar_subdivide(path + path_end, MAX_SUBDIV_SIZE, start, end, cfg.subdiv_thresh);
 
     S32 subdiv_end = path_end + vert_used;
-    if (subdiv_end > max_size)
+    if (subdiv_end > max_size) {
         memcpy(path, path + max_size, (subdiv_end - max_size) * sizeof(path_node));
+    }
 
     used += vert_used;
     if (used > max_size) {
@@ -148,14 +149,16 @@ void xCamSupportPath::smooth(S32 start, S32 size)
         node.loc.assign(Rx, Ry, Rz);
     }
 
-    if (size > 0)
+    if (size > 0) {
         dist = -1.0f;
+    }
 }
 
 F32 xCamSupportPath::traverse(xVec3& rloc, F32 velmag, F32 dt)
 {
-    if (dist < 0.0f)
+    if (dist < 0.0f) {
         refresh_dist();
+    }
 
     if (used <= 1) {
         subdist = 0.0f;
@@ -169,8 +172,9 @@ F32 xCamSupportPath::traverse(xVec3& rloc, F32 velmag, F32 dt)
         F32 dx = p1.loc.x - p0.loc.x, dy = p1.loc.y - p0.loc.y, dz = p1.loc.z - p0.loc.z;
         F32 segdist = xsqrt(dx * dx + dy * dy + dz * dz);
 
-        if (subdist > segdist)
+        if (subdist > segdist) {
             subdist = segdist;
+        }
 
         F32 t = velmag < 0.0001f ? HUGE : (segdist - subdist) / velmag;
 
@@ -201,8 +205,9 @@ F32 xCamSupportPath::traverse(xVec3& rloc, F32 velmag, F32 dt)
             break;
         } else {
             subdist += dt * velmag;
-            if (subdist > segdist)
+            if (subdist > segdist) {
                 subdist = segdist;
+            }
 
             F32 s = subdist / segdist;
             rloc.x = p0.loc.x * (1.0f - s) + p1.loc.x * s;
@@ -276,19 +281,22 @@ S32 xCamSupportPath::polar_subdivide(path_node* vert, S32 vert_size, const xCamC
         F32 ABx = v->loc.x - A.x, ABy = v->loc.y - A.y, ABz = v->loc.z - A.z;
         total += xsqrt(ABx * ABx + ABy * ABy + ABz * ABz);
 
-        if (vert_used == vert_size)
+        if (vert_used == vert_size) {
             return vert_used;
+        }
 
         F32 dtotal = total - best_total;
-        if (dtotal <= thresh)
+        if (dtotal <= thresh) {
             return vert_used;
+        }
 
         static xTWEAKABLE F32 increase_factor = 1.0f;
         S32 subdiv_increase = range_limit((S32)(increase_factor * xlog(dtotal / thresh)), 2, 10);
 
         vert_used *= subdiv_increase;
-        if (vert_used > vert_size)
+        if (vert_used > vert_size) {
             vert_used = vert_size;
+        }
 
         best_total = total;
     }
@@ -349,18 +357,22 @@ struct cache_entity_callback
 
     bool operator()(xEnt& ent)
     {
-        if (!ent.camcollModel)
+        if (!ent.camcollModel) {
             return true;
-
-        if (!(ent.chkby & 0x1)) {
-            if (!(ent.chkby & 0x10))
-                return true;
-            if (!xEntIsVisible(&ent))
-                return true;
         }
 
-        if (!xSphereHitsBound(center, radius, ent.bound))
+        if (!(ent.chkby & 0x1)) {
+            if (!(ent.chkby & 0x10)) {
+                return true;
+            }
+            if (!xEntIsVisible(&ent)) {
+                return true;
+            }
+        }
+
+        if (!xSphereHitsBound(center, radius, ent.bound)) {
             return true;
+        }
 
         if (ent_cache_size >= MAX_ENT_CACHE_SIZE)
             return false;
@@ -381,8 +393,9 @@ bool pivot_depen_bar(xVec3& cap_offset, xVec3& impact, xVec3& rot_axis, const xC
 
     F32 R = cap.r;
     F32 G = impact_offset.length();
-    if (G <= R)
+    if (G <= R) {
         return false;
+    }
 
     F32 touch_angle = xasin(R / G);
     F32 X0 = xsqrt(G * G - R * R);
@@ -473,8 +486,9 @@ bool capsule_hits_scene(const xCapsule& cap, xCollis& coll)
 {
     coll.flags = 0;
     xCapsuleIsectsEnvClosestToLine(&cap, ((xScene*)xglobals->sceneCur)->env, &coll);
-    if (coll.dist < 0.001f)
+    if (coll.dist < 0.001f) {
         return true;
+    }
 
     xBox box; xQCData qcd;
     xBoxFromCapsule(box, cap);
@@ -493,16 +507,19 @@ bool capsule_hits_scene(const xCapsule& cap, xCollis& coll)
         xEnt& ent = *ite->ent;
         if (!xQuickCullIsects(&qcd, &ent.bound.qcd))
             continue;
-        if (!ray_hits_bound(ray, ent.bound, cap.r))
+        if (!ray_hits_bound(ray, ent.bound, cap.r)) {
             continue;
+        }
 
         xCollis temp_coll;
         temp_coll.flags = 0;
-        if (!xCapsuleIsectsModelClosestToLine(&cap, ent.camcollModel, &temp_coll))
+        if (!xCapsuleIsectsModelClosestToLine(&cap, ent.camcollModel, &temp_coll)) {
             continue;
+        }
 
-        if (temp_coll.dist < coll.dist)
+        if (temp_coll.dist < coll.dist) {
             coll = temp_coll;
+        }
 
         if (coll.dist < 0.001f)
             return true;
@@ -516,8 +533,9 @@ bool swept_sphere_hits_scene(xSweptSphere& sws, const xVec3& start, const xVec3&
     xSweptSpherePrepare(&sws, &start, &end, radius);
 
     xSweptSphereToEnv(&sws, ((xScene*)xglobals->sceneCur)->env);
-    if (sws.curdist <= 0.0f)
+    if (sws.curdist <= 0.0f) {
         return true;
+    }
 
     xBox box; xQCData qcd;
     xBoxFromCapsule(box, start, end, radius);
@@ -536,12 +554,14 @@ bool swept_sphere_hits_scene(xSweptSphere& sws, const xVec3& start, const xVec3&
         xEnt& ent = *ite->ent;
         if (!xQuickCullIsects(&qcd, &ent.bound.qcd))
             continue;
-        if (!ray_hits_bound(ray, ent.bound, radius))
+        if (!ray_hits_bound(ray, ent.bound, radius)) {
             continue;
+        }
 
         xModelInstance& model = *ent.camcollModel;
-        if (!xSweptSphereToModel(&sws, model.Data, model.Mat))
+        if (!xSweptSphereToModel(&sws, model.Data, model.Mat)) {
             continue;
+        }
 
         if (sws.curdist <= 0.0f)
             return true;
@@ -555,8 +575,9 @@ bool sphere_hits_scene(const xSphere& o, xCollis& coll)
     coll.dist = HUGE;
     coll.flags |= 0x100;
     xSphereHitsEnv(&o, ((xScene*)xglobals->sceneCur)->env, &coll);
-    if (coll.dist <= 0.0f)
+    if (coll.dist <= 0.0f) {
         return true;
+    }
 
     xQCData qcd;
     xQuickCullForSphere(&qcd, &o);
@@ -566,16 +587,19 @@ bool sphere_hits_scene(const xSphere& o, xCollis& coll)
         xEnt& ent = *ite->ent;
         if (!xQuickCullIsects(&qcd, &ent.bound.qcd))
             continue;
-        if (!xSphereHitsBound(o, ent.bound))
+        if (!xSphereHitsBound(o, ent.bound)) {
             continue;
+        }
 
         xCollis temp_coll;
         temp_coll.flags = coll.flags;
-        if (!xSphereHitsModel(&o, ent.camcollModel, &temp_coll))
+        if (!xSphereHitsModel(&o, ent.camcollModel, &temp_coll)) {
             continue;
+        }
 
-        if (temp_coll.dist < coll.dist)
+        if (temp_coll.dist < coll.dist) {
             coll = temp_coll;
+        }
 
         if (coll.dist <= 0.0f)
             return true;
@@ -640,8 +664,9 @@ bool xCamSupportLOSBar::collide_pivot()
     if (losbar_tweak::render_coll_pivot)
         xDrawSetColor(g_WHITE);
 
-    if (!capsule_hits_scene(to_cap, coll))
+    if (!capsule_hits_scene(to_cap, coll)) {
         return false;
+    }
 
     F32 to_t = coll.tuv.t, to_dist = coll.dist;
     xVec3 to_tohit = coll.tohit;
@@ -685,7 +710,7 @@ bool xCamSupportLOSBar::collide_pivot()
             xMATCH_SIGN(vrot, vcircle_mat.up.y);
 
             F32 oldpitch = xasin(vcircle_mat.right.y);
-            F32 newpitch = range_limit(oldpitch + vrot, -1.553343f, 1.553343f);
+            F32 newpitch = range_limit(oldpitch + vrot, -89.0f * (PI/180.0f), 89.0f * (PI/180.0f));
 
             F32 dx = to_cap.start.x - to_cap.end.x, dz = to_cap.start.z - to_cap.end.z;
             F32 xzdist = xsqrt(dx * dx + dz * dz);
@@ -726,8 +751,9 @@ bool xCamSupportLOSBar::collide_pivot()
         from_cap.r = cfg.pivot_bar_radius;
 
         if (capsule_hits_scene(from_cap, coll)) {
-            if (coll.dist < 0.001f)
+            if (coll.dist < 0.001f) {
                 return false;
+            }
             from_t = coll.tuv.t;
             from_dist = coll.dist;
             from_tohit = coll.tohit;
@@ -753,8 +779,9 @@ bool xCamSupportLOSBar::collide_pivot()
                 }
             }
 
-            if (tries >= 8)
+            if (tries >= 8) {
                 return false;
+            }
         }
     }
 
@@ -876,12 +903,14 @@ bool xCamSupportLOSBar::collide_compress()
         return false;
 
     F32 dist = sws.curdist;
-    if (dist > ball_dist)
+    if (dist > ball_dist) {
         dist = ball_dist;
+    }
 
     dist -= cfg.pivot_bar_radius - cfg.compress_ball_radius;
-    if (dist < 0.0f)
+    if (dist < 0.0f) {
         dist = 0.0f;
+    }
 
     xVec3AddScaled(stern_loc, start, sws.dir, dist);
 

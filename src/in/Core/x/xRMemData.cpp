@@ -10,21 +10,15 @@ void* RyzMemData::operator new(size_t amt, S32, RyzMemGrow* growCtxt)
 
     S32 dogrow = TRUE;
 
-    if (!growCtxt)
-    {
+    if (!growCtxt) {
         dogrow = FALSE;
-    }
-    else if (!growCtxt->IsEnabled())
-    {
+    } else if (!growCtxt->IsEnabled()) {
         dogrow = FALSE;
     }
 
-    if (dogrow)
-    {
+    if (dogrow) {
         mem = xMEMGROWALLOC(amt);
-    }
-    else
-    {
+    } else {
         mem = xMEMALLOC(amt, 0);
     }
 

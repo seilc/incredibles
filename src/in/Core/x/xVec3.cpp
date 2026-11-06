@@ -8,35 +8,7 @@ const xVec3 xVec3::m_UnitAxisZ = { 0.0f, 0.0f, 1.0f };
 F32 xVec3Normalize(xVec3* o, const xVec3* v)
 {
     F32 len;
-    F32 len2 = v->x * v->x + v->y * v->y + v->z * v->z;
-
-    if (xeq(len2, 1.0f, EPSILON))
-    {
-        o->x = v->x;
-        o->y = v->y;
-        o->z = v->z;
-
-        len = 1.0f;
-    }
-    else if (xeq(len2, 0.0f, EPSILON))
-    {
-        o->x = 0.0f;
-        o->y = 1.0f;
-        o->z = 0.0f;
-
-        len = 0.0f;
-    }
-    else
-    {
-        len = xsqrt(len2);
-
-        F32 len_inv = 1.0f / len;
-
-        o->x = v->x * len_inv;
-        o->y = v->y * len_inv;
-        o->z = v->z * len_inv;
-    }
-
+    xVec3NormalizeMacro(o, v, &len);
     return len;
 }
 

@@ -6,6 +6,8 @@
 class xMemoryManager
 {
 public:
+    xMemoryManager() {}
+
     bool Owns(const void* pointer) const;
     void* GetArenaStart() const;
     void* GetArenaEnd() const;
