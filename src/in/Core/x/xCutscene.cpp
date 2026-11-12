@@ -851,7 +851,7 @@ void xCutscene_Render(xCutscene* csn, xEnt**, S32*, F32*)
                     xShadowSetLight(&center, &shadVec, 1.0f);
                     xShadowVertical_FillCache(&scache, &center, fillCacheRadius, 6.0f, 0.0871557f);
 
-                    xShadowCameraUpdate(&smod, (xShadowRenderCallback)CutsceneShadowRender, &center, fillCacheRadius, 0);
+                    xShadowCameraUpdate(&smod, (void (*)(void*))CutsceneShadowRender, &center, fillCacheRadius, 0);
 
                     xShadowVertical_DrawCache(&scache, 0.3f, 0.0f, 0, NULL, NULL);
 

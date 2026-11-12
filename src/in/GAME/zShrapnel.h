@@ -9,12 +9,16 @@
 
 struct zFrag;
 struct zFragAsset;
+struct zShrapnelAsset;
+
+typedef void (*zShrapnelFragCallback)(zFrag*, zFragAsset*);
+typedef void (*zShrapnelInitCallback)(zShrapnelAsset*, xModelInstance*, xVec3*, zShrapnelFragCallback);
 
 struct zShrapnelAsset
 {
     S32 fassetCount;
     U32 shrapnelID;
-    void (*initCB)(zShrapnelAsset*, xModelInstance*, xVec3*, void (*)(zFrag*, zFragAsset*));
+    zShrapnelInitCallback initCB;
 };
 
 enum zFragType

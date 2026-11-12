@@ -68,17 +68,21 @@ public:
 
     struct tag_type
     {
+        typedef void(*tag_callback)(jot&, const xtextbox&, const xtextbox&, const split_tag&);
+
         substr name;
-        void(*parse_tag)(jot&, xtextbox&, xtextbox&, split_tag&);
-        void(*reset_tag)(jot&, xtextbox&, xtextbox&, split_tag&);
+        tag_callback parse_tag;
+        tag_callback reset_tag;
         void* context;
     };
 
     struct callback
     {
-        void(*render)(jot&, xtextbox&, F32, F32);
-        void(*layout_update)(jot&, xtextbox&, xtextbox&);
-        void(*render_update)(jot&, xtextbox&, xtextbox&);
+        typedef void(*update_callback)(const jot&, xtextbox&, const xtextbox&);
+
+        void(*render)(const jot&, const xtextbox&, F32, F32);
+        update_callback layout_update;
+        update_callback render_update;
     };
 
     struct jot

@@ -8,7 +8,8 @@ splits: config/GICE78/splits.txt
 # See config.example.yml for a list.
 ldscript_template: config/GICE78/ldscript.tpl
 
-# Pool references taken minus 4 that dtk attributes to the previous object.
+# Pool references taken minus 4, which dtk attributes to the previous symbol (in another object, or in the same
+# object's section, as xsavegame's .sbss2): named after the real target so objects compare per function.
 add_relocations:
 - source: .text:0x8000E008
   type: sda21

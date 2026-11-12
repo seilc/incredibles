@@ -3,19 +3,13 @@
 
 #include "xsavegame.h"
 
-typedef struct st_SERIAL_CLIENTINFO
-{
-    U32 idtag;
-    S32* membuf;
-    S32 trueoff;
-    S32 actsize;
-} SERIAL_CLIENTINFO;
+struct st_SERIAL_CLIENTINFO;
 
-typedef struct st_SERIAL_PERCID_SIZE
+struct st_SERIAL_PERCID_SIZE
 {
     U32 idtag;
     S32 needsize;
-} SERIAL_PERCID_SIZE;
+};
 
 struct xSerial
 {
@@ -48,7 +42,7 @@ struct xSerial
 private:
     U32 idtag;
     S32 baseoff;
-    SERIAL_CLIENTINFO* ctxtdata;
+    st_SERIAL_CLIENTINFO* ctxtdata;
     S32 warned;
     S32 curele;
     S32 bitidx;
@@ -57,7 +51,7 @@ private:
 
 typedef S32 (*xSerialTraverseCallback)(U32 clientID, xSerial* xser);
 
-S32 xSerialStartup(S32 count, SERIAL_PERCID_SIZE* sizeinfo);
+S32 xSerialStartup(S32 count, st_SERIAL_PERCID_SIZE* sizeinfo);
 S32 xSerialShutdown();
 void xSerialTraverse(xSerialTraverseCallback func);
 void xSerialWipeMainBuffer();
