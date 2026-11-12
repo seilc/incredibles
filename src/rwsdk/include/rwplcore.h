@@ -684,6 +684,15 @@ struct RwObject
 #define RwRenderStateGetMacro(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateGet(_state, _value))
 #define RwRenderStateSetMacro(_state, _value) (RWSRCGLOBAL(dOpenDevice).fpRenderStateSet(_state, _value))
 
+#define RwV3dAddMacro(o, a, b)            \
+    MACRO_START                           \
+    {                                     \
+        (o)->x = (((a)->x) + ( (b)->x));  \
+        (o)->y = (((a)->y) + ( (b)->y));  \
+        (o)->z = (((a)->z) + ( (b)->z));  \
+    }                                     \
+    MACRO_STOP
+
 #define RwV3dCrossProductMacro(o, a, b)                                    \
     MACRO_START                                                            \
     {                                                                      \
@@ -822,6 +831,7 @@ RwV3d* RwMatrixGetPos(RwMatrix* matrix);
 void RwMatrixSetIdentity(RwMatrix* matrix);
 RwBool RwRenderStateGet(RwRenderState state, void* value);
 RwBool RwRenderStateSet(RwRenderState state, void* value);
+void RwV3dAdd(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 void RwV3dAssign(RwV3d* target, const RwV3d* source);
 void RwV3dCrossProduct(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 RwReal RwV3dDotProduct(const RwV3d* ina, const RwV3d* inb);
@@ -849,6 +859,7 @@ void RwV3dSub(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 #define RwMatrixSetIdentity(m) RwMatrixSetIdentityMacro(m)
 #define RwRenderStateGet(_state, _value) RwRenderStateGetMacro(_state, _value)
 #define RwRenderStateSet(_state, _value) RwRenderStateSetMacro(_state, _value)
+#define RwV3dAdd(o, a, b) RwV3dAddMacro(o, a, b)
 #define RwV3dAssign(o, a) RwV3dAssignMacro(o, a)
 #define RwV3dCrossProduct(o, a, b) RwV3dCrossProductMacro(o, a, b)
 #define RwV3dDotProduct(a, b) RwV3dDotProductMacro(a, b)

@@ -52,6 +52,11 @@ inline void xVec3SubFrom(xVec3* a, const xVec3* b)
     a->x -= b->x, a->y -= b->y, a->z -= b->z;
 }
 
+inline void xVec3Cross(xVec3* o, const xVec3* a, const xVec3* b)
+{
+    o->x = a->y * b->z - b->y * a->z, o->y = a->z * b->x - b->z * a->x, o->z = a->x * b->y - b->x * a->y;
+}
+
 inline void xVec3Cross(xVec3& o, const xVec3& a, const xVec3& b)
 {
     o.x = a.y * b.z - b.y * a.z, o.y = a.z * b.x - b.z * a.x, o.z = a.x * b.y - b.x * a.y;

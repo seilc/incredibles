@@ -37,7 +37,6 @@ struct xVec3
         return 1.0f / f;
     }
     F32 length2() const;
-    void up_normalize();
 
     void assign(F32 x, F32 y, F32 z)
     {
@@ -83,6 +82,9 @@ struct xVec3
         return v;
     }
 
+    xVec3 get_abs() const { xVec3 temp = *this; return temp.set_abs(); }
+    xVec3& set_abs() { x = xabs(x); y = xabs(y); z = xabs(z); return *this; }
+
     F32 safe_normalize(const xVec3& safety)
     {
         F32 len = length();
@@ -92,6 +94,8 @@ struct xVec3
             *this *= 1.0f / len;
         return len;
     }
+
+    F32 up_normalize() { return safe_normalize(m_UnitAxisY); }
 };
 
 F32 xVec3Normalize(xVec3* o, const xVec3* v);

@@ -520,7 +520,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xClimate.cpp"),
             Object(Matching, "in/Core/x/xClumpColl.cpp"),
             Object(Matching, "in/Core/x/xCM.cpp"),
-            Object(NonMatching, "in/Core/x/xCollide.cpp"),
+            Object(Matching, "in/Core/x/xCollide.cpp"),
             Object(Matching, "in/Core/x/xCollideFast.cpp"),
             Object(Matching, "in/Core/x/xColor.cpp"),
             Object(Matching, "in/Core/x/xCounter.cpp"),

@@ -122,15 +122,6 @@ struct xIsect
     F32 dist;
 };
 
-struct xParabola
-{
-    xVec3 initPos;
-    xVec3 initVel;
-    F32 gravity;
-    F32 minTime;
-    F32 maxTime;
-};
-
 extern const xVec3 g_O3;
 extern const xVec3 g_X3;
 extern const xVec3 g_Y3;
@@ -294,6 +285,13 @@ inline void xMat4x3Tolocal(xVec3* o, const xMat4x3* m, const xVec3* v)
     o->y = v->y - m->pos.y;
     o->z = v->z - m->pos.z;
 
+    xMat3x3Tolocal(o, m, o);
+}
+
+// UNUSED: speculative
+inline void xMat4x3Tolocal(xVec3* o, const xMat3x3* m, const xVec3* pos, const xVec3* v)
+{
+    o->x = v->x - pos->x, o->y = v->y - pos->y, o->z = v->z - pos->z;
     xMat3x3Tolocal(o, m, o);
 }
 

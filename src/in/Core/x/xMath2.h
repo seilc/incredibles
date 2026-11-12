@@ -17,6 +17,7 @@ struct xVec2
     }
 
     xVec2& operator-=(const xVec2& v) { x -= v.x; y -= v.y; return *this; }
+    xVec2 operator-(const xVec2& v) const { xVec2 temp = *this; temp -= v; return temp; }
     xVec2& operator*=(F32 f) { x *= f; y *= f; return *this; }
     xVec2& operator/=(F32 f) { F32 i = 1.0f / f; x *= i; y *= i; return *this; }
     F32 dot(const xVec2& c) const { return x * c.x + y * c.y; }
