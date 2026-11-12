@@ -43,6 +43,8 @@ typedef xBase* (*zSceneForAllBaseCallback)(xBase*, zScene*, void*);
 #define ZSCENE_LOAD_HIP 0x1
 #define ZSCENE_LOAD_HOP 0x2
 
+extern bool gInSceneResetOrInit;
+
 void zSceneSwitch(zPortal* p, S32 forceSameScene);
 xBase* zSceneFindObject(U32 gameID);
 void zSceneForAllBase(zSceneForAllBaseCallback func, S32 baseType, void* data);

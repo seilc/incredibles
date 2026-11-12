@@ -130,7 +130,10 @@ void xModelSetLightKit(xModelInstance* minst, xLightKit* lightKit);
 void xModelCloneAtomic(RpAtomic** out, S32 out_size, RpAtomic* in);
 RpAtomic* xModelFindAtomic(U32 id, U32* actual_id);
 
-xMat4x3* xModelGetFrame(xModelInstance* minst);
+inline xMat4x3* xModelGetFrame(xModelInstance* model)
+{
+    return (xMat4x3*)model->Mat;
+}
 
 inline void xModelSetFrame(xModelInstance* model, const xMat4x3* frame)
 {

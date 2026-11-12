@@ -98,6 +98,9 @@ struct zPlayer : zEnt
     virtual xVec3 get_target();
     virtual F32 GetScreenFadeTime();
     virtual F32 StartScreenFadeAt();
+
+    S32 GetCollisionSpheres(const xSphere** sphereArray);
+
     virtual bool IsInteractioning();
     virtual void SetEnemyIsNear(bool isit);
 

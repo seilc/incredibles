@@ -140,6 +140,12 @@ struct zSurfacePropUVFX
     xVec3 minmax_spd;
 };
 
+#define SURF_TEXANIM_ON 0x1
+#define SURF_TEXANIM_ON2 0x2
+
+#define UVANIM_FLAG_ON 0x1
+#define UVANIM_FLAG_ON2 0x2
+
 struct zSurfaceProps
 {
     zSurfAssetIN* asset;

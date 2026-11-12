@@ -9,6 +9,7 @@
 struct xEnt;
 struct xScene;
 struct xEntCollis;
+struct xEntDriveInfo;
 
 struct xEntAsset : xBaseAsset
 {
@@ -42,7 +43,10 @@ struct xEntFrame
     U32 mode;
     xVec3 dpos;
 
-    xVec3& getDpos() const;
+    const xVec3& getDpos() const
+    {
+        return dpos;
+    }
 
     xVec3& setDpos()
     {
@@ -52,6 +56,36 @@ struct xEntFrame
 
 typedef void(*xEntCollisPostCallback)(xEnt*, xScene*, F32, xEntCollis*);
 typedef U32(*xEntCollisDepenQueryCallback)(xEnt*, xEnt*, xScene*, F32, xCollis*);
+
+// xEntFrame::mode
+#define k_XENT_SET_ROT (1 << 4)
+
+// xEnt::flags
+#define k_XENT_IS_VISIBLE ((U8)(1 << 0))
+
+// xEnt::pflags
+#define k_XENT_IS_MOVING ((U8)(1 << 0))
+#define k_XENT_HAS_VELOCITY ((U8)(1 << 1))
+#define k_XENT_HAS_GRAVITY ((U8)(1 << 2))
+#define k_XENT_HAS_DRAG ((U8)(1 << 3))
+
+// xEnt::collType, chkby, penby; xEntCollis::chk, pen
+#define k_XENT_COLLTYPE_TRIG ((U8)(1 << (0)))
+#define k_XENT_COLLTYPE_STAT ((U8)(1 << (1)))
+#define k_XENT_COLLTYPE_DYN ((U8)(1 << (2)))
+#define k_XENT_COLLTYPE_NPC ((U8)(1 << (3)))
+#define k_XENT_COLLTYPE_PC ((U8)(1 << (4)))
+#define k_XENT_COLLTYPE_ENV ((U8)(1 << (5)))
+
+// xEnt::collLev
+#define k_XENT_COLLLEV_FASTEST 0
+#define k_XENT_COLLLEV_AABB 1
+#define k_XENT_COLLLEV_SPH 2
+#define k_XENT_COLLLEV_OBB 3
+#define k_XENT_COLLLEV_BOUND 4
+#define k_XENT_COLLLEV_MODEL 5
+
+#define k_XENT_MAX_COLL 18
 
 struct xEntCollis
 {
@@ -66,9 +100,16 @@ struct xEntCollis
     U8 stat_sidx;
     U8 stat_eidx;
     U8 idx;
-    xCollis colls[18];
+    xCollis colls[k_XENT_MAX_COLL];
     xEntCollisPostCallback post;
     xEntCollisDepenQueryCallback depenq;
+};
+
+struct xEntDriveInfo
+{
+    xMat4x3 driveMat;
+    xVec3 centerOffset;
+    U32 flags;
 };
 
 struct xEntShadow
@@ -85,13 +126,10 @@ struct xEntShadow
     RpAtomic* shadowModel;
     F32 dst_cast;
     F32 radius[2];
-    struct
-    {
-        S32 flg_castOnOneDFF : 1;
-        S32 flg_castOnAllDFF : 1;
-        S32 flg_disableEnvCast : 1;
-        S32 flg_shadowUnused : 29;
-    };
+    S32 flg_castOnOneDFF : 1;
+    S32 flg_castOnAllDFF : 1;
+    S32 flg_disableEnvCast : 1;
+    S32 flg_shadowUnused : 29;
 };
 
 struct xFFX;
@@ -112,7 +150,7 @@ struct xEnt : xBase
         U32 bones;
         xMat4x3 old_mat;
         xMat4x3 new_mat;
-        U32 verts_size;
+        size_t verts_size;
         xVec3* verts;
         xVec3* normals;
     };
@@ -124,12 +162,10 @@ struct xEnt : xBase
     U8 subType;
     U8 pflags;
     U16 moreFlags;
-    struct
-    {
-        U8 _isCulled : 2;
-        U8 collisionEventReceived : 2;
-    };
-    U8 driving_count;
+    U8 _isCulled : 2;
+    U8 collisionEventReceived : 2;
+    U8 driving_count : 7;
+    U8 driving_reset : 1;
     U8 num_ffx;
     U8 collType;
     U8 collLev;
@@ -152,36 +188,26 @@ struct xEnt : xBase
     xFFX* ffx;
     xEnt* driver;
     xEnt* driven;
-    S32 driveMode;
+    xEntDriveInfo* driveInfo;
     xShadowSimpleCache* simpShadow;
     xEntShadow* entShadow;
     anim_coll_data* anim_coll;
     void* user_data;
 };
 
-void xEntInit(xEnt* ent, xEntAsset* asset);
-void xEntGrowGlobalBoundingBox(const xVec3* pos);
-void xEntInitForType(xEnt* ent);
-void xEntSetup(xEnt* ent);
-void xEntReset(xEnt* ent);
-void xEntRender(xEnt* ent);
-void xEntBeginUpdate(xEnt* ent, xScene*, F32 dt);
-void xEntEndUpdate(xEnt* ent, xScene* sc, F32 dt);
-void xEntCollide(xEnt* ent, xScene* sc, F32 dt);
-void xEntMove(xEnt* ent, xScene* sc, F32 dt);
-void xEntApplyPhysics(xEnt* ent, xScene* sc, F32 dt);
-void xEntSetupPipeline(xSurface* surf, RpAtomic* model);
-void xEntRestorePipeline(xSurface*, RpAtomic* model);
-void xEntShow(xEnt* ent);
-void xEntHide(xEnt* ent);
-xMat4x3* xEntGetFrame(const xEnt* ent);
-xVec3* xEntGetPos(const xEnt* ent);
-
-U32 xEntIsEnabled(const xEnt* ent);
-
-inline U32 xEntIsVisible(const xEnt* ent)
+inline xVec3* xEntGetCenter(const xEnt* ent)
 {
-    return (ent->flags & 0x85) == 0x1;
+    return xBoundCenter(&ent->bound);
+}
+
+inline xVec3* xEntGetPos(const xEnt* ent)
+{
+    return &xModelGetFrame(ent->model)->pos;
+}
+
+inline U32 xEntIsEnabled(const xEnt* ent)
+{
+    return xBaseIsEnabled(ent);
 }
 
 bool xBaseIsEntity(xBase* base);
@@ -204,10 +230,81 @@ inline void xEntVisibilityCullOff(xEnt* ent)
     }
 }
 
+inline xMat4x3* xEntGetFrame(const xEnt* ent)
+{
+    return xModelGetFrame(ent->model);
+}
+
 struct xEntOpacity
 {
     F32 delta_opacity;
     F32 delta_opacity_2;
 };
+
+typedef xEnt*(*xEntCollCheckCallback)(xEnt*, xScene*, void*);
+
+void xEntSceneInit();
+void xEntSceneExit();
+void xEntInit(xEnt* ent, xEntAsset* asset);
+void xEntGrowGlobalBoundingBox(const xVec3* pos);
+void xEntInitForType(xEnt* ent);
+void xEntSetup(xEnt* ent);
+void xEntSave(xEnt* ent, xSerial* s);
+void xEntLoad(xEnt* ent, xSerial* s);
+void xEntReset(xEnt* ent);
+void xEntLoadModelFromDisk(xEnt* ent, const char* filename, xMemPool*); // UNUSED
+xModelInstance* xEntLoadModel(xEnt* ent, RpAtomic* imodel, xModelInstance* reuse_instance);
+void xEntSetupPipeline(xModelInstance* model);
+void xEntSetupPipeline(xSurface* surf, RpAtomic* model);
+void xEntRestorePipeline(xModelInstance* model);
+void xEntRestorePipeline(xSurface*, RpAtomic* model);
+void xEntRender(xEnt* ent);
+void xEntUpdate(xEnt* ent, xScene* sc, F32 dt);
+void xEntBeginUpdate(xEnt* ent, xScene*, F32 dt);
+void xEntEndUpdate(xEnt* ent, xScene* sc, F32 dt);
+void xEntDefaultBoundUpdate(xEnt* ent, xVec3* pos);
+void xEntDefaultTranslate(xEnt* ent, xVec3* dpos, xMat4x3* dmat);
+void xEntMotionToMatrix(xEnt* ent, xEntFrame* frame);
+void xEntMove(xEnt* ent, xScene* sc, F32 dt);
+void xEntApplyPhysics(xEnt* ent, xScene* sc, F32 dt);
+void xEntCollide(xEnt* ent, xScene* sc, F32 dt);
+void xEntBeginCollide(xEnt* ent, xScene*, F32);
+void xEntEndCollide(xEnt* ent, xScene* sc, F32 dt);
+void xEntCollCheckEnv(xEnt* p, xScene* sc);
+void xEntCollCheckByGrid(xEnt* p, xScene* sc, xEntCollCheckCallback hitIt);
+void xEntCollCheckNPCsByGrid(xEnt* p, xScene* sc, xEntCollCheckCallback hitIt);
+xEnt* xEntCollCheckOneEntNoDepen(xEnt* ent, xScene* sc, void* data);
+void xEntCollideFloor(xEnt* p, xScene* sc, F32 dt);
+void xEntCollideCeiling(xEnt* p, xScene* sc, F32 dt);
+void xEntCollideWalls(xEnt* p, xScene* sc, F32 dt);
+xBox* xEntGetAllEntsBox();
+void xEntAnimateCollision(xEnt& ent, bool on);
+bool xEntValidType(U8 type);
+bool xEntTurnToFace(xEnt* ent, const xVec3* target, F32 speedLimit, F32 dt);
+void xEntOpacityInit(xEntOpacity* opacity, xEnt* ent);
+void xEntOpacityUpdate(xEntOpacity* opacity, xEnt* ent, F32 dt);
+void xEntLoadCheckPoint();
+void xEntStoreCheckPoint();
+
+inline void xEntShow(xEnt* ent)
+{
+    ent->flags |= k_XENT_IS_VISIBLE;
+    if (ent->visUpdate) {
+        ent->visUpdate(ent);
+    }
+}
+
+inline void xEntHide(xEnt* ent)
+{
+    ent->flags &= (U8)~k_XENT_IS_VISIBLE;
+    if (ent->visUpdate) {
+        ent->visUpdate(ent);
+    }
+}
+
+inline U32 xEntIsVisible(const xEnt* ent)
+{
+    return (ent->flags & (k_XENT_IS_VISIBLE | 0x4 | 0x80)) == k_XENT_IS_VISIBLE;
+}
 
 #endif

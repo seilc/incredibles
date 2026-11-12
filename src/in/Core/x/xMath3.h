@@ -183,7 +183,6 @@ void xQuatDiff(xQuat* o, const xQuat* a, const xQuat* b);
 bool xVec3Rotate(xMat3x3* o, const xVec3* a, const xVec3* b, F32 l);
 bool xVec3Eq(const xVec3& a, const xVec3& b, F32 tol);
 U8 xMat4x3Eq(const xMat4x3& a, const xMat4x3& b, F32 tol); // UNUSED
-void xRotCopy(xRot* o, const xRot* r);
 
 inline void xBoxUnion(xBox& box, const xBox& a, const xBox& b)
 {
@@ -450,6 +449,14 @@ inline void xBoxFromRay(xBox& box, const xRay3& ray)
     xLine3FromRay(line, &ray);
 
     xBoxFromLine(box, line);
+}
+
+inline void xRotCopy(xRot* o, const xRot* r)
+{
+    o->axis.x = r->axis.x;
+    o->axis.y = r->axis.y;
+    o->axis.z = r->axis.z;
+    o->angle = r->angle;
 }
 
 #endif

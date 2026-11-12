@@ -12,5 +12,7 @@ void iMath3Init();
 void iSphereIsectRay(const xSphere* s, const xRay3* r, xIsect* isx);
 void iCylinderIsectRay(const xCylinder* c, const xRay3* r, xIsect* isx);
 void iBoxIsectRay(const xBox* b, const xRay3* r, xIsect* isx);
+void iBoxInitBoundVec(xBox* b, const xVec3* v);
+void iBoxBoundVec(xBox* o, const xBox* b, const xVec3* v);
 
 #endif

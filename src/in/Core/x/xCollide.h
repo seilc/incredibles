@@ -59,10 +59,13 @@ U32 xBoxHitsObb(const xBox* a, const xBox* b, const xMat4x3* mat, xCollis* coll)
 bool xOBBHitsOBB(const xBox& a, const xMat4x3& amat, const xBox& b, const xMat4x3& bmat);
 U32 xSphereHitsVCylinder(const xSphere* sph, const xCylinder* cyl, xCollis* coll);
 U32 xCylinderHitsSphere(const xCylinder* cyl, const xSphere* sph, xCollis* coll);
+S32 xSphereHitsModel3(const xSphere* b, const xModelInstance* m, xCollis* colls, U8 ncolls, F32 sth);
 void xBoxForModel(xBox& o, const xModelInstance* m, bool childModels);
+void xBoxForModelLocal(xBox& o, const xModelInstance* m, bool childModels);
 void xSphereForModel(xSphere& o, const xModelInstance* model, bool childModels);
 void xBoxForTriangle(xBox& box, const xVec3& p0, const xVec3& p1, const xVec3& p2);
 U32 xSphereHitsEnv(const xSphere* b, const xEnv* env, xCollis* coll);
+S32 xSphereHitsEnv3(const xSphere* b, const xEnv* env, xCollis* colls, U8 ncolls, F32 sth);
 U32 xSphereHitsModel(const xSphere* b, const xModelInstance* m, xCollis* coll);
 U32 xRayHitsModel(const xRay3* r, const xModelInstance* m, xCollis* coll);
 U32 xRayHitsEnv(const xRay3* r, const xEnv* env, xCollis* coll);
