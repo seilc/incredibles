@@ -52,6 +52,38 @@ protected:
     void unlink(node_base* a, node_base* b);
 };
 
+template <class T>
+class linear_pool
+{
+public:
+    void create(S32 max_size, T* buffer)
+    {
+        _size = 0;
+        _max_size = max_size;
+        _buffer = buffer;
+    }
+
+    void create(S32 max_size) { create(max_size, new (eMemStaticType_0, 0) T[max_size]); }
+    void clear() { _size = 0; }
+    T* begin() { return _buffer; }
+    T* end() { return _buffer + _size; }
+    T& back() { return _buffer[_size-1]; }
+    void push_back() { _size++; }
+
+    void erase(T* it)
+    {
+        _size--;
+        T* tail = _buffer + _size;
+        if (it != tail)
+            *it = *tail;
+    }
+
+private:
+    S32 _size;
+    S32 _max_size;
+    T* _buffer;
+};
+
 class tier_queue_allocator
 {
 public:

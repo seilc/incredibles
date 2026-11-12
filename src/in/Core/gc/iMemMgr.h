@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+extern S32 the_heap;
+
 void iMemInit();
 void iMemExit();
 bool iMemMgrCheckCollisionWithMallocHeap(void* mem, U32 size);
