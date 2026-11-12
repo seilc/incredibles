@@ -602,6 +602,7 @@ RwFrame* RwFrameOrthoNormalize(RwFrame* frame);
 RwFrame* RwFrameRotate(RwFrame* frame, const RwV3d* axis, RwReal angle, RwOpCombineType combine);
 RwFrame* RwFrameTransform(RwFrame* frame, const RwMatrix* transform, RwOpCombineType combine);
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
+void RwGameCubeCameraTextureFlush(RwRaster* raster, RwBool boxFilter);
 void RwGameCubeSetAlphaCompare(RwInt32 comp0, RwUInt8 ref0, RwInt32 op, RwInt32 comp1, RwUInt8 ref1);
 RwBool RwIm3DEnd(void);
 RwBool RwIm3DRenderIndexedPrimitive(RwPrimitiveType primType, RwImVertexIndex* indices, RwInt32 numIndices);

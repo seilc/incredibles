@@ -132,6 +132,7 @@ struct xParabola
 };
 
 extern xVec3 g_O3;
+extern const xVec3 g_NY3;
 extern xMat4x3 g_I3;
 
 void xBoxInitBoundOBB(xBox* o, const xBox* b, const xMat4x3* m);

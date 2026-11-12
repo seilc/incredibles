@@ -40,4 +40,9 @@ inline bool iEnvIsJSPActive(const iEnv* env, S32 which)
     return env->jsp_visibilityCount[which] > 0;
 }
 
+inline bool iEnvIsJSPVisible(const iEnv* env, S32 which)
+{
+    return env->jsp_visibilityCount[which] > 0;
+}
+
 #endif
