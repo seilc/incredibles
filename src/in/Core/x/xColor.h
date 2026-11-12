@@ -27,6 +27,7 @@ extern const xColor g_BLUE;
 extern const xColor g_YELLOW;
 extern const xColor g_BLACK;
 extern const xColor g_WHITE;
+extern const xColor g_GRAY80;
 extern const xColor g_CLEAR;
 extern const xColor g_PIMP_GOLD;
 extern const xColor g_CHARTREUSE;

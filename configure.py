@@ -526,7 +526,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xCounter.cpp"),
             Object(Matching, "in/Core/x/xCurveAsset.cpp"),
             Object(Matching, "in/Core/x/xCutscene.cpp"),
-            Object(NonMatching, "in/Core/x/xDebug.cpp"),
+            Object(Matching, "in/Core/x/xDebug.cpp"),
             Object(NonMatching, "in/Core/x/xDecal.cpp"),
             Object(NonMatching, "in/Core/x/xEnt.cpp"),
             Object(Matching, "in/Core/x/xEntBoulder.cpp"),

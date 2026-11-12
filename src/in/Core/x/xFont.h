@@ -162,6 +162,8 @@ public:
 
     void render(bool cache) const { render(temp_layout(cache), 0, -1); }
 
+    static void log_layout_stats(bool) {}
+
 private:
     const char** texts;
     const size_t* text_sizes;
