@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-#define iabs(x) ((F32)__fabs((x)))
+#define iabs(x) (float)(__fabs((float)(x)))
 
 #define EPSILON 0.00001f
 

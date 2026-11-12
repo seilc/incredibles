@@ -37,6 +37,12 @@ void xIMLock2(xIMLockContext& context1, xIMLockContext& context2, xIMFormat form
 void xIMUnlock(xIMLockContext& context);
 void xIMRender(xIMLockContext& context, const xMat4x3* mat);
 
-void xIMRenderLegacy(const RwIm3DVertex* verts, U32 count, const RwMatrix* ltm, RwPrimitiveType primType);
+inline void xIMRenderLegacy(const RwIm3DVertex* verts, U32 count, const RwMatrix* ltm, RwPrimitiveType primType)
+{
+    if (RwIm3DTransform((RwIm3DVertex*)verts, count, (RwMatrix*)ltm, rwIM3D_VERTEXUV | rwIM3D_VERTEXXYZ | rwIM3D_VERTEXRGBA)) {
+        RwIm3DRenderPrimitive(primType);
+        RwIm3DEnd();
+    }
+}
 
 #endif

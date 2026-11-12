@@ -277,6 +277,7 @@ struct RpWorld
 };
 
 typedef RpAtomic* (*RpAtomicCallBack)(RpAtomic* atomic, void* data);
+typedef RpMaterial* (*RpMaterialCallBack)(RpMaterial* material, void* data);
 typedef RpMesh* (*RpMeshCallBack)(RpMesh* mesh, RpMeshHeader* meshHeader, void* pData);
 
 #define RpAtomicGetClumpMacro(_atomic) ((_atomic)->clump)
@@ -327,6 +328,7 @@ RwInt32 RpClumpGetNumAtomics(RpClump* clump);
 RpClump* RpClumpRemoveAtomic(RpClump* clump, RpAtomic* atomic);
 RpClump* RpClumpStreamRead(RwStream* stream);
 RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream);
+RpGeometry* RpGeometryForAllMaterials(RpGeometry* geometry, RpMaterialCallBack fpCallBack, void* pData);
 RpGeometry* RpGeometryLock(RpGeometry* geometry, RwInt32 lockMode);
 RpGeometry* RpGeometryUnlock(RpGeometry* geometry);
 RpLight* RpLightCreate(RwInt32 type);

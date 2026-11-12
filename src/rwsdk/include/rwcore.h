@@ -569,6 +569,7 @@ struct RwCamera
 #define RwRasterGetStrideMacro(_raster) ((_raster)->stride)
 #define RwRasterGetTypeMacro(_raster) (((_raster)->cType) & rwRASTERTYPEMASK)
 #define RwRasterGetWidthMacro(_raster) ((_raster)->width)
+#define RwTextureGetNameMacro(_tex) ((_tex)->name)
 #define RwTextureGetRasterMacro(_tex) ((_tex)->raster)
 #define rwTEXTUREFILTERMODEMASK 0x000000FF
 
@@ -598,6 +599,7 @@ RwFrame* RwFrameCreate(void);
 RwBool RwFrameDestroy(RwFrame* frame);
 RwMatrix* RwFrameGetLTM(RwFrame* frame);
 RwFrame* RwFrameOrthoNormalize(RwFrame* frame);
+RwFrame* RwFrameRotate(RwFrame* frame, const RwV3d* axis, RwReal angle, RwOpCombineType combine);
 RwFrame* RwFrameTransform(RwFrame* frame, const RwMatrix* transform, RwOpCombineType combine);
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
 void RwGameCubeSetAlphaCompare(RwInt32 comp0, RwUInt8 ref0, RwInt32 op, RwInt32 comp1, RwUInt8 ref1);
@@ -644,6 +646,7 @@ RwInt32 RwRasterGetHeight(const RwRaster* raster);
 RwInt32 RwRasterGetStride(const RwRaster* raster);
 RwInt32 RwRasterGetType(const RwRaster* raster);
 RwInt32 RwRasterGetWidth(const RwRaster* raster);
+RwChar* RwTextureGetName(RwTexture* texture);
 RwRaster* RwTextureGetRaster(const RwTexture* texture);
 RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filtering);
 #endif
@@ -674,6 +677,7 @@ RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filter
 #define RwRasterGetStride(_raster) RwRasterGetStrideMacro(_raster)
 #define RwRasterGetType(_raster) RwRasterGetTypeMacro(_raster)
 #define RwRasterGetWidth(_raster) RwRasterGetWidthMacro(_raster)
+#define RwTextureGetName(_tex) RwTextureGetNameMacro(_tex)
 #define RwTextureGetRaster(_tex) RwTextureGetRasterMacro(_tex)
 #define RwTextureSetFilterMode(_tex, _filtering) RwTextureSetFilterModeMacro(_tex, _filtering)
 #endif
