@@ -564,6 +564,7 @@ struct RwCamera
 #define RwCameraSetRasterMacro(_camera, _raster) (((_camera)->frameBuffer = (_raster)), (_camera))
 #define RwCameraSetZRasterMacro(_camera, _raster) (((_camera)->zBuffer = (_raster)), (_camera))
 #define RwFrameGetMatrixMacro(_f) (&(_f)->modelling)
+#define RwImageGetPixelsMacro(_image) ((_image)->cpPixels)
 #define RwRasterGetFormatMacro(_raster) ((((_raster)->cFormat) & (rwRASTERFORMATMASK >> 8)) << 8)
 #define RwRasterGetHeightMacro(_raster) ((_raster)->height)
 #define RwRasterGetStrideMacro(_raster) ((_raster)->stride)
@@ -642,6 +643,7 @@ RwCamera* RwCameraSetFrame(RwCamera* camera, RwFrame* frame);
 RwCamera* RwCameraSetRaster(RwCamera* camera, RwRaster* raster);
 RwCamera* RwCameraSetZRaster(RwCamera* camera, RwRaster* zRaster);
 RwMatrix* RwFrameGetMatrix(RwFrame* frame);
+RwUInt8* RwImageGetPixels(const RwImage* image);
 RwInt32 RwRasterGetFormat(const RwRaster* raster);
 RwInt32 RwRasterGetHeight(const RwRaster* raster);
 RwInt32 RwRasterGetStride(const RwRaster* raster);
@@ -673,6 +675,7 @@ RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filter
 #define RwCameraSetRaster(_camera, _raster) RwCameraSetRasterMacro(_camera, _raster)
 #define RwCameraSetZRaster(_camera, _raster) RwCameraSetZRasterMacro(_camera, _raster)
 #define RwFrameGetMatrix(_f) RwFrameGetMatrixMacro(_f)
+#define RwImageGetPixels(_image) RwImageGetPixelsMacro(_image)
 #define RwRasterGetFormat(_raster) RwRasterGetFormatMacro(_raster)
 #define RwRasterGetHeight(_raster) RwRasterGetHeightMacro(_raster)
 #define RwRasterGetStride(_raster) RwRasterGetStrideMacro(_raster)

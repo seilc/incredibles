@@ -676,6 +676,7 @@ struct RwObject
 #define RwIm2DVertexSetScreenX(vert, scrnx) ((vert)->x = (scrnx))
 #define RwIm2DVertexSetScreenY(vert, scrny) ((vert)->y = (scrny))
 #define RwIm2DVertexSetScreenZ(vert, scrnz) ((vert)->z = (scrnz))
+#define RwIm2DVertexSetRecipCameraZ(vert, recipz)
 #define RwIm2DVertexSetU(vert, texU, recipz) ((vert)->u = (texU))
 #define RwIm2DVertexSetV(vert, texV, recipz) ((vert)->v = (texV))
 #define RwRealMax2(a,b) ((RwReal)( ((a) >= (b)) ? (a) : (b)))

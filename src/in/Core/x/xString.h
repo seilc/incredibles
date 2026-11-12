@@ -30,4 +30,42 @@ S32 icompare(const substr& s1, const substr& s2);
 U32 atox(const substr& s, size_t& read_size);
 const char* find_char(const substr& s, const substr& cs);
 
+inline U32 atox(const substr& s) { size_t read_size; return atox(s, read_size); }
+
+inline bool is_ws(char c) { return c == ' ' || c == '\t' || c == '\n'; }
+
+inline const char* skip_ws(const char*& text, size_t& size)
+{
+    for (size_t i = 0; i < size && *text; i++, ++text)
+        if (!is_ws(*text)) { size -= i; break; }
+    return text;
+}
+
+inline const char* skip_ws(substr& s) { return skip_ws(s.text, s.size); }
+
+inline size_t rskip_ws(const char*& text, size_t& size)
+{
+    while (size && is_ws(text[size - 1])) size--;
+    return size;
+}
+
+inline size_t rskip_ws(substr& s) { return rskip_ws(s.text, s.size); }
+
+inline void trim_ws(const char*& text, size_t& size)
+{
+    skip_ws(text, size);
+    rskip_ws(text, size);
+}
+
+inline void trim_ws(substr& s) { trim_ws(s.text, s.size); }
+
+inline const char* find_char(const substr& s, char c)
+{
+    if (!s.text) return NULL;
+    const char* p = s.text;
+    for (S32 i = s.size; i > 0 && *p; --i, ++p)
+        if (*p == c) return p;
+    return NULL;
+}
+
 #endif

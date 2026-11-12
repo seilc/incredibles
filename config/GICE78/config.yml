@@ -27,6 +27,10 @@ add_relocations:
   type: sda21
   target: "@1256!.sdata2:0x803D2114"
   addend: -4
+- source: .text:0x80032628
+  type: sda21
+  target: "@1608!.sbss2:0x803D86A0"
+  addend: -4
 - source: .text:0x80052538
   type: sda21
   target: "@1593!.sbss2:0x803D8760"
@@ -296,3 +300,7 @@ add_relocations:
 - source: .init:0x80005508
   type: l
   target: TRKInterruptHandler
+block_relocations:
+  # LogoData image bytes that read as an address inside xFont's parse_tag_tex (0x80036E00): dtk made the local
+  # function global to serve this false pointer, which a compiled xFont.o can't provide.
+  - source: 0x80322074
