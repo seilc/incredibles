@@ -114,7 +114,10 @@ void* xMemGrowAlloc(U32 heapID, U32 size);
 
 void* xMemAlloc(U32 heapID, U32 size, S32 align);
 
-void* xMemPushTemp(U32 size);
+inline void* xMemPushTemp(U32 amt)
+{
+    return iMemPushTemp(amt);
+}
 
 void* operator new[](size_t, xMemStaticType, U32);
 

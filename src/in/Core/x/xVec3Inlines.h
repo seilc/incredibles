@@ -1,9 +1,24 @@
 #ifndef XVEC3INLINES_H
 #define XVEC3INLINES_H
 
+inline void xVec3Init(xVec3* v, F32 _x, F32 _y, F32 _z)
+{
+    v->x = _x, v->y = _y, v->z = _z;
+}
+
 inline U32 xVec3Equals(const xVec3* a, const xVec3* b)
 {
     return xeq(a->x, b->x, 0.0f) && xeq(a->y, b->y, 0.0f) && xeq(a->z, b->z, 0.0f);
+}
+
+inline void xVec3AddTo(xVec3* a, const xVec3* b)
+{
+    a->x += b->x, a->y += b->y, a->z += b->z;
+}
+
+inline void xVec3AddScaled(xVec3* a, const xVec3* b, F32 scale)
+{
+    a->x += b->x * scale, a->y += b->y * scale, a->z += b->z * scale;
 }
 
 inline void xVec3AddScaled(xVec3& a, const xVec3& b, F32 scale)
@@ -20,6 +35,11 @@ inline void xVec3AddScaled(xVec3& o, const xVec3& a, const xVec3& b, F32 scale)
     o.z = a.z + b.z * scale;
 }
 
+inline void xVec3Sub(xVec3* o, const xVec3* a, const xVec3* b)
+{
+    o->x = a->x - b->x, o->y = a->y - b->y, o->z = a->z - b->z;
+}
+
 inline void xVec3Sub(xVec3& o, const xVec3& a, const xVec3& b)
 {
     o.x = a.x - b.x;
@@ -30,6 +50,11 @@ inline void xVec3Sub(xVec3& o, const xVec3& a, const xVec3& b)
 inline void xVec3Cross(xVec3& o, const xVec3& a, const xVec3& b)
 {
     o.x = a.y * b.z - b.y * a.z, o.y = a.z * b.x - b.z * a.x, o.z = a.x * b.y - b.x * a.y;
+}
+
+inline void xVec3SMul(xVec3* o, const xVec3* v, F32 s)
+{
+    o->x = v->x * s, o->y = v->y * s, o->z = v->z * s;
 }
 
 inline void xVec3SMul(xVec3& o, const xVec3& v, F32 s)
@@ -56,6 +81,11 @@ inline void xVec3ScaleC(xVec3& o, F32 scale)
     o.x *= scale;
     o.y *= scale;
     o.z *= scale;
+}
+
+inline void xVec3Inv(xVec3* o, const xVec3* v)
+{
+    o->x = -v->x, o->y = -v->y, o->z = -v->z;
 }
 
 inline F32 xVec3Length2(const xVec3* v)
