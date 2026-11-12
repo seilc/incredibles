@@ -64,7 +64,7 @@ struct PKRReadFuncs
     S32(*AssetCount)(st_PACKER_READ_DATA*, U32);
     S32(*IsAssetReady)(st_PACKER_READ_DATA*, U32);
     S32(*SetActive)(st_PACKER_READ_DATA*, en_LAYER_TYPE);
-    char*(*AssetName)(st_PACKER_READ_DATA*, U32);
+    const char*(*AssetName)(st_PACKER_READ_DATA*, U32);
     U32(*GetBaseSector)(st_PACKER_READ_DATA*);
     S32(*GetAssetInfo)(st_PACKER_READ_DATA*, U32, PKRAssetTOCInfo*);
     S32(*GetAssetInfoByType)(st_PACKER_READ_DATA*, U32, S32, PKRAssetTOCInfo*);

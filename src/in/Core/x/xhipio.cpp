@@ -1,5 +1,7 @@
 #include "xhipio.h"
 
+#include "xbinio.h"
+
 #include <string.h>
 
 static st_HIPLOADDATA* HIPLCreate(const char* filename, char* dblbuf, S32 bufsize, S32 fileflags);
@@ -19,7 +21,33 @@ static S32 HIPLReadLongs(st_HIPLOADDATA* lddata, S32* data, S32 cnt);
 static S32 HIPLReadFloats(st_HIPLOADDATA* lddata, F32* data, S32 cnt);
 static S32 HIPLReadString(st_HIPLOADDATA* lddata, char* buf);
 
+#define MAX_OPENBLK 8
 #define MAX_LOADINST 8
+
+struct st_FILELOADINFO;
+
+struct st_HIPLOADBLOCK
+{
+    S32 endpos;
+    U32 blk_id;
+    S32 blk_remain;
+    S32 flags;
+};
+
+struct st_HIPLOADDATA
+{
+    st_FILELOADINFO* fli;
+    S32 lockid;
+    S32 bypass;
+    S32 bypass_recover;
+    U32 base_sector;
+    S32 use_async;
+    en_READ_ASYNC_STATUS asyn_stat;
+    S32 pos;
+    S32 top;
+    S32 readTop;
+    st_HIPLOADBLOCK stk[MAX_OPENBLK];
+};
 
 static U32 g_loadlock = 0;
 static st_HIPLOADDATA g_hiploadinst[MAX_LOADINST] = {};
