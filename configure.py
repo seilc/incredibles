@@ -790,7 +790,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zFlameThrower.cpp"),
             Object(NonMatching, "in/GAME/zNPCFlyShooter.cpp"),
             Object(NonMatching, "in/GAME/zRocket.cpp"),
-            Object(NonMatching, "in/Core/x/xHudImage.cpp"),
+            Object(Matching, "in/Core/x/xHudImage.cpp"),
             Object(NonMatching, "in/GAME/zNPCMeleeBot.cpp"),
             Object(NonMatching, "in/GAME/zReactiveAnimation.cpp"),
             Object(NonMatching, "in/GAME/zDust.cpp"),

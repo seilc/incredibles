@@ -38,6 +38,11 @@ inline U32 xrand_RandomInt32()
     return xrand_GenRandInt32();
 }
 
+inline F32 xrand_RandomFloat()
+{
+    return xrand_GenRandFloat();
+}
+
 inline F32 xrand_RandomBipolarUnitFloat()
 {
     return 2.0f * xrand_RandomFloat() - 1.0f;

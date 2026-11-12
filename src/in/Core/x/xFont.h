@@ -183,4 +183,14 @@ inline F32 NSCREENY(F32 v)
     return 1.0f / SCREEN_HEIGHT * v;
 }
 
+inline F32 INSCREENX(F32 v)
+{
+    return SCREEN_WIDTH * v;
+}
+
+inline F32 INSCREENY(F32 v)
+{
+    return SCREEN_HEIGHT * v;
+}
+
 #endif

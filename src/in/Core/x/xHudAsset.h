@@ -24,6 +24,15 @@ struct model_asset : asset
     static const char* type_name() { return "hud:model"; }
 };
 
+struct image_asset : asset
+{
+    enum { VERSION = 1 };
+
+    U32 image;
+
+    static const char* type_name() { return "hud:image"; }
+};
+
 struct text_asset : asset
 {
     enum { VERSION = 1 };

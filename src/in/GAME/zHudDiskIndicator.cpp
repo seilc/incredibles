@@ -33,7 +33,7 @@ namespace zHud
             lowerright.v = 1.0f;
 
             m_pImageWidget->set_layer_uvs(0, upperleft, lowerright);
-            m_pImageWidget->set_layer_type(0, xhud::image_widget::STROBE_EFFECT,
+            m_pImageWidget->set_layer_type(0, xhud::image_widget::OFFSET_CENTERPT,
                                            xhud::image_widget::BLEND);
             m_pImageWidget->set_layer_value(0, 1.0f);
             m_pImageWidget->set_layer_alpha(0, 1.0f);
@@ -45,7 +45,7 @@ namespace zHud
 
             m_pImageWidget->set_layer_uvs(1, upperleft, lowerright);
             m_pImageWidget->set_layer_offset(1, 32.0f, 26.0f);
-            m_pImageWidget->set_layer_type(1, xhud::image_widget::OFFSET_ROTATE_CCW,
+            m_pImageWidget->set_layer_type(1, xhud::image_widget::ROTATE_CCW,
                                            xhud::image_widget::BLEND);
             m_pImageWidget->set_layer_value(1, 0.0f);
 
@@ -55,7 +55,7 @@ namespace zHud
             lowerright.v = 1.0f;
 
             m_pImageWidget->set_layer_uvs(2, upperleft, lowerright);
-            m_pImageWidget->set_layer_type(2, xhud::image_widget::STROBE_EFFECT,
+            m_pImageWidget->set_layer_type(2, xhud::image_widget::OFFSET_CENTERPT,
                                            xhud::image_widget::BLEND);
             m_pImageWidget->set_layer_alpha(2, 1.0f);
 
