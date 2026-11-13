@@ -2095,28 +2095,28 @@ in/Core/gc/iWater.cpp:
 	.sbss       start:0x803D0EE8 end:0x803D0F38
 	.sdata2     start:0x803D6E78 end:0x803D6EF0
 
-in/Core/gc/fxembm.c:
+in/Core/gc/water/fxembm.c:
 	.text       start:0x801D7B14 end:0x801D8130
 	.rodata     start:0x802E9648 end:0x802E9870
 	.sdata      start:0x803CDFA0 end:0x803CDFB0
 	.sbss       start:0x803D0F38 end:0x803D0F50
 	.sdata2     start:0x803D6EF0 end:0x803D6F30
 
-in/Core/gc/fxmain.c:
+in/Core/gc/water/fxmain.c:
 	.text       start:0x801D8130 end:0x801D83A4
 	.sdata      start:0x803CDFB0 end:0x803CDFC0
 	.sbss       start:0x803D0F50 end:0x803D0F60
 
-in/Core/gc/texcache.c:
+in/Core/gc/water/texcache.c:
 	.text       start:0x801D83A4 end:0x801D8608
 	.bss        start:0x8039F440 end:0x8039F540
 	.sbss       start:0x803D0F60 end:0x803D0FB8
 
-in/Core/gc/texconv.c:
+in/Core/gc/water/texconv.c:
 	.text       start:0x801D8608 end:0x801D8990
 	.sdata2     start:0x803D6F30 end:0x803D6F38
 
-in/Core/gc/textures.c:
+in/Core/gc/water/textures.c:
 	.text       start:0x801D8990 end:0x801D8A70
 	.sdata      start:0x803CDFC0 end:0x803CDFC8
 	.sbss       start:0x803D0FB8 end:0x803D0FC0
