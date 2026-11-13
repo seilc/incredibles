@@ -48,6 +48,7 @@ extern bool gInSceneResetOrInit;
 void zSceneSwitch(zPortal* p, S32 forceSameScene);
 xBase* zSceneFindObject(U32 gameID);
 void zSceneForAllBase(zSceneForAllBaseCallback func, S32 baseType, void* data);
+U32 zScene_ScreenAdjustMode();
 bool zSceneLoadPackFile(U32 id, S32 options, bool noLocalized,
                         const char* filename);
 

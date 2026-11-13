@@ -567,7 +567,7 @@ config.libs = [
             Object(NonMatching, "in/Core/x/xOneLinerManager.cpp"),
             Object(NonMatching, "in/Core/x/xOneLinerPlayer.cpp"),
             Object(Matching, "in/Core/x/xordarray.cpp"),
-            Object(NonMatching, "in/Core/x/xPad.cpp"),
+            Object(Matching, "in/Core/x/xPad.cpp"),
             Object(Matching, "in/Core/x/xParEmitter.cpp"),
             Object(Matching, "in/Core/x/xParSys.cpp"),
             Object(Matching, "in/Core/x/xPartition.cpp"),
