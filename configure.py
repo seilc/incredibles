@@ -586,7 +586,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xserializer.cpp"),
             Object(Matching, "in/Core/x/xShadow.cpp"),
             Object(NonMatching, "in/Core/x/xShadowSimple.cpp"),
-            Object(NonMatching, "in/Core/x/xSkyDome.cpp"),
+            Object(Matching, "in/Core/x/xSkyDome.cpp"),
             Object(Matching, "in/Core/x/xSndMgr.cpp"),
             Object(Matching, "in/Core/x/xSoundFX.cpp"),
             Object(Matching, "in/Core/x/xSpacePartitionTree.cpp"),
