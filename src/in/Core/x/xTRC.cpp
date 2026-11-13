@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xTRC.h"
 
 #include "xFont.h"

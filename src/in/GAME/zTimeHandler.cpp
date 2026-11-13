@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zTimeHandler.h"
 
 zTimeHandlerMgr timehandler_mgr;

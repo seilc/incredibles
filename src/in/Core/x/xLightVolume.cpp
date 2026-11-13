@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xLightVolume.h"
 
 #include "xMemMgr.h"

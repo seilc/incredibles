@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xScrFx.h"
 
 #include "xEnt.h"

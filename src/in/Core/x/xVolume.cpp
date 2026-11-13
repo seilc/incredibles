@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xVolume.h"
 
 void xVolume::Init(xVolumeAsset* asset)

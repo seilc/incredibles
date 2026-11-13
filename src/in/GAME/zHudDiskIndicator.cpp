@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zHudDiskIndicator.h"
 
 #include "zScene.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xScreenFade.h"
 
 #include "xEvent.h"

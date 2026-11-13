@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xSndMgr.h"
 
 #include "containers.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xColor.h"
 
 const xColor g_RED = { 255, 0, 0, 255 };

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xCamSupport.h"
 
 #include "xBound.h"

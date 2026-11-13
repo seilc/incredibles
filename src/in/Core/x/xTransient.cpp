@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xTransient.h"
 
 namespace xTransient

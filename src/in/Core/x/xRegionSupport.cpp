@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xRegionSupport.h"
 
 #include <string.h>

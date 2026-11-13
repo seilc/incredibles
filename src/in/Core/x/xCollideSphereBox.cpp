@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xCollideSphereBox.h"
 
 #include "xCollideSpherePolygon.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zProgressScript.h"
 
 #include "xEvent.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xSpacePartitionTree.h"
 
 #include "xMemMgr.h"

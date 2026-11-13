@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xCam.h"
 
 #include "iCamera.h"

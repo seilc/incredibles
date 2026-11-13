@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xbinio.h"
 
 #include "xFile.h"

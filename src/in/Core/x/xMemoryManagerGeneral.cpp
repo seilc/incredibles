@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xMemoryManagerGeneral.h"
 
 void xMemoryManagerGeneral::Init(void* start, U32 size, Dir dir, Strategy strategy, bool debugging)

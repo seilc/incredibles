@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zPortal.h"
 
 #include "zMain.h"

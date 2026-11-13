@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zHitParameters.h"
 
 #include "xString.h"

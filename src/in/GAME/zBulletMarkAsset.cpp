@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zBulletMarkAsset.h"
 
 zBulletMarkAssetMgr bulletmark_mgr;

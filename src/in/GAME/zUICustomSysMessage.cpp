@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zUICustomSysMessage.h"
 
 #include "zScene.h"

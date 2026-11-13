@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xSubTitles.h"
 
 #include "xstransvc.h"

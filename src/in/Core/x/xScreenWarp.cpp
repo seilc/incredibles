@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xScreenWarp.h"
 
 #include "xDebugTweak.h"

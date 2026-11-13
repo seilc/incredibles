@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zLightWeight.h"
 
 namespace z

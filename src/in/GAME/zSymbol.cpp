@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zSymbol.h"
 
 namespace z

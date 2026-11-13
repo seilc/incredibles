@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xClumpColl.h"
 
 #include "xMath.h"

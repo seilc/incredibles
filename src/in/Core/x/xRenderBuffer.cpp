@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xRenderBuffer.h"
 
 iRenderArrays gRenderArr;

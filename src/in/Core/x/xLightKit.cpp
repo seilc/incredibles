@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xLightKit.h"
 
 #include "xMath.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xDecal.h"
 
 #include "xBound.h"

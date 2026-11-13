@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xordarray.h"
 
 #include "xMemMgr.h"

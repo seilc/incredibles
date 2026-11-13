@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xMath2.h"
 
 const xVec2 g_O2 = { 0.0f, 0.0f };

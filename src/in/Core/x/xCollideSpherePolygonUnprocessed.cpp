@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xCollideSpherePolygonUnprocessed.h"
 
 namespace xCollideSpherePolygonUnprocessed {

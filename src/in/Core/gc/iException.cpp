@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "iException.h"
 
 #include <dolphin.h>

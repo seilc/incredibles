@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xSurface.h"
 
 #include "xMemMgr.h"

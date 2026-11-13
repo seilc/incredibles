@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xserializer.h"
 
 #include "xordarray.h"

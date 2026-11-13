@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xFactory.h"
 
 #ifndef NO_HACKS

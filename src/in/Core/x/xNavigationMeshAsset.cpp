@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xNavigationMeshAsset.h"
 
 namespace xAsset

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xCamFollow.h"
 
 #include "xCollideFast.h"

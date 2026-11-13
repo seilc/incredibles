@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zFX.h"
 
 #include "xFX.h"

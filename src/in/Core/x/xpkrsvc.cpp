@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xpkrsvc.h"
 #include "xhipio.h"
 #include "xMemMgr.h"

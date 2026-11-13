@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "iTime.h"
 
 iTime sStartupTime;

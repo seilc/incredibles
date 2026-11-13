@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xsavegame.h"
 
 #include "xsavegamepv.h"

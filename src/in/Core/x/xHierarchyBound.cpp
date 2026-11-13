@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xHierarchyBound.h"
 
 #include "xMemMgr.h"

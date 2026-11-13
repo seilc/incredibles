@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xJaw.h"
 
 #include "xstransvc.h"

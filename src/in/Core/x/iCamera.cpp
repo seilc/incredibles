@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "iCamera.h"
 
 #include "iAsync.h"

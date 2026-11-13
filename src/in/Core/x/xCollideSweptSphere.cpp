@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xCollideSweptSphere.h"
 
 #include "xClumpColl.h"

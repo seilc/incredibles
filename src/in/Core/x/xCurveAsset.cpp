@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xCurveAsset.h"
 
 #include "xMath.h"

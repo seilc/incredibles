@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zSlideCamera.h"
 
 void zSlideCam::create()

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zHudTextureFlasher.h"
 
 #include "xMath.h"

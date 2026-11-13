@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zCineFXShared.h"
 
 void zCinFX_CycleOnce_Upd(const zCutsceneMgr*, NCINEntry* fxrec, S32 killit)

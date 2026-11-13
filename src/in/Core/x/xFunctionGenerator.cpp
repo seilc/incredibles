@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xFunctionGenerator.h"
 
 #include "xEvent.h"

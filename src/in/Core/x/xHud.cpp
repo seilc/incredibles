@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xHud.h"
 
 #include "xHudAsset.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xClimate.h"
 
 #include "xMath3.h"

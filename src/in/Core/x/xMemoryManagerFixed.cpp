@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xMemoryManagerFixed.h"
 
 void xMemoryManagerFixed::Init(void* start, U32 elements, U32 elementSize)

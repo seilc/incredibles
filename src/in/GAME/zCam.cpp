@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zCam.h"
 
 #include "zMain.h"

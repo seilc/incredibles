@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zCameraFly.h"
 
 #include "xEvent.h"

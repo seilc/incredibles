@@ -421,6 +421,7 @@ cflags_incredibles = [
     "-i src/bink/bink",
     "-i src/fmod/include",
     "-i src/PowerPC_EABI_Support/MSL/MSL_C/MSL_Common/Include",
+    "-i src/PowerPC_EABI_Support/MSL/MSL_C/PPC_EABI/Include",
     "-i src/PowerPC_EABI_Support/MSL/MSL_C++/MSL_Common/Include",
     "-i src/dolphin/include",
     "-i src/rwsdk/include",

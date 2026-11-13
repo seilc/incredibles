@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "iAnim.h"
 
 #include "iAnimSKB.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xBehaveMgr.h"
 
 static S32 g_modinit = 0;

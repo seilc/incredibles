@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xRenderState.h"
 
 #include "xMath.h"

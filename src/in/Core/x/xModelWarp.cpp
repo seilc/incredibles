@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xModelWarp.h"
 
 #include "xFXCameraTexture.h"

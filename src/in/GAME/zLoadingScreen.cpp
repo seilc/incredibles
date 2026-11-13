@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zLoadingScreen.h"
 
 #include "zUIMgr.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xFFX.h"
 
 static U32 psize;

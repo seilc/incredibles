@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xFMV.h"
 
 #include "xSndMgr.h"

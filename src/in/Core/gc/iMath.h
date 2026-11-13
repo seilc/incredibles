@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+#include <dtrigf.h>
+
 #define iabs(x) (float)(__fabs((float)(x)))
 
 F32 isin(F32 f);

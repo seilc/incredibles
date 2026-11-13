@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xTextAsset.h"
 
 #include "xstransvc.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xScrPulseGlare.h"
 
 #include "xRand.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zNPCCommon.h"
 
 #include "zScene.h"

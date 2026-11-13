@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zActionLine.h"
 
 #include "xstransvc.h"

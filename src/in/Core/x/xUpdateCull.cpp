@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xUpdateCull.h"
 
 #include "xEnt.h"

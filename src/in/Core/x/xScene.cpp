@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xScene.h"
 
 #include "xAnim.h"

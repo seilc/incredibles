@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zConfiguration.h"
 
 #include "xString.h"

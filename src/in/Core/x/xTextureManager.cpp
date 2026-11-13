@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xTextureManager.h"
 
 #include "xstransvc.h"

@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xRand.h"
 
 #include "xMath.h"

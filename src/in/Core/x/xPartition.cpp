@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xPartition.h"
 
 #include "xMemMgr.h"

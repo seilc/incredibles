@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xSkyDome.h"
 
 #include "xEvent.h"

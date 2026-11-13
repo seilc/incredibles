@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zWireFrameAsset.h"
 
 void WireframeAssetSetupPointers(zWireframeAsset* wireframe)

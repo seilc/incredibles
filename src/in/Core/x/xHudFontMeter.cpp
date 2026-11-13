@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xHudFontMeter.h"
 
 #include "xHudAsset.h"

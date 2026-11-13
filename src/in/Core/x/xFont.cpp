@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xFont.h"
 
 #include "xDebugTweak.h"

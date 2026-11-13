@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xParticleBatch.h"
 
 #include "xGlobals.h"

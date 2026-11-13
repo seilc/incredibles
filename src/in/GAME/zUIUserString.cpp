@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zUIUserString.h"
 
 #include "xEvent.h"

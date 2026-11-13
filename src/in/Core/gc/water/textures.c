@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "water/textures.h"
 
 #include "xstransvc.h"

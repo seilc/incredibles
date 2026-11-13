@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xIM.h"
 
 #include "xMemMgr.h"

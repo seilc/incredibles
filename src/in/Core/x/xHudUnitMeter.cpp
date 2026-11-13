@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xHudUnitMeter.h"
 
 #include "xDebugTweak.h"

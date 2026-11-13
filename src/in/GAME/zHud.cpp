@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "zHud.h"
 
 #include "zGame.h"

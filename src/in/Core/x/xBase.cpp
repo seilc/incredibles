@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xBase.h"
 
 void xBaseInit(xBase* xb, const xBaseAsset* asset)

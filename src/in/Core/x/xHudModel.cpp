@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xHudModel.h"
 
 #include "xString.h"

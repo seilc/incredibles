@@ -1,3 +1,4 @@
+#include "xCommon.h"
 #include "xTimer.h"
 
 #include "xEvent.h"
