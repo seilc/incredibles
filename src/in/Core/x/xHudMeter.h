@@ -22,7 +22,7 @@ public:
 
     meter_widget(const meter_asset& a);
 
-    // UNUSED: speculative
+    // UNUSED: needed to match (speculative code)
     ~meter_widget() {}
 
     void destruct();

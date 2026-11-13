@@ -14,7 +14,7 @@ struct xSB
 U32 gFrameCount;
 U32 gSceneFrameCount;
 
-// UNUSED: ported from Rat GC
+// UNUSED: needed to match (code from Rat GC)
 void xSBRender(xSB* sb)
 {
     if (!RwCameraGetCurrentCamera()) {
@@ -95,7 +95,7 @@ void xDrawTextRender()
 {
 }
 
-// UNUSED: ported from Rat GC
+// UNUSED: needed to match (code from Rat GC)
 bool xDrawTextComputeScreenPt(xVec2& vUnitScreen, const xVec3& vWorldSpace)
 {
     RwCamera* pCam = RwCameraGetCurrentCamera();

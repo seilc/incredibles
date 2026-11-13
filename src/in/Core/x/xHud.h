@@ -222,7 +222,7 @@ public:
 
     widget(const asset& a);
 
-    // UNUSED: speculative
+    // UNUSED: needed to match (speculative code)
     ~widget() {}
 
     static void init_base(xBase& data, const xBaseAsset& asset, size_t chunk_size);

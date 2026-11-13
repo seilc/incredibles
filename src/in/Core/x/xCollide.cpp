@@ -98,7 +98,7 @@ U32 xSphereHitsBox(const xSphere* a, const xBox* b, xCollis* coll)
     return TRUE;
 }
 
-// UNUSED: ported from Scooby PS2
+// UNUSED: needed to match (code from Scooby PS2)
 U32 xSphereHitsOBB(const xSphere* a, const xBox* b, const xMat4x3* m, xCollis* coll)
 {
     xSphere mxa;
@@ -860,7 +860,7 @@ S32 xCapsuleIsectsEnvClosestToLine(const xCapsule* c, const xEnv* env, xCollis* 
 static const xCapsule* cb_cap;
 S32 xcollide_docam;
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 void xCapsuleHitsEnt(xScene*, xRay3*, xQCData*, xEnt* ent, void* data)
 {
     xCollis* coll = (xCollis*)data;
@@ -878,7 +878,7 @@ void xCapsuleHitsEnt(xScene*, xRay3*, xQCData*, xEnt* ent, void* data)
     }
 }
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 S32 xCapsuleIsectsSceneClosestToLine(const xCapsule* c, xScene* sc, xCollis* colls)
 {
     xCapsuleIsectsEnvClosestToLine(c, sc->env, colls);

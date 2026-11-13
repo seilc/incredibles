@@ -370,7 +370,7 @@ struct functor_update
     void operator()(widget& w) { if (w.enabled()) w.update(dt); }
 };
 
-// UNUSED: ported from BFBB GC
+// UNUSED: needed to match (code from BFBB GC)
 void fp_setup(widget& w)
 {
     w.setup();
@@ -395,7 +395,7 @@ void widget::disable_all(bool destroy_widgets)
         for_each(known_types[i].type, known_types[i].size, f);
 }
 
-// UNUSED: ported from BFBB GC
+// UNUSED: needed to match (code from BFBB GC)
 void widget::setup_all()
 {
     for (size_t i = 0; i < ARRAY_LENGTH(known_types); i++) {

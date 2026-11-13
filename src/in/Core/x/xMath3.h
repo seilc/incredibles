@@ -185,7 +185,7 @@ inline void xBoxUnion(xBox& box, const xBox& a, const xBox& b)
     box.lower.z = MIN(a.lower.z, b.lower.z);
 }
 
-// UNUSED: ported from BFBB GC
+// UNUSED: needed to match (code from BFBB GC)
 inline void xBoxFromCircle(xBox& box, const xVec3& center, const xVec3& dir, F32 radius)
 {
     xVec3 offset = { radius * xsqrt(1.0f - dir.x * dir.x), radius * xsqrt(1.0f - dir.y * dir.y),
@@ -296,7 +296,7 @@ inline void xMat4x3Tolocal(xVec3* o, const xMat4x3* m, const xVec3* v)
     xMat3x3Tolocal(o, m, o);
 }
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 inline void xMat4x3Tolocal(xVec3* o, const xMat3x3* m, const xVec3* pos, const xVec3* v)
 {
     o->x = v->x - pos->x, o->y = v->y - pos->y, o->z = v->z - pos->z;

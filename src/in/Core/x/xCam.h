@@ -190,7 +190,7 @@ inline void xCam::orient_to_local(xQuat& o, const xMat3x3& mat)
     xQuatFromMat(&o, &mat);
 }
 
-// UNUSED: ported from Rat GC
+// UNUSED: needed to match (code from Rat GC)
 inline void xCam::orient_to_local(xCamOrientEuler& o, const xMat3x3& mat)
 {
     xMat3x3GetEuler(&mat, (xVec3*)&o);

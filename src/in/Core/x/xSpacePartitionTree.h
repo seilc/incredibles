@@ -3,7 +3,7 @@
 
 #include "xMath2.h"
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 static bool line_vs_square(F32 tx0, F32 ty0, F32 tx1, F32 ty1)
 {
     F32 tmin, tmax;

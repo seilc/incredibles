@@ -472,7 +472,7 @@ namespace {
         }
     };
 
-    // UNUSED: speculative
+    // UNUSED: needed to match (speculative code)
     struct cb_sphere_hits_ent
     {
         const xSphere* sphere;
@@ -570,7 +570,7 @@ void xRayHitsSceneFlags(xScene* sc, xRay3* r, xCollis* coll, U8 collType, U8 chk
     }
 }
 
-// UNUSED: ported from RotU GC
+// UNUSED: needed to match (code from RotU GC)
 void xSphereHitsScene(xScene* sc, const xSphere* sphere, xCollis* coll, U8 collType, U8 chk)
 {
     coll->dist = 1e38f;

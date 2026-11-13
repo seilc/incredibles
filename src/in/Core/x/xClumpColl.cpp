@@ -171,7 +171,7 @@ void xClumpColl_InstancePointers(xClumpCollBSPTree*, RpClump*)
 {
 }
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 xClumpCollBSPTree* xClumpColl_ForAllLeafNodes(xClumpCollBSPTree* tree, xClumpCollBSPLeafCB callBack, void* data)
 {
     S32 nStack;

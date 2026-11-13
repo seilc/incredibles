@@ -384,7 +384,7 @@ struct cache_entity_callback
     }
 };
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 bool pivot_depen_bar(xVec3& cap_offset, xVec3& impact, xVec3& rot_axis, const xCapsule& cap, F32 impact_t, F32, const xVec3& tohit)
 {
     cap_offset.assign(cap.end.x - cap.start.x, cap.end.y - cap.start.y, cap.end.z - cap.start.z);

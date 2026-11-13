@@ -1298,7 +1298,7 @@ void xShadowManager_Add(xEnt* ent)
     sMgrCount++;
 }
 
-// UNUSED: ported from TSSM GC, BFBB GC
+// UNUSED: needed to match (code from TSSM GC, BFBB GC)
 void xShadowManager_Remove(xEnt* ent)
 {
     S32 i;

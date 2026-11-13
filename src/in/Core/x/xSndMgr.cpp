@@ -598,7 +598,7 @@ void xSndMgrStopSounds(xSndGroupHandle hActiveSound)
     }
 }
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 U32 xSndMgrGetGroupId(xSndGroupHandle hSound)
 {
     if (hSound == ISND_INVALID_SND_GROUP_HANDLE) {

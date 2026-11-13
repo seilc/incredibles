@@ -980,7 +980,7 @@ void xBoxInitBoundCapsule(xBox* b, const xCapsule* c)
     }
 }
 
-// UNUSED: ported from TSSM GC, BFBB GC
+// UNUSED: needed to match (code from TSSM GC, BFBB GC)
 void xBoxFromCone(xBox& box, const xVec3& center, const xVec3& dir, F32 dist, F32 r1, F32 r2)
 {
     xBox temp;
@@ -1584,7 +1584,7 @@ F32 xQuatNormalize(xQuat* o, const xQuat* q)
     return len;
 }
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 void xQuatInv(xQuat* o, const xQuat* q)
 {
     F32 len2 = xQuatLength2(q);

@@ -34,7 +34,7 @@ void xTRCInitMessages()
     k_CONTROLLER_INVALID_MESSAGE = xTextFindString("TRC_CONTROLLER_INVALID", NULL);
 }
 
-// UNUSED: ported from Rat GC, TSSM GC
+// UNUSED: needed to match (code from Rat GC, TSSM GC)
 static U32 pad_message_valid()
 {
     if (gGameMode == eGameMode_Boot || gGameMode == eGameMode_Intro) {
@@ -65,7 +65,7 @@ static void render_message(const char* s)
 static char composed_message_text[256];
 static bool is_controller_message;
 static const char* message_text;
-// UNUSED: ported from TSSM GC, Incredibles PS2
+// UNUSED: needed to match (code from TSSM GC, Incredibles PS2)
 static U32 standalone;
 
 void xTRCClearPadMsg()
@@ -103,7 +103,7 @@ void xTRCReset()
     xglobals->dontShowPadMessageDuringLoadingOrCutScene = false;
 }
 
-// UNUSED: ported from TSSM GC, Incredibles PS2
+// UNUSED: needed to match (code from TSSM GC, Incredibles PS2)
 static S32 DisplayMessage(TRCState state)
 {
     switch (state) {

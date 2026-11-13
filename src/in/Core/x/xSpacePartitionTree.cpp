@@ -149,7 +149,7 @@ struct cb_fp_wrapper
 
 } // namespace
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 void xSpacePartitionTree2D::intersect_point(F32 x, F32 y, intersect_callback cb, void* context)
 {
     cb_fp_wrapper fp_wrapper(cb, context);

@@ -699,7 +699,7 @@ void xfont::stop_render() const
     stop_tex_render();
 }
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 void xfont::irender(U32 c, F32 x, F32 y) const
 {
     basic_rect<F32> bounds = { x, y, width, height };
@@ -789,7 +789,7 @@ void xfont::irender(const char* text, size_t text_size, F32 x, F32 y) const
 
 namespace {
 
-// UNUSED: speculative
+// UNUSED: needed to match (speculative code)
 xColor read_hex_color(const char* text, xColor c)
 {
     size_t read_size;

@@ -165,7 +165,7 @@ void xEntBoulder_BUpdate(xEnt*, xVec3*)
 {
 }
 
-// UNUSED: ported from RotU GC, Rat GC, TSSM GC, BFBB GC
+// UNUSED: needed to match (code from RotU GC, Rat GC, TSSM GC, BFBB GC)
 void xEntBoulder_RealBUpdate(xEnt* ent, xVec3* pos)
 {
     xEntBoulder* boul = (xEntBoulder*)ent;
