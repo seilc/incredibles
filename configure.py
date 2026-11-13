@@ -449,7 +449,7 @@ config.precompiled_headers = [
     {
         "source": "prefix.pch++",
         "mw_version": config.linker_version,
-        "cflags": ["-lang=c++", *(f for f in cflags_incredibles if f != "-prefix prefix.mch")],
+        "cflags": [f for f in cflags_incredibles if f != "-prefix prefix.mch"],
     }
 ]
 # decomp.me contexts read the prefix header itself (scratches can't use the .mch).
@@ -826,7 +826,7 @@ config.libs = [
             Object(NonMatching, "in/Core/gc/water/fxmain.c"),
             Object(NonMatching, "in/Core/gc/water/texcache.c"),
             Object(NonMatching, "in/Core/gc/water/texconv.c"),
-            Object(NonMatching, "in/Core/gc/water/textures.c"),
+            Object(Matching, "in/Core/gc/water/textures.c"),
             Object(NonMatching, "in/GAME/zEnergyStream.cpp"),
             Object(NonMatching, "in/GAME/zNPCSmoke.cpp"),
             Object(NonMatching, "in/GAME/zNPCStreamer.cpp"),

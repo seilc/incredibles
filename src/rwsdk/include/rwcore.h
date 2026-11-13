@@ -627,6 +627,8 @@ RwRaster* RwRasterSetFromImage(RwRaster* raster, RwImage* image);
 RwRaster* RwRasterUnlock(RwRaster* raster);
 RwTexture* RwTextureCreate(RwRaster* raster);
 RwBool RwTextureDestroy(RwTexture* texture);
+RwBool RwTextureSetAutoMipmapping(RwBool enable);
+RwBool RwTextureSetMipmapping(RwBool enable);
 RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster);
 RxRenderStateVector* RxRenderStateVectorLoadDriverState(RxRenderStateVector* rsvp);
 void _rwDlRenderStateSetZCompLoc(RwBool zBeforeTex);
