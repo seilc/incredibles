@@ -63,6 +63,8 @@ struct ptank_pool
         RpPTankAtomicUnlock(ptank);
         RpPTankAtomicSetActiveParticlesCount(ptank, used);
     }
+
+    void grab_block(ptank_group_type type);
 };
 
 struct ptank_pool__color_mat : ptank_pool
@@ -81,6 +83,43 @@ struct ptank_pool__color_mat_uv2 : ptank_pool
     RwInt32 stride_color;
     RwInt32 stride_mat;
     RwInt32 stride_uv;
+
+    void next()
+    {
+        if (used >= 80) {
+            if (valid()) {
+                unlock_block();
+            }
+            grab_block(PGT_COLOR_MAT_UV2);
+            if (!valid()) {
+                return;
+            }
+            lock_block();
+        } else {
+            color = (xColor*)((U8*)color + stride_color);
+            mat = (xMat4x3*)((U8*)mat + stride_mat);
+            uv = (xVec2*)((U8*)uv + stride_uv);
+        }
+
+        used++;
+    }
+
+    void lock_block()
+    {
+        used = 0;
+
+        RpPTankLockStruct ls_color, ls_mat, ls_uv;
+        RpPTankAtomicLock(ptank, &ls_color, rpPTANKLFLAGCOLOR, rpPTANKLOCKWRITE);
+        RpPTankAtomicLock(ptank, &ls_mat, rpPTANKLFLAGMATRIX, rpPTANKLOCKWRITE);
+        RpPTankAtomicLock(ptank, &ls_uv, rpPTANKLFLAGVTX2TEXCOORDS, rpPTANKLOCKWRITE);
+
+        color = (xColor*)ls_color.data;
+        mat = (xMat4x3*)ls_mat.data;
+        uv = (xVec2*)ls_uv.data;
+        stride_color = ls_color.stride;
+        stride_mat = ls_mat.stride;
+        stride_uv = ls_uv.stride;
+    }
 };
 
 struct ptank_pool__pos_color_size : ptank_pool

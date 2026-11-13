@@ -572,6 +572,13 @@ struct RwCamera
 #define RwRasterGetWidthMacro(_raster) ((_raster)->width)
 #define RwTextureGetNameMacro(_tex) ((_tex)->name)
 #define RwTextureGetRasterMacro(_tex) ((_tex)->raster)
+#define rwTEXTUREADDRESSINGUMASK 0x00000F00
+#define rwTEXTUREADDRESSINGVMASK 0x0000F000
+#define rwTEXTUREADDRESSINGMASK (rwTEXTUREADDRESSINGUMASK | rwTEXTUREADDRESSINGVMASK)
+
+#define RwTextureSetAddressingMacro(_tex, _addressing) \
+    (((_tex)->filterAddressing = ((_tex)->filterAddressing & ~rwTEXTUREADDRESSINGMASK) | (((((RwUInt32)(_addressing)) << 8) & rwTEXTUREADDRESSINGUMASK) | ((((RwUInt32)(_addressing)) << 12) & rwTEXTUREADDRESSINGVMASK))), (_tex))
+
 #define rwTEXTUREFILTERMODEMASK 0x000000FF
 
 #define RwTextureSetFilterModeMacro(_tex, _filtering) \
@@ -651,6 +658,7 @@ RwInt32 RwRasterGetType(const RwRaster* raster);
 RwInt32 RwRasterGetWidth(const RwRaster* raster);
 RwChar* RwTextureGetName(RwTexture* texture);
 RwRaster* RwTextureGetRaster(const RwTexture* texture);
+RwTexture* RwTextureSetAddressing(RwTexture* texture, RwTextureAddressMode addressing);
 RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filtering);
 #endif
 
@@ -683,6 +691,7 @@ RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filter
 #define RwRasterGetWidth(_raster) RwRasterGetWidthMacro(_raster)
 #define RwTextureGetName(_tex) RwTextureGetNameMacro(_tex)
 #define RwTextureGetRaster(_tex) RwTextureGetRasterMacro(_tex)
+#define RwTextureSetAddressing(_tex, _addressing) RwTextureSetAddressingMacro(_tex, _addressing)
 #define RwTextureSetFilterMode(_tex, _filtering) RwTextureSetFilterModeMacro(_tex, _filtering)
 #endif
 

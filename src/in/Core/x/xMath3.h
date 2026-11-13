@@ -270,6 +270,14 @@ inline void xMat4x3Scale(xMat4x3* m, const xVec3* s)
     xMat4x3ScaleC(m, s->x, s->y, s->z);
 }
 
+inline void xMat4x3OrthoInv(xMat4x3* o, const xMat4x3* m)
+{
+    xVec3 tinv;
+    xMat3x3Transpose(o, m);
+    xMat3x3RMulVec(&tinv, o, &m->pos);
+    xVec3Inv(&o->pos, &tinv);
+}
+
 inline void xMat4x3Toworld(xVec3* o, const xMat4x3* m, const xVec3* v)
 {
     xMat3x3RMulVec(o, m, v);

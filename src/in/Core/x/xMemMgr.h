@@ -119,14 +119,17 @@ inline void* xMemPushTemp(U32 amt)
     return iMemPushTemp(amt);
 }
 
-void* operator new[](size_t, xMemStaticType, U32);
-
 #define xMEMALLOC(size, align) xMemAlloc(gActiveHeap, (size), (align))
 #define xMEMGROWALLOC(size) xMemGrowAlloc(gActiveHeap, (size))
 #define xMEMPUSHTEMP(amt) xMemPushTemp((amt))
 #define xMEMPOPTEMP(pointer) iMemPopTemp((pointer))
 
 inline void* operator new(size_t size, xMemStaticType, U32)
+{
+    return xMEMALLOC(size, 0);
+}
+
+inline void* operator new[](size_t size, xMemStaticType, U32)
 {
     return xMEMALLOC(size, 0);
 }

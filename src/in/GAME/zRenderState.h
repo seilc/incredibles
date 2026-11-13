@@ -50,9 +50,11 @@ typedef enum _SDRenderState
     SDRS_SmashRing,
     SDRS_LaserBolt,
     SDRS_PatStunRings,
+    SDRS_Decal,
     SDRS_Total = -1
 } SDRenderState;
 
 void zRenderState(SDRenderState next);
+SDRenderState zRenderStateCurrent();
 
 #endif

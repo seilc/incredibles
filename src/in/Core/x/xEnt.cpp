@@ -35,8 +35,6 @@
 #define TURRET_HOLDABLE_DEATH_SIMP_ID 0x3159B667 // xStrHash("TURRET_HOLDABLE_DEATH_SIMP")
 #define S08_TURRET_HOLDABLE_DEATH_SIMP_ID 0x36A1171F // xStrHash("S08_TURRET_HOLDABLE_DEATH_SIMP")
 
-#define k_MORE_FLAGS_ANIM_COLL ((U8)1<<5)
-
 #define ANIM_COLL_SETUP()                       \
     xModelInstance& model = *ent.model;         \
     xMat4x3& mat = *(xMat4x3*)model.Mat;        \

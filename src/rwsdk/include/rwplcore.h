@@ -765,6 +765,8 @@ struct RwObject
 
 #define RWPLUGINOFFSET(_type, _base, _offset) ((_type *)((RwUInt8 *)(_base) + (_offset)))
 #define rwObjectGetParent(object) (((const RwObject *)(object))->parent)
+#define RwRGBAAssign(_target, _source) ( *(_target) = *(_source) )
+#define RwSphereAssign(_target, _source) ( *(_target) = *(_source) )
 #define _RW_S2 ( (float) 8.3333337680e-03 )
 #define _RW_S3 ( (float)-1.9841270114e-04 )
 #define _RW_S4 ( (float) 2.7557314297e-06 )
@@ -809,6 +811,7 @@ RwMatrix* RwMatrixScale(RwMatrix* matrix, const RwV3d* scale, RwOpCombineType co
 RwMatrix* RwMatrixTranslate(RwMatrix* matrix, const RwV3d* translation, RwOpCombineType combineOp);
 RwMatrix* RwMatrixUpdate(RwMatrix* matrix);
 void* RwMemNative32(void* mem, RwUInt32 size);
+RwBool RwResourcesFreeResEntry(RwResEntry* entry);
 RwBool RwStreamClose(RwStream* stream, void* pData);
 RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* lengthOut, RwUInt32* versionOut);
 RwStream* RwStreamOpen(RwStreamType type, RwStreamAccessType accessType, const void* pData);

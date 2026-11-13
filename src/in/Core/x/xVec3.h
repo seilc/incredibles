@@ -96,6 +96,8 @@ struct xVec3
     }
 
     F32 up_normalize() { return safe_normalize(m_UnitAxisY); }
+    void Sub(const xVec3& a, const xVec3& b);
+    void Average(const xVec3& a, const xVec3& b, const xVec3& c);
 };
 
 F32 xVec3Normalize(xVec3* o, const xVec3* v);
@@ -194,6 +196,20 @@ do {                                                                            
     F32 dz__ = (a)->z - (b)->z;                                                                   \
     *(outlen) = dx__ * dx__ + dy__ * dy__ + dz__ * dz__;                                          \
 } while (0)
+
+inline void xVec3::Sub(const xVec3& a, const xVec3& b)
+{
+    x = a.x - b.x;
+    y = a.y - b.y;
+    z = a.z - b.z;
+}
+
+inline void xVec3::Average(const xVec3& a, const xVec3& b, const xVec3& c)
+{
+    x = (a.x + b.x + c.x) * 0.3333333f;
+    y = (a.y + b.y + c.y) * 0.3333333f;
+    z = (a.z + b.z + c.z) * 0.3333333f;
+}
 
 #include "xVec3Inlines.h"
 

@@ -20,6 +20,7 @@ void iCameraUpdateFog(RwCamera* cam, S64 t);
 void UpdateGlobalFrustumPlanes(RwCamera* camera);
 void iCamGetViewMatrix(RwCamera* camera, xMat4x3* view_matrix);
 void iCameraSetFogParams(iFogParams* fp, F32 time);
+void iCameraSetFogRenderStates();
 void iCameraSetFog(bool enable);
 void iCameraSetOrthoProjection(RwCamera* cam, bool ortho);
 RwCamera* RwCameraBeginUpdateWrapper(RwCamera* camera);

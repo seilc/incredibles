@@ -58,6 +58,21 @@ struct xResponseCurve
     void eval_linear(F32 t, F32* value) const;
     void eval_smooth(F32 t, F32* value) const;
 
+    inode* get_node(size_t index) const
+    {
+        return (inode*)((U8*)curve + index * (_values * sizeof(F32) + sizeof(node)));
+    }
+
+    F32 start_t() const
+    {
+        return curve->t;
+    }
+
+    F32 end_t() const
+    {
+        return get_node(_nodes - 1)->t;
+    }
+
 private:
     void find_active_node(F32 t, size_t stride) const
     {

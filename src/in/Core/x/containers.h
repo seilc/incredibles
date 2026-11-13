@@ -3,6 +3,78 @@
 
 #include "xMemMgr.h"
 
+template <class T>
+class static_queue
+{
+public:
+    class iterator
+    {
+    public:
+        bool operator!=(const iterator& c) const { return _it != c._it; }
+        iterator& operator++() { *this += 1; return *this; }
+
+        iterator& operator+=(int i)
+        {
+            _it = _owner->mod_max_size(_it + i);
+            return *this;
+        }
+
+        T& operator*() const { return _owner->_buffer[_it]; }
+        
+    public:
+        size_t _it;
+        static_queue* _owner;
+    };
+
+    void init(size_t size)
+    {
+        size_t power = 0;
+        size++;
+        while (size > 1) { size >>= 1; power++; }
+        _max_size = (1 << power);
+        _max_size_mask = _max_size - 1;
+        _buffer = (T*)xMEMALLOC(_max_size * sizeof(T), 0);
+        clear();
+    }
+
+    size_t size() const { return _size; }
+    size_t max_size() const { return _max_size - 1; }
+    bool empty() const { return size() == 0; }
+    bool full() const { return size() == max_size(); }
+    void clear() { _first = _size = 0; }
+    T& push_front() { _size++; _first = mod_max_size(_first-1); return front(); }
+    void pop_back() { _size--; }
+    iterator begin() const { return create_iterator(_first); }
+    iterator end() const { return create_iterator(mod_max_size(_first + _size)); }
+    T& front() { return *begin(); }
+
+    void erase(const iterator& first, const iterator& last)
+    {
+        if (first._it == _first) {
+            size_t tail = _first + _size;
+            _first = last._it;
+            _size = mod_max_size(tail - _first);
+            return;
+        }
+
+        size_t diff = mod_max_size(last._it - first._it);
+        _size -= diff;
+    }
+
+private:
+    iterator create_iterator(size_t i) const { iterator r; r._it = i; r._owner = (static_queue*)this; return r; }
+    size_t mod_max_size(size_t v) const { return v & _max_size_mask; }
+
+public:
+    size_t _first;
+    size_t _size;
+    size_t _max_size;
+    size_t _max_size_mask;
+    T* _buffer;
+
+    friend class iterator;
+};
+
 class pool_list_base
 {
 public:
@@ -12,10 +84,10 @@ public:
         node_base* next;
     };
 
-    S32 size() const;
-    S32 max_size() const;
-    bool full() const;
-    bool empty() const;
+    S32 size() const { return _size; }
+    S32 max_size() const { return _max_size; }
+    bool empty() const { return _size == 0; }
+    bool full() const { return size() == max_size(); }
 
     void push_front();
     void push_back();
@@ -50,6 +122,47 @@ protected:
 
     void link(node_base* a, node_base* b);
     void unlink(node_base* a, node_base* b);
+};
+
+template <class T>
+class pool_list : public pool_list_base
+{
+public:
+    struct node_type
+    {
+        node_type* prev;
+        node_type* next;
+        T value;
+    };
+
+    enum { NODE_SIZE = sizeof(node_type) };
+
+    void create(S32 max_size, void* buffer)
+    {
+        pool_list_base::create(NODE_SIZE, max_size, buffer);
+    }
+
+    void reset()
+    {
+        pool_list_base::reset(NODE_SIZE);
+    }
+
+    node_type* begin() const { return (node_type*)head.next; }
+    node_type* end() const { return (node_type*)&tail; }
+    T& back() { return ((node_type*)tail.prev)->value; }
+
+    node_type* erase(node_type* it)
+    {
+        return (node_type*)pool_list_base::erase((node_base*)it);
+    }
+
+    node_type* get_iterator(const T* value)
+    {
+        U8* p = ((U8*)value - sizeof(node_base));
+        return (node_type*)p;
+    }
+
+    void push_back() { pool_list_base::push_back(); }
 };
 
 template <class T>

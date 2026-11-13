@@ -25,6 +25,13 @@ struct xVec2
     F32 length2() const { return x * x + y * y; }
 };
 
+typedef struct _xMat3x2
+{
+    xVec2 right;
+    xVec2 up;
+    xVec2 pos;
+} xMat3x2;
+
 template <class T> struct basic_rect
 {
     T x;

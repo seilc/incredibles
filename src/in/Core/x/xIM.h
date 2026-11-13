@@ -45,4 +45,13 @@ inline void xIMRenderLegacy(const RwIm3DVertex* verts, U32 count, const RwMatrix
     }
 }
 
+inline void xIMRenderIndexedLegacy(const RwIm3DVertex* verts, U32 count, const RwMatrix* ltm, RwPrimitiveType primType,
+                                   const RwImVertexIndex* index, S32 index_size)
+{
+    if (RwIm3DTransform((RwIm3DVertex*)verts, count, (RwMatrix*)ltm, rwIM3D_VERTEXUV | rwIM3D_VERTEXXYZ | rwIM3D_VERTEXRGBA)) {
+        RwIm3DRenderIndexedPrimitive(primType, (RwImVertexIndex*)index, index_size);
+        RwIm3DEnd();
+    }
+}
+
 #endif
