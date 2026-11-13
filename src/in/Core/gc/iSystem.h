@@ -11,4 +11,6 @@ U8 iGetDay();
 U8 iGetMonth();
 #endif
 
+void iSystemSleep(S32 milliSecondsToSleep, U32 cancelAlarmsTag);
+
 #endif

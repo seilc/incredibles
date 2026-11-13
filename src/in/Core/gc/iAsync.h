@@ -1,6 +1,8 @@
 #ifndef IASYNC_H
 #define IASYNC_H
 
+#include "types.h"
+
 #include <dolphin.h>
 
 extern OSSemaphore asyncSema;
@@ -19,6 +21,15 @@ inline void iAsyncUnlockRW()
         OSSignalSemaphore(&asyncSema);
     }
 }
+
+void iAsyncStart(void* (*func)(void*));
+S32 iAsyncIsDone();
+void iAsyncTerminate();
+void iAsyncBeginUpdate();
+void iAsyncEndUpdate();
+void iAsyncSuspend();
+void iAsyncResume();
+void iAsyncEnd();
 
 struct iAsyncLockRWSentry
 {
