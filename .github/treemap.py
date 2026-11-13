@@ -2,9 +2,10 @@
 """Draw a treemap of the Game units as a PNG, for the Discord progress post.
 
 Usage: treemap.py CUR_DIR OUT.png [PREV_DIR]
-Every Game unit of the first version, grouped by folder and sized by code bytes: green is complete, grey has nothing
-matched, and blue is partly matched, brighter the more is matched. With PREV_DIR, units whose match changed in any version get an
-outline. Wide and short, with folder headings only, to stay readable on a phone without filling the screen.
+Every Game unit of the first version, grouped by folder and sized by code bytes (tiny units raised to a minimum box):
+green is complete, grey has nothing matched, and blue is partly matched, brighter the more is matched. With PREV_DIR,
+units whose match changed in any version get an outline, or a yellow fill when too small for one. Wide and short, with
+folder headings only, to stay readable on a phone without filling the screen.
 Each directory holds <VERSION>_report/report.json, as for progress.py. Needs Pillow; progress.py doesn't, so a failure
 here only costs the post its image.
 """
@@ -23,7 +24,7 @@ FOLDER_GAP = 8
 FOLDER_FONT = 26
 HEADING = FOLDER_FONT + 6
 OUTLINE = 4
-MIN_OUTLINED = 18  # so that a tiny unit's outline still shows on a phone
+MIN_BOX = 1  # the smallest unit box side, so that every unit shows as its own box
 PHI = (1 + 5 ** 0.5) / 2
 SURFACE = (0x1a, 0x1a, 0x19)
 INK = (0xf0, 0xef, 0xec)
@@ -116,6 +117,24 @@ def folder_boxes(sizes):
     return boxes
 
 
+def unit_boxes(values, x0, y0, x1, y1):
+    """Boxes for values sorted large to small, tiny values raised until every box is at least MIN_BOX on a side."""
+    width, height = x1 - x0, y1 - y0
+    if width <= 0 or height <= 0:
+        return []
+    cell = (MIN_BOX + GAP) ** 2
+    for _ in range(12):  # squarify's last cells can be thin: raise the floor until they fit
+        floor = 0
+        for _ in range(8):  # the floor grows the total, which lowers the bytes per pixel
+            floor = cell * sum(max(v, floor) for v in values) / (width * height)
+        boxes = [(round(bx0), round(by0), round(bx1) - GAP - 1, round(by1) - GAP - 1)
+                 for bx0, by0, bx1, by1 in squarify([max(v, floor) for v in values], x0, y0, x1, y1)]
+        if all(min(r - l, b - u) + 1 >= MIN_BOX for l, u, r, b in boxes):
+            break
+        cell *= 2
+    return [(l, u, max(l, r), max(u, b)) for l, u, r, b in boxes]
+
+
 def color(unit):
     """Green when complete, else grey to blue by how much is matched, square-rooted so that a small share still shows."""
     if unit["metadata"].get("complete"):
@@ -123,15 +142,6 @@ def color(unit):
     measures = unit["measures"]
     share = min(1, int(measures.get("matched_code", 0)) / int(measures["total_code"])) ** 0.5
     return tuple(round(u + (p - u) * share) for u, p in zip(UNMATCHED, PARTIAL))
-
-
-def outline_box(box):
-    """box grown to the outline's minimum size, kept inside the image."""
-    x0, y0, x1, y1 = box
-    grow_x, grow_y = max(0, MIN_OUTLINED - (x1 - x0)) // 2, max(0, MIN_OUTLINED - (y1 - y0)) // 2
-    x0, x1 = max(0, x0 - grow_x), min(WIDTH - 1, x1 + grow_x)
-    y0, y1 = max(0, y0 - grow_y), min(HEIGHT - 1, y1 + grow_y)
-    return x0, y0, x1, y1
 
 
 def main():
@@ -155,17 +165,17 @@ def main():
     for name, units in groups:
         gx0, gy0, gx1, gy1 = folders[name]
         draw.text((gx0, gy0), name, font=font, fill=INK)
-        top = gy0 + HEADING
+        top, right, bottom = gy0 + HEADING, gx1 - FOLDER_GAP, gy1 - FOLDER_GAP
         units.sort(key=lambda u: -u[0])
-        boxes = squarify([u[0] for u in units], gx0, top, gx1 - FOLDER_GAP, gy1 - FOLDER_GAP)
-        for (_, key, unit), (x0, y0, x1, y1) in zip(units, boxes):
-            left, up = round(x0), round(y0)
-            box = (left, up, max(left, round(x1) - GAP - 1), max(up, round(y1) - GAP - 1))
+        for (_, key, unit), box in zip(units, unit_boxes([u[0] for u in units], gx0, top, right, bottom)):
             draw.rectangle(box, fill=color(unit))
             if key in changed:
-                outlines.append(outline_box(box))
+                outlines.append(box)
     for box in outlines:  # last, so that no neighbour covers one
-        draw.rectangle(box, outline=CHANGED, width=OUTLINE)
+        if min(box[2] - box[0], box[3] - box[1]) < 2 * OUTLINE + 1:  # too small for an outline around a 2 px hole
+            draw.rectangle(box, fill=CHANGED)
+        else:
+            draw.rectangle(box, outline=CHANGED, width=OUTLINE)
     image.save(out)
 
 
