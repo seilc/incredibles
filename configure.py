@@ -624,7 +624,7 @@ config.libs = [
             Object(NonMatching, "in/Core/gc/iScrFX.cpp"),
             Object(NonMatching, "in/Core/gc/iSnd.cpp"),
             Object(NonMatching, "in/Core/gc/iSystem.cpp"),
-            Object(NonMatching, "in/Core/gc/iTime.cpp"),
+            Object(Matching, "in/Core/gc/iTime.cpp"),
             Object(NonMatching, "in/Core/gc/iTRC.cpp"),
             Object(Matching, "in/Core/gc/iAnim.cpp"),
             Object(NonMatching, "in/GAME/zZipLine.cpp"),
