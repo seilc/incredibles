@@ -349,6 +349,7 @@ typedef RpMesh* (*RpMeshCallBack)(RpMesh* mesh, RpMeshHeader* meshHeader, void* 
 #define RpMorphTargetSetBoundingSphereMacro(_mt, _sphere) \
     (RwSphereAssign(&((_mt)->boundingSphere), (_sphere)), (_mt))
 
+#define RpWorldGetBBoxMacro(_world) (&((_world)->boundingBox))
 #define RpWorldGetMaterialMacro(_world, _num) (((_world)->matList.materials)[(_num)])
 #define RpWorldGetNumMaterialsMacro(_world) ((_world)->matList.numMaterials)
 #define RpMaterialGetTextureMacro(_material) ((_material)->texture)
@@ -421,6 +422,7 @@ RpMaterial* RpMaterialSetColor(RpMaterial* material, const RwRGBA* color);
 RwV3d* RpMorphTargetGetVertexNormals(const RpMorphTarget* morphTarget);
 RwV3d* RpMorphTargetGetVertices(const RpMorphTarget* morphTarget);
 RpMorphTarget* RpMorphTargetSetBoundingSphere(RpMorphTarget* morphTarget, const RwSphere* boundingSphere);
+const RwBBox* RpWorldGetBBox(const RpWorld* world);
 RpMaterial* RpWorldGetMaterial(const RpWorld* world, RwInt32 matNum);
 RwInt32 RpWorldGetNumMaterials(const RpWorld* world);
 #endif
@@ -460,6 +462,7 @@ RwInt32 RpWorldGetNumMaterials(const RpWorld* world);
 #define RpMorphTargetSetBoundingSphere(_geometry, _sphere) \
     RpMorphTargetSetBoundingSphereMacro(_geometry, _sphere)
 
+#define RpWorldGetBBox(_world) RpWorldGetBBoxMacro(_world)
 #define RpWorldGetMaterial(_world, _num) RpWorldGetMaterialMacro(_world, _num)
 #define RpWorldGetNumMaterials(_world) RpWorldGetNumMaterialsMacro(_world)
 #endif

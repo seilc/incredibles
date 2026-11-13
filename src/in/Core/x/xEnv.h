@@ -24,4 +24,9 @@ inline bool xEnvIsJSPActive(const xEnv* env, S32 which)
     return iEnvIsJSPActive(env->geom, which);
 }
 
+inline xBox* xEnvGetBBox(xEnv* env)
+{
+    return iEnvGetBBox(env->geom);
+}
+
 #endif

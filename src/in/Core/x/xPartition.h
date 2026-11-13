@@ -3,6 +3,9 @@
 
 #include "xMath3.h"
 
+struct xVolume;
+struct xEnv;
+
 typedef struct _tagPartLink
 {
     void* data;
@@ -26,5 +29,13 @@ typedef struct _tagPartition
     PartSpace* space;
     PartSpace global;
 } Partition;
+
+void xPartitionReset();
+S32 xPartitionGetTrueIdx(Partition* part, S32 x, S32 y, S32 z);
+void xPartitionVolume(Partition* part, xVolume* volume, S32 x_spaces, S32 y_spaces, S32 z_spaces);
+void xPartitionWorld(Partition* part, xEnv* env, S32 x_spaces, S32 y_spaces, S32 z_spaces);
+S32 xPartitionInsert(Partition* part, void* insert_data, xVec3* insert_pos);
+S32 xPartitionUpdate(Partition* part, void* data, S32 old_idx, xVec3* current_pos);
+void xPartitionSpaceMove(PartSpace* src, PartSpace* dest, U32 data);
 
 #endif

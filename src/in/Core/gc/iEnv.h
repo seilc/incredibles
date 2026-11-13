@@ -45,4 +45,9 @@ inline bool iEnvIsJSPVisible(const iEnv* env, S32 which)
     return env->jsp_visibilityCount[which] > 0;
 }
 
+inline xBox* iEnvGetBBox(const iEnv* env)
+{
+    return (xBox*)RpWorldGetBBox(env->world);
+}
+
 #endif

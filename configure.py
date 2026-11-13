@@ -570,7 +570,7 @@ config.libs = [
             Object(NonMatching, "in/Core/x/xPad.cpp"),
             Object(Matching, "in/Core/x/xParEmitter.cpp"),
             Object(Matching, "in/Core/x/xParSys.cpp"),
-            Object(NonMatching, "in/Core/x/xPartition.cpp"),
+            Object(Matching, "in/Core/x/xPartition.cpp"),
             Object(Matching, "in/Core/x/xpkrsvc.cpp"),
             Object(NonMatching, "in/Core/x/xPtankPool.cpp"),
             Object(Matching, "in/Core/x/xQuickCull.cpp"),
