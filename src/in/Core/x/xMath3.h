@@ -216,6 +216,24 @@ inline void xMat3x3Rot(xMat3x3* m, const xVec3* a, F32 t)
     xMat3x3RotC(m, a->x, a->y, a->z, t);
 }
 
+inline F32 xMat3x3LookVec3(xMat3x3& mat, const xVec3& at)
+{
+    F32 mag = at.length();
+    if (xfeq0(mag)) { mat = g_I3; return 0.0f; }
+    mat.at = at;
+    mat.at *= 1.0f / mag;
+
+    F32 ax = xabs(mat.at.x), ay = xabs(mat.at.y), az = xabs(mat.at.z);
+    if (ax < ay && ax < az) mat.right.assign(0.0f, mat.at.z, -mat.at.y);
+    else if (ay < az) mat.right.assign(-mat.at.z, 0.0f, mat.at.x);
+    else mat.right.assign(mat.at.y, -mat.at.x, 0.0f);
+
+    mat.right.normalize();
+    mat.up = mat.right.cross(mat.at);
+
+    return mag;
+}
+
 inline void xMat4x3Copy(xMat4x3* o, const xMat4x3* m)
 {
     *o = *m;

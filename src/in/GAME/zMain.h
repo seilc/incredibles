@@ -14,6 +14,7 @@ extern U32 FB_YRES;
 extern U32 SCENE_ID_MNU_START;
 extern S32 GCN_DEMO_PARAM;
 extern eGameVidMode gVidMode;
+extern F32 SECS_PER_VBLANK;
 extern zGlobals globals;
 extern xGlobals* xglobals;
 
