@@ -115,28 +115,6 @@ namespace {
         RwIm2DVertexSetIntRGBA(&vert, color.r, color.g, color.b, color.a);
     }
 
-}
-
-S32 hdr_dump_efb;
-GXBlendFactor hdr_src = GX_BL_SRCALPHA;
-GXBlendFactor hdr_dst = GX_BL_ONE;
-GXBlendFactor hdr_down_src = GX_BL_SRCALPHA;
-GXBlendFactor hdr_down_dst = GX_BL_ZERO;
-void* texData[MAX_TEXDATA];
-U16 sizes[9][2] = {
-    { 256, 240 },
-    { 128, 128 },
-    { 64, 64 },
-    { 32, 32 },
-    { 16, 16 },
-    { 8, 8 },
-    { 4, 4 },
-    { 2, 2 },
-    { 1, 1 }
-};
-
-namespace {
-
     inline void add_global_tweaks() {}
 
 }
@@ -207,6 +185,24 @@ void xFXHighDynamicRangeStartRender()
 
     zRenderState(SDRS_HDRBeginRender);
 }
+
+S32 hdr_dump_efb;
+GXBlendFactor hdr_src = GX_BL_SRCALPHA;
+GXBlendFactor hdr_dst = GX_BL_ONE;
+GXBlendFactor hdr_down_src = GX_BL_SRCALPHA;
+GXBlendFactor hdr_down_dst = GX_BL_ZERO;
+void* texData[MAX_TEXDATA];
+U16 sizes[9][2] = {
+    { 256, 240 },
+    { 128, 128 },
+    { 64, 64 },
+    { 32, 32 },
+    { 16, 16 },
+    { 8, 8 },
+    { 4, 4 },
+    { 2, 2 },
+    { 1, 1 }
+};
 
 void xFXHighDynamicRangeRender(RwCamera*)
 {

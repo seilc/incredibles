@@ -694,10 +694,6 @@ static xMat4x3* sBoxTestMat;
 static bool sUseJSP;
 static void* sTestOPtr;
 static xModelInstance* sTestMPtr;
-static U8 sNearestChk;
-static U8 sNearestCollType;
-static xBound sNearestBound;
-static RpIntersection sSphereIsx;
 
 static RpCollisionTriangle* nearestFloorCB(RpIntersection*, RpCollisionTriangle* collTriangle, RwReal, void* data)
 {
@@ -849,6 +845,11 @@ static RpCollisionTriangle* boxNearestFloorCB(RpIntersection* intersection, RpCo
 
     return collTriangle;
 }
+
+static xBound sNearestBound;
+static U8 sNearestChk;
+static U8 sNearestCollType;
+static RpIntersection sSphereIsx;
 
 static RpCollisionTriangle* sectorNearestFloorCB(RpIntersection* intersection, RpWorldSector*, RpCollisionTriangle* collTriangle, RwReal distance, void* data)
 {

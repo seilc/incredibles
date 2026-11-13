@@ -3,12 +3,6 @@
 static U32 psize;
 static xFFX* pool;
 static xFFX* alist;
-static U32 shake_psize;
-static xFFXShakeState* shake_pool;
-static xFFXShakeState* shake_alist;
-static U32 rot_match_psize;
-static xFFXRotMatchState* rot_match_pool;
-static xFFXRotMatchState* rot_match_alist;
 
 void xFFXPoolInit(U32 num_ffx)
 {
@@ -105,6 +99,10 @@ void xFFXShakeUpdateEnt(xEnt* ent, xScene* sc, F32 dt, void* fdata)
     ss->tmr = tnext;
 }
 
+static U32 shake_psize;
+static xFFXShakeState* shake_pool;
+static xFFXShakeState* shake_alist;
+
 void xFFXShakePoolInit(U32 num)
 {
     shake_psize = num;
@@ -134,6 +132,10 @@ void xFFXShakeFree(xFFXShakeState* s)
     s->next = shake_alist;
     shake_alist = s;
 }
+
+static U32 rot_match_psize;
+static xFFXRotMatchState* rot_match_pool;
+static xFFXRotMatchState* rot_match_alist;
 
 void xFFXRotMatchPoolInit(U32 num)
 {

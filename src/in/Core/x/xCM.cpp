@@ -471,7 +471,6 @@ F32 dtscale = 1.0f;
 
 static F32 credits_time = 10000.0f;
 static xCreditsData* credits_data = NULL;
-static U32 credits_parentID = 0;
 
 void xCMupdate(F32 dt)
 {
@@ -500,6 +499,8 @@ void xCMrender()
 {
     xCMrender(credits_time, credits_data);
 }
+
+static U32 credits_parentID = 0;
 
 void xCMstart(xCreditsData* data, F32, xBase* parent)
 {

@@ -1780,6 +1780,13 @@ void xSphereForModel(xSphere& o, const xModelInstance* model, bool childModels)
 }
 
 static xRay3 cbray;
+static U8 cbnumcs;
+static U8 cbmaxcs;
+static U8 FLOOR;
+static U8 NEXT2;
+static U8 OTHER;
+static RpIntersection cbisx_local;
+static F32 cbath;
 
 static RpCollisionTriangle* rayHitsEnvBackwardCB(RpIntersection*, RpWorldSector* sector, RpCollisionTriangle* tri, F32 dist, void* data)
 {
@@ -1969,14 +1976,6 @@ U32 xRayHitsEnv(const xRay3* r, const xEnv* env, xCollis* coll)
 
     return coll->flags & k_HIT_IT;
 }
-
-static U8 cbnumcs;
-static U8 cbmaxcs;
-static U8 FLOOR;
-static U8 NEXT2;
-static U8 OTHER;
-static RpIntersection cbisx_local;
-static F32 cbath;
 
 static RpCollisionTriangle* sphereHitsEnv3CB(RpIntersection* isx, RpWorldSector* sector, RpCollisionTriangle* tri, F32 dist, void* data)
 {
