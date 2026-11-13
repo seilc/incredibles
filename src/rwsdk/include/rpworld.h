@@ -20,6 +20,7 @@ typedef struct RpTriangle RpTriangle;
 typedef struct RpVertexNormal RpVertexNormal;
 typedef struct RpWorld RpWorld;
 typedef struct RpWorldSector RpWorldSector;
+typedef struct RxGameCubePipeData RxGameCubePipeData;
 
 enum RpGeometryFlag
 {
@@ -301,6 +302,18 @@ struct RpWorld
     RwBBox boundingBox;
     RpWorldSectorCallBackRender renderCallBack;
     RxPipeline* pipeline;
+};
+
+struct RxGameCubePipeData
+{
+    RwResEntry* resEntry;
+    RpMeshHeader* meshHeader;
+    RwInt32 flags;
+    RwRGBAReal ambientLightColor;
+    RwInt32 ambientLight;
+    RwUInt32 lightMask;
+    RwInt32 numLights;
+    void* nodeData;
 };
 
 typedef RpAtomic* (*RpAtomicCallBack)(RpAtomic* atomic, void* data);

@@ -824,7 +824,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xModelBlur.cpp"),
             Object(NonMatching, "in/Core/gc/iWater.cpp"),
             Object(NonMatching, "in/Core/gc/water/fxembm.c"),
-            Object(NonMatching, "in/Core/gc/water/fxmain.c"),
+            Object(Matching, "in/Core/gc/water/fxmain.c"),
             Object(Matching, "in/Core/gc/water/texcache.c"),
             Object(NonMatching, "in/Core/gc/water/texconv.c"),
             Object(Matching, "in/Core/gc/water/textures.c"),

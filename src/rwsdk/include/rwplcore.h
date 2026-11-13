@@ -640,6 +640,21 @@ struct RwResEntry
     RwResEntryDestroyNotify destroyNotify;
 };
 
+enum RwPlatformID
+{
+    rwID_PCD3D7 = 1,
+    rwID_PCOGL,
+    rwID_MAC,
+    rwID_PS2,
+    rwID_XBOX,
+    rwID_GAMECUBE,
+    rwID_SOFTRAS,
+    rwID_PCD3D8,
+    rwID_PCD3D9,
+    rwPLATFROMIDFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RwPlatformID RwPlatformID;
+
 struct RwObject
 {
     RwUInt8 type;
