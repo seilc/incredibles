@@ -506,7 +506,7 @@ config.libs = [
         "cflags": cflags_incredibles,
         "progress_category": "game",
         "objects": [
-            Object(NonMatching, "in/Core/x/iCamera.cpp"),
+            Object(Matching, "in/Core/x/iCamera.cpp"),
             Object(Matching, "in/Core/x/xAnim.cpp"),
             Object(NonMatching, "in/Core/x/xBallPhysics.cpp"),
             Object(Matching, "in/Core/x/xBase.cpp"),
