@@ -20,6 +20,9 @@ typedef double F64;
 #define ALIGN(a) __attribute__ ((aligned(a)))
 #else
 #define ALIGN(a)
+double __fabs(double);
+float __fabsf(float);
+double __frsqrte(double);
 #endif
 
 #define FORCEENUMSIZEINT ((S32)((~((U32)0))>>1))

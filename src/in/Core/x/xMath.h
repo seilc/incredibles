@@ -17,6 +17,7 @@
 #define xsignbit(x) ((x) < 0.0f ? 1 : 0)
 #define xsamesign(a,b) (xsignbit(a) == xsignbit(b))
 
+#define EPSILON 1e-5f
 #define PI 3.14159265f
 #define HUGE 1e38f
 

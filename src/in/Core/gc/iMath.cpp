@@ -2,17 +2,17 @@
 
 #include <cmath>
 
-F32 isin(F32 x)
+F32 isin(F32 f)
 {
-    return std::sinf(x);
+    return std::sinf(f);
 }
 
-F32 icos(F32 x)
+F32 icos(F32 f)
 {
-    return std::cosf(x);
+    return std::cosf(f);
 }
 
-F32 itan(F32 x)
+F32 itan(F32 f)
 {
-    return std::tanf(x);
+    return std::tanf(f);
 }
