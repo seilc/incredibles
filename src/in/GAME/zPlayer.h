@@ -74,6 +74,9 @@ struct zPlayer : zEnt
     virtual void ResetHealth();
     virtual bool NeedsHealth() const;
     virtual xVec3& GetFloorNormal() const;
+
+    bool IsFloorColliding() const { return Get_floor_collision() && CollisionOn(); }
+
     virtual xVec3* GetFloorPosition() const;
     virtual const char** GetBoneNames() const;
     virtual bool IsVisible() const;
@@ -85,6 +88,9 @@ struct zPlayer : zEnt
     virtual void ParseIni();
     virtual void AddStates(xAnimTable* table);
     virtual void AddTransitions(xAnimTable* table);
+
+    bool CollisionOn() const { return Get_collisionOn(); }
+
     virtual bool FindShortestCollision(xSweptSphere& sws, U32& collisionFlags, S32 penby);
     virtual void FindStaticCollisions(const xSphere& sphere);
     virtual bool CollisionResponse(const xVec3& current_dir,
@@ -102,6 +108,17 @@ struct zPlayer : zEnt
     S32 GetCollisionSpheres(const xSphere** sphereArray);
 
     virtual bool IsInteractioning();
+
+    bool Get_floor_collision() const
+    {
+        return (zPlayerFlags >> 2) & 0x1;
+    }
+
+    bool Get_collisionOn() const
+    {
+        return (zPlayerFlags >> 4) & 0x1;
+    }
+
     virtual void SetEnemyIsNear(bool isit);
 
     xEntDrive* GetDrive()

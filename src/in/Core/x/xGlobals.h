@@ -54,11 +54,17 @@ struct xGlobals
     xCamGroup* cam;
     xCamScreen* screen;
     xVec4 frustplane[12];
-    xPad* pad0;
-    xPad* pad1;
-    xPad* pad2;
-    xPad* pad3;
-    //xPad* pad[4]; removed in ship
+    union
+    {
+        struct
+        {
+            xPad* pad0;
+            xPad* pad1;
+            xPad* pad2;
+            xPad* pad3;
+        };
+        xPad* pad[4];
+    };
     S32 profile;
     char profFunc[128][6];
     xUpdateCullMgr* updateMgr;
