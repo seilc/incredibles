@@ -1,13 +1,9 @@
 #ifndef XONELINERPLAYER_H
 #define XONELINERPLAYER_H
 
-#include "iSnd.h"
+#include "xSndMgr.h"
 
 class xOneLinerManager;
-
-struct BasicInform
-{
-};
 
 enum ePlayerType
 {
@@ -24,9 +20,31 @@ struct testerPlayer
     F32 secondParam;
 };
 
+class BasicInform
+{
+public:
+    virtual void Inform(testerPlayer& data, F32 fDuration, void* uniqueness) = 0;
+    virtual bool Age(F32 fHowLong) = 0;
+    virtual bool Test(testerPlayer& data) = 0;
+};
+
 class xOneLiner
 {
-private:
+public:
+    bool Init();
+    bool UpdatePlaySound(F32 currentTime, F32 fRollsPerSecond);
+
+    void Inform(F32 fDuration, void* uniqueness)
+    {
+        m_pData->Inform(m_testerData, fDuration, uniqueness);
+        m_fLastDuration = fDuration;
+    }
+
+    bool Age(F32 fHowLong)
+    {
+        return m_pData->Age(fHowLong);
+    }
+
     U32 m_soundGroupNameHash;
     F32 m_fSoundStartDelay;
     F32 m_fTimeSpan;
@@ -37,7 +55,7 @@ private:
     F32 m_fDefaultDuration;
     F32 m_fLastDuration;
     U32 m_uMaxPlays;
-    iSndGroupHandle m_soundGroupHandle;
+    xSndGroupHandle m_soundGroupHandle;
     xOneLinerManager* m_pOLManager;
     S16 m_eventType;
     S16 m_bPlaysInMusicChannel;

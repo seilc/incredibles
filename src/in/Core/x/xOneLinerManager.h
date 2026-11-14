@@ -1,17 +1,25 @@
 #ifndef XONELINERMANAGER_H
 #define XONELINERMANAGER_H
 
-#include "xOneLinerPlayer.h"
+#include "xSndMgr.h"
+
+class xOneLiner;
 
 class xOneLinerManager
 {
 public:
+    void Init(U16 eventCount);
     void Inform(S32 event, void* pEventSpecific, F32 fOverrideDuration);
+    bool SystemIsDisabled();
+    void PlaySound(S32 index, F32 currentTime);
+    void play();
+    void playAsMusic();
+    void PlayAudio();
 
 private:
     xOneLiner* m_aOneLinerPlayers;
     S32 m_iNextSound;
-    iSndGroupHandle m_currentSoundID;
+    xSndGroupHandle m_currentSoundID;
     F32 m_pauseBetweenSounds;
     F32 m_lastUpdateTime;
     F32 m_lastPlayedTime;
