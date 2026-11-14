@@ -45,6 +45,7 @@ typedef xBase* (*zSceneForAllBaseCallback)(xBase*, zScene*, void*);
 
 extern bool gInSceneResetOrInit;
 
+bool zSceneIsLoadingPackFile();
 void zSceneSwitch(zPortal* p, S32 forceSameScene);
 xBase* zSceneFindObject(U32 gameID);
 void zSceneForAllBase(zSceneForAllBaseCallback func, S32 baseType, void* data);

@@ -11,6 +11,8 @@ U8 iGetDay();
 U8 iGetMonth();
 #endif
 
+void* iSystemARAMAlloc(U32 numbytes_to_use);
+void iSystemARAMFree(void* ptr);
 void iSystemSleep(S32 milliSecondsToSleep, U32 cancelAlarmsTag);
 
 #endif
