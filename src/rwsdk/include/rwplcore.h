@@ -744,6 +744,7 @@ struct RwObject
 #define rwLinkListInitialize(list) \
     ( (list)->link.next = ((RwLLLink *)(list)), (list)->link.prev = ((RwLLLink *)(list)) )
 
+#define RwObjectGetType(o) (((const RwObject *)(o))->type)
 #define RwIm2DGetFarScreenZMacro() (RWSRCGLOBAL(dOpenDevice).zBufferFar)
 #define RwIm2DGetNearScreenZMacro() (RWSRCGLOBAL(dOpenDevice).zBufferNear)
 

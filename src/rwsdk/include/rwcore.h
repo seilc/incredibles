@@ -7,6 +7,7 @@ typedef struct RwBBox RwBBox;
 typedef struct RwCamera RwCamera;
 typedef struct RwFrame RwFrame;
 typedef struct RwFrustumPlane RwFrustumPlane;
+typedef struct RwGameCubeRasterExtension RwGameCubeRasterExtension;
 typedef struct RwImage RwImage;
 typedef struct RwObjectHasFrame RwObjectHasFrame;
 typedef struct RwRaster RwRaster;
@@ -35,6 +36,7 @@ typedef struct rxHeapSuperBlockDescriptor rxHeapSuperBlockDescriptor;
 
 typedef RxObjSpace3DVertex RxObjSpace3DLitVertex;
 typedef RxObjSpace3DLitVertex RwIm3DVertex;
+typedef RxPipeline RxLockedPipe;
 
 enum RwRasterLockMode
 {
@@ -67,6 +69,21 @@ enum RwRasterType
     rwRASTERTYPEFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
 };
 typedef enum RwRasterType RwRasterType;
+
+enum RxGeometryFlag
+{
+    rxGEOMETRY_TRISTRIP = 0x1,
+    rxGEOMETRY_POSITIONS = 0x2,
+    rxGEOMETRY_TEXTURED = 0x4,
+    rxGEOMETRY_PRELIT = 0x8,
+    rxGEOMETRY_NORMALS = 0x10,
+    rxGEOMETRY_LIGHT = 0x20,
+    rxGEOMETRY_MODULATE = 0x40,
+    rxGEOMETRY_TEXTURED2 = 0x80,
+    rxGEOMETRY_COLORED = 0x100,
+    rxGEOMETRYFLAGFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RxGeometryFlag RxGeometryFlag;
 
 enum RxRenderStateFlag
 {
@@ -376,6 +393,23 @@ struct RwRaster
     RwInt32 originalStride;
 };
 
+struct RwGameCubeRasterExtension
+{
+    RwUInt32 tlutObj[3];
+    RwUInt32 format;
+    RwUInt32 tlutFmt;
+    RwUInt32 flags;
+    RwUInt8* memory;
+    RwUInt8* pixels;
+    RwUInt8* palette;
+    RwUInt8* lockedPixels;
+    RwUInt8* lockedBuffer;
+    void* region;
+    RwUInt16 token;
+    RwUInt8 maxLOD;
+    RwUInt8 lockedMipLevel;
+};
+
 struct RwImage
 {
     RwInt32 flags;
@@ -548,6 +582,8 @@ struct RwCamera
     }                                     \
     MACRO_STOP
 
+#define RxPipelineDestroy(_ppln) (_rxPipelineDestroy(_ppln), TRUE)
+#define _rwDlTokenGetCurrentMacro() (_RwDlTokenCurrent)
 #define RwCameraGetCurrentCameraMacro() ((RwCamera *)RWSRCGLOBAL(curCamera))
 #define RwCameraGetFarClipPlaneMacro(_camera) ((_camera)->farPlane)
 #define RwCameraGetFogDistanceMacro(_camera) ((_camera)->fogPlane)
@@ -564,12 +600,14 @@ struct RwCamera
 #define RwCameraSetRasterMacro(_camera, _raster) (((_camera)->frameBuffer = (_raster)), (_camera))
 #define RwCameraSetZRasterMacro(_camera, _raster) (((_camera)->zBuffer = (_raster)), (_camera))
 #define RwFrameGetMatrixMacro(_f) (&(_f)->modelling)
+#define RwGameCubeRasterGetExtensionMacro(_raster) ((RwGameCubeRasterExtension*)(((RwUInt8*)(_raster)) + _RwGameCubeRasterExtOffset))
 #define RwImageGetDepthMacro(_image) ((_image)->depth)
 #define RwImageGetHeightMacro(_image) ((_image)->height)
 #define RwImageGetPixelsMacro(_image) ((_image)->cpPixels)
 #define RwImageGetWidthMacro(_image) ((_image)->width)
 #define RwRasterGetFormatMacro(_raster) ((((_raster)->cFormat) & (rwRASTERFORMATMASK >> 8)) << 8)
 #define RwRasterGetHeightMacro(_raster) ((_raster)->height)
+#define RwRasterGetParentMacro(_raster) ((_raster)->parent)
 #define RwRasterGetStrideMacro(_raster) ((_raster)->stride)
 #define RwRasterGetTypeMacro(_raster) (((_raster)->cType) & rwRASTERTYPEMASK)
 #define RwRasterGetWidthMacro(_raster) ((_raster)->width)
@@ -591,6 +629,11 @@ struct RwCamera
 
 #ifdef __cplusplus
 extern "C" {
+#endif
+
+#ifndef RWDEBUG
+extern RwUInt16 _RwDlTokenCurrent;
+extern RwInt32 _RwGameCubeRasterExtOffset;
 #endif
 
 RwCamera* RwCameraBeginUpdate(RwCamera* camera);
@@ -633,10 +676,18 @@ RwBool RwTextureDestroy(RwTexture* texture);
 RwBool RwTextureSetAutoMipmapping(RwBool enable);
 RwBool RwTextureSetMipmapping(RwBool enable);
 RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster);
+RxLockedPipe* RxLockedPipeAddFragment(RxLockedPipe* pipeline, RwUInt32* firstIndex, RxNodeDefinition* nodeDef0, ...);
+RxPipeline* RxLockedPipeUnlock(RxLockedPipe* pipeline);
+RxPipeline* RxPipelineCreate(void);
+RxPipelineNode* RxPipelineFindNodeByName(RxPipeline* pipeline, const RwChar* name, RxPipelineNode* start, RwInt32* nodeIndex);
+RxLockedPipe* RxPipelineLock(RxPipeline* pipeline);
 RxRenderStateVector* RxRenderStateVectorLoadDriverState(RxRenderStateVector* rsvp);
 void _rwDlRenderStateSetZCompLoc(RwBool zBeforeTex);
+void _rwDlTextureSet(RwTexture* texture, RwInt32 index);
+void _rwDlTransformSetup(RwMatrix* ltm, RwBool normals);
 RwBool _rwFrameSyncDirty(void);
 void _rwObjectHasFrameSetFrame(void* object, RwFrame* frame);
+void _rxPipelineDestroy(RxPipeline* Pipeline);
 
 #if (defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
 RwCamera* RwCameraGetCurrentCamera(void);
@@ -655,12 +706,14 @@ RwCamera* RwCameraSetFrame(RwCamera* camera, RwFrame* frame);
 RwCamera* RwCameraSetRaster(RwCamera* camera, RwRaster* raster);
 RwCamera* RwCameraSetZRaster(RwCamera* camera, RwRaster* zRaster);
 RwMatrix* RwFrameGetMatrix(RwFrame* frame);
+RwGameCubeRasterExtension* RwGameCubeRasterGetExtension(RwRaster* raster);
 RwInt32 RwImageGetDepth(const RwImage* image);
 RwInt32 RwImageGetHeight(const RwImage* image);
 RwUInt8* RwImageGetPixels(const RwImage* image);
 RwInt32 RwImageGetWidth(const RwImage* image);
 RwInt32 RwRasterGetFormat(const RwRaster* raster);
 RwInt32 RwRasterGetHeight(const RwRaster* raster);
+RwRaster* RwRasterGetParent(const RwRaster* raster);
 RwInt32 RwRasterGetStride(const RwRaster* raster);
 RwInt32 RwRasterGetType(const RwRaster* raster);
 RwInt32 RwRasterGetWidth(const RwRaster* raster);
@@ -668,6 +721,7 @@ RwChar* RwTextureGetName(RwTexture* texture);
 RwRaster* RwTextureGetRaster(const RwTexture* texture);
 RwTexture* RwTextureSetAddressing(RwTexture* texture, RwTextureAddressMode addressing);
 RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filtering);
+RwUInt16 _rwDlTokenGetCurrent(void);
 #endif
 
 #ifdef __cplusplus
@@ -691,12 +745,14 @@ RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filter
 #define RwCameraSetRaster(_camera, _raster) RwCameraSetRasterMacro(_camera, _raster)
 #define RwCameraSetZRaster(_camera, _raster) RwCameraSetZRasterMacro(_camera, _raster)
 #define RwFrameGetMatrix(_f) RwFrameGetMatrixMacro(_f)
+#define RwGameCubeRasterGetExtension(_raster) RwGameCubeRasterGetExtensionMacro(_raster)
 #define RwImageGetDepth(_image) RwImageGetDepthMacro(_image)
 #define RwImageGetHeight(_image) RwImageGetHeightMacro(_image)
 #define RwImageGetPixels(_image) RwImageGetPixelsMacro(_image)
 #define RwImageGetWidth(_image) RwImageGetWidthMacro(_image)
 #define RwRasterGetFormat(_raster) RwRasterGetFormatMacro(_raster)
 #define RwRasterGetHeight(_raster) RwRasterGetHeightMacro(_raster)
+#define RwRasterGetParent(_raster) RwRasterGetParentMacro(_raster)
 #define RwRasterGetStride(_raster) RwRasterGetStrideMacro(_raster)
 #define RwRasterGetType(_raster) RwRasterGetTypeMacro(_raster)
 #define RwRasterGetWidth(_raster) RwRasterGetWidthMacro(_raster)
@@ -704,6 +760,7 @@ RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filter
 #define RwTextureGetRaster(_tex) RwTextureGetRasterMacro(_tex)
 #define RwTextureSetAddressing(_tex, _addressing) RwTextureSetAddressingMacro(_tex, _addressing)
 #define RwTextureSetFilterMode(_tex, _filtering) RwTextureSetFilterModeMacro(_tex, _filtering)
+#define _rwDlTokenGetCurrent() _rwDlTokenGetCurrentMacro()
 #endif
 
 #endif
