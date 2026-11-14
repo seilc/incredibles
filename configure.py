@@ -610,7 +610,7 @@ config.libs = [
             Object(NonMatching, "in/Core/gc/iAnimSKB.cpp"),
             Object(Matching, "in/Core/gc/iAsync.cpp"),
             Object(NonMatching, "in/Core/gc/iCutscene.cpp"),
-            Object(NonMatching, "in/Core/gc/iDraw.cpp"),
+            Object(Matching, "in/Core/gc/iDraw.cpp"),
             Object(NonMatching, "in/Core/gc/iEnv.cpp"),
             Object(NonMatching, "in/Core/gc/iFile.cpp"),
             Object(NonMatching, "in/Core/gc/iFMV.cpp"),
