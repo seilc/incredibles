@@ -410,6 +410,7 @@ cflags_rttilerd = [
 cflags_incredibles = [
     *cflags_base,
     "-lang=C++",
+    "-pool off",
     "-common on",
     "-str reuse,pool,readonly",
     "-use_lmw_stmw on",
@@ -823,7 +824,7 @@ config.libs = [
             Object(Matching, "in/GAME/zLoadingScreen.cpp"),
             Object(Matching, "in/Core/x/xModelBlur.cpp"),
             Object(NonMatching, "in/Core/gc/iWater.cpp"),
-            Object(NonMatching, "in/Core/gc/water/fxembm.c"),
+            Object(Matching, "in/Core/gc/water/fxembm.c"),
             Object(Matching, "in/Core/gc/water/fxmain.c"),
             Object(Matching, "in/Core/gc/water/texcache.c"),
             Object(Matching, "in/Core/gc/water/texconv.c"),

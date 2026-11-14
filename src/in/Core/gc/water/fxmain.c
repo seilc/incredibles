@@ -39,7 +39,7 @@ static RpMaterial* MaterialSetupEffect(RpMaterial* material, void* data)
 
     RpMultiTextureSetEffect(dstMT, RpMultiTextureGetEffect(srcMT));
 
-    RpGameCubeMTRenderCallBack preRender, postRender;
+    RpGameCubeMTCallBack preRender, postRender;
     void* cbData;
     RpMultiTextureGetGameCubeMTCallBacks(srcMT, &preRender, &postRender, &cbData);
     RpMultiTextureSetGameCubeMTCallBacks(dstMT, preRender, postRender, cbData);
