@@ -21,6 +21,19 @@
 #define PI 3.14159265f
 #define HUGE 1e38f
 
+inline S32 log2ceil(S32 value)
+{
+    S32 power = 0;
+
+    for (S32 v = value; v > 1; v >>= 1)
+        power++;
+
+    if ((1 << power) < value)
+        power++;
+
+    return power;
+}
+
 template <class T>
 T range_limit(T v, T minv, T maxv)
 {

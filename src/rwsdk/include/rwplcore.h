@@ -45,6 +45,7 @@ typedef struct RwObject RwObject;
 typedef struct RwPlane RwPlane;
 typedef struct RwRGBA RwRGBA;
 typedef struct RwRGBAReal RwRGBAReal;
+typedef struct RwRect RwRect;
 typedef struct RwResEntry RwResEntry;
 typedef struct RwSphere RwSphere;
 typedef union RwSplitBits RwSplitBits;
@@ -166,6 +167,14 @@ struct RwV3d
     RwReal x;
     RwReal y;
     RwReal z;
+};
+
+struct RwRect
+{
+    RwInt32 x;
+    RwInt32 y;
+    RwInt32 w;
+    RwInt32 h;
 };
 
 struct RwSphere
