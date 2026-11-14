@@ -644,7 +644,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zCheat.cpp"),
             Object(NonMatching, "in/GAME/zCollGeom.cpp"),
             Object(NonMatching, "in/GAME/zCombat.cpp"),
-            Object(NonMatching, "in/GAME/zCombatCombo.cpp"),
+            Object(Matching, "in/GAME/zCombatCombo.cpp"),
             Object(NonMatching, "in/GAME/zCombatEffects.cpp"),
             Object(NonMatching, "in/GAME/zCombatLaser.cpp"),
             Object(NonMatching, "in/GAME/zCombatSystem.cpp"),
