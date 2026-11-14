@@ -4,17 +4,17 @@
 #include "rwcore.h"
 #include "rpworld.h"
 
+typedef struct RpUserDataArray RpUserDataArray;
+
 enum RpUserDataFormat
 {
-    rpNAUSERDATAFORMAT = 0,
+    rpNAUSERDATAFORMAT,
     rpINTUSERDATA,
     rpREALUSERDATA,
     rpSTRINGUSERDATA,
     rpUSERDATAFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
 };
 typedef enum RpUserDataFormat RpUserDataFormat;
-
-typedef struct RpUserDataArray RpUserDataArray;
 
 struct RpUserDataArray
 {
