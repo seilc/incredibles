@@ -637,7 +637,7 @@ config.libs = [
             Object(Matching, "in/GAME/zCam.cpp"),
             Object(Matching, "in/GAME/zCameraFly.cpp"),
             Object(Matching, "in/GAME/zCameraTweak.cpp"),
-            Object(NonMatching, "in/GAME/zCamFP.cpp"),
+            Object(Matching, "in/GAME/zCamFP.cpp"),
             Object(NonMatching, "in/GAME/zCamMarker.cpp"),
             Object(NonMatching, "in/GAME/zCamPlayer.cpp"),
             Object(NonMatching, "in/GAME/zCamSwing.cpp"),
