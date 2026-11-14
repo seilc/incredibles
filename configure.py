@@ -684,7 +684,7 @@ config.libs = [
             Object(Matching, "in/GAME/zKaboomMinigame.cpp"),
             Object(NonMatching, "in/GAME/zLaserBeam.cpp"),
             Object(NonMatching, "in/GAME/zLight.cpp"),
-            Object(NonMatching, "in/GAME/zLightEffect.cpp"),
+            Object(Matching, "in/GAME/zLightEffect.cpp"),
             Object(NonMatching, "in/GAME/zLightning.cpp"),
             Object(Matching, "in/GAME/zLightWeight.cpp"),
             Object(NonMatching, "in/GAME/zLOD.cpp"),
