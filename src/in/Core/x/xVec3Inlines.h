@@ -11,6 +11,13 @@ inline U32 xVec3Equals(const xVec3* a, const xVec3* b)
     return xeq(a->x, b->x, 0.0f) && xeq(a->y, b->y, 0.0f) && xeq(a->z, b->z, 0.0f);
 }
 
+inline void xVec3AddTo(xVec3& a, const xVec3& b)
+{
+    a.x += b.x;
+    a.y += b.y;
+    a.z += b.z;
+}
+
 inline void xVec3AddTo(xVec3* a, const xVec3* b)
 {
     a->x += b->x, a->y += b->y, a->z += b->z;

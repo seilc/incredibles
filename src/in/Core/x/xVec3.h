@@ -61,6 +61,7 @@ struct xVec3
     xVec3& operator-=(F32 f) { x -= f; y -= f; z -= f; return *this; }
     xVec3& operator*=(F32 s);
     xVec3& operator/=(F32 f) { F32 i = 1.0f / f; x *= i; y *= i; z *= i; return *this; }
+    xVec3& operator=(F32 f) { x = y = z = f; return *this; }
 
     xVec3& cross(const xVec3& c0, const xVec3& c1)
     {
