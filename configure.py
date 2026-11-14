@@ -572,7 +572,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xParSys.cpp"),
             Object(Matching, "in/Core/x/xPartition.cpp"),
             Object(Matching, "in/Core/x/xpkrsvc.cpp"),
-            Object(NonMatching, "in/Core/x/xPtankPool.cpp"),
+            Object(Matching, "in/Core/x/xPtankPool.cpp"),
             Object(Matching, "in/Core/x/xQuickCull.cpp"),
             Object(Matching, "in/Core/x/xRand.cpp"),
             Object(Matching, "in/Core/x/xRegionSupport.cpp"),

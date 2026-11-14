@@ -170,4 +170,8 @@ struct ptank_pool__pos_color_size_rot_uv2 : ptank_pool
     RwInt32 stride_uv;
 };
 
+void xPTankPoolSceneEnter();
+void xPTankPoolSceneExit();
+void xPTankPoolRender();
+
 #endif
