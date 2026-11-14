@@ -579,7 +579,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xRenderState.cpp"),
             Object(Matching, "in/Core/x/xRMemData.cpp"),
             Object(Matching, "in/Core/x/xRumbleEmitter.cpp"),
-            Object(NonMatching, "in/Core/x/xRumbleManager.cpp"),
+            Object(Matching, "in/Core/x/xRumbleManager.cpp"),
             Object(Matching, "in/Core/x/xsavegame.cpp"),
             Object(Matching, "in/Core/x/xScene.cpp"),
             Object(Matching, "in/Core/x/xScreenWarp.cpp"),
