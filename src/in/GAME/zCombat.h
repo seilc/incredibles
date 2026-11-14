@@ -71,6 +71,49 @@ struct zAttackTableState
     S16 powerBonus;
 };
 
+struct zAttackTableSection
+{
+    U32 section;
+    U16 start;
+    U16 count;
+};
+
+struct zAttackTableEntry
+{
+    U32 animationStateID;
+    xAnimState* animationState;
+    U16 animationStart;
+    U16 animationCount;
+    U16 start;
+    U16 count;
+    U16 onFlags;
+    U16 offFlags;
+    U8 input;
+    U8 power;
+    U8 pad0;
+    U8 pad1;
+    F32 startTime;
+};
+
+struct zAttackTableTransition
+{
+    U32 sourceState;
+    U32 destinationState;
+    F32 sourceTime;
+    F32 throughTime;
+    F32 destinationTime;
+    F32 blendTime;
+    U32 flags;
+};
+
+struct zAttackTableAsset
+{
+    U16 sectionCount;
+    U16 entryCount;
+    U16 transitionCount;
+    U16 stateCount;
+};
+
 struct zAttackStateRunTimeData
 {
     struct ProcEffectData
@@ -146,6 +189,9 @@ struct zCombat
     MoveState moveState;
     xVec3 moveStateVelocity;
 
+    void Init(const xHierarchyBoundInitData* initHierarchy, F32 masterRadius,
+              const zAttackTableState* stateTable, U16 stateTableSize, S32 hitPoints, const char*,
+              const char**, S32, F32 scale);
     void RenderEffectModel(xEnt*);
 };
 

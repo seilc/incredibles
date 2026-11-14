@@ -699,7 +699,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zNPCBehaviorFX.cpp"),
             Object(NonMatching, "in/GAME/zNPCBossOmnidroid.cpp"),
             Object(NonMatching, "in/GAME/zNPCCar.cpp"),
-            Object(NonMatching, "in/GAME/zNPCCombat.cpp"),
+            Object(Matching, "in/GAME/zNPCCombat.cpp"),
             Object(NonMatching, "in/GAME/zNPCFriendly.cpp"),
             Object(NonMatching, "in/GAME/zNPCLobber.cpp"),
             Object(NonMatching, "in/GAME/zNPCMelee.cpp"),
