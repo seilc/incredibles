@@ -826,7 +826,7 @@ config.libs = [
             Object(NonMatching, "in/Core/gc/water/fxembm.c"),
             Object(Matching, "in/Core/gc/water/fxmain.c"),
             Object(Matching, "in/Core/gc/water/texcache.c"),
-            Object(NonMatching, "in/Core/gc/water/texconv.c"),
+            Object(Matching, "in/Core/gc/water/texconv.c"),
             Object(Matching, "in/Core/gc/water/textures.c"),
             Object(NonMatching, "in/GAME/zEnergyStream.cpp"),
             Object(NonMatching, "in/GAME/zNPCSmoke.cpp"),
