@@ -11,6 +11,20 @@ inline U32 xVec3Equals(const xVec3* a, const xVec3* b)
     return xeq(a->x, b->x, 0.0f) && xeq(a->y, b->y, 0.0f) && xeq(a->z, b->z, 0.0f);
 }
 
+inline void xVec3Add(xVec3& o, const xVec3& a, const xVec3& b)
+{
+    o.x = a.x + b.x;
+    o.y = a.y + b.y;
+    o.z = a.z + b.z;
+}
+
+inline void xVec3Add(xVec3& o, const xVec3& a)
+{
+    o.x += a.x;
+    o.y += a.y;
+    o.z += a.z;
+}
+
 inline void xVec3AddTo(xVec3& a, const xVec3& b)
 {
     a.x += b.x;
@@ -100,6 +114,13 @@ inline void xVec3ScaleC(xVec3& o, F32 scale)
     o.z *= scale;
 }
 
+inline void xVec3ScaleC(xVec3& o, const xVec3& v, F32 scale)
+{
+    o.x = v.x * scale;
+    o.y = v.y * scale;
+    o.z = v.z * scale;
+}
+
 inline void xVec3Inv(xVec3* o, const xVec3* v)
 {
     o->x = -v->x, o->y = -v->y, o->z = -v->z;
@@ -126,6 +147,13 @@ inline F32 xVec3Dist(const xVec3* a, const xVec3* b)
 {
     F32 d;
     xVec3DistMacro(a, b, &d);
+    return d;
+}
+
+inline F32 xVec3Dist2(const xVec3* a, const xVec3* b)
+{
+    F32 d;
+    xVec3Dist2Macro(a, b, &d);
     return d;
 }
 

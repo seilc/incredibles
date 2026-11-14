@@ -68,7 +68,6 @@ S32 xSweptSphereToEnv(xSweptSphere* sws, xEnv* env);
 void RpCollTreeForAllCapsuleIntsec(RpCollTree* tree, RwLine* line, RwReal radius, RpCollTreeLeafCB callBack, void* data);
 S32 xSweptSphereToModel(xSweptSphere* sws, RpAtomic* model, const RwMatrix* mat);
 S32 xSweptSphereToSphere(xSweptSphere& sws, const xVec3& center, F32 radius);
-S32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph);
 S32 xSweptSphereToBound(xSweptSphere* sws, const xBound* bound);
 S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent);
 S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent, xRay3* ray);
@@ -76,6 +75,11 @@ S32 xSweptSphereToScene(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType,
 S32 xSweptSphereToNonMoving(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby); // UNUSED
 S32 xSweptSphereToStatDyn(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
 S32 xSweptSphereToNPC(xSweptSphere* sws, xScene* sc, xEnt* mover, U8 collType, S32 penby);
+
+inline S32 xSweptSphereToSphere(xSweptSphere* sws, const xSphere* sph)
+{
+    return xSweptSphereToSphere(*sws, sph->center, sph->r);
+}
 
 inline xSweptSphere::xSweptSphere() {}
 

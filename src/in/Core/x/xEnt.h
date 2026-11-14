@@ -52,6 +52,11 @@ struct xEntFrame
     {
         return dpos;
     }
+
+    void setDpos(const xVec3& val)
+    {
+        dpos = val;
+    }
 };
 
 typedef void(*xEntCollisPostCallback)(xEnt*, xScene*, F32, xEntCollis*);

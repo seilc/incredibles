@@ -34,6 +34,8 @@ extern double exp(double);
 extern double fmod(double, double);
 extern double log(double);
 
+inline double fabs(double x) { return __fabs(x); }
+
 extern float cosf(float);
 extern float sinf(float);
 extern float fabsf(float);

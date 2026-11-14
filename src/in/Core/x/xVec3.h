@@ -36,7 +36,7 @@ struct xVec3
         *this *= f;
         return 1.0f / f;
     }
-    F32 length2() const;
+    F32 length2() const { return x * x + y * y + z * z; }
 
     void assign(F32 x, F32 y, F32 z)
     {
@@ -51,15 +51,15 @@ struct xVec3
     }
 
     xVec3 operator+(const xVec3& v) const { xVec3 r = *this; r += v; return r; }
-    xVec3 operator-(const xVec3& v) const;
-    xVec3 operator*(F32 s) const;
+    xVec3 operator-(const xVec3& v) const { xVec3 r = *this; r -= v; return r; }
+    xVec3 operator*(F32 s) const { xVec3 r = *this; r *= s; return r; }
     xVec3 operator/(F32 f) const { xVec3 r = *this; r /= f; return r; }
     xVec3 operator-() const { xVec3 r = *this; r.x = -r.x; r.y = -r.y; r.z = -r.z; return r; }
-    xVec3& operator+=(const xVec3& v);
+    xVec3& operator+=(const xVec3& v) { x += v.x; y += v.y; z += v.z; return *this; }
     xVec3& operator-=(const xVec3& v) { x -= v.x; y -= v.y; z -= v.z; return *this; }
     xVec3& operator+=(F32 f) { x += f; y += f; z += f; return *this; }
     xVec3& operator-=(F32 f) { x -= f; y -= f; z -= f; return *this; }
-    xVec3& operator*=(F32 s);
+    xVec3& operator*=(F32 f) { x *= f; y *= f; z *= f; return *this; }
     xVec3& operator/=(F32 f) { F32 i = 1.0f / f; x *= i; y *= i; z *= i; return *this; }
     xVec3& operator=(F32 f) { x = y = z = f; return *this; }
 
@@ -74,7 +74,7 @@ struct xVec3
     void cross_xpos(const xVec3& c0) { x = 0.0f; y = c0.z; z = -c0.y; }
     void cross_ypos(const xVec3& c0) { x = -c0.z; y = 0.0f; z = c0.x; }
 
-    F32 dot(const xVec3& c) const;
+    F32 dot(const xVec3& c) const { return x * c.x + y * c.y + z * c.z; }
     xVec3& negate() { x = -x; y = -y; z = -z; return *this; }
 
     xVec3 cross(const xVec3& c) const

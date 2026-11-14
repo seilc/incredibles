@@ -8,6 +8,7 @@
 #include <rwcore.h>
 
 struct xCollis;
+struct xSweptSphere;
 
 struct zSurfMatFX
 {
@@ -162,6 +163,7 @@ struct zSurfaceProps
 
 void zSurfaceRegisterMapper(U32 assetId);
 xSurface* zSurfaceGetSurface(U32 mat_id);
+xSurface* zSurfaceGetSurface(const xSweptSphere* sphere);
 xSurface* zSurfaceGetSurface(const xCollis* coll);
 
 #endif

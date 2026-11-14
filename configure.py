@@ -510,7 +510,7 @@ config.libs = [
         "objects": [
             Object(Matching, "in/Core/x/iCamera.cpp"),
             Object(Matching, "in/Core/x/xAnim.cpp"),
-            Object(NonMatching, "in/Core/x/xBallPhysics.cpp"),
+            Object(Matching, "in/Core/x/xBallPhysics.cpp"),
             Object(Matching, "in/Core/x/xBase.cpp"),
             Object(Matching, "in/Core/x/xBehaveGoalSimple.cpp"),
             Object(Matching, "in/Core/x/xBehaveMgr.cpp"),
