@@ -2,9 +2,9 @@
 """Print a Discord message (JSON payload) with per-version Game progress from objdiff reports.
 
 Usage: progress.py CUR_DIR [PREV_DIR]
-One line per version (matched code, and its change since PREV_DIR; a 🎉 when it passed a multiple of 10% since
-PREV_DIR), then, with PREV_DIR, the Game files whose match changed, with the changed functions of the files not yet
-complete.
+One line per version (fuzzy-matched code, objdiff's fuzzy_match_percent, and its change since PREV_DIR; a 🎉 when
+it passed a multiple of 10% since PREV_DIR), then, with PREV_DIR, the Game files whose match changed, with the
+changed functions of the files not yet complete.
 Optional environment, for the line naming who pushed what: PUSHER (GitHub login), REPO (owner/name), HEAD_SHA,
 PREV_SHA, COMMITS (the number of commits pushed).
 Prints nothing when nothing changed since PREV_DIR.
@@ -58,7 +58,9 @@ def load(d, ver):
                       "funcs": {f["name"]: (f.get("metadata", {}).get("demangled_name") or f["name"],
                                             float(f.get("fuzzy_match_percent", 0.0)), int(f["size"]))
                                 for f in u.get("functions", [])}}
-    return {k: int(v) for k, v in m.items() if not k.endswith("_percent")}, units
+    measures = {k: int(v) for k, v in m.items() if not k.endswith("_percent")}
+    measures["fuzzy_code"] = round(measures.get("total_code", 0) * float(m.get("fuzzy_match_percent", 0.0)) / 100)
+    return measures, units
 
 
 def pct(m, key, total):
@@ -122,7 +124,7 @@ def main():
             changed = True
         else:
             prev, prev_units = prev
-            changed |= cur.get("matched_code", 0) != prev.get("matched_code", 0)
+            changed |= cur.get("fuzzy_code", 0) != prev.get("fuzzy_code", 0)
             for key, u in cur_units.items():
                 change = unit_change(prev_units.get(key), u)
                 if change:
@@ -133,11 +135,11 @@ def main():
 
     lines = []
     for ver, cur, prev in rows:
-        stats = f"{cur.get('matched_code', 0):,} / {cur.get('total_code', 0):,}"
-        cur_pct, end = pct(cur, "matched_code", "total_code"), "."
+        stats = f"{cur.get('fuzzy_code', 0):,} / {cur.get('total_code', 0):,}"
+        cur_pct, end = pct(cur, "fuzzy_code", "total_code"), "."
         if prev:
-            prev_pct = pct(prev, "matched_code", "total_code")
-            gained = cur.get("matched_code", 0) - prev.get("matched_code", 0)
+            prev_pct = pct(prev, "fuzzy_code", "total_code")
+            gained = cur.get("fuzzy_code", 0) - prev.get("fuzzy_code", 0)
             stats = f"({cur_pct - prev_pct:+.2f}% {gained:+,}), " + stats
             if round(cur_pct, 2) // 10 > round(prev_pct, 2) // 10:
                 end = " 🎉"
