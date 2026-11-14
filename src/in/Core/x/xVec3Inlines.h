@@ -134,4 +134,15 @@ inline void xVec3Lerp(xVec3* o, const xVec3* a, const xVec3* b, F32 f)
     o->x = a->x * (1.0f - f) + b->x * f, o->y = a->y * (1.0f - f) + b->y * f, o->z = a->z * (1.0f - f) + b->z * f;
 }
 
+inline F32 xVec3NormalizeSafe(xVec3& v)
+{
+    F32 len_squ = v.length2();
+    if (len_squ < 9.9999994e-11f) {
+        return 0.0f;
+    }
+    len_squ = xsqrt(len_squ);
+    xVec3ScaleC(v, 1.0f / len_squ);
+    return len_squ;
+}
+
 #endif
