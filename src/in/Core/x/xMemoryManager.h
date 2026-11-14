@@ -12,10 +12,7 @@ public:
     void* GetArenaStart() const;
     void* GetArenaEnd() const;
 
-    bool IsDebugging() const
-    {
-        return debugDataSize != 0;
-    }
+    bool IsDebugging() const { return debugDataSize != 0; }
 
     U32 GetBlockSize(void* pointer) const;
 

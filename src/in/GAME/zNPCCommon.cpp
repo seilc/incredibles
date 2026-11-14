@@ -353,17 +353,17 @@ namespace zNPC
         xEntInit(this, asset);
 
         navigation_behavior = NULL;
-        collType = 8;
-        collLev = 4;
+        collType = k_XENT_COLLTYPE_NPC;
+        collLev = k_XENT_COLLLEV_BOUND;
         bound.type = k_XBOUNDTYPE_SPHERE;
-        moreFlags |= 0x10;
+        moreFlags |= k_MORE_FLAGS_HITTABLE;
         collis = NULL;
         baseFlags |= 0x100;
 
         zEntParseModelInfo(this, asset->modelInfoID);
         xEntInitForType(this);
 
-        chkby |= 0xC;
+        chkby |= k_XENT_COLLTYPE_DYN | k_XENT_COLLTYPE_NPC;
         commonFlags.old_chkby = chkby;
 
         frame = (xEntFrame*)xMEMALLOC(sizeof(xEntFrame), 0);
@@ -408,7 +408,7 @@ namespace zNPC
         get_parameter("NoAttackDuringCinematic", &invincible, true);
 
         if (!tempBool) {
-            chkby &= (U8)~0x10;
+            chkby &= (U8)~k_XENT_COLLTYPE_PC;
             commonFlags.old_chkby = chkby;
         }
 
@@ -433,7 +433,7 @@ namespace zNPC
     {
         commonFlags.active = true;
         chkby = commonFlags.old_chkby;
-        penby = 0x10;
+        penby = k_XENT_COLLTYPE_PC;
 
         xGridAdd(&npcs_grid, this);
         xEntShow(this);
@@ -447,8 +447,8 @@ namespace zNPC
         }
 
         commonFlags.active = false;
-        chkby = 0;
-        penby = 0;
+        chkby = k_XENT_COLLTYPE_NONE;
+        penby = k_XENT_COLLTYPE_NONE;
 
         xGridRemove(&gridb);
         xEntHide(this);
@@ -853,7 +853,7 @@ namespace zNPC
         initialize_bounds(scale);
 
         chkby = commonFlags.old_chkby;
-        penby = 0x10;
+        penby = k_XENT_COLLTYPE_PC;
 
         if (commonFlags.cast_shadow) {
             if (commonFlags.complex_shadow) {

@@ -59,6 +59,7 @@ public:
         SPECIAL_STROBE
     };
 
+    // LayerInfo::uFlags
     enum LAYER_FLAGS
     {
         BLEND = 0x1,

@@ -66,7 +66,7 @@ static void render_message(const char* s)
 static char composed_message_text[256];
 static bool is_controller_message;
 static const char* message_text;
-// UNUSED: needed to match (code from TSSM GC, Incredibles PS2)
+// UNUSED: needed to match (code from Incredibles PS2, TSSM GC)
 static U32 standalone;
 
 void xTRCClearPadMsg()
@@ -104,7 +104,7 @@ void xTRCReset()
     xglobals->dontShowPadMessageDuringLoadingOrCutScene = false;
 }
 
-// UNUSED: needed to match (code from TSSM GC, Incredibles PS2)
+// UNUSED: needed to match (code from Incredibles PS2, TSSM GC)
 static S32 DisplayMessage(TRCState state)
 {
     switch (state) {

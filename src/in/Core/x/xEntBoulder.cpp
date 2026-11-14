@@ -81,10 +81,10 @@ void xEntBoulder_Init(void* ent, void* asset)
 void xEntBoulder_Init(xEntBoulder* ent, xEntAsset* asset)
 {
     xEntInit(ent, asset);
-    ent->collType = 0x4;
-    ent->collLev = 0x4;
+    ent->collType = k_XENT_COLLTYPE_DYN;
+    ent->collLev = k_XENT_COLLLEV_BOUND;
     ent->bound.type = k_XBOUNDTYPE_SPHERE;
-    ent->moreFlags |= 0x10;
+    ent->moreFlags |= k_MORE_FLAGS_HITTABLE;
     zEntParseModelInfo(ent, asset->modelInfoID);
 
     ent->entShadow = &ent->entShadow_embedded;
@@ -166,7 +166,7 @@ void xEntBoulder_BUpdate(xEnt*, xVec3*)
 {
 }
 
-// UNUSED: needed to match (code from RotU GC, Rat GC, TSSM GC, BFBB GC)
+// UNUSED: needed to match (code from Rat GC, RotU GC, TSSM GC, BFBB GC)
 void xEntBoulder_RealBUpdate(xEnt* ent, xVec3* pos)
 {
     xEntBoulder* boul = (xEntBoulder*)ent;
@@ -219,7 +219,7 @@ void xEntBoulder_Update(xEntBoulder* ent, xScene* sc, F32 dt)
 
     xEntBeginUpdate(ent, sc, dt);
 
-    ent->collType = 0x10;
+    ent->collType = k_XENT_COLLTYPE_PC;
 
     bool definitelyBounce = false;
     F32 sweptDistSqr = xVec3Length2(&sweptDisp);
@@ -242,7 +242,7 @@ void xEntBoulder_Update(xEntBoulder* ent, xScene* sc, F32 dt)
 
     xEntCollide(ent, sc, dt);
 
-    ent->collType = 0x4;
+    ent->collType = k_XENT_COLLTYPE_DYN;
 
     if (xEntBoulder_KilledBySurface(ent, sc, dt)) {
         if (ent->collis == &sBoulderCollis) {
@@ -316,7 +316,7 @@ void xEntBoulder_Update(xEntBoulder* ent, xScene* sc, F32 dt)
 
             xEnt* xb = (xEnt*)ent->collis->colls[i].optr;
             if (!(ent->basset->flags & 0x4) || xb->baseType != eBaseTypeDestructObj)
-                if (xb->moreFlags & 0x10) {
+                if (xb->moreFlags & k_MORE_FLAGS_HITTABLE) {
                     if (xb->baseType != eBaseTypeBoulder || (((xEntBoulder*)xb)->basset->flags & 0x100)) {
                         F32 hitParams[6] = { 25.0f, 2.0f, 0.0f, ent->vel.x, ent->vel.y, ent->vel.z };
                         zEntEvent(ent, xb, eEventHit, hitParams);
@@ -530,8 +530,8 @@ S32 xEntBoulder_KilledBySurface(xEntBoulder* ent, xScene*, F32)
 void xEntBoulder_Kill(xEntBoulder* ent)
 {
     if (ent) {
-        ent->chkby = 0;
-        ent->penby = 0;
+        ent->chkby = k_XENT_COLLTYPE_NONE;
+        ent->penby = k_XENT_COLLTYPE_NONE;
         ent->collis_chk = 0;
         ent->collis_pen = 0;
         ent->update = NULL;
@@ -559,8 +559,8 @@ void xEntBoulder_Setup(xEntBoulder* ent)
 
 void xEntBoulder_Reset(xEntBoulder* ent, xScene*)
 {
-    ent->chkby = 0x1c;
-    ent->penby = 0x10;
+    ent->chkby = k_XENT_COLLTYPE_DYN | k_XENT_COLLTYPE_NPC | k_XENT_COLLTYPE_PC;
+    ent->penby = k_XENT_COLLTYPE_PC;
     ent->collis_chk = 0x2e;
     ent->collis_pen = 0;
 
@@ -591,20 +591,20 @@ void xEntBoulderEventCB(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
         xEntHide(s);
         break;
     case eEventCollisionOn:
-        s->chkby |= (U8)0x10;
+        s->chkby |= k_XENT_COLLTYPE_PC;
         break;
     case eEventCollisionOff:
-        s->chkby &= (U8)~0x10;
+        s->chkby &= (U8)~k_XENT_COLLTYPE_PC;
         break;
     case eEventCollisionReset:
-        s->chkby = 0x1c;
+        s->chkby = k_XENT_COLLTYPE_DYN | k_XENT_COLLTYPE_NPC | k_XENT_COLLTYPE_PC;
         break;
     case eEventCollision_Visible_On:
-        s->chkby |= (U8)0x10;
+        s->chkby |= k_XENT_COLLTYPE_PC;
         xEntShow(s);
         break;
     case eEventCollision_Visible_Off:
-        s->chkby &= (U8)~0x10;
+        s->chkby &= (U8)~k_XENT_COLLTYPE_PC;
         xEntHide(s);
         break;
     case eEventCameraCollideOn:

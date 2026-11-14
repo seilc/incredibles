@@ -35,7 +35,7 @@ enum zFragType
     eFragDistortion,
     eFragFire,
     eFragCount,
-    eFragForceSize = 0x7fffffff
+    eFragForceSize = FORCEENUMSIZEINT
 };
 
 struct zFragAsset
@@ -62,7 +62,7 @@ enum zFragLocType
     eFragLocTag,
     eFragLocTagUpdated,
     eFragLocCount,
-    eFragLocForceSize = 0x7fffffff
+    eFragLocForceSize = FORCEENUMSIZEINT
 };
 
 union zFragLocInfo

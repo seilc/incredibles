@@ -6,6 +6,7 @@
 #include <stddef.h>
 #include <new>
 
+// RyzMemGrow::flg_grow
 #define RMEM_GROW_ENABLED (1<<0)
 
 struct RyzMemGrow

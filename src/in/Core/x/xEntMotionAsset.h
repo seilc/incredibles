@@ -14,6 +14,7 @@ enum xEntMotionType
     k_XENTMOTIONTYPE_NONE
 };
 
+// xEntMotionAsset::ent_motion_flags; xEntMotion::ent_motion_flags
 enum xEntMotionFlags
 {
     k_XENTMOTION_ORIENT = 0x1,
@@ -21,6 +22,7 @@ enum xEntMotionFlags
     k_XENTMOTION_LOOP = 0x10
 };
 
+// xEntMotionMPData::flags
 #define k_XENTMOTIONMP_STOP_AT_END 0x1
 
 enum xEntMotionMechType
@@ -34,6 +36,7 @@ enum xEntMotionMechType
     k_XENTMOTIONMECH_SLIDE_SCALE
 };
 
+// xEntMotionMechData::flags
 enum xEntMotionMechFlags
 {
     k_XENTMOTIONMECH_RETURNS = 0x1,

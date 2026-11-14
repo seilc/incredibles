@@ -73,6 +73,18 @@ struct PKRReadFuncs
     void(*PkgDisconnect)(st_PACKER_READ_DATA*);
 };
 
+// st_PACKER_ATOC_NODE::infoflag
+#define PKR_INFO_SOURCE_FILE 0x1
+#define PKR_INFO_SOURCE_VIRTUAL 0x2
+#define PKR_INFO_READ_TRANSFORM 0x4
+#define PKR_INFO_WRITE_TRANSFORM 0x8
+
+// st_PACKER_ATOC_NODE::loadflag
+#define PKR_LDASS_ACTIVE 0x10000
+#define PKR_LDASS_READY 0x80000
+#define PKR_LDASS_ISDUP 0x100000
+#define PKR_LDASS_ISNIL 0x200000
+
 struct st_PACKER_ATOC_NODE
 {
     U32 aid;

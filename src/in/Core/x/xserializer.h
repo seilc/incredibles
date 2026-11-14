@@ -49,11 +49,9 @@ private:
     S32 bittally;
 };
 
-typedef S32 (*xSerialTraverseCallback)(U32 clientID, xSerial* xser);
-
 S32 xSerialStartup(S32 count, st_SERIAL_PERCID_SIZE* sizeinfo);
 S32 xSerialShutdown();
-void xSerialTraverse(xSerialTraverseCallback func);
+void xSerialTraverse(S32 (*func)(U32, xSerial*));
 void xSerialWipeMainBuffer();
 S32 xSerial_svgame_register(st_XSAVEGAME_DATA* sgctxt, en_SAVEGAME_MODE mode);
 

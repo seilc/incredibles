@@ -313,16 +313,16 @@ namespace {
     void adjust_batch_size()
     {
         switch (globals.sceneCur->sceneID) {
-        case 'FT01':
-        case 'HS01':
-        case 'LD01':
-        case 'NI03':
-        case 'NJ02':
-        case 'NJ03':
-        case 'OM01':
-        case 'OM03':
-        case 'OM04':
-        case 'RS02':
+        case IDTAG('F','T','0','1'):
+        case IDTAG('H','S','0','1'):
+        case IDTAG('L','D','0','1'):
+        case IDTAG('N','I','0','3'):
+        case IDTAG('N','J','0','2'):
+        case IDTAG('N','J','0','3'):
+        case IDTAG('O','M','0','1'):
+        case IDTAG('O','M','0','3'):
+        case IDTAG('O','M','0','4'):
+        case IDTAG('R','S','0','2'):
             BATCH_BLOCK_SIZE = 0x1400;
             break;
         default:

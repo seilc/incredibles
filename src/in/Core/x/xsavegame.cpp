@@ -292,7 +292,7 @@ char* xSGGameModDate(st_XSAVEGAME_DATA* xsgdata, S32 gidx)
     return da_date;
 }
 
-char* xSGGameLabel(st_XSAVEGAME_DATA* xsgdata, S32 gidx)
+const char* xSGGameLabel(st_XSAVEGAME_DATA* xsgdata, S32 gidx)
 {
     const char* da_name = NULL;
     st_XSAVEGAME_LEADER* lead = NULL;
@@ -302,7 +302,7 @@ char* xSGGameLabel(st_XSAVEGAME_DATA* xsgdata, S32 gidx)
         if (lead) da_name = lead->gameLabel;
     }
 
-    return (char*)da_name;
+    return da_name;
 }
 
 S32 xSGGameThumbIndex(st_XSAVEGAME_DATA* xsgdata, S32 gidx)

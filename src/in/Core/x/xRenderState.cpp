@@ -3,8 +3,6 @@
 
 #include "xMath.h"
 
-#include <dolphin.h>
-
 RwReal old_near_plane = -HUGE;
 RwReal old_far_plane = -HUGE;
 static RwUInt32 old_alpha_discard_value_gc = 0;

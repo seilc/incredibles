@@ -824,7 +824,7 @@ S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent, xRay3* ray)
         sws = &sweptSphere;
     }
 
-    if (ent->collLev == 5) {
+    if (ent->collLev == k_XENT_COLLLEV_MODEL) {
         U32 result = FALSE;
 
         switch (ent->bound.type) {

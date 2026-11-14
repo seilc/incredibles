@@ -20,6 +20,7 @@ struct xGroup : xBase
     U32 get_any();
 };
 
+// xGroup::flg_group
 #define XGRP_FLG_HASWIDGET (1<<1)
 #define XGRP_FLG_HASASSET (1<<2)
 

@@ -122,7 +122,7 @@ protected:
     }
 
     void link(node_base* a, node_base* b);
-    void unlink(node_base* a, node_base* b);
+    void unlink(node_base* it);
 };
 
 template <class T>

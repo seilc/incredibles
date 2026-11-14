@@ -14,6 +14,7 @@ struct xModelPool;
 struct xSphere;
 template <class T> struct basic_rect;
 
+// xModelInstance::Flags
 enum
 {
     ModelInstance_ChildTransform = 0x40

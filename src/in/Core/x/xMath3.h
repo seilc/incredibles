@@ -99,6 +99,7 @@ struct xPlane
     void Project(xVec3& proj, const xVec3& pt, F32 dist_above) const;
 };
 
+// xRay3::flags
 #define XRAY3_USE_MIN (1<<10)
 #define XRAY3_USE_MAX (1<<11)
 

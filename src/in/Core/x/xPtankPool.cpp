@@ -67,7 +67,7 @@ namespace {
             const RwTexture* texture = RpPTankAtomicGetTexture(it->ptank);
             ptank_context** bucket = group.buckets;
             if (!texture) {
-                if (it->flags & 0x1) ++bucket;
+                if (it->flags & ptank_pool::FLAG_NOZTEST) ++bucket;
             } else {
                 bucket += 2;
                 ptank_context** end = bucket + group.buckets_used - 2;
@@ -77,7 +77,7 @@ namespace {
                     if (texture == btexture &&
                         it->dst_blend == front->dst_blend &&
                         it->src_blend == front->src_blend &&
-                        !((it->flags ^ front->flags) & 0x1))
+                        !((it->flags ^ front->flags) & ptank_pool::FLAG_NOZTEST))
                         break;
                 }
                 if (bucket == end) group.buckets_used++;
@@ -190,20 +190,20 @@ namespace {
         S32 xor_flags = render_flags ^ context.flags;
 
         if (xor_flags & 0x1) {
-            S32 noztest = context.flags & 0x1;
+            S32 noztest = context.flags & ptank_pool::FLAG_NOZTEST;
             render_flags = (render_flags & ~0x1) | noztest;
             RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)!noztest);
         }
 
         if (xor_flags & 0x2) {
-            S32 zwrite = context.flags & 0x2;
+            S32 zwrite = context.flags & ptank_pool::FLAG_ZWRITE;
             render_flags = (render_flags & ~0x2) | zwrite;
             RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, (void*)zwrite);
         }
 
-        RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)!(context.flags & 0x1));
+        RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)!(context.flags & ptank_pool::FLAG_NOZTEST));
 
-        U32 oldtest = xFXHighDynamicRangeBrightenPtank(context.ptank, (context.flags & 0x8) != 0, -1);
+        U32 oldtest = xFXHighDynamicRangeBrightenPtank(context.ptank, (context.flags & ptank_pool::FLAG_BRIGHT) != 0, -1);
 
         RpAtomicRender(context.ptank);
 
@@ -221,7 +221,7 @@ namespace {
                 break;
             }
 
-            it->flags = 0x1;
+            it->flags = ptank_pool::FLAG_NOZTEST;
             it->next = *group.buckets;
             *group.buckets = it;
         }
@@ -345,8 +345,8 @@ void ptank_pool::grab_block(ptank_group_type type)
             if (texture == rs.texture &&
                 context->dst_blend == rs.dst_blend &&
                 context->src_blend == rs.src_blend &&
-                !((context->flags ^ rs.flags) & 0x1)) {
-                if (rs.flags & 0x4) {
+                !((context->flags ^ rs.flags) & FLAG_NOZTEST)) {
+                if (rs.flags & FLAG_ORDERED) {
                     context->order_group = order_group;
                     context->order_index = order_index;
                 } else {
@@ -369,7 +369,7 @@ void ptank_pool::grab_block(ptank_group_type type)
     for (ptank_context** it = group.buckets; it < end; ++it) {
         if (*it) {
             ptank_context*& context = *it;
-            if ((rs.flags & 0x1) && !(context->flags & 0x1)) {
+            if ((rs.flags & FLAG_NOZTEST) && !(context->flags & FLAG_NOZTEST)) {
                 destroy_ptank(context->ptank);
                 context->ptank = create_ptank(group.create_flags);
             }
@@ -381,7 +381,7 @@ void ptank_pool::grab_block(ptank_group_type type)
             context->src_blend = rs.src_blend;
             context->dst_blend = rs.dst_blend;
 
-            if (rs.flags & 0x4) {
+            if (rs.flags & FLAG_ORDERED) {
                 context->order_group = order_group;
                 context->order_index = order_index;
             } else {

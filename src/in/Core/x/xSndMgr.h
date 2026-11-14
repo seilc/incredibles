@@ -8,8 +8,6 @@
 
 #define XSNDMGR_INVALID_SND_HANDLE ((iSndHandle)0xFFFFFFFF)
 
-typedef iSndGroupHandle xSndGroupHandle;
-
 enum
 {
     xSndCat_ALL = -3,

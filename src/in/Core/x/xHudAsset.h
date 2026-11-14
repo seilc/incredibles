@@ -17,8 +17,6 @@ struct asset : xDynAsset
 
 struct model_asset : asset
 {
-    enum { VERSION = 1 };
-
     U32 model;
 
     static const char* type_name() { return "hud:model"; }
@@ -26,8 +24,6 @@ struct model_asset : asset
 
 struct image_asset : asset
 {
-    enum { VERSION = 1 };
-
     U32 image;
 
     static const char* type_name() { return "hud:image"; }
@@ -35,8 +31,6 @@ struct image_asset : asset
 
 struct text_asset : asset
 {
-    enum { VERSION = 1 };
-    
     U32 text_box;
     U32 text;
 
@@ -63,8 +57,6 @@ struct meter_asset : asset
 
 struct font_meter_asset : meter_asset
 {
-    enum { VERSION = 2 };
-
     font_context font;
 
     static const char* type_name() { return "hud:meter:font"; }
@@ -79,8 +71,6 @@ struct model_info
 
 struct unit_meter_asset : meter_asset
 {
-    enum { VERSION = 3 };
-
     model_info model[2];
     xVec3 offset;
     U32 fill_forward;

@@ -513,7 +513,7 @@ static void xEntMPMove(xEntMotion* motion, xScene* sc, F32 dt, xEntFrame* frame)
             if (qdot > 1.0f) qdot = 1.0f;
             qdot = 2.0f * xacos(qdot);
             if (qdot <= PI * dt) {
-                frame->mode |= 0x10;
+                frame->mode |= k_XENT_SET_ROT;
                 *(xMat3x3*)&frame->mat = tmpmat;
 
                 xVec3SMulBy(&frame->mat.right, scale.x);
@@ -540,7 +540,7 @@ static void xEntMPMove(xEntMotion* motion, xScene* sc, F32 dt, xEntFrame* frame)
             xVec3SMulBy(&frame->mat.right, scale.x);
             xVec3SMulBy(&frame->mat.up, scale.y);
             xVec3SMulBy(&frame->mat.at, scale.z);
-            frame->mode |= 0x10;
+            frame->mode |= k_XENT_SET_ROT;
         }
     }
 
@@ -977,7 +977,7 @@ static U32 xEntRotMove(xEntMotion* motion, xScene*, F32 dt, xEntFrame* frame)
         xVec3SMulBy(&frame->mat.at, easst->scale.z);
     }
 
-    frame->mode |= 0x10;
+    frame->mode |= k_XENT_SET_ROT;
     return last;
 }
 

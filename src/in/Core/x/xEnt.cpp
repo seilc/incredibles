@@ -36,6 +36,17 @@
 #define TURRET_HOLDABLE_DEATH_SIMP_ID 0x3159B667 // xStrHash("TURRET_HOLDABLE_DEATH_SIMP")
 #define S08_TURRET_HOLDABLE_DEATH_SIMP_ID 0x36A1171F // xStrHash("S08_TURRET_HOLDABLE_DEATH_SIMP")
 
+struct xEnt::anim_coll_data
+{
+    U32 flags;
+    U32 bones;
+    xMat4x3 old_mat;
+    xMat4x3 new_mat;
+    size_t verts_size;
+    xVec3* verts;
+    xVec3* normals;
+};
+
 #define ANIM_COLL_SETUP()                       \
     xModelInstance& model = *ent.model;         \
     xMat4x3& mat = *(xMat4x3*)model.Mat;        \
@@ -138,7 +149,7 @@ static void xEntAddHittableFlag(xEnt* ent)
     if (ent->baseType == eBaseTypeNPC || ent->baseType == eBaseTypeDestructObj ||
         ent->baseType == eBaseTypeButton || ent->baseType == eBaseTypeBoulder ||
         (ent->baseType == eBaseTypePlatform && ent->subType == 12)) {
-        ent->moreFlags |= 0x10;
+        ent->moreFlags |= k_MORE_FLAGS_HITTABLE;
         return;
     }
 
@@ -149,7 +160,7 @@ static void xEntAddHittableFlag(xEnt* ent)
             ent->link[i].srcEvent == eEventHit_PatrickSlam || ent->link[i].srcEvent == eEventHit_Throw ||
             ent->link[i].srcEvent == eEventHit_PaddleLeft || ent->link[i].srcEvent == eEventHit_PaddleRight ||
             ent->link[i].srcEvent == eEventHitPatrickCartwheel) {
-            ent->moreFlags |= 0x10;
+            ent->moreFlags |= k_MORE_FLAGS_HITTABLE;
             return;
         }
     }
@@ -260,7 +271,7 @@ void xEntInitForType(xEnt* ent)
     case k_XENT_COLLTYPE_TRIG:
         ent->pflags &= ~(k_XENT_IS_MOVING | k_XENT_HAS_VELOCITY);
         ent->chkby = k_XENT_COLLTYPE_NPC | k_XENT_COLLTYPE_PC;
-        ent->penby = 0;
+        ent->penby = k_XENT_COLLTYPE_NONE;
         break;
     case k_XENT_COLLTYPE_STAT:
         ent->pflags &= ~(k_XENT_IS_MOVING | k_XENT_HAS_VELOCITY);
@@ -289,8 +300,8 @@ void xEntInitForType(xEnt* ent)
         ent->frame = (xEntFrame*)xMEMALLOC(sizeof(xEntFrame), 0);
         memset(ent->frame, 0, sizeof(xEntFrame));
         ent->pflags |= k_XENT_HAS_VELOCITY;
-        ent->chkby = 0;
-        ent->penby = 0;
+        ent->chkby = k_XENT_COLLTYPE_NONE;
+        ent->penby = k_XENT_COLLTYPE_NONE;
         ent->collis = (xEntCollis*)xMEMALLOC(sizeof(xEntCollis), 0);
         ent->collis->chk = k_XENT_COLLTYPE_TRIG | k_XENT_COLLTYPE_STAT | k_XENT_COLLTYPE_DYN | k_XENT_COLLTYPE_NPC | k_XENT_COLLTYPE_ENV;
         ent->collis->pen = k_XENT_COLLTYPE_STAT | k_XENT_COLLTYPE_DYN | k_XENT_COLLTYPE_NPC | k_XENT_COLLTYPE_ENV;

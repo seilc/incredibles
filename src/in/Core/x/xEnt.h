@@ -70,6 +70,7 @@ typedef U32(*xEntCollisDepenQueryCallback)(xEnt*, xEnt*, xScene*, F32, xCollis*)
 #define k_XENT_HAS_DRAG ((U8)(1 << 3))
 
 // xEnt::collType, chkby, penby; xEntCollis::chk, pen
+#define k_XENT_COLLTYPE_NONE ((U8)0)
 #define k_XENT_COLLTYPE_TRIG ((U8)(1 << (0)))
 #define k_XENT_COLLTYPE_STAT ((U8)(1 << (1)))
 #define k_XENT_COLLTYPE_DYN ((U8)(1 << (2)))
@@ -87,6 +88,7 @@ typedef U32(*xEntCollisDepenQueryCallback)(xEnt*, xEnt*, xScene*, F32, xCollis*)
 
 // xEnt::moreFlags
 #define k_MORE_FLAGS_ANIM_COLL ((U8)1<<5)
+#define k_MORE_FLAGS_HITTABLE ((U8)1<<4)
 
 #define k_XENT_MAX_COLL 18
 
@@ -147,16 +149,7 @@ typedef void(*xEntTranslateCallback)(xEnt*, xVec3*, xMat4x3*);
 
 struct xEnt : xBase
 {
-    struct anim_coll_data
-    {
-        U32 flags;
-        U32 bones;
-        xMat4x3 old_mat;
-        xMat4x3 new_mat;
-        size_t verts_size;
-        xVec3* verts;
-        xVec3* normals;
-    };
+    struct anim_coll_data;
 
     xEntAsset* asset;
     U16 idx;

@@ -21,6 +21,7 @@ struct xAnimTable;
 struct xAnimSingle;
 struct xAnimPlay;
 
+// xAnimFile::FileFlags
 enum
 {
     AnimFile_Reverse = 0x1000,

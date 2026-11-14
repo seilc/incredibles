@@ -5,6 +5,8 @@
 #include "xScrFx.h"
 #include "xPad.h"
 
+#define k_XRUMBLE_MAX_EFFECTS 16
+
 namespace xRumble {
 
 struct effectInternal
@@ -22,7 +24,7 @@ struct effectInternal
 
 struct padInfo
 {
-    effectInternal m_effects[16];
+    effectInternal m_effects[k_XRUMBLE_MAX_EFFECTS];
     effectInternal* m_currentExclusive;
 
     void FindNewExclusive();

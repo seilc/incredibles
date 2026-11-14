@@ -87,7 +87,7 @@ void xSGGameSet(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
 S32 xSGGameIsEmpty(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
 S32 xSGGameSize(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
 char* xSGGameModDate(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
-char* xSGGameLabel(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
+const char* xSGGameLabel(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
 S32 xSGGameThumbIndex(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
 S32 xSGGameProgress(st_XSAVEGAME_DATA* xsgdata, S32 gidx);
 S32 xSGAddSaveClient(st_XSAVEGAME_DATA* xsgdata, U32 clttag, void* cltdata, XSGCltInfoFunc infofunc,

@@ -190,7 +190,7 @@ static void SweptSphereHitsCamFollowEnt(xScene*, xRay3* ray, xQCData* qcd, xEnt*
 {
     xSweptSphere* sws = (xSweptSphere*)data;
 
-    if (!ent->camcollModel || !(ent->chkby & 0x10) || !xQuickCullIsects(qcd, &ent->bound.qcd)) {
+    if (!ent->camcollModel || !(ent->chkby & k_XENT_COLLTYPE_PC) || !xQuickCullIsects(qcd, &ent->bound.qcd)) {
         return;
     }
 

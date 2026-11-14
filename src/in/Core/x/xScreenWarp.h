@@ -20,6 +20,7 @@ namespace xScreenWarp {
         MAX_TYPE
     };
 
+    // warper::flags
     enum
     {
         FLAG_1 = 0x1,

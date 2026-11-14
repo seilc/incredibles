@@ -26,6 +26,7 @@ struct xEnvAsset : xBaseAsset
     xVec3 maxBounds;
 };
 
+// xEnvAsset::flags
 #define XENVASSET_FLAGS_0x1 0x1
 
 typedef struct _zEnv : xBase

@@ -45,7 +45,7 @@ void xSBRender(xSB* sb)
     xtextbox::log_layout_stats(false);
 }
 
-void xprintf(const char* fmt, ...)
+void xprintf(const char*, ...)
 {
 }
 

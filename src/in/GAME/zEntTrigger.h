@@ -11,6 +11,7 @@ struct zEntTrigger : zEnt
     xEntDrive drive;
 };
 
+// zEntTrigger::entered
 #define ZENTTRIGGER_CAM 0x4
 
 struct xTriggerAsset

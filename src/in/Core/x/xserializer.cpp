@@ -65,7 +65,7 @@ S32 xSerialShutdown()
     return g_serinit;
 }
 
-void xSerialTraverse(xSerialTraverseCallback func)
+void xSerialTraverse(S32 (*func)(U32, xSerial*))
 {
     S32 i = 0;
     st_XSERIAL_DATA_PRIV* xsd = &g_xserdata;

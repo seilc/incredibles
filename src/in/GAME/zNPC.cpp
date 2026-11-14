@@ -25,7 +25,7 @@ namespace zNPC
             soundID += sound_id_offset;
         }
 
-        iSndGroupHandle GroupToPlay = xSndMgrGetSoundGroup(soundID);
+        xSndGroupHandle GroupToPlay = xSndMgrGetSoundGroup(soundID);
 
         return xSndMgrPlay(GroupToPlay, 0x800, NULL, NULL, this, NULL, NULL);
     }

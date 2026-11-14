@@ -392,7 +392,7 @@ void xModelRenderSingle(xModelInstance* modelInst)
                 for (U16 i = 0; i < a->NumSingle; i++)
                     if (a->Single[i].SingleFlags & 0x8000) {
                         if (a->Single[i].State) {
-                            xMorphRender(*(xMorphSeqFile**)a->Single[i].State->Data->RawData, modelInst->Mat, xAnimFileRawTime(a->Single[i].State->Data, a->Single[i].Time));
+                            xMorphRender((xMorphSeqFile*)a->Single[i].State->Data->RawData[0], modelInst->Mat, xAnimFileRawTime(a->Single[i].State->Data, a->Single[i].Time));
                         }
                         break;
                     }

@@ -3,6 +3,7 @@
 
 #include "types.h"
 
+// xModelPipe::Flags
 enum
 {
     ePIPELINE_MASK = 0x7,

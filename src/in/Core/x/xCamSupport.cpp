@@ -362,8 +362,8 @@ struct cache_entity_callback
             return true;
         }
 
-        if (!(ent.chkby & 0x1)) {
-            if (!(ent.chkby & 0x10)) {
+        if (!(ent.chkby & k_XENT_COLLTYPE_TRIG)) {
+            if (!(ent.chkby & k_XENT_COLLTYPE_PC)) {
                 return true;
             }
             if (!xEntIsVisible(&ent)) {

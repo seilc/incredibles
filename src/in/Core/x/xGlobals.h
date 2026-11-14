@@ -66,7 +66,7 @@ struct xGlobals
         xPad* pad[4];
     };
     S32 profile;
-    char profFunc[128][6];
+    char profFunc[6][128];
     xUpdateCullMgr* updateMgr;
     S32 sceneFirst;
     char sceneStart[32];

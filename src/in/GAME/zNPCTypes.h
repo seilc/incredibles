@@ -112,7 +112,7 @@ enum en_npctyp
     NME_TYPE_SPONGEBOB,
     NME_TYPE_PATRICK,
     NPC_TYPE_NOMORE,
-    NPC_TYPE_FORCE = 0x7fffffff
+    NPC_TYPE_FORCE = FORCEENUMSIZEINT
 };
 
 #endif

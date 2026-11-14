@@ -76,13 +76,13 @@ void xSceneSetup(xScene* sc)
 
 void xSceneAddEnt(xScene* sc, xEnt* ent)
 {
-    if (ent->collType == 0x1) {
+    if (ent->collType == k_XENT_COLLTYPE_TRIG) {
         sc->trigs[sc->num_trigs++] = ent;
-    } else if (ent->collType == 0x2) {
+    } else if (ent->collType == k_XENT_COLLTYPE_STAT) {
         sc->stats[sc->num_stats++] = ent;
-    } else if (ent->collType == 0x4) {
+    } else if (ent->collType == k_XENT_COLLTYPE_DYN) {
         sc->dyns[sc->num_dyns++] = ent;
-    } else if (ent->collType == 0x8) {
+    } else if (ent->collType == k_XENT_COLLTYPE_NPC) {
         sc->npcs[sc->num_npcs++] = ent;
     }
 
@@ -440,7 +440,7 @@ namespace {
             }
 
             xCollis temp_coll;
-            temp_coll.flags = ent.collLev == 5 ? 0x100 : hit_calc;
+            temp_coll.flags = ent.collLev == k_XENT_COLLLEV_MODEL ? 0x100 : hit_calc;
             xRayHitsBound(ray, &ent.bound, &temp_coll);
 
             if (!(temp_coll.flags & k_HIT_IT)) {
@@ -451,7 +451,7 @@ namespace {
                 return true;
             }
 
-            if (ent.collLev == 5) {
+            if (ent.collLev == k_XENT_COLLLEV_MODEL) {
                 temp_coll.flags = hit_calc;
                 xRayHitsModel(ray, ent.model, &temp_coll);
 
@@ -501,7 +501,7 @@ namespace {
             }
 
             xCollis temp_coll;
-            temp_coll.flags = ent.collLev == 5 ? 0x100 : hit_calc;
+            temp_coll.flags = ent.collLev == k_XENT_COLLLEV_MODEL ? 0x100 : hit_calc;
             xSphereHitsBound(sphere, &ent.bound, &temp_coll);
 
             if (!(temp_coll.flags & k_HIT_IT)) {
@@ -512,7 +512,7 @@ namespace {
                 return true;
             }
 
-            if (ent.collLev == 5) {
+            if (ent.collLev == k_XENT_COLLLEV_MODEL) {
                 temp_coll.flags = hit_calc;
                 xSphereHitsModel(sphere, ent.model, &temp_coll);
 
@@ -888,7 +888,7 @@ static S32 gridNearestFloorCB(xEnt* ent, void* cbdata)
         return TRUE;
     }
 
-    if (ent->collLev == 5) {
+    if (ent->collLev == k_XENT_COLLLEV_MODEL) {
         sTestOPtr = ent;
         sTestMPtr = ent->collModel ? ent->collModel : ent->model;
 

@@ -49,6 +49,7 @@ void zWaterStartup(); // UNUSED
 void zWaterSceneEnter(); // UNUSED
 void zWaterSceneExit(); // UNUSED
 
+// zWaterBody::asset_type::flags
 #define ZWATERBODY_VISIBLE 0x1
 
 #endif

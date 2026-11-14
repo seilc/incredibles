@@ -21,7 +21,7 @@ struct xEntBoulderAsset
     union
     {
         U32 uSoundGroupHash;
-        iSndGroupHandle soundID;
+        xSndGroupHandle soundID;
     };
     F32 minSoundVel;
     F32 maxSoundVel;

@@ -10,6 +10,7 @@ typedef struct _tagActionLine
     F32 time_left;
 } ActionLine;
 
+// ActionLine::flags
 #define ZACTIONLINE_ENABLED 0x1
 
 void zActionLineInit();

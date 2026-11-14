@@ -39,7 +39,7 @@ typedef struct tag_iFile
     S32 real_pos;
 } iFile;
 
-U32* iFileLoad(const char* name, U32* buffer, U32* size, S32 flags);
+U32* iFileLoad(const char* name, U32* buffer, U32* size);
 U32 iFileOpen(const char* name, S32 flags, xFile* file);
 S32 iFileSeek(xFile* file, S32 offset, S32 whence);
 U32 iFileRead(xFile* file, void* buf, U32 size);

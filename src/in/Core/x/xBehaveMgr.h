@@ -21,7 +21,7 @@ enum en_GOALSTATE
     GOAL_STAT_PAUSED,
     GOAL_STAT_DONE,
     GOAL_STAT_NOMORE,
-    GOAL_STAT_FORCE = 0x7fffffff
+    GOAL_STAT_FORCE = FORCEENUMSIZEINT
 };
 
 enum en_trantype
@@ -36,7 +36,7 @@ enum en_trantype
     GOAL_TRAN_POPSAFE,
     GOAL_TRAN_SWAP,
     GOAL_TRAN_NOMORE,
-    GOAL_TRAN_FORCE = 0x7fffffff
+    GOAL_TRAN_FORCE = FORCEENUMSIZEINT
 };
 
 struct xPsyche;
@@ -74,7 +74,7 @@ enum PSY_BRAIN_STATUS
     PSY_STAT_EXTEND,
     PSY_STAT_THINK,
     PSY_STAT_NOMORE,
-    PSY_STAT_FORCE = 0x7fffffff
+    PSY_STAT_FORCE = FORCEENUMSIZEINT
 };
 
 struct xPsyche : RyzMemData

@@ -140,9 +140,11 @@ struct zSurfacePropUVFX
     xVec3 minmax_spd;
 };
 
+// zSurfaceProps::texanim_flags
 #define SURF_TEXANIM_ON 0x1
 #define SURF_TEXANIM_ON2 0x2
 
+// zSurfaceProps::uvfx_flags
 #define UVANIM_FLAG_ON 0x1
 #define UVANIM_FLAG_ON2 0x2
 

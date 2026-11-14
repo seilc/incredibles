@@ -74,10 +74,12 @@ struct tweak_info
     };
 };
 
+typedef bool(*xDebugRemoveTweaksCallback)(const tweak_info&, void*);
+
 inline void xDebugAddTweak(const char* name, const F32* v, F32 vmin, F32 vmax, const tweak_callback* cb, void* context, U32 flags) {}
 
 inline void xDebugRemoveTweak(const char* name) {}
-inline void xDebugRemoveTweaks(const char*, bool (*)(const tweak_info&, void*), void*) {}
+inline void xDebugRemoveTweaks(const char*, xDebugRemoveTweaksCallback, void*) {}
 
 #define xTWEAK(name, v, vmin, vmax, cb, context, flags) xDebugAddTweak(name, v, vmin, vmax, cb, context, flags)
 #define xTWEAK_REMOVE(name) xDebugRemoveTweak(name)
