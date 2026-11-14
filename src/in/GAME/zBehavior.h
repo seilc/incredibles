@@ -77,6 +77,26 @@ public:
 };
 // clang-format on
 
+template <class T>
+class behavior_implementation : public behavior
+{
+public:
+    T* owner;
+
+    virtual void set_owner(xEnt* new_owner)
+    {
+        owner = (T*)new_owner;
+        behavior::set_owner(new_owner);
+    }
+
+    virtual void enter_state(const behavior* prev_behavior)
+    {
+        enter_state((const behavior_implementation*)prev_behavior);
+    }
+
+    virtual void enter_state(const behavior_implementation*) {}
+};
+
 struct behavior_node
 {
     bool prev_ran;

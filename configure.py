@@ -714,7 +714,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zNPCTurret.cpp"),
             Object(NonMatching, "in/GAME/zNPCTypes.cpp"),
             Object(NonMatching, "in/GAME/zNPCVelocipod.cpp"),
-            Object(NonMatching, "in/GAME/zNPCWaterhose.cpp"),
+            Object(Matching, "in/GAME/zNPCWaterhose.cpp"),
             Object(NonMatching, "in/GAME/zPendulum.cpp"),
             Object(NonMatching, "in/GAME/zPlatform.cpp"),
             Object(NonMatching, "in/GAME/zPlayer.cpp"),
