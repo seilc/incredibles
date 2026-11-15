@@ -14,8 +14,6 @@
 
 #include <stdint.h>
 
-#define NUM_QUAD_VERTS 4
-
 const U32 CM_ALIGN_CENTER = 0;
 const U32 CM_ALIGN_LEFT = 1;
 const U32 CM_ALIGN_RIGHT = 2;
@@ -188,7 +186,7 @@ static void xCMprep(xCreditsData* data)
 
 static S32 Im2DRenderQuadAlpha(F32 x1, F32 y1, F32 x2, F32 y2, F32 alpha, F32 z, F32 recipCamZ, F32 uvOffset)
 {
-    RwIm2DVertex vx[NUM_QUAD_VERTS];
+    RwIm2DVertex vx[4];
     U8 alphaI = 255.0f * alpha;
 
     RwIm2DVertexSetScreenX(&vx[0], x1);
@@ -219,7 +217,7 @@ static S32 Im2DRenderQuadAlpha(F32 x1, F32 y1, F32 x2, F32 y2, F32 alpha, F32 z,
     RwIm2DVertexSetU(&vx[3], 1.0f + uvOffset, recipCamZ);
     RwIm2DVertexSetV(&vx[3], 1.0f + uvOffset, recipCamZ);
 
-    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, NUM_QUAD_VERTS);
+    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, 4);
 
     return 1;
 }

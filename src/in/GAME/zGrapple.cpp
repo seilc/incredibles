@@ -47,7 +47,7 @@ S32 zGrapple_Recurse(U32 id, zGrapplePoint* gpList, zGrapple* grapple)
 
                 result += incr;
             }
-        } else if (base->baseFlags & 0x20) {
+        } else if (base->baseFlags & k_XBASE_IS_ENTITY) {
             if (gpList) {
                 gpList[0].pos = (xVec3*)&((xEnt*)base)->model->Mat->pos;
                 gpList[0].local = (xMat3x3*)((xEnt*)base)->model->Mat;

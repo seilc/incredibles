@@ -3,12 +3,16 @@
 
 #include "xpkrsvc.h"
 #include "xFile.h"
-#include "iFMV.h"
 
 #include <rwcore.h>
 
+struct MOVIE;
+
 const U32 maxStreamingTextures = 192;
 const U32 maxStreamingMovies = 4;
+
+#define XTEXMGR_MAX_FILES 4
+#define XTEXMGR_MAX_CLEAR_IDS 4
 
 struct xInternalTextureNode
 {
@@ -81,8 +85,8 @@ class xTextureManager
     S32 m_lru;
     xInternalTextureNode m_texture_nodes[maxStreamingTextures];
     xInternalMovieNode m_movie_nodes[maxStreamingMovies];
-    xFile m_files[4];
-    U32 m_clearIDs[4];
+    xFile m_files[XTEXMGR_MAX_FILES];
+    U32 m_clearIDs[XTEXMGR_MAX_CLEAR_IDS];
 
     friend struct xInternalTextureNode;
     friend void fileCallback(xFile* file);

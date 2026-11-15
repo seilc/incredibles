@@ -103,7 +103,7 @@ void image_widget::update_strobe_effect(U32 uLayer, F32 dt)
 
 void image_widget::render()
 {
-    if (rc.a >= -0.00001f && rc.a <= 0.00001f) {
+    if (xfeq0(rc.a)) {
         return;
     }
 

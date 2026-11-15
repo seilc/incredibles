@@ -3,6 +3,7 @@
 
 #include "zMain.h"
 #include "zSurface.h"
+#include "xSurface.h"
 #include "zLight.h"
 #include "xstransvc.h"
 #include "xGroup.h"

@@ -20,4 +20,6 @@ bool xDrawTextComputeScreenPt(xVec2& vUnitScreen, const xVec3& vWorldSpace); // 
 extern U32 gFrameCount;
 extern U32 gSceneFrameCount;
 
+#define xTWEAKABLE const
+
 #endif

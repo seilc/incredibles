@@ -44,7 +44,7 @@ void zEntEvent(xBase* from, U32, xBase* to, U32 toEvent, const F32* toParam,
     if (to->eventFunc && (xBaseIsEnabled(to) || forceEvent == FE_YES)) {
         to->eventFunc(from, to, toEvent, toParam, toParamWidget, toParamWidgetID);
 
-        if (to->baseFlags & 0x20) {
+        if (to->baseFlags & k_XBASE_IS_ENTITY) {
             if (toEvent == eEventCollisionOn || toEvent == eEventCollision_Visible_On) {
                 ((xEnt*)to)->collisionEventReceived = 1;
             }

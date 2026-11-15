@@ -86,7 +86,7 @@ void xLightVolumeModel::render()
         xModelInstance* m = model;
 
         while (m) {
-            if ((m->Flags & 0x401) == 0x1) {
+            if ((m->Flags & (ModelInstance_Render | ModelInstance_NoRender)) == ModelInstance_Render) {
                 render_single(m, 0);
             }
 

@@ -12,6 +12,7 @@
 #include "xScene.h"
 #include "xString.h"
 #include "xstransvc.h"
+#include "xSurface.h"
 #include "iFX.h"
 #include "zFX.h"
 #include "zRenderState.h"

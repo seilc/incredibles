@@ -7,6 +7,7 @@
 #include "xMemMgr.h"
 #include "xRand.h"
 #include "xShadow.h"
+#include "xSurface.h"
 #include "xUpdateCull.h"
 #include "zCollGeom.h"
 #include "zCombat.h"
@@ -44,7 +45,7 @@ void xEntBoulder_FitToModel(xEntBoulder* ent)
 void xEntBoulder_Render(xEnt* ent)
 {
     xModelInstance* model = ent->model;
-    if (!model || !xEntIsVisible(ent) || (model->Flags & 0x400)) {
+    if (!model || !xEntIsVisible(ent) || (model->Flags & ModelInstance_NoRender)) {
         return;
     }
 
@@ -121,7 +122,7 @@ void xEntBoulder_Init(xEntBoulder* ent, xEntAsset* asset)
     ent->lastRolling = 0;
     ent->rollingID = 0;
 
-    ent->baseFlags |= (U16)0x20;
+    ent->baseFlags |= k_XBASE_IS_ENTITY;
 
     if (basset->uSoundGroupHash)
         basset->soundID = xSndMgrGetSoundGroup(basset->uSoundGroupHash);
@@ -228,7 +229,7 @@ void xEntBoulder_Update(xEntBoulder* ent, xScene* sc, F32 dt)
         definitelyBounce = true;
         xSweptSphere sws;
         xSweptSpherePrepare(&sws, &oldPos, &ent->bound.sph.center, ent->bound.sph.r);
-        if (xSweptSphereToScene(&sws, globals.sceneCur, ent, 0x10, 0)) {
+        if (xSweptSphereToScene(&sws, globals.sceneCur, ent, k_XENT_COLLTYPE_PC, 0)) {
             F32 pen = sws.dist - sws.curdist;
             if (pen > penAllowed) {
                 F32 scaleBack = (penAllowed + sws.curdist) / sws.dist - 1.0f;

@@ -119,7 +119,7 @@ namespace zNPC
 
         void render_wrapper(xEnt* ent)
         {
-            if (xEntIsVisible(ent) && !(ent->model->Flags & 0x400)) {
+            if (xEntIsVisible(ent) && !(ent->model->Flags & ModelInstance_NoRender)) {
                 ((common*)ent)->render_npc();
             }
         }
@@ -358,7 +358,7 @@ namespace zNPC
         bound.type = k_XBOUNDTYPE_SPHERE;
         moreFlags |= k_MORE_FLAGS_HITTABLE;
         collis = NULL;
-        baseFlags |= 0x100;
+        baseFlags |= k_XBASE_IS_NPC;
 
         zEntParseModelInfo(this, asset->modelInfoID);
         xEntInitForType(this);
@@ -531,7 +531,7 @@ namespace zNPC
 
     void common::render_extra()
     {
-        if (!xEntIsVisible(this) || (model->Flags & 0x400)) {
+        if (!xEntIsVisible(this) || (model->Flags & ModelInstance_NoRender)) {
             return;
         }
 

@@ -12,7 +12,6 @@
 #include "zRenderState.h"
 
 #define MAX_TEXDATA 8
-#define NUM_CLEAR_VERTS 4
 
 bool HDR_brightening;
 
@@ -168,7 +167,7 @@ void xFXHighDynamicRangeStartRender()
     RwReal rcz = 1.0f / RwCameraGetNearClipPlane(RwCameraGetCurrentCamera());
     RwReal nsz = RwIm2DGetNearScreenZ();
 
-    RwIm2DVertex verts[NUM_CLEAR_VERTS];
+    RwIm2DVertex verts[4];
     xColor clearcolor;
 
     clearcolor.r = 0;
@@ -180,7 +179,7 @@ void xFXHighDynamicRangeStartRender()
     set_vert(verts[1], 0.0f, FB_YRES, 0.0f, 0.0f, clearcolor, rcz, nsz);
     set_vert(verts[2], FB_XRES, 0.0f, 0.0f, 0.0f, clearcolor, rcz, nsz);
     set_vert(verts[3], FB_XRES, FB_YRES, 0.0f, 0.0f, clearcolor, rcz, nsz);
-    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, verts, NUM_CLEAR_VERTS);
+    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, verts, 4);
 
     iDrawSetFBMSK(mask, 0xFFFFFFFF, true);
 

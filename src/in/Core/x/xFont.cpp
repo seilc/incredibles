@@ -495,7 +495,7 @@ void init_model_cache()
         e.id = e.order = 0;
         e.model = &model;
         model.Mat = &pool.mat[i];
-        model.Flags = 0x1;
+        model.Flags = ModelInstance_Render;
         model.BoneCount = 1;
         model.shadowID = 0xDEADBEEF;
     }
@@ -2402,7 +2402,7 @@ void render_fill_rect(const basic_rect<F32>& bounds, xColor color)
     basic_rect<F32> r = bounds;
     r.scale(FB_XRES, FB_YRES);
     set_rect_verts(vert, r.x, r.y, r.w, r.h, color, rcz, nsz);
-    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vert, ARRAY_LENGTH(vert));
+    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vert, 4);
     xfont::restore_render_state();
 }
 

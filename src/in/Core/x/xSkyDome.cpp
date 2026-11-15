@@ -54,7 +54,7 @@ void xSkyDome_AddEntity(xEnt* ent, S32 sortorder, S32 lockY, S32 lockXZ)
     sSkyCount++;
     ent->user_data = (void*)i;
     ent->render = xSkyDome_EmptyRender;
-    ent->model->Flags &= (U16)~0x1;
+    ent->model->Flags &= (U16)~ModelInstance_Render;
     ent->baseFlags &= (U16)~k_XBASE_RECEIVES_SHADOWS;
 
     zEntEvent(ent, eEventCollisionOff);
@@ -80,7 +80,7 @@ void xSkyDome_Render()
     for (S32 i = 0; i < sSkyCount; i++) {
         xEnt* ent = sSkyList[i].ent;
         ent->render = xSkyDome_EmptyRender;
-        ent->model->Flags &= (U16)~0x1;
+        ent->model->Flags &= (U16)~ModelInstance_Render;
 
         if (!ent->model || !xEntIsVisible(ent)) continue;
 

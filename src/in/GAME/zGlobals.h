@@ -84,4 +84,6 @@ struct zGlobals : xGlobals
     zCutsceneMgr* DisabledCutsceneDoneMgr;
 };
 
+extern zGlobals globals;
+
 #endif

@@ -1919,7 +1919,7 @@ void xDecal::sphere_emit(const emit_context& ec, const xVec3& center, F32 radius
 void xDecal::emit(const emit_context& ec, const xMat4x3& mat, const xModelInstance& model, bool moving_model, xEnt* driver_ent)
 {
     for (const xModelInstance* m = &model; m; m = m->Next) {
-        if (!(m->Flags & 0x400) && (m->Flags & 0x1)) {
+        if (!(m->Flags & ModelInstance_NoRender) && (m->Flags & ModelInstance_Render)) {
             emit(ec, mat, m->Data, (const xMat4x3*)m->Mat, moving_model, driver_ent);
         }
     }

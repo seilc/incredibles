@@ -1,14 +1,16 @@
 #ifndef ZSURFACE_H
 #define ZSURFACE_H
 
-#include "xSurface.h"
+#include "xBaseAsset.h"
 #include "xMath3.h"
 #include "zHitParameters.h"
 
 #include <rwcore.h>
 
+struct xBase;
 struct xCollis;
 struct xSweptSphere;
+struct xSurface;
 
 struct zSurfMatFX
 {

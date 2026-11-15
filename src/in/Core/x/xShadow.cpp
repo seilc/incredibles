@@ -12,7 +12,6 @@
 #include "xGrid.h"
 #include "xJSP.h"
 #include "xMath.h"
-#include "xutil.h"
 #include "xIM.h"
 #include "xLightKit.h"
 #include "xMemMgr.h"
@@ -279,7 +278,7 @@ void xShadowReceiveShadow(xEnt* ent, F32 shadowFactor, S32 shadowMode, RwMatrix*
     xModelInstance* model = ent->model;
     U32 max_verts = 0;
     while (model) {
-        if (model->Flags & 0x1) {
+        if (model->Flags & ModelInstance_Render) {
             geom = RpAtomicGetGeometry(model->Data);
             mat = model->Mat;
 
@@ -298,7 +297,7 @@ void xShadowReceiveShadow(xEnt* ent, F32 shadowFactor, S32 shadowMode, RwMatrix*
 
             model = ent->model;
             while (model) {
-                if (model->Flags & 0x1) {
+                if (model->Flags & ModelInstance_Render) {
                     xVec3* vert = xvert;
 
                     geom = RpAtomicGetGeometry(model->Data);
@@ -329,7 +328,7 @@ void xShadowReceiveShadow(xEnt* ent, F32 shadowFactor, S32 shadowMode, RwMatrix*
                         vIn[1] = *(RwV3d*)v1;
                         vIn[2] = *(RwV3d*)v2;
 
-                        RwV3dTransformPoints(vShad, vIn, ARRAY_LENGTH(vIn), &invMatrix);
+                        RwV3dTransformPoints(vShad, vIn, 3, &invMatrix);
 
                         if ((vShad[0].z < 0.0f && vShad[1].z < 0.0f && vShad[2].z < 0.0f) || (vShad[0].x < 0.0f && vShad[1].x < 0.0f && vShad[2].x < 0.0f) || (vShad[0].x > 1.0f && vShad[1].x > 1.0f && vShad[2].x > 1.0f) || (vShad[0].y < 0.0f && vShad[1].y < 0.0f && vShad[2].y < 0.0f) || (vShad[0].y > 1.0f && vShad[1].y > 1.0f && vShad[2].y > 1.0f)) {
                             continue;
@@ -436,7 +435,7 @@ S32 Im2DRenderQuad(F32 x1, F32 y1, F32 x2, F32 y2, F32 z, F32 recipCamZ, F32 uvO
     RwIm2DVertexSetU(&vx[3], 1.0f + uvOffset, recipCamZ);
     RwIm2DVertexSetV(&vx[3], 1.0f + uvOffset, recipCamZ);
 
-    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, ARRAY_LENGTH(vx));
+    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, 4);
 
     return TRUE;
 }
@@ -490,7 +489,7 @@ static void InvertRaster(RwCamera* camera)
     RwRenderStateSet(rwRENDERSTATEDESTBLEND, (void*)rwBLENDZERO);
     RwRenderStateSet(rwRENDERSTATESRCBLEND, (void*)rwBLENDINVDESTCOLOR);
 
-    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, ARRAY_LENGTH(vx));
+    RwIm2DRenderPrimitive(rwPRIMTYPETRISTRIP, vx, 4);
 
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)TRUE);
     RwRenderStateSet(rwRENDERSTATEDESTBLEND, (void*)rwBLENDINVSRCALPHA);
@@ -605,7 +604,7 @@ static void ShadowRenderCachePolys(ProjectionParam* param, xShadowPoly* poly, S3
         vIn[1] = *(RwV3d*)&poly->vert[1];
         vIn[2] = *(RwV3d*)&poly->vert[2];
 
-        RwV3dTransformPoints(vShad, vIn, ARRAY_LENGTH(vIn), &param->invMatrix);
+        RwV3dTransformPoints(vShad, vIn, 3, &param->invMatrix);
 
         if ((vShad[0].z < 0.0f && vShad[1].z < 0.0f && vShad[2].z < 0.0f) || (vShad[0].x < 0.0f && vShad[1].x < 0.0f && vShad[2].x < 0.0f) || (vShad[0].x > 1.0f && vShad[1].x > 1.0f && vShad[2].x > 1.0f) || (vShad[0].y < 0.0f && vShad[1].y < 0.0f && vShad[2].y < 0.0f) || (vShad[0].y > 1.0f && vShad[1].y > 1.0f && vShad[2].y > 1.0f)) {
             continue;
@@ -1343,7 +1342,7 @@ static void xShadowModelRender(xModelInstance* minst)
     S32 i;
 
     while (minst) {
-        if ((minst->Flags & 0x401) == 0x1) {
+        if ((minst->Flags & (ModelInstance_Render | ModelInstance_NoRender)) == ModelInstance_Render) {
             if (minst->Scale.x) {
                 xMat3x3Copy(&tmpmat, (xMat3x3*)minst->Mat);
 
@@ -1412,7 +1411,7 @@ void xShadowManager_Render()
 
     for (i = 0; i < sMgrCount;) {
         xEnt* ent_ref = sMgrList[i].ent;
-        if (!xEntIsVisible(ent_ref) || !ent_ref->entShadow || (ent_ref->model->Flags & 0x400)) {
+        if (!xEntIsVisible(ent_ref) || !ent_ref->entShadow || (ent_ref->model->Flags & ModelInstance_NoRender)) {
             sMgrList[i] = sMgrList[sMgrCount - 1];
             sMgrCount--;
         } else {

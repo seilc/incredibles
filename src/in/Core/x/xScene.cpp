@@ -10,13 +10,12 @@
 #include "xMath.h"
 #include "xMemory.h"
 #include "xModel.h"
+#include "xSurface.h"
 #include "zGrid.h"
 #include "zSurface.h"
 
 #include <rpcollis.h>
 #include <string.h>
-
-#define NUM_TRI_VERTS 3
 
 xScene* g_xSceneCur;
 
@@ -548,16 +547,16 @@ void xRayHitsSceneFlags(xScene* sc, xRay3* r, xCollis* coll, U8 collType, U8 chk
     xBoxCenter(&bound.box.center, &bound.box.box);
     xQuickCullForRay(&bound.qcd, r);
 
-    if (chk & 0x6) {
+    if (chk & (k_XENT_COLLTYPE_STAT | k_XENT_COLLTYPE_DYN)) {
         xGridCheckBound(colls_grid, bound, bound.qcd, cb);
         xGridCheckBound(colls_oso_grid, bound, bound.qcd, cb);
     }
 
-    if (chk & 0x8) {
+    if (chk & k_XENT_COLLTYPE_NPC) {
         xGridCheckBound(npcs_grid, bound, bound.qcd, cb);
     }
 
-    if (chk & 0x20) {
+    if (chk & k_XENT_COLLTYPE_ENV) {
         xCollis temp_coll;
         temp_coll.flags = coll->flags;
         temp_coll.dist = 1e38f;
@@ -584,16 +583,16 @@ void xSphereHitsScene(xScene* sc, const xSphere* sphere, xCollis* coll, U8 collT
     bound.sph = *sphere;
     xQuickCullForSphere(&bound.qcd, sphere);
 
-    if (chk & 0x6) {
+    if (chk & (k_XENT_COLLTYPE_STAT | k_XENT_COLLTYPE_DYN)) {
         xGridCheckBound(colls_grid, bound, bound.qcd, cb);
         xGridCheckBound(colls_oso_grid, bound, bound.qcd, cb);
     }
 
-    if (chk & 0x8) {
+    if (chk & k_XENT_COLLTYPE_NPC) {
         xGridCheckBound(npcs_grid, bound, bound.qcd, cb);
     }
 
-    if (chk & 0x20) {
+    if (chk & k_XENT_COLLTYPE_ENV) {
         xCollis temp_coll;
         temp_coll.flags = coll->flags;
         temp_coll.dist = 1e38f;
@@ -705,7 +704,7 @@ static RpCollisionTriangle* nearestFloorCB(RpIntersection*, RpCollisionTriangle*
     xVec3 xformVert[4], xformNorm;
     U32 potentialOID;
     S32 i;
-    F32 pdx[NUM_TRI_VERTS], pdz[NUM_TRI_VERTS];
+    F32 pdx[3], pdz[3];
     F32 numer, denom, t, testdist2, neardx, neardz, nearmag;
 
     if (sUseJSP) {
@@ -735,7 +734,7 @@ static RpCollisionTriangle* nearestFloorCB(RpIntersection*, RpCollisionTriangle*
         return collTriangle;
     }
 
-    for (i = 0; i < NUM_TRI_VERTS; i++) {
+    for (i = 0; i < 3; i++) {
         pdx[i] = nfpoly->center.x - xformVert[i].x;
         pdz[i] = nfpoly->center.z - xformVert[i].z;
     }
@@ -924,7 +923,7 @@ U32 xSceneNearestFloorPoly(xScene* sc, xNearFloorPoly* nfpoly, U8 collType, U8 c
     nfpoly->optr = NULL;
     nfpoly->mptr = NULL;
 
-    if (chk & 0x6) {
+    if (chk & (k_XENT_COLLTYPE_STAT | k_XENT_COLLTYPE_DYN)) {
         sNearestChk = chk;
         sNearestCollType = collType;
         xGridCheckPosition(&colls_grid, &sNearestBound.box.center, &sNearestBound.qcd, gridNearestFloorCB, nfpoly);
@@ -935,7 +934,7 @@ U32 xSceneNearestFloorPoly(xScene* sc, xNearFloorPoly* nfpoly, U8 collType, U8 c
         xGridCheckPosition(&grabbable_grid, &sNearestBound.box.center, &sNearestBound.qcd, gridNearestFloorCB, nfpoly);
     }
 
-    if (chk & 0x20) {
+    if (chk & k_XENT_COLLTYPE_ENV) {
         sTestOPtr = NULL;
         sTestMPtr = NULL;
         sBoxTestMat = NULL;

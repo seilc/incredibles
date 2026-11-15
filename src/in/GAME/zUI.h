@@ -95,7 +95,7 @@ public:
 
     zUI();
 
-    zUIAsset* GetAsset() const;
+    zUIAsset* GetAsset() const { return asset; }
     void HandleEvent(xBase* from, U32 toEvent, const F32* toParam, xBase* toParamWidget,
                      U32 toParamWidgetID);
     void Signal(U32 event);
@@ -105,7 +105,7 @@ public:
 
     virtual U32 GetSortKey() const = 0;
     virtual bool Blends() const;
-    virtual bool IsUIText();
+    virtual bool IsUIText() { return false; }
     virtual bool IsForcePreUpdate();
     virtual void DoInit();
     virtual void DoSetup();

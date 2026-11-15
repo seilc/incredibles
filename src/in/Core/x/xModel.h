@@ -17,7 +17,9 @@ template <class T> struct basic_rect;
 // xModelInstance::Flags
 enum
 {
-    ModelInstance_ChildTransform = 0x40
+    ModelInstance_Render = 0x1,
+    ModelInstance_ChildTransform = 0x40,
+    ModelInstance_NoRender = 0x400
 };
 
 struct xModelInstance

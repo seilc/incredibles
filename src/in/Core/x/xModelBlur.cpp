@@ -90,7 +90,7 @@ namespace {
 
     void render_model_now(xModelInstance* model)
     {
-        if ((model->Flags & 0x401) == 0x1) {
+        if ((model->Flags & (ModelInstance_Render | ModelInstance_NoRender)) == ModelInstance_Render) {
             bool reset = false;
             xMat3x3 tmpmat;
             if (model->Scale.x) {
