@@ -8,6 +8,8 @@ class xMemoryManagerFixed : public xMemoryManager
 public:
     xMemoryManagerFixed() {}
 
+    U32 GetElementSize() const { return elementSize; }
+
     void Init(void* start, U32 elements, U32 elementSize);
 
 protected:

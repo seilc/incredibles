@@ -18,6 +18,8 @@ extern void free(void*);
 extern void* malloc(size_t);
 extern void* realloc(void*, size_t);
 
+extern void exit(int);
+
 extern int rand(void);
 
 extern void qsort(void*, size_t, size_t, int (*)(const void*, const void*));
@@ -33,6 +35,7 @@ using std::calloc;
 using std::free;
 using std::malloc;
 using std::realloc;
+using std::exit;
 using std::rand;
 using std::qsort;
 #endif
