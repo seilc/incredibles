@@ -612,7 +612,7 @@ config.libs = [
             Object(Matching, "in/Core/gc/iDraw.cpp"),
             Object(Matching, "in/Core/gc/iEnv.cpp"),
             Object(Matching, "in/Core/gc/iFile.cpp"),
-            Object(NonMatching, "in/Core/gc/iFMV.cpp"),
+            Object(Matching, "in/Core/gc/iFMV.cpp"),
             Object(Matching, "in/Core/gc/iFX.cpp"),
             Object(Matching, "in/Core/gc/iLight.cpp"),
             Object(Matching, "in/Core/gc/iMath.cpp"),

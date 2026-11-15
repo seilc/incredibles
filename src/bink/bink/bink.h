@@ -275,12 +275,36 @@ typedef struct BINK
 #define BINKGETKEYCLOSEST      2
 #define BINKGETKEYNOTEQUAL   128
 
+typedef void*(*BINKMEMALLOC)(U32 bytes);
+typedef void(*BINKMEMFREE)(void* ptr);
+
+HBINK BinkOpen(const char* name, U32 flags);
+char* BinkGetError(void);
+void BinkClose(HBINK bnk);
 S32 BinkDoFrame(HBINK bnk);
 void BinkNextFrame(HBINK bnk);
 S32 BinkWait(HBINK bnk);
 S32 BinkPause(HBINK bnk, S32 pause);
 S32 BinkCopyToBuffer(HBINK bnk, void* dest, S32 destpitch, U32 destheight, U32 destx, U32 desty, U32 flags);
+S32 BinkCopyToBufferRect(HBINK bnk, void* dest, S32 destpitch, U32 destheight, U32 destx, U32 desty, U32 srcx, U32 srcy, U32 srcw, U32 srch, U32 flags);
 void BinkGoto(HBINK bnk, U32 frame, S32 flags);
+void BinkSetVolume(HBINK bnk, U32 trackid, S32 volume);
+void BinkSetSoundTrack(U32 total_tracks, U32* tracks);
+U32 BinkGetTrackID(HBINK bnk, U32 trackindex);
+void BinkSetMemory(BINKMEMALLOC a, BINKMEMFREE f);
+S32 BinkSetSoundSystem(BINKSNDSYSOPEN open, U32 param);
+
+typedef void*(*RADARAMALLOC)(U32 num_bytes);
+typedef void(*RADARAMFREE)(void* ptr);
+
+typedef struct RADARAMCALLBACKS
+{
+    RADARAMALLOC aram_malloc;
+    RADARAMFREE aram_free;
+} RADARAMCALLBACKS;
+
+BINKSNDOPEN BinkOpenAX(U32 param);
+#define BinkSoundUseAX(functions) BinkSetSoundSystem(BinkOpenAX, (U32)functions)
 
 #ifdef __cplusplus
 }

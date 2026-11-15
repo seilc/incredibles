@@ -8,5 +8,6 @@ extern U32 startPressed;
 extern U32 gSoak;
 
 S32 zGameIsPaused();
+void zGameDemoText(F32 fTime);
 
 #endif
