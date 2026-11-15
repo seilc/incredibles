@@ -5,10 +5,8 @@
 
 struct xVec2
 {
-    F32 x;
-    F32 y;
+    F32 x, y;
 
-    xVec2& operator=(F32 f) { x = y = f; return *this; }
     xVec2& assign(F32 x, F32 y) { this->x = x; this->y = y; return *this; }
 
     void assign(F32 xy)
@@ -16,6 +14,7 @@ struct xVec2
         assign(xy, xy);
     }
 
+    xVec2& operator=(F32 f) { x = y = f; return *this; }
     xVec2& operator-=(const xVec2& v) { x -= v.x; y -= v.y; return *this; }
     xVec2 operator-(const xVec2& v) const { xVec2 temp = *this; temp -= v; return temp; }
     xVec2& operator*=(F32 f) { x *= f; y *= f; return *this; }
@@ -120,5 +119,29 @@ template <class T> struct basic_rect
 
 extern const xVec2 g_O2;
 extern const xVec2 g_X2;
+
+inline void xVec2Init(xVec2* v, F32 x, F32 y)
+{
+    v->x = x;
+    v->y = y;
+}
+
+inline F32 xVec2Dot(const xVec2* v1, const xVec2* v2)
+{
+    return v1->x * v2->x + v1->y * v2->y;
+}
+
+inline F32 xVec2Dist(F32 x1, F32 y1, F32 x2, F32 y2)
+{
+    F32 dx = x1 - x2;
+    F32 dy = y1 - y2;
+    return xsqrt(dx * dx + dy * dy);
+}
+
+inline void xVec2SubFromC(xVec2* o, F32 x, F32 y)
+{
+    o->x -= x;
+    o->y -= y;
+}
 
 #endif

@@ -112,6 +112,15 @@ struct xRay3
     S32 flags;
 };
 
+// xIsect::flags
+#define XISECT_YCODE_SHIFT 4
+#define XISECT_ZCODE_SHIFT 8
+#define XISECT_REGION_SHIFT 24
+#define XISECT_REGION_MASK 0x1F000000
+#define XISECT_FACE 0x20000000
+#define XISECT_EDGE 0x40000000
+#define XISECT_CORNER 0x80000000
+
 struct xIsect
 {
     U32 flags;
@@ -248,15 +257,12 @@ inline void xMat4x3Identity(xMat4x3* m)
     xMat4x3Copy(m, &g_I3);
 }
 
-inline static void xMat3x3RMulVec(xVec3* o, const xMat3x3* m, const xVec3* v)
+static inline void xMat3x3RMulVec(xVec3* o, const xMat3x3* m, const xVec3* v)
 {
     F32 x = m->right.x * v->x + m->up.x * v->y + m->at.x * v->z;
     F32 y = m->right.y * v->x + m->up.y * v->y + m->at.y * v->z;
     F32 z = m->right.z * v->x + m->up.z * v->y + m->at.z * v->z;
-
-    o->x = x;
-    o->y = y;
-    o->z = z;
+    o->x = x, o->y = y, o->z = z;
 }
 
 inline F32 xMat3x3LookAt(xMat3x3* m, const xVec3* from, const xVec3* to)
@@ -300,10 +306,7 @@ inline void xMat4x3OrthoInv(xMat4x3* o, const xMat4x3* m)
 inline void xMat4x3Toworld(xVec3* o, const xMat4x3* m, const xVec3* v)
 {
     xMat3x3RMulVec(o, m, v);
-
-    o->x += m->pos.x;
-    o->y += m->pos.y;
-    o->z += m->pos.z;
+    o->x = o->x + m->pos.x, o->y = o->y + m->pos.y, o->z = o->z + m->pos.z;
 }
 
 inline void xMat4x3Tolocal(xVec3* o, const xMat4x3* m, const xVec3* v)
@@ -433,6 +436,13 @@ do {                                            \
     xVec3Add((o), &(b)->lower, &(b)->upper);    \
     xVec3SMul((o), (o), 0.5f);                  \
 } while (0)
+
+inline void xRay3Eval(xVec3* o, const xRay3* r, F32 t)
+{
+    xVec3Copy(o, &r->dir);
+    xVec3SMulBy(o, t);
+    xVec3AddTo(o, &r->origin);
+}
 
 #define xLine3FromRay(ln, r)                                                                                                                        \
 do {                                                                                                                                                \

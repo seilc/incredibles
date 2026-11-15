@@ -616,7 +616,7 @@ config.libs = [
             Object(Matching, "in/Core/gc/iFX.cpp"),
             Object(Matching, "in/Core/gc/iLight.cpp"),
             Object(Matching, "in/Core/gc/iMath.cpp"),
-            Object(NonMatching, "in/Core/gc/iMath3.cpp"),
+            Object(Matching, "in/Core/gc/iMath3.cpp"),
             Object(Matching, "in/Core/gc/iMemMgr.cpp"),
             Object(NonMatching, "in/Core/gc/iModel.cpp"),
             Object(Matching, "in/Core/gc/iMorph.cpp"),
