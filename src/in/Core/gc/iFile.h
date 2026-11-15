@@ -49,6 +49,7 @@ IFILE_READSECTOR_STATUS iFileReadAsyncStatus(S32 key, S32* bytes_read);
 U32 iFileClose(xFile* file);
 U32 iFileGetSize(xFile* file);
 bool iFileExists(const char* name, S32);
+U32 iFileReadStop();
 U32 iFileFind(const char* name, S32 fileflags, xFile* file);
 void iFileGetInfo(xFile* file, U32* starting_sector, U32* size_in_bytes);
 U32 iFileGetSectorSize(xFileDriveType drive);

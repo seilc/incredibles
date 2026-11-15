@@ -13,6 +13,7 @@ struct xBox;
 
 void iModelInit();
 void iModelDeInit();
+RpAtomic* iModelFileNew(void* buffer, U32 size);
 RpHAnimHierarchy* iModelGetHierarchy(RpAtomic* imodel);
 void iModelRender(RpAtomic* model, RwMatrix* mat);
 void iModelSetMaterialAlpha(RpAtomic* model, U8 alpha);

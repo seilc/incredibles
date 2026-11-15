@@ -27,6 +27,8 @@ enum
     xSnd_CUTSCENE = 0x400,
     xSnd_FOLLOW = 0x800,
     xSnd_NOEFFECTS = 0x2000,
+    xSnd_PANLEFT = 0x4000,
+    xSnd_PANRIGHT = 0x8000,
     xSnd_LOOP = 0x200000,
     xSnd_DOPPLER = 0x400000,
     xSnd_UNIQUE = 0x800000,
