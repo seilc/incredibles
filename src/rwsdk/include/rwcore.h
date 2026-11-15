@@ -672,6 +672,7 @@ extern RwInt32 _RwGameCubeRasterExtOffset;
 
 RwCamera* RwCameraBeginUpdate(RwCamera* camera);
 RwCamera* RwCameraClear(RwCamera* camera, RwRGBA* color, RwInt32 clearMode);
+RwCamera* RwCameraClone(RwCamera* camera);
 RwCamera* RwCameraCreate(void);
 RwBool RwCameraDestroy(RwCamera* camera);
 RwCamera* RwCameraEndUpdate(RwCamera* camera);

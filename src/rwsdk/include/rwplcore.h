@@ -854,6 +854,7 @@ RwBool RwEngineStop(void);
 RwBool RwEngineTerm(void);
 RwMatrix* RwMatrixInvert(RwMatrix* dst, const RwMatrix* src);
 RwMatrix* RwMatrixMultiply(RwMatrix* dst, const RwMatrix* src1, const RwMatrix* src2);
+RwMatrix* RwMatrixOrthoNormalize(RwMatrix* dst, const RwMatrix* src);
 RwMatrix* RwMatrixScale(RwMatrix* matrix, const RwV3d* scale, RwOpCombineType combineOp);
 RwMatrix* RwMatrixTranslate(RwMatrix* matrix, const RwV3d* translation, RwOpCombineType combineOp);
 RwMatrix* RwMatrixUpdate(RwMatrix* matrix);
