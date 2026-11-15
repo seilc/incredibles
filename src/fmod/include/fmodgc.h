@@ -7,7 +7,11 @@
 extern "C" {
 #endif
 
+typedef void (*FSOUND_GC_DVDSTATUSCALLBACK)(int status);
+
 signed char FSOUND_AUXFX_ShutdownEffect(int);
+void FSOUND_GC_SetUpdateDvdStatusCallback(FSOUND_GC_DVDSTATUSCALLBACK callback);
+void FSOUND_GC_SetDvdStatusCallback(FSOUND_GC_DVDSTATUSCALLBACK callback);
 
 #ifdef __cplusplus
 }

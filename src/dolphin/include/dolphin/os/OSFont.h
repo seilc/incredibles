@@ -13,6 +13,8 @@ extern "C" {
 #define OS_FONT_ENCODE_MAX  5u
 #define OS_FONT_SIZE_ANSI (288 + 131072)    // 9 sheets
 #define OS_FONT_SIZE_SJIS (3840 + 1179648)  // 1 sheet
+#define OS_FONT_DATA_SIZE_ANSI 65824
+#define OS_FONT_DATA_SIZE_SJIS 593636
 #define OS_FONT_ROM_SIZE_ANSI 0x03000
 #define OS_FONT_ROM_SIZE_SJIS 0x4D000
 
