@@ -762,10 +762,14 @@ struct RwObject
     ( (linkvar)->next = (list)->link.next, (linkvar)->prev = (&(list)->link), ((list)->link.next)->prev = (linkvar), (list)->link.next = (linkvar) )
 
 #define rwLinkListGetFirstLLLink(list) ((list)->link.next)
+#define rwLinkListGetLastLLLink(list) ((list)->link.prev)
 #define rwLinkListGetTerminator(list) (&((list)->link))
 
 #define rwLinkListInitialize(list) \
     ( (list)->link.next = ((RwLLLink *)(list)), (list)->link.prev = ((RwLLLink *)(list)) )
+
+#define rwLinkListRemoveLLLink(linkvar) \
+    ( ((linkvar)->prev)->next = (linkvar)->next, ((linkvar)->next)->prev = (linkvar)->prev )
 
 #define RwObjectGetType(o) (((const RwObject *)(o))->type)
 #define RwIm2DGetFarScreenZMacro() (RWSRCGLOBAL(dOpenDevice).zBufferFar)

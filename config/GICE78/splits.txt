@@ -1073,7 +1073,7 @@ in/GAME/zLightning.cpp:
 	.text       start:0x800DDCCC end:0x800E013C
 	.rodata     start:0x802DDDF0 end:0x802DDFF8
 	.data       start:0x8030A680 end:0x8030A740
-	.bss        start:0x80376E00 end:0x803774F8
+	.bss        start:0x80376E00 end:0x803774F8 align:16
 	.sdata      start:0x803CC610 end:0x803CC638
 	.sbss       start:0x803CFE88 end:0x803CFF38
 	.sdata2     start:0x803D4088 end:0x803D4110
