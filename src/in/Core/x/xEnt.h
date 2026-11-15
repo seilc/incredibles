@@ -206,6 +206,11 @@ inline xVec3* xEntGetPos(const xEnt* ent)
     return &xModelGetFrame(ent->model)->pos;
 }
 
+inline void xEntEnable(xEnt* ent)
+{
+    xBaseEnable(ent);
+}
+
 inline U32 xEntIsEnabled(const xEnt* ent)
 {
     return xBaseIsEnabled(ent);

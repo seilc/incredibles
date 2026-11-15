@@ -654,7 +654,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zDashPlayer.cpp"),
             Object(NonMatching, "in/GAME/zDestructible.cpp"),
             Object(NonMatching, "in/GAME/zDispatcher.cpp"),
-            Object(NonMatching, "in/GAME/zDuplicator.cpp"),
+            Object(Matching, "in/GAME/zDuplicator.cpp"),
             Object(NonMatching, "in/GAME/zEGenerator.cpp"),
             Object(NonMatching, "in/GAME/zElastiGirlPlayer.cpp"),
             Object(NonMatching, "in/GAME/zEnt.cpp"),
