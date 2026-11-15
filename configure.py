@@ -660,7 +660,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zElastiGirlPlayer.cpp"),
             Object(NonMatching, "in/GAME/zEnt.cpp"),
             Object(NonMatching, "in/GAME/zEntButton.cpp"),
-            Object(NonMatching, "in/GAME/zEntHangable.cpp"),
+            Object(Matching, "in/GAME/zEntHangable.cpp"),
             Object(NonMatching, "in/GAME/zEntSimpleObj.cpp"),
             Object(NonMatching, "in/GAME/zEntTrigger.cpp"),
             Object(Matching, "in/GAME/zEnv.cpp"),

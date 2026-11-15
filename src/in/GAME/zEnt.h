@@ -4,12 +4,16 @@
 #include "xEnt.h"
 
 struct xModelAssetParam;
+struct xSerial;
 
 struct zEnt : xEnt
 {
     xAnimTable* atbl;
 };
 
+void zEntInit(zEnt* ent, xEntAsset* asset, U32 type);
+void zEntSave(zEnt* ent, xSerial* s);
+void zEntLoad(zEnt* ent, xSerial* s);
 void zEntEventAllOfType(U32 toEvent, U32 type);
 void zEntParseModelInfo(xEnt* ent, U32 assetID);
 xModelInstance* zEntRecurseModelInfo(void* info, xEnt* ent);
