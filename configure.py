@@ -829,7 +829,7 @@ config.libs = [
             Object(Matching, "in/Core/gc/water/texconv.c"),
             Object(Matching, "in/Core/gc/water/textures.c"),
             Object(NonMatching, "in/GAME/zEnergyStream.cpp"),
-            Object(NonMatching, "in/GAME/zNPCSmoke.cpp"),
+            Object(Matching, "in/GAME/zNPCSmoke.cpp"),
             Object(NonMatching, "in/GAME/zNPCStreamer.cpp"),
             Object(NonMatching, "in/GAME/zNPCBossBombChopper.cpp"),
             Object(Matching, "in/GAME/zCameraRBand.cpp"),
