@@ -213,6 +213,14 @@ enum RpLightType
 };
 typedef enum RpLightType RpLightType;
 
+enum RpLightFlag
+{
+    rpLIGHTLIGHTATOMICS = 0x1,
+    rpLIGHTLIGHTWORLD = 0x2,
+    rpLIGHTFLAGFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RpLightFlag RpLightFlag;
+
 struct RpLight
 {
     RwObjectHasFrame object;
@@ -391,6 +399,7 @@ typedef RpMesh* (*RpMeshCallBack)(RpMesh* mesh, RpMeshHeader* meshHeader, void* 
 #define RpGeometryGetVertexTexCoordsMacro(_geometry, _uvIndex) ((_geometry)->texCoords[(_uvIndex) - 1])
 #define RpLightGetFrameMacro(_light) ((RwFrame *)rwObjectGetParent((_light)))
 #define RpLightGetRadiusMacro(_light) ((_light)->radius)
+#define RpLightSetFlagsMacro(_light, _flags) ((rwObjectSetFlags((_light), (_flags))), (_light))
 #define RpLightSetFrameMacro(_light, _frame) (rwObjectHasFrameSetFrame((_light), (_frame)), (_light))
 #define RpMaterialSetColorMacro(_material, _color) \
     (RwRGBAAssign(&((_material)->color), (_color)), (_material))
@@ -479,6 +488,7 @@ RpTriangle* RpGeometryGetTriangles(const RpGeometry* geometry);
 RwTexCoords* RpGeometryGetVertexTexCoords(const RpGeometry* geometry, RwTextureCoordinateIndex uvIndex);
 RwFrame* RpLightGetFrame(const RpLight* light);
 RwReal RpLightGetRadius(const RpLight* light);
+RpLight* RpLightSetFlags(RpLight* light, RwUInt32 flags);
 RpLight* RpLightSetFrame(RpLight* light, RwFrame* frame);
 RwTexture* RpMaterialGetTexture(const RpMaterial* material);
 RpMaterial* RpMaterialSetColor(RpMaterial* material, const RwRGBA* color);
@@ -518,6 +528,7 @@ RwInt32 RpWorldGetNumMaterials(const RpWorld* world);
 
 #define RpLightGetFrame(_light) RpLightGetFrameMacro(_light)
 #define RpLightGetRadius(_light) RpLightGetRadiusMacro(_light)
+#define RpLightSetFlags(_light, _flags) RpLightSetFlagsMacro(_light, _flags)
 #define RpLightSetFrame(_light, _frame) RpLightSetFrameMacro(_light, _frame)
 #define RpMaterialGetTexture(_material) RpMaterialGetTextureMacro(_material)
 #define RpMaterialSetColor(_material, _color) RpMaterialSetColorMacro(_material, _color)
