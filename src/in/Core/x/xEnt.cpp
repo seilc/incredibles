@@ -1359,11 +1359,10 @@ S32 xent_entent;
 
 xEnt* xEntCollCheckOneEntNoDepen(xEnt* ent, xScene*, void* data)
 {
-    xEnt* p = (xEnt*)data;
-    xCollis* coll;
-
     xent_entent = TRUE;
 
+    xEnt* p = (xEnt*)data;
+    xCollis* coll;
     U32 modl_coll = FALSE;
 
     if (p->collis->idx >= 15) {
