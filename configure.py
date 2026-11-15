@@ -725,7 +725,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zSaveLoad.cpp"),
             Object(NonMatching, "in/GAME/zScene.cpp"),
             Object(Matching, "in/GAME/zScript.cpp"),
-            Object(NonMatching, "in/GAME/zshell.cpp"),
+            Object(Matching, "in/GAME/zshell.cpp"),
             Object(NonMatching, "in/GAME/zShrapnel.cpp"),
             Object(Matching, "in/GAME/zSlideCamera.cpp"),
             Object(NonMatching, "in/GAME/zSurface.cpp"),
