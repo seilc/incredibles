@@ -639,7 +639,7 @@ config.libs = [
             Object(Matching, "in/GAME/zCamFP.cpp"),
             Object(NonMatching, "in/GAME/zCamMarker.cpp"),
             Object(NonMatching, "in/GAME/zCamPlayer.cpp"),
-            Object(NonMatching, "in/GAME/zCamSwing.cpp"),
+            Object(Matching, "in/GAME/zCamSwing.cpp"),
             Object(NonMatching, "in/GAME/zCheat.cpp"),
             Object(NonMatching, "in/GAME/zCollGeom.cpp"),
             Object(NonMatching, "in/GAME/zCombat.cpp"),
