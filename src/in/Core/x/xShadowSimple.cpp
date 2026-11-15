@@ -10,10 +10,9 @@
 #include "xScene.h"
 #include "xstransvc.h"
 #include "zGrid.h"
+#include "zHashes.h"
 
 #include <string.h>
-
-#define SHADOW_ROUND_ID 0x1A2A0413 // xStrHash("shadow_round")
 
 struct xShadowSimpleQueue
 {
@@ -255,7 +254,7 @@ void xShadowSimple_Init()
 {
     memset(sCollQueue, 0, sizeof(sCollQueue));
 
-    RwTexture* tex = (RwTexture*)xSTFindAsset(SHADOW_ROUND_ID, NULL);
+    RwTexture* tex = (RwTexture*)xSTFindAsset(HASH_shadow_round, NULL);
     if (tex) {
         sShadRaster = RwTextureGetRaster(tex);
     } else

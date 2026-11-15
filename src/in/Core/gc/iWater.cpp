@@ -16,6 +16,7 @@
 #include "iCamera.h"
 #include "iDebug.h"
 #include "iModel.h"
+#include "zHashes.h"
 #include "zBase.h"
 #include "zEntSimpleObj.h"
 #include "zGlobals.h"
@@ -29,9 +30,6 @@
 #include <rwcore.h>
 #include <rpworld.h>
 #include <rpmatfx.h>
-
-#define WATER_BLUE_GREEN_NJ_ID 0xA362C765 // xStrHash("water_blue_green_NJ")
-#define GC_WATER_LIGHTKIT_ID 0x01092433 // xStrHash("gc_water_lightkit")
 
 #define WATER_PRESET(width, shininess, height)  \
 {                                               \
@@ -255,7 +253,7 @@ static RpAtomic* iWaterAtomicRender(RpAtomic* atomic)
     return defaultRenderCB(atomic);
 }
 
-U32 waterTexID = WATER_BLUE_GREEN_NJ_ID;
+U32 waterTexID = HASH_water_blue_green_NJ;
 
 #pragma push
 #pragma optimization_level 0
@@ -518,7 +516,7 @@ void iWaterReset()
         return;
     }
 
-    waterLightKit = (xLightKit*)xSTFindAsset(GC_WATER_LIGHTKIT_ID, NULL);
+    waterLightKit = (xLightKit*)xSTFindAsset(HASH_gc_water_lightkit, NULL);
     if (!waterLightKit)
         return;
 

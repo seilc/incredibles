@@ -2,10 +2,9 @@
 #include "zActionLine.h"
 
 #include "xstransvc.h"
+#include "zHashes.h"
 
 #include <rwcore.h>
-
-#define ACTIONLINES_ID 0x7830BF69 // xStrHash("ACTIONLINES")
 
 #define ACTION_LINE_COUNT 8
 
@@ -20,7 +19,7 @@ void zActionLineInit()
 
     sActionLineRaster = NULL;
 
-    RwTexture* tex = (RwTexture*)xSTFindAsset(ACTIONLINES_ID, NULL);
+    RwTexture* tex = (RwTexture*)xSTFindAsset(HASH_ACTIONLINES, NULL);
 
     if (tex) {
         sActionLineRaster = RwTextureGetRaster(tex);

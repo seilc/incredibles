@@ -27,14 +27,12 @@
 #include "zGrid.h"
 #include "zMain.h"
 #include "zLight.h"
+#include "zHashes.h"
 
 #include "decomp.h"
 
 #include <string.h>
 #include <stdio.h>
-
-#define TURRET_HOLDABLE_DEATH_SIMP_ID 0x3159B667 // xStrHash("TURRET_HOLDABLE_DEATH_SIMP")
-#define S08_TURRET_HOLDABLE_DEATH_SIMP_ID 0x36A1171F // xStrHash("S08_TURRET_HOLDABLE_DEATH_SIMP")
 
 struct xEnt::anim_coll_data
 {
@@ -61,7 +59,7 @@ namespace
 {
     inline void HackHoldableTurret(xEnt* ent)
     {
-        if (ent->id == TURRET_HOLDABLE_DEATH_SIMP_ID || ent->id == S08_TURRET_HOLDABLE_DEATH_SIMP_ID) {
+        if (ent->id == HASH_TURRET_HOLDABLE_DEATH_SIMP || ent->id == HASH_S08_TURRET_HOLDABLE_DEATH_SIMP) {
             ent->moreFlags &= (U16)~k_MORE_FLAGS_ANIM_COLL;
             ent->collLev = k_XENT_COLLLEV_OBB;
             ent->bound.box.box.upper.assign(1.6f, 8.0f, 1.3f);
@@ -169,21 +167,21 @@ static void xEntAddHittableFlag(xEnt* ent)
 static void hack_receive_shadow(xEnt* ent)
 {
     static U32 receive_models[15] = {
-        0x923EE315,
-        0x923EE316,
-        0x923EE317,
-        0x923EE318,
-        0x923EE319,
-        0x923EE31A,
-        0x923EE31B,
-        0x923EE31C,
-        0x923EE31D,
-        0x923EE31E,
-        0x923EE31F,
-        0x923EE320,
-        0x923EE321,
-        0x923EE323,
-        0x923EE324,
+        HASH_db03_path_a,
+        HASH_db03_path_b,
+        HASH_db03_path_c,
+        HASH_db03_path_d,
+        HASH_db03_path_e,
+        HASH_db03_path_f,
+        HASH_db03_path_g,
+        HASH_db03_path_h,
+        HASH_db03_path_i,
+        HASH_db03_path_j,
+        HASH_db03_path_k,
+        HASH_db03_path_l,
+        HASH_db03_path_m,
+        HASH_db03_path_o,
+        HASH_db03_path_p,
     };
 
     const U32* end_receive_models = receive_models + ARRAY_LENGTH(receive_models);

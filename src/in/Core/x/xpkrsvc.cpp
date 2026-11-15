@@ -4,12 +4,11 @@
 #include "xMemMgr.h"
 #include "xOutputMgr.h"
 #include "xutil.h"
+#include "zHashes.h"
 #include "zMain.h"
 
 #include <rwcore.h>
 #include <string.h>
-
-#define SIMPLE_SHADOW_TABLE_ID 0x98A3F56C // xStrHash("simple shadow table")
 
 #define PKR_MAX_NAMLEN 128
 #define PKR_MAX_TYPES 128
@@ -988,7 +987,7 @@ static S32 PKR_FRIEND_assetIsGameDup(U32 aid, const st_PACKER_READ_DATA* skippr,
     S32 i = 0;
     S32 idx = -1;
 
-    if (aid == SIMPLE_SHADOW_TABLE_ID) return is_dup;
+    if (aid == HASH_simple_shadow_table) return is_dup;
 
     for (i = 0; i < PKR_MAX_INSTANCES; i++) {
         if (!(g_loadlock & (1 << i))) {

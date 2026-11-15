@@ -2,18 +2,13 @@
 #include "zGameExtras.h"
 
 #include "iSystem.h"
+#include "zHashes.h"
 #include "zMain.h"
 #include "zGame.h"
 #include "zGameState.h"
 #include "xutil.h"
 
 #include <string.h>
-
-#define SBG01030_ID 0x5EEA143C // xStrHash("SBG01030")
-#define SBG01017_A_ID 0x9943D503 // xStrHash("SBG01017_a")
-#define SBG01017_B_ID 0x9943D504 // xStrHash("SBG01017_b")
-#define SBG01018_ID 0x5EEA133E // xStrHash("SBG01018")
-#define SBG01016_ID 0x5EEA133C // xStrHash("SBG01016")
 
 #define CHEAT_TIME 0.3f
 #define CHEAT_COUNT 16
@@ -524,13 +519,13 @@ static void GEC_dfltSound()
     // clang-format off
     static U32 aid_sndList[] =
     {
-        SBG01030_ID,
-        SBG01030_ID,
-        SBG01030_ID,
-        SBG01017_A_ID,
-        SBG01017_B_ID,
-        SBG01018_ID,
-        SBG01016_ID
+        HASH_SBG01030,
+        HASH_SBG01030,
+        HASH_SBG01030,
+        HASH_SBG01017_a,
+        HASH_SBG01017_b,
+        HASH_SBG01018,
+        HASH_SBG01016
     };
     // clang-format on
 

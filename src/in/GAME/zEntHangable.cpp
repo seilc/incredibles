@@ -6,15 +6,14 @@
 #include "xModel.h"
 #include "xUpdateCull.h"
 #include "zGlobals.h"
+#include "zHashes.h"
 #include "zMain.h"
-
-#define RLII0006_ID 0xA43B805C // xStrHash("rlii0006")
 
 static U32 sChandelierHash;
 
 void zEntHangable_SetupFX()
 {
-    sChandelierHash = RLII0006_ID;
+    sChandelierHash = HASH_rlii0006;
 }
 
 static void HangableSetup(zEntHangable* ent, xEntAsset* asset)

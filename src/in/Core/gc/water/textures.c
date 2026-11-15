@@ -2,16 +2,14 @@
 #include "water/textures.h"
 
 #include "xstransvc.h"
+#include "zHashes.h"
 
 #include <rwcore.h>
 
-#define GC_WBUMP_ID 0xBE266DB6 // xStrHash("gc_wbump")
-#define EXPLOSIONFLASH_SMOKE_TAN_64_ID 0x453C0740 // xStrHash("ExplosionFlash_Smoke_tan_64")
-
 RwTexture* iWaterBumpTex;
 RwTexture* iWaterEnvTex;
-U32 iWaterBumpTexID = GC_WBUMP_ID;
-U32 iWaterEnvTexID = EXPLOSIONFLASH_SMOKE_TAN_64_ID;
+U32 iWaterBumpTexID = HASH_gc_wbump;
+U32 iWaterEnvTexID = HASH_ExplosionFlash_Smoke_tan_64;
 
 S32 TexturesOpen()
 {
