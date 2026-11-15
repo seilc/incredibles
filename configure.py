@@ -852,7 +852,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zFXEnergySystem.cpp"),
             Object(NonMatching, "in/GAME/zUICustomBattleModeSelectScene.cpp"),
             Object(Matching, "in/GAME/zUICustomSysMessage.cpp"),
-            Object(NonMatching, "in/GAME/zUICustomBattleModeSelectPlayer.cpp"),
+            Object(Matching, "in/GAME/zUICustomBattleModeSelectPlayer.cpp"),
             Object(Matching, "in/Core/gc/iARAMTmp.cpp"),
             Object(Matching, "in/GAME/zCamPreset.cpp"),
             Object(NonMatching, "in/GAME/zCineFXIN.cpp"),

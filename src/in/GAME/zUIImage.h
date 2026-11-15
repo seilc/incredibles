@@ -6,6 +6,9 @@
 
 class zUIImage : public zUI
 {
+public:
+    void SetTexture(U32 id, bool clearPrev);
+
 private:
     struct ImageState
     {

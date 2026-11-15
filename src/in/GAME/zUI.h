@@ -98,6 +98,7 @@ public:
     zUIAsset* GetAsset() const { return asset; }
     void HandleEvent(xBase* from, U32 toEvent, const F32* toParam, xBase* toParamWidget,
                      U32 toParamWidgetID);
+    void Signal(xBase* from, U32 event);
     void Signal(U32 event);
     void Update(F32 dt);
     void Render() const;
