@@ -2,6 +2,7 @@
 #define ZNPCNAVIGATION_H
 
 #include "zNPCNavigationMesh.h"
+#include "zNPCBehavior.h"
 
 namespace zNPC
 {
@@ -48,6 +49,24 @@ namespace zNPC
         void apply_dpos(F32 dt);
         void remove();
         void update_stuck(F32 dt);
+    };
+
+    struct npc_move : move
+    {
+        xVec3 last_destination;
+        F32 cos_min_move_angle;
+
+        virtual bool system_event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
+                                  xBase* toParamWidget, U32 toParamWidgetID);
+        virtual void setup();
+        virtual void jump_to(xVec3& destination, F32 dt, bool face_dir);
+        virtual void move_to(const xVec3& destination, F32 dt, bool move_away, bool face_dir,
+                             bool change_anim_speed);
+        virtual void move_away_from(const xVec3& point, F32 dt);
+        virtual bool physics_move(F32 dt);
+        virtual void jump_update(F32 dt, bool face_jump_dir);
+        virtual void step_move(const xVec3& direction, F32 distance, F32 dt);
+        virtual bool have_arrived() const;
     };
 
 } // namespace zNPC

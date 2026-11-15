@@ -41,7 +41,7 @@ public:
     behavior() {}
 
     virtual bool in_state(const char* state, F32 look_ahead, xModelInstance* model) const;
-    virtual const char* getName();
+    virtual const char* getName() { return "behavior"; }
     virtual void set_owner(xEnt* new_owner) { owner = new_owner; }
     virtual bool system_event(xBase* from, xBase* to, U32 to_event, const F32* to_param,
                               xBase* to_param_widget, U32 to_param_widget_id) { return false; }
@@ -147,6 +147,14 @@ public:
 
     void set_iteration_pointers();
     void add_behavior(behavior* new_behavior, S8 priority);
+
+    template <class T>
+    void add_behavior(behavior_implementation<T>* new_behavior, T* new_owner, S8 priority)
+    {
+        new_behavior->set_owner(new_owner);
+        add_behavior(new_behavior, priority);
+    }
+
     void set_behavior(behavior* new_behavior);
     behavior* get_behavior(U32 type);
     void reset_behavior(behavior* new_behavior);

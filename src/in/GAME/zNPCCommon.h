@@ -113,6 +113,12 @@ namespace zNPC
         void set_shadow_strength(F32 percent);
         void set_update_cull();
 
+        template <class T>
+        void add_behavior(behavior_implementation<T>* new_behavior, S8 priority)
+        {
+            manager.add_behavior(new_behavior, this, priority);
+        }
+
         bool is_human()
         {
             return commonFlags.human;
