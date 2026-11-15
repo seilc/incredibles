@@ -29,4 +29,10 @@ public:
 
 #define iTRC_CHECK() iTRCDisk::TRCCheck()
 
+class ResetButton
+{
+public:
+    static void ResetSystem();
+};
+
 #endif
