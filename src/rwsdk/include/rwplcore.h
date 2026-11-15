@@ -781,6 +781,7 @@ struct RwObject
 #define RwIm2DRenderPrimitiveMacro(_primType, _vertices, _numVertices) \
     (RWSRCGLOBAL(dOpenDevice).fpIm2DRenderPrimitive(_primType, _vertices, _numVertices))
 
+#define RwMatrixCopyMacro(_target, _source) ( *(_target) = *(_source) )
 #define rwMatrixSetFlags(m, flagsbit) ((m)->flags = (flagsbit))
 #define rwMatrixGetFlags(m) ((m)->flags)
 
@@ -809,6 +810,7 @@ struct RwObject
 #define RWPLUGINOFFSET(_type, _base, _offset) ((_type *)((RwUInt8 *)(_base) + (_offset)))
 #define rwObjectGetFlags(o) (((const RwObject *)(o))->flags)
 #define rwObjectGetParent(object) (((const RwObject *)(object))->parent)
+#define rwObjectSetParent(c,p) (((RwObject *)(c))->parent) = (void *)(p)
 #define rwObjectSetFlags(o, f) (((RwObject *)(o))->flags) = (RwUInt8)(f)
 #define RwRGBAAssign(_target, _source) ( *(_target) = *(_source) )
 #define RwSphereAssign(_target, _source) ( *(_target) = *(_source) )
@@ -885,6 +887,7 @@ RwReal RwIm2DGetFarScreenZ(void);
 RwReal RwIm2DGetNearScreenZ(void);
 RwBool RwIm2DRenderIndexedPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices, RwImVertexIndex* indices, RwInt32 numIndices);
 RwBool RwIm2DRenderPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices);
+void RwMatrixCopy(RwMatrix* dst, const RwMatrix* src);
 RwV3d* RwMatrixGetAt(RwMatrix* matrix);
 RwV3d* RwMatrixGetPos(RwMatrix* matrix);
 void RwMatrixSetIdentity(RwMatrix* matrix);
@@ -913,6 +916,7 @@ void RwV3dSub(RwV3d* out, const RwV3d* ina, const RwV3d* inb);
 #define RwIm2DRenderPrimitive(_primType, _vertices, _numVertices) \
     RwIm2DRenderPrimitiveMacro(_primType, _vertices, _numVertices)
 
+#define RwMatrixCopy(dst, src) RwMatrixCopyMacro(dst, src)
 #define RwMatrixGetAt(m) (&(m)->at)
 #define RwMatrixGetPos(m) (&(m)->pos)
 #define RwMatrixSetIdentity(m) RwMatrixSetIdentityMacro(m)

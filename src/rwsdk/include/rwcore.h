@@ -541,6 +541,7 @@ struct RwGameCubeDeviceConfig
     RwUInt32 fifoSize;
 };
 
+typedef RwFrame* (*RwFrameCallBack)(RwFrame* frame, void* data);
 typedef RwTexture* (*RwTextureCallBackRead)(const RwChar* name, const RwChar* maskName);
 
 #define RwIm3DVertexSetNormal(_vert, _imx, _imy, _imz)  \
@@ -686,7 +687,10 @@ RwCamera* RwCameraSetViewWindow(RwCamera* camera, const RwV2d* viewWindow);
 RwCamera* RwCameraShowRaster(RwCamera* camera, void* dev, RwUInt32 flags);
 RwFrame* RwFrameCreate(void);
 RwBool RwFrameDestroy(RwFrame* frame);
+RwBool RwFrameDestroyHierarchy(RwFrame* frame);
+RwFrame* RwFrameForAllChildren(RwFrame* frame, RwFrameCallBack callBack, void* data);
 RwMatrix* RwFrameGetLTM(RwFrame* frame);
+RwFrame* RwFrameGetRoot(const RwFrame* frame);
 RwFrame* RwFrameOrthoNormalize(RwFrame* frame);
 RwFrame* RwFrameRotate(RwFrame* frame, const RwV3d* axis, RwReal angle, RwOpCombineType combine);
 RwFrame* RwFrameTransform(RwFrame* frame, const RwMatrix* transform, RwOpCombineType combine);

@@ -399,6 +399,8 @@ typedef RpMesh* (*RpMeshCallBack)(RpMesh* mesh, RpMeshHeader* meshHeader, void* 
     MACRO_STOP
 
 #define RpClumpGetFrameMacro(_clump) ((RwFrame *) rwObjectGetParent(_clump))
+#define RpClumpSetFrameMacro(_clump, _frame) (rwObjectSetParent(_clump, _frame), (_clump))
+#define RpGeometryGetFlagsMacro(_geometry) ((_geometry)->flags)
 #define RpGeometryGetMaterialMacro(_geometry, _num) (((_geometry)->matList.materials)[(_num)])
 #define RpGeometryGetMorphTargetMacro(_geometry, _index) (&((_geometry)->morphTarget[(_index)]))
 #define RpGeometryGetNumMaterialsMacro(_geometry) ((_geometry)->matList.numMaterials)
@@ -406,10 +408,12 @@ typedef RpMesh* (*RpMeshCallBack)(RpMesh* mesh, RpMeshHeader* meshHeader, void* 
 #define RpGeometryGetNumTrianglesMacro(_geometry) ((_geometry)->numTriangles)
 #define RpGeometryGetNumVerticesMacro(_geometry) ((_geometry)->numVertices)
 #define RpGeometryGetVertexTexCoordsMacro(_geometry, _uvIndex) ((_geometry)->texCoords[(_uvIndex) - 1])
+#define RpGeometrySetFlagsMacro(_geometry, _flags) (((_geometry)->flags = (_flags)), (_geometry))
 #define RpLightGetFrameMacro(_light) ((RwFrame *)rwObjectGetParent((_light)))
 #define RpLightGetRadiusMacro(_light) ((_light)->radius)
 #define RpLightSetFlagsMacro(_light, _flags) ((rwObjectSetFlags((_light), (_flags))), (_light))
 #define RpLightSetFrameMacro(_light, _frame) (rwObjectHasFrameSetFrame((_light), (_frame)), (_light))
+#define RpMaterialGetColorMacro(_material) (&((_material)->color))
 #define RpMaterialSetColorMacro(_material, _color) \
     (RwRGBAAssign(&((_material)->color), (_color)), (_material))
 
@@ -488,8 +492,10 @@ RpAtomic* RpAtomicRender(RpAtomic* atomic);
 RpAtomic* RpAtomicSetPipeline(RpAtomic* atomic, RxPipeline* pipeline);
 void RpAtomicSetRenderCallBack(RpAtomic* atomic, RpAtomicCallBackRender callback);
 RwFrame* RpClumpGetFrame(const RpClump* clump);
+RpClump* RpClumpSetFrame(RpClump* clump, RwFrame* frame);
 RpGameCubeVtxFmt* RpGameCubeGeometryGetVtxFmt(RpGeometry* geometry);
 RpGameCubeVtxFmt* RpGameCubeWorldGetVtxFmt(RpWorld* world);
+RwUInt32 RpGeometryGetFlags(const RpGeometry* geometry);
 RpMaterial* RpGeometryGetMaterial(const RpGeometry* geometry, RwInt32 matNum);
 RpMorphTarget* RpGeometryGetMorphTarget(const RpGeometry* geometry, RwInt32 morphTarget);
 RwInt32 RpGeometryGetNumMaterials(const RpGeometry* geometry);
@@ -498,10 +504,12 @@ RwInt32 RpGeometryGetNumTriangles(const RpGeometry* geometry);
 RwInt32 RpGeometryGetNumVertices(const RpGeometry* geometry);
 RpTriangle* RpGeometryGetTriangles(const RpGeometry* geometry);
 RwTexCoords* RpGeometryGetVertexTexCoords(const RpGeometry* geometry, RwTextureCoordinateIndex uvIndex);
+RpGeometry* RpGeometrySetFlags(RpGeometry* geometry, RwUInt32 flags);
 RwFrame* RpLightGetFrame(const RpLight* light);
 RwReal RpLightGetRadius(const RpLight* light);
 RpLight* RpLightSetFlags(RpLight* light, RwUInt32 flags);
 RpLight* RpLightSetFrame(RpLight* light, RwFrame* frame);
+const RwRGBA* RpMaterialGetColor(const RpMaterial* material);
 RwTexture* RpMaterialGetTexture(const RpMaterial* material);
 RpMaterial* RpMaterialSetColor(RpMaterial* material, const RwRGBA* color);
 RwV3d* RpMorphTargetGetVertexNormals(const RpMorphTarget* morphTarget);
@@ -526,8 +534,10 @@ RwInt32 RpWorldGetNumMaterials(const RpWorld* world);
 #define RpAtomicSetPipeline(_atomic, _pipeline) RpAtomicSetPipelineMacro(_atomic, _pipeline)
 #define RpAtomicSetRenderCallBack(_atomic, _callback) RpAtomicSetRenderCallBackMacro(_atomic, _callback)
 #define RpClumpGetFrame(_clump) RpClumpGetFrameMacro(_clump)
+#define RpClumpSetFrame(_clump, _frame) RpClumpSetFrameMacro(_clump, _frame)
 #define RpGameCubeGeometryGetVtxFmt(_geometry) RpGameCubeGeometryGetVtxFmtMacro(_geometry)
 #define RpGameCubeWorldGetVtxFmt(_world) RpGameCubeWorldGetVtxFmtMacro(_world)
+#define RpGeometryGetFlags(_geometry) RpGeometryGetFlagsMacro(_geometry)
 #define RpGeometryGetMaterial(_geometry, _num) RpGeometryGetMaterialMacro(_geometry, _num)
 #define RpGeometryGetMorphTarget(_geometry, _index) RpGeometryGetMorphTargetMacro(_geometry, _index)
 #define RpGeometryGetNumMaterials(_geometry) RpGeometryGetNumMaterialsMacro(_geometry)
@@ -539,10 +549,12 @@ RwInt32 RpWorldGetNumMaterials(const RpWorld* world);
 #define RpGeometryGetVertexTexCoords(_geometry, _uvIndex) \
     RpGeometryGetVertexTexCoordsMacro(_geometry, _uvIndex)
 
+#define RpGeometrySetFlags(_geometry, _flags) RpGeometrySetFlagsMacro(_geometry, _flags)
 #define RpLightGetFrame(_light) RpLightGetFrameMacro(_light)
 #define RpLightGetRadius(_light) RpLightGetRadiusMacro(_light)
 #define RpLightSetFlags(_light, _flags) RpLightSetFlagsMacro(_light, _flags)
 #define RpLightSetFrame(_light, _frame) RpLightSetFrameMacro(_light, _frame)
+#define RpMaterialGetColor(_material) RpMaterialGetColorMacro(_material)
 #define RpMaterialGetTexture(_material) RpMaterialGetTextureMacro(_material)
 #define RpMaterialSetColor(_material, _color) RpMaterialSetColorMacro(_material, _color)
 #define RpMorphTargetGetVertexNormals(_mt) RpMorphTargetGetVertexNormalsMacro(_mt)
