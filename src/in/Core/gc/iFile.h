@@ -5,8 +5,13 @@
 
 #include <dolphin.h>
 
-#define IFILE_READ (1 << 0)
-#define IFILE_WRITE (1 << 1)
+#define IFILE_NAMELEN_MAX 128
+
+// iFile::flags
+#define IFILE_OPENED 1
+#define IFILE_READ (1<<0)
+#define IFILE_WRITE (1<<1)
+#define IFILE_FULLPATH (1<<2)
 
 typedef struct tag_xFile xFile;
 typedef void (*iFileReadAsyncCallback)(xFile*);
@@ -30,7 +35,7 @@ enum IFILE_READSECTOR_STATUS
 typedef struct tag_iFile
 {
     U32 flags;
-    char path[128];
+    char path[IFILE_NAMELEN_MAX];
     S32 fd;
     DVDFileInfo file;
     iFileReadAsyncCallback cb;
@@ -39,6 +44,8 @@ typedef struct tag_iFile
     S32 real_pos;
 } iFile;
 
+void iFileInit();
+void iFileExit();
 U32* iFileLoad(const char* name, U32* buffer, U32* size);
 U32 iFileOpen(const char* name, S32 flags, xFile* file);
 S32 iFileSeek(xFile* file, S32 offset, S32 whence);
@@ -50,6 +57,8 @@ U32 iFileClose(xFile* file);
 U32 iFileGetSize(xFile* file);
 bool iFileExists(const char* name, S32);
 U32 iFileReadStop();
+void iFileFullPath(const char* relname, char* fullname);
+void iFileSetPath(const char* path);
 U32 iFileFind(const char* name, S32 fileflags, xFile* file);
 void iFileGetInfo(xFile* file, U32* starting_sector, U32* size_in_bytes);
 U32 iFileGetSectorSize(xFileDriveType drive);
