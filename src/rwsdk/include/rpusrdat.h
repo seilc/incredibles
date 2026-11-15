@@ -31,6 +31,7 @@ extern "C" {
 RwInt32 RpGeometryAddUserDataArray(RpGeometry* geometry, RwChar* name, RpUserDataFormat format, RwInt32 numElements);
 RpUserDataArray* RpGeometryGetUserDataArray(const RpGeometry* geometry, RwInt32 data);
 RwInt32 RpGeometryGetUserDataArrayCount(const RpGeometry* geometry);
+RwBool RpUserDataPluginAttach(void);
 
 #ifdef __cplusplus
 }

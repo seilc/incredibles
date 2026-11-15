@@ -33,4 +33,14 @@ struct RpHAnimHierarchy
     RtAnimInterpolator* currentAnim;
 };
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+RwBool RpHAnimPluginAttach(void);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif

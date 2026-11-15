@@ -33,6 +33,7 @@ typedef unsigned long long RwUInt64;
 #define MACRO_STOP while (0)
 
 typedef struct RwDevice RwDevice;
+typedef struct RwEngineOpenParams RwEngineOpenParams;
 typedef struct RwFreeList RwFreeList;
 typedef struct RwGlobals RwGlobals;
 typedef struct RwLLLink RwLLLink;
@@ -96,6 +97,14 @@ enum RwMatrixFlag
     rwMATRIXFLAGFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
 };
 typedef enum RwMatrixFlag RwMatrixFlag;
+
+enum RwEngineInitFlag
+{
+    rwENGINEINITFREELISTS,
+    rwENGINEINITNOFREELISTS,
+    rwENGINEINITFLAGFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RwEngineInitFlag RwEngineInitFlag;
 
 enum RwCorePluginID
 {
@@ -502,6 +511,11 @@ enum RwPrimitiveType
 };
 typedef enum RwPrimitiveType RwPrimitiveType;
 
+struct RwEngineOpenParams
+{
+    void* displayID;
+};
+
 typedef RwBool (*RwSystemFunc)(RwInt32 nOption, void* pOut, void* pInOut, RwInt32 nIn);
 typedef RwBool (*RwRenderStateSetFunction)(RwRenderState nState, void* pParam);
 typedef RwBool (*RwRenderStateGetFunction)(RwRenderState nState, void* pParam);
@@ -830,15 +844,24 @@ extern const RwChar* _rwMemoryLastAllocFile;
 extern RwUInt32 _rwMemoryLastAllocLine;
 #endif
 
+RwBool RwEngineClose(void);
 RwInt32 RwEngineGetCurrentVideoMode(void);
 RwVideoMode* RwEngineGetVideoModeInfo(RwVideoMode* modeinfo, RwInt32 modeIndex);
+RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUInt32 resArenaSize);
+RwBool RwEngineOpen(RwEngineOpenParams* initParams);
+RwBool RwEngineStart(void);
+RwBool RwEngineStop(void);
+RwBool RwEngineTerm(void);
 RwMatrix* RwMatrixInvert(RwMatrix* dst, const RwMatrix* src);
 RwMatrix* RwMatrixMultiply(RwMatrix* dst, const RwMatrix* src1, const RwMatrix* src2);
 RwMatrix* RwMatrixScale(RwMatrix* matrix, const RwV3d* scale, RwOpCombineType combineOp);
 RwMatrix* RwMatrixTranslate(RwMatrix* matrix, const RwV3d* translation, RwOpCombineType combineOp);
 RwMatrix* RwMatrixUpdate(RwMatrix* matrix);
 void* RwMemNative32(void* mem, RwUInt32 size);
+RwResEntry* RwResourcesAllocateResEntry(void* owner, RwResEntry** ownerRef, RwInt32 size, RwResEntryDestroyNotify destroyNotify);
 RwBool RwResourcesFreeResEntry(RwResEntry* entry);
+RwInt32 RwResourcesGetArenaSize(void);
+RwBool RwResourcesSetArenaSize(RwUInt32 size);
 RwBool RwStreamClose(RwStream* stream, void* pData);
 RwBool RwStreamFindChunk(RwStream* stream, RwUInt32 type, RwUInt32* lengthOut, RwUInt32* versionOut);
 RwStream* RwStreamOpen(RwStreamType type, RwStreamAccessType accessType, const void* pData);

@@ -457,6 +457,7 @@ RpWorld* RpWorldAddCamera(RpWorld* world, RwCamera* camera);
 RpWorld* RpWorldAddLight(RpWorld* world, RpLight* light);
 RpWorld* RpWorldCreate(RwBBox* boundingBox);
 RwBool RpWorldDestroy(RpWorld* world);
+RwBool RpWorldPluginAttach(void);
 RpWorld* RpWorldRemoveCamera(RpWorld* world, RwCamera* camera);
 RpWorld* RpWorldRemoveLight(RpWorld* world, RpLight* light);
 RpWorld* RwCameraGetWorld(const RwCamera* camera);

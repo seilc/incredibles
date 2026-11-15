@@ -188,6 +188,9 @@ __declspec(weak) void OSVReport(const char* msg, va_list list);
 __declspec(weak) void OSPanic(const char* file, int line, const char* msg, ...);
 void OSFatal(GXColor fg, GXColor bg, const char* msg);
 
+#define OSHalt(msg) OSPanic(__FILE__, __LINE__, msg)
+#define OSHalt_L(msg, line) OSPanic(__FILE__, line, msg)
+
 #define OSRoundUp32B(x)   (((u32)(x) + 32 - 1) & ~(32 - 1))
 #define OSRoundDown32B(x) (((u32)(x)) & ~(32 - 1))
 

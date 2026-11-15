@@ -102,6 +102,7 @@ extern "C" {
 extern RwInt32 _rpCollisionGeometryDataOffset;
 
 RpAtomic* RpAtomicForAllIntersections(RpAtomic* atomic, RpIntersection* intersection, RpIntersectionCallBackGeometryTriangle callBack, void* data);
+RwBool RpCollisionPluginAttach(void);
 
 #ifdef __cplusplus
 }

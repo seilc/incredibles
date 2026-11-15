@@ -21,6 +21,9 @@ struct MOVIE
 
 MOVIE* iFMVOpen(PKRAssetTOCInfo& rAssetInfo);
 void iFMVClose(MOVIE*& pMovie);
+void iFMVSuspend();
+void iFMVResume();
+void iFMVKill();
 U32 iFMVPlay(const char* filename, U32 buttons, F32 time, U32 uSubtitlesAID,
                 bool skippable, bool lockController, bool displayDemoBlink);
 

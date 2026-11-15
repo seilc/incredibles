@@ -561,6 +561,7 @@ RpMaterial* RpMatFXMaterialSetUVTransformMatrices(RpMaterial* material, RwMatrix
 RpMaterial* RpMatFXMaterialSetupBumpMap(RpMaterial* material, RwTexture* texture, RwFrame* frame, RwReal coef);
 RpMaterial* RpMatFXMaterialSetupDualTexture(RpMaterial* material, RwTexture* texture, RwBlendFunction srcBlendMode, RwBlendFunction dstBlendMode);
 RpMaterial* RpMatFXMaterialSetupEnvMap(RpMaterial* material, RwTexture* texture, RwFrame* frame, RwBool useFrameBufferAlpha, RwReal coef);
+RwBool RpMatFXPluginAttach(void);
 RpMaterial* RpMaterialCreateMultiTexture(RpMaterial* material, RwPlatformID platformID, RwUInt32 numTextures);
 RpMultiTexture* RpMaterialGetMultiTexture(const RpMaterial* material, RwPlatformID platformID);
 RpMTEffect* RpMultiTextureGetEffect(const RpMultiTexture* multiTexture);

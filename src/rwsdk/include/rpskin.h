@@ -43,6 +43,7 @@ RwUInt32 RpSkinGetNumBones(RpSkin* skin);
 const RwMatrix* RpSkinGetSkinToBoneMatrices(RpSkin* skin);
 const RwUInt32* RpSkinGetVertexBoneIndices(RpSkin* skin);
 const RwMatrixWeights* RpSkinGetVertexBoneWeights(RpSkin* skin);
+RwBool RpSkinPluginAttach(void);
 
 #ifdef __cplusplus
 }

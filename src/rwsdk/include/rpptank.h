@@ -213,6 +213,7 @@ RpAtomic* RpPTankAtomicCreate(RwInt32 maxParticleNum, RwUInt32 dataFlags, RwUInt
 void RpPTankAtomicDestroy(RpAtomic* ptank);
 RwBool RpPTankAtomicLock(RpAtomic* atomic, RpPTankLockStruct* dst, RwUInt32 dataFlags, RpPTankLockFlags lockFlag);
 RpAtomic* RpPTankAtomicUnlock(RpAtomic* atomic);
+RwBool RpPTankPluginAttach(void);
 
 #if (defined(RWDEBUG) || defined(RWSUPPRESSINLINE))
 RwInt32 RpPTankAtomicGetActiveParticlesCount(RpAtomic* atomic);

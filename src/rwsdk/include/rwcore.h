@@ -7,6 +7,7 @@ typedef struct RwBBox RwBBox;
 typedef struct RwCamera RwCamera;
 typedef struct RwFrame RwFrame;
 typedef struct RwFrustumPlane RwFrustumPlane;
+typedef struct RwGameCubeDeviceConfig RwGameCubeDeviceConfig;
 typedef struct RwGameCubeRasterExtension RwGameCubeRasterExtension;
 typedef struct RwImage RwImage;
 typedef struct RwObjectHasFrame RwObjectHasFrame;
@@ -533,6 +534,15 @@ struct RwCamera
     RwV3d frustumCorners[8];
 };
 
+struct RwGameCubeDeviceConfig
+{
+    void* renderMode;
+    RwInt32 pixFmt;
+    RwUInt32 fifoSize;
+};
+
+typedef RwTexture* (*RwTextureCallBackRead)(const RwChar* name, const RwChar* maskName);
+
 #define RwIm3DVertexSetNormal(_vert, _imx, _imy, _imz)  \
     MACRO_START                                         \
     {                                                   \
@@ -702,6 +712,7 @@ RwBool RwTextureDestroy(RwTexture* texture);
 RwBool RwTextureSetAutoMipmapping(RwBool enable);
 RwBool RwTextureSetMipmapping(RwBool enable);
 RwTexture* RwTextureSetRaster(RwTexture* texture, RwRaster* raster);
+RwBool RwTextureSetReadCallBack(RwTextureCallBackRead callBack);
 RxLockedPipe* RxLockedPipeAddFragment(RxLockedPipe* pipeline, RwUInt32* firstIndex, RxNodeDefinition* nodeDef0, ...);
 RxPipeline* RxLockedPipeUnlock(RxLockedPipe* pipeline);
 RxPipeline* RxPipelineCreate(void);
