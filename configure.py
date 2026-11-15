@@ -611,7 +611,7 @@ config.libs = [
             Object(Matching, "in/Core/gc/iAsync.cpp"),
             Object(Matching, "in/Core/gc/iCutscene.cpp"),
             Object(Matching, "in/Core/gc/iDraw.cpp"),
-            Object(NonMatching, "in/Core/gc/iEnv.cpp"),
+            Object(Matching, "in/Core/gc/iEnv.cpp"),
             Object(Matching, "in/Core/gc/iFile.cpp"),
             Object(NonMatching, "in/Core/gc/iFMV.cpp"),
             Object(Matching, "in/Core/gc/iFX.cpp"),

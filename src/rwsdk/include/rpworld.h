@@ -78,6 +78,14 @@ enum RpInterpolatorFlag
 };
 typedef enum RpInterpolatorFlag RpInterpolatorFlag;
 
+enum RpAtomicFlag
+{
+    rpATOMICCOLLISIONTEST = 0x1,
+    rpATOMICRENDER = 0x4,
+    rpATOMICFLAGFORCEENUMSIZEINT = RWFORCEENUMSIZEINT,
+};
+typedef enum RpAtomicFlag RpAtomicFlag;
+
 enum RwCriterionWorldID
 {
     rwID_NAWORLDID = 0x500,
@@ -377,6 +385,7 @@ typedef RpMesh* (*RpMeshCallBack)(RpMesh* mesh, RpMeshHeader* meshHeader, void* 
 #define RpAtomicGetGeometryMacro(_atomic) ((_atomic)->geometry)
 #define RpAtomicGetRenderCallBackMacro(_atomic) ((_atomic)->renderCallBack)
 #define RpAtomicRenderMacro(_atomic) ((_atomic)->renderCallBack(_atomic))
+#define RpAtomicSetPipelineMacro(_atomic, _pipeline) (((_atomic)->pipeline = _pipeline), _atomic)
 
 #define RpAtomicSetRenderCallBackMacro(_atomic, _callback)            \
     MACRO_START                                                       \
@@ -460,6 +469,7 @@ RwBool RpWorldDestroy(RpWorld* world);
 RwBool RpWorldPluginAttach(void);
 RpWorld* RpWorldRemoveCamera(RpWorld* world, RwCamera* camera);
 RpWorld* RpWorldRemoveLight(RpWorld* world, RpLight* light);
+RpWorld* RpWorldRender(RpWorld* world);
 RpWorld* RwCameraGetWorld(const RwCamera* camera);
 void RxGameCubeAllInOneSetRenderCallBack(RxPipelineNode* node, RxGameCubeAllInOneCallBack callback);
 RxNodeDefinition* RxNodeDefinitionGetGameCubeAtomicAllInOne(void);
@@ -475,6 +485,7 @@ RwFrame* RpAtomicGetFrame(const RpAtomic* atomic);
 RpGeometry* RpAtomicGetGeometry(const RpAtomic* atomic);
 RpAtomicCallBackRender RpAtomicGetRenderCallBack(const RpAtomic* atomic);
 RpAtomic* RpAtomicRender(RpAtomic* atomic);
+RpAtomic* RpAtomicSetPipeline(RpAtomic* atomic, RxPipeline* pipeline);
 void RpAtomicSetRenderCallBack(RpAtomic* atomic, RpAtomicCallBackRender callback);
 RwFrame* RpClumpGetFrame(const RpClump* clump);
 RpGameCubeVtxFmt* RpGameCubeGeometryGetVtxFmt(RpGeometry* geometry);
@@ -512,6 +523,7 @@ RwInt32 RpWorldGetNumMaterials(const RpWorld* world);
 #define RpAtomicGetGeometry(_atomic) RpAtomicGetGeometryMacro(_atomic)
 #define RpAtomicGetRenderCallBack(_atomic) RpAtomicGetRenderCallBackMacro(_atomic)
 #define RpAtomicRender(_atomic) RpAtomicRenderMacro(_atomic)
+#define RpAtomicSetPipeline(_atomic, _pipeline) RpAtomicSetPipelineMacro(_atomic, _pipeline)
 #define RpAtomicSetRenderCallBack(_atomic, _callback) RpAtomicSetRenderCallBackMacro(_atomic, _callback)
 #define RpClumpGetFrame(_clump) RpClumpGetFrameMacro(_clump)
 #define RpGameCubeGeometryGetVtxFmt(_geometry) RpGameCubeGeometryGetVtxFmtMacro(_geometry)
