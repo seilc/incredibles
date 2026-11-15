@@ -32,6 +32,31 @@ namespace z
         void scene_setup();
         void register_lightweight(lightweight_system_base* new_system);
     } // namespace lightweight_manager
+
+    template <class T, S32 N>
+    class lightweight
+    {
+        bool used;
+        U32 id;
+
+    public:
+        lightweight(bool used)
+        {
+            this->used = used;
+        }
+
+        void set_used(bool value)
+        {
+            used = value;
+        }
+
+        virtual void render() const {}
+        virtual void post_render_2d() const {}
+        virtual void post_render_3d() const {}
+        virtual void update(F32) {}
+        virtual void destroy() {}
+        virtual void reset() {}
+    };
 } // namespace z
 
 #endif

@@ -32,6 +32,7 @@ void xParticleBatchReset();
 void xParticleBatchPreRender();
 
 S32 xParticleBatchAddSystem(const xParticleBatchSystem& system);
+#define xPARTICLEBATCHADDSYSTEM(system) xParticleBatchAddSystem((system))
 void xParticleBatchReplaceSystem(S32 system_id, const xParticleBatchSystem& system);
 S32 xParticleBatchEmit(S32 system_id, S32 amount, U8** mem);
 
