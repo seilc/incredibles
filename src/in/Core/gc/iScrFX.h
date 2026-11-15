@@ -20,10 +20,13 @@ struct iScrFxLensFlare
 void iScrFxInit();
 void iScrFxBegin();
 void iScrFxEnd();
-void iScrFxLensFlare_Reset();
-void iScrFxLensFlare_Render(RwCamera* camera, iScrFxLensFlare* flare, void (*renderCB)(RwRaster*, RwFrame*, U8, void*));
+void iCameraSetBlurriness(F32 amount); // UNUSED
 void iScrFxCameraCreated(RwCamera* pCamera);
 void iScrFxCameraEndScene(RwCamera* pCamera);
+S32 iScrFxMotionBlurOpen(RwCamera* camera);
 S32 iScrFxCameraDestroyed(RwCamera*);
+void iScrFxMotionBlurRender(RwCamera* camera, U32 alpha);
+void iScrFxLensFlare_Reset();
+void iScrFxLensFlare_Render(RwCamera* camera, iScrFxLensFlare* flare, void (*renderCB)(RwRaster*, RwFrame*, U8, void*));
 
 #endif

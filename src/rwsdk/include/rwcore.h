@@ -584,6 +584,28 @@ struct RwCamera
 
 #define RxPipelineDestroy(_ppln) (_rxPipelineDestroy(_ppln), TRUE)
 #define _rwDlTokenGetCurrentMacro() (_RwDlTokenCurrent)
+
+#define _rwDlTokenSendNewMacro()                                           \
+    MACRO_START                                                            \
+    {                                                                      \
+        GXSetDrawSync(_RwDlTokenCurrent);                                  \
+        _RwDlTokenCurrent = (RwUInt16)((_RwDlTokenCurrent + 1) % 0xE000);  \
+    }                                                                      \
+    MACRO_STOP
+
+#define _rwDlTokenWaitDoneMacro(_token)       \
+    MACRO_START                               \
+    {                                         \
+        if ((_token) == _RwDlTokenCurrent)    \
+        {                                     \
+            _rwDlTokenSendNewMacro();         \
+        }                                     \
+        while (!_rwDlTokenQueryDone(_token))  \
+        {                                     \
+        }                                     \
+    }                                         \
+    MACRO_STOP
+
 #define RwCameraGetCurrentCameraMacro() ((RwCamera *)RWSRCGLOBAL(curCamera))
 #define RwCameraGetFarClipPlaneMacro(_camera) ((_camera)->farPlane)
 #define RwCameraGetFogDistanceMacro(_camera) ((_camera)->fogPlane)
@@ -634,7 +656,7 @@ extern "C" {
 extern GXRenderModeObj* _RwDlRenderMode;
 
 #ifndef RWDEBUG
-extern RwUInt16 _RwDlTokenCurrent;
+extern volatile RwUInt16 _RwDlTokenCurrent;
 extern RwInt32 _RwGameCubeRasterExtOffset;
 #endif
 
@@ -657,6 +679,7 @@ RwMatrix* RwFrameGetLTM(RwFrame* frame);
 RwFrame* RwFrameOrthoNormalize(RwFrame* frame);
 RwFrame* RwFrameRotate(RwFrame* frame, const RwV3d* axis, RwReal angle, RwOpCombineType combine);
 RwFrame* RwFrameTransform(RwFrame* frame, const RwMatrix* transform, RwOpCombineType combine);
+RwFrame* RwFrameTranslate(RwFrame* frame, const RwV3d* translation, RwOpCombineType combine);
 RwFrame* RwFrameUpdateObjects(RwFrame* frame);
 void RwGameCubeCameraTextureFlush(RwRaster* raster, RwBool boxFilter);
 void RwGameCubeGetXFBs(void** xfbDisp, void** xfbCopy);
@@ -687,6 +710,7 @@ RxLockedPipe* RxPipelineLock(RxPipeline* pipeline);
 RxRenderStateVector* RxRenderStateVectorLoadDriverState(RxRenderStateVector* rsvp);
 void _rwDlRenderStateSetZCompLoc(RwBool zBeforeTex);
 void _rwDlTextureSet(RwTexture* texture, RwInt32 index);
+RwBool _rwDlTokenQueryDone(RwUInt16 token);
 void _rwDlTransformSetup(RwMatrix* ltm, RwBool normals);
 RwBool _rwFrameSyncDirty(void);
 void _rwObjectHasFrameSetFrame(void* object, RwFrame* frame);
@@ -725,6 +749,8 @@ RwRaster* RwTextureGetRaster(const RwTexture* texture);
 RwTexture* RwTextureSetAddressing(RwTexture* texture, RwTextureAddressMode addressing);
 RwTexture* RwTextureSetFilterMode(RwTexture* texture, RwTextureFilterMode filtering);
 RwUInt16 _rwDlTokenGetCurrent(void);
+void _rwDlTokenSendNew(void);
+void _rwDlTokenWaitDone(RwUInt16 token);
 #endif
 
 #ifdef __cplusplus
@@ -764,6 +790,8 @@ RwUInt16 _rwDlTokenGetCurrent(void);
 #define RwTextureSetAddressing(_tex, _addressing) RwTextureSetAddressingMacro(_tex, _addressing)
 #define RwTextureSetFilterMode(_tex, _filtering) RwTextureSetFilterModeMacro(_tex, _filtering)
 #define _rwDlTokenGetCurrent() _rwDlTokenGetCurrentMacro()
+#define _rwDlTokenSendNew() _rwDlTokenSendNewMacro()
+#define _rwDlTokenWaitDone(_token) _rwDlTokenWaitDoneMacro(_token)
 #endif
 
 #endif
