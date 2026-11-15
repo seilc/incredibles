@@ -417,7 +417,6 @@ cflags_incredibles = [
     '-pragma "cpp_extensions on"',
     "-O4,s",
     "-inline off",
-    "-gccinc",
     "-ir src/in",
     "-i src/bink/bink",
     "-i src/fmod/include",
