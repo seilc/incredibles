@@ -606,7 +606,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xutil.cpp"),
             Object(Matching, "in/Core/x/xVec3.cpp"),
             Object(Matching, "in/Core/x/xVolume.cpp"),
-            Object(NonMatching, "in/Core/gc/iAnimSKB.cpp"),
+            Object(Matching, "in/Core/gc/iAnimSKB.cpp"),
             Object(Matching, "in/Core/gc/iAsync.cpp"),
             Object(Matching, "in/Core/gc/iCutscene.cpp"),
             Object(Matching, "in/Core/gc/iDraw.cpp"),

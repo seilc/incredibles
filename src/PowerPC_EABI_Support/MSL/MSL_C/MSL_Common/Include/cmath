@@ -20,6 +20,26 @@ inline float fmodf(float x, float y) { return fmod(x, y); }
 inline float logf(float x) { return log(x); }
 inline float powf(float x, float y) { return pow(x, y); }
 inline float sinf(float x) { return sin(x); }
+inline float sqrtf(float x)
+{
+	const double _half=.5;
+	const double _three=3.0;
+
+	if(x > 0.0f)
+	{
+		double guess = __frsqrte((double)x);
+		guess = _half*guess*(_three - guess*guess*x);
+		guess = _half*guess*(_three - guess*guess*x);
+		guess = _half*guess*(_three - guess*guess*x);
+		return (float)(x * guess);
+	}
+	else if (x < 0.0)
+		return NAN;
+	else if (isnan(x))
+		return NAN;
+	else
+		return x;
+}
 inline float tanf(float x) { return tan(x); }
 
 }
