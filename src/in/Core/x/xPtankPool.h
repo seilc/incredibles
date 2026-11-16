@@ -9,6 +9,8 @@
 #include <rpworld.h>
 #include <rpptank.h>
 
+enum { BLOCK_SIZE = 80 };
+
 enum ptank_group_type
 {
     PGT_COLOR_MAT,
@@ -87,7 +89,7 @@ struct ptank_pool__color_mat_uv2 : ptank_pool
 
     void next()
     {
-        if (used >= 80) {
+        if (used >= BLOCK_SIZE) {
             if (valid()) {
                 unlock_block();
             }
@@ -158,7 +160,7 @@ struct ptank_pool__pos_color_size_rot : ptank_pool
 
     void next()
     {
-        if (used >= 80) {
+        if (used >= BLOCK_SIZE) {
             if (valid()) {
                 unlock_block();
             }

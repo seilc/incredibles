@@ -53,7 +53,7 @@ namespace zNPC
     {
         xAnimTableNewState(table, "MC_T_AttackStart01", 0x20, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL,
                            NULL, NULL, NULL);
-        xAnimTableNewState(table, "MC_L_AttackLoop01", 0x10, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL,
+        xAnimTableNewState(table, "MC_L_AttackLoop01", AnimState_Loop, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL,
                            NULL, NULL, NULL);
     }
 
@@ -92,7 +92,7 @@ namespace zNPC
 
     void mine_home::add_states(xAnimTable* table)
     {
-        xAnimTableNewState(table, "MH_L_Return01", 0x10, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL, NULL,
+        xAnimTableNewState(table, "MH_L_Return01", AnimState_Loop, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL, NULL,
                            NULL, NULL);
     }
 

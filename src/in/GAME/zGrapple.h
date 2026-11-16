@@ -2,14 +2,8 @@
 #define ZGRAPPLE_H
 
 #include "xDynAsset.h"
+#include "zGrappleAsset.h"
 #include "xMath3.h"
-
-struct zGrappleAsset : xDynAsset
-{
-    U32 object;
-    xVec3 offset;
-    U32 grapFlags;
-};
 
 struct zGrapple : xBase
 {

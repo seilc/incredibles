@@ -817,7 +817,7 @@ S32 xSweptSphereToEnt(xSweptSphere* sws, xEnt* ent, xRay3* ray)
 {
     F32 testdist = sws->curdist;
 
-    bool react = sSweptSphereCollType == 0x8 && zReactiveIsReactive(*ent);
+    bool react = sSweptSphereCollType == k_XENT_COLLTYPE_NPC && zReactiveIsReactive(*ent);
     xSweptSphere sweptSphere;
     if (react) {
         sweptSphere = *sws;

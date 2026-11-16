@@ -2,20 +2,8 @@
 #define ZLIGHT_H
 
 #include "xBase.h"
+#include "zLightAsset.h"
 #include "iLight.h"
-
-struct zLightAsset : xBaseAsset
-{
-    U8 lightType;
-    U8 lightEffect;
-    U8 lightPad[2];
-    U32 lightFlags;
-    F32 lightColor[4];
-    xVec3 lightDir;
-    F32 lightConeAngle;
-    xSphere lightSphere;
-    U32 attachID;
-};
 
 typedef struct _zLight : xBase
 {

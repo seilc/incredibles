@@ -112,7 +112,7 @@ xCutscene* xCutscene_Create(U32 csnID, U32 subtitlesID)
                     maxload = cnfo->MaxModel;
                 }
 
-                csn->RawBuf = RwMalloc(maxload + 60, 0);
+                csn->RawBuf = RwMalloc(maxload + 60, rwMEMHINTDUR_NADURATION);
 
                 csn->AlignBuf = csn->RawBuf;
 
@@ -157,7 +157,7 @@ S32 xCutscene_Destroy(xCutscene* csn)
         csn->SndStarted = FALSE;
     }
 
-    xSndMgrCutscenePause(-3, false, true);
+    xSndMgrCutscenePause(xSndCat_ALL, false, true);
 
     xSndMgrUpdate();
 

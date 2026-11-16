@@ -2,105 +2,18 @@
 #define ZSHRAPNEL_H
 
 #include "xModel.h"
-#include "xParEmitter.h"
-#include "xCurveAsset.h"
+#include "zShrapnelAsset.h"
 #include "zLightning.h"
 #include "zExplosion.h"
-
-struct zFrag;
-struct zFragAsset;
-struct zShrapnelAsset;
-
-typedef void (*zShrapnelFragCallback)(zFrag*, zFragAsset*);
-typedef void (*zShrapnelInitCallback)(zShrapnelAsset*, xModelInstance*, xVec3*, zShrapnelFragCallback);
-
-struct zShrapnelAsset
-{
-    S32 fassetCount;
-    U32 shrapnelID;
-    zShrapnelInitCallback initCB;
-};
-
-enum zFragType
-{
-    eFragInactive,
-    eFragGroup,
-    eFragShrapnel,
-    eFragParticle,
-    eFragProjectile,
-    eFragLightning,
-    eFragSound,
-    eFragShockwave,
-    eFragExplosion,
-    eFragDistortion,
-    eFragFire,
-    eFragCount,
-    eFragForceSize = FORCEENUMSIZEINT
-};
-
-struct zFragAsset
-{
-    zFragType type;
-    U32 id;
-    U32 parentID[2];
-    F32 lifetime;
-    F32 delay;
-};
-
-struct zFragBone
-{
-    S32 index;
-    xVec3 offset;
-};
-
-enum zFragLocType
-{
-    eFragLocBone,
-    eFragLocBoneUpdated,
-    eFragLocBoneLocal,
-    eFragLocBoneLocalUpdated,
-    eFragLocTag,
-    eFragLocTagUpdated,
-    eFragLocCount,
-    eFragLocForceSize = FORCEENUMSIZEINT
-};
-
-union zFragLocInfo
-{
-    zFragBone bone;
-    xModelTag tag;
-};
-
-struct zFragLocation
-{
-    zFragLocType type;
-    zFragLocInfo info;
-    F32 rand_radius;
-};
 
 struct zFragGroup
 {
     zFrag* list[21];
 };
 
-struct zFragShrapnelAsset : zFragAsset
-{
-    U32 shrapnelID;
-    zShrapnelAsset* shrapAsset;
-};
-
 struct zFragShrapnel
 {
     zFragShrapnelAsset* fasset;
-};
-
-struct zFragParticleAsset : zFragAsset
-{
-    zFragLocation source;
-    zFragLocation vel;
-    xParEmitterCustomSettings emit;
-    U32 dummy0;
-    void* dummy1;
 };
 
 struct zFragParticle
@@ -109,27 +22,6 @@ struct zFragParticle
     U8 no_last_position;
     F32 emit_remaining;
     xVec3 last_position;
-};
-
-struct zFragProjectileAsset : zFragAsset
-{
-    U32 modelInfoID;
-    RpAtomic* modelFile;
-    zFragLocation launch;
-    zFragLocation vel;
-    zFragLocation velPlusMinus;
-    zFragLocation rot;
-    zFragLocation rotPlusMinus;
-    F32 bounce;
-    S32 maxBounces;
-    U32 flags;
-    U32 childID;
-    zShrapnelAsset* child;
-    F32 minScale;
-    F32 maxScale;
-    U32 scaleCurveID;
-    xCurveAsset* scaleCurve;
-    F32 gravity;
 };
 
 struct zFragProjectile
@@ -149,14 +41,6 @@ struct zFragProjectile
     xVec3 axis;
 };
 
-struct zFragLightningAsset : zFragAsset
-{
-    zFragLocation start;
-    zFragLocation end;
-    U32 startParentID;
-    U32 endParentID;
-};
-
 struct zFragLightning
 {
     zFragLightningAsset* fasset;
@@ -165,29 +49,10 @@ struct zFragLightning
     zLightning* lightning;
 };
 
-struct zFragSoundAsset : zFragAsset
-{
-    U32 assetID;
-    zFragLocation source;
-};
-
 struct zFragSound
 {
     zFragSoundAsset* fasset;
     iSndHandle soundID;
-};
-
-struct zFragShockwaveAsset : zFragAsset
-{
-    U32 modelInfoID;
-    F32 birthRadius;
-    F32 deathRadius;
-    F32 birthVelocity;
-    F32 deathVelocity;
-    F32 birthSpin;
-    F32 deathSpin;
-    F32 birthColor[4];
-    F32 deathColor[4];
 };
 
 struct zFragShockwave
@@ -202,30 +67,11 @@ struct zFragShockwave
     F32 deltColor[4];
 };
 
-struct zFragExplosionAsset : zFragAsset
-{
-    U32 type;
-    zFragLocation loc;
-    U32 flags;
-};
-
 struct zFragExplosion
 {
     zFragExplosionAsset* fasset;
     zExplosion::trail_emitter trail;
     xVec3 initPos;
-};
-
-struct zFragDistortionAsset : zFragAsset
-{
-    U32 type;
-    zFragLocation loc;
-    U32 flags;
-    F32 radius;
-    F32 duration;
-    F32 intensity;
-    F32 freq;
-    F32 repeat_delay;
 };
 
 struct zFragDistortion
@@ -234,18 +80,6 @@ struct zFragDistortion
     xVec3 loc;
     S32 type;
     F32 repeat_time;
-};
-
-struct zFragFireAsset : zFragAsset
-{
-    zFragLocation loc;
-    U32 flags;
-    F32 radius;
-    F32 scale;
-    F32 fuel;
-    F32 heat;
-    F32 damage;
-    F32 knockback;
 };
 
 struct zFragFire

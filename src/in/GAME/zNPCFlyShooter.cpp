@@ -13,7 +13,7 @@ namespace zNPC
 
     void fly_forward::add_states(xAnimTable* table)
     {
-        xAnimTableNewState(table, "FM_L_Follow01", 0x10, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL, NULL,
+        xAnimTableNewState(table, "FM_L_Follow01", AnimState_Loop, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL, NULL,
                            NULL, NULL);
     }
 

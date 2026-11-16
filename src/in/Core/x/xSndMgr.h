@@ -122,7 +122,7 @@ inline void xSndMgrSetDialogPlaying(bool bPlaying)
 
 inline bool xSndMgrIsDialogPlaying()
 {
-    return (gSnd.m_uSndMgrFlags >> 1) & 0x1;
+    return gSnd.m_uSndMgrFlags & k_XSNDMGR_DIALOG_PLAYING;
 }
 
 inline bool xSndMgrIsEnvironmentalStream(xSndGroupHandle hSound)

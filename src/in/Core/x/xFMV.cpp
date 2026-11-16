@@ -23,19 +23,19 @@ void xFMVPauseSound(bool doPause)
 static void DefaultFMVPauseSoundCB(bool doPause)
 {
     if (zGameIsPaused()) {
-        xSndMgrPauseSounds(5, doPause, true);
+        xSndMgrPauseSounds(xSndCat_UI, doPause, true);
 
         if (zMenuRunning()) {
-            xSndMgrPauseSounds(3, doPause, true);
+            xSndMgrPauseSounds(xSndCat_MUSIC, doPause, true);
         }
     } else {
-        xSndMgrPauseSounds(-3, doPause, true);
+        xSndMgrPauseSounds(xSndCat_ALL, doPause, true);
     }
 }
 
 S32 xFMVGetBinkCompliantVolume()
 {
-    S32 volume = (S32)(32768.0f * xSndMgrGetDampedVolume(4) * sFMVVolumeScale);
+    S32 volume = (S32)(32768.0f * xSndMgrGetDampedVolume(xSndCat_CUTSCENE) * sFMVVolumeScale);
     return volume;
 }
 

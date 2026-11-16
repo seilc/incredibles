@@ -2,20 +2,9 @@
 #define XSOUNDFX_H
 
 #include "xBase.h"
+#include "xSoundFXAsset.h"
 #include "xMath3.h"
 #include "xSnd.h"
-
-struct xSoundFXAsset : xBaseAsset
-{
-    union
-    {
-        U32 soundAssetID;
-        xSndGroupHandle soundAsset;
-    };
-    U32 attachID;
-    xVec3 pos;
-    U32 uFlags;
-};
 
 struct xSoundFX : xBase
 {

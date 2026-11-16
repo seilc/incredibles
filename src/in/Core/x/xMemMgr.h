@@ -109,9 +109,7 @@ void* xMemPoolAlloc(xMemPool* pool);
 void xMemPoolFree(xMemPool* pool, void* data);
 void* xMemScratchPush(U32 size, U32 align);
 void xMemScratchPop(void* mem);
-
 void* xMemGrowAlloc(U32 heapID, U32 size);
-
 void* xMemAlloc(U32 heapID, U32 size, S32 align);
 
 inline void* xMemPushTemp(U32 amt)

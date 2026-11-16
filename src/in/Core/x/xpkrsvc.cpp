@@ -1708,7 +1708,7 @@ static void* PKR_getmem(U32 id, S32 amount, U32 aid, S32 align, S32 isTemp, char
     if (amount == 0) return memptr;
 
     if (isTemp) {
-        memptr = RwMallocL(amount + align, rwMEMHINTDUR_NADURATION, 5055);
+        memptr = RwMalloc(amount + align, rwMEMHINTDUR_NADURATION);
         if (memtru) *memtru = (char*)memptr;
         if (align) memptr = (void*)(((S32)memptr + align - 1) & -align);
     } else {

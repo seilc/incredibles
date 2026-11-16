@@ -101,7 +101,7 @@ void xGroupEventCB(xBase*, xBase* to, U32 toEvent, const F32* toParam, xBase* to
     case eEventVisibilityCullOn:
     case eEventVisibilityCullOff:
     {
-        xEntVisUpdateCallback entVisEventHandler;
+        void(*entVisEventHandler)(xEnt*);
 
         switch (toEvent) {
         case eEventFastVisible:

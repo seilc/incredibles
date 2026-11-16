@@ -55,7 +55,7 @@ U32* iFileLoad(const char* name, U32* buffer, U32* size)
     fsize += 31;
     fsize &= ~31;
     if (!buffer) {
-        buffer = (U32*)RwMalloc(fsize, 0);
+        buffer = (U32*)RwMalloc(fsize, rwMEMHINTDUR_NADURATION);
     }
     iFileRead(&file, buffer, fsize);
     if (size) *size = fsize;

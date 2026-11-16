@@ -2,6 +2,7 @@
 #include "zVolume.h"
 
 #include "xMath3.h"
+#include "xVolumeAsset.h"
 #include "xstransvc.h"
 #include "xEvent.h"
 

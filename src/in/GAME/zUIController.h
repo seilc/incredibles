@@ -2,10 +2,7 @@
 #define ZUICONTROLLER_H
 
 #include "zUI.h"
-
-struct zUIControllerAsset : zUIAsset
-{
-};
+#include "zUIControllerAsset.h"
 
 class zUIController : public zUI
 {

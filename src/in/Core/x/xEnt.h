@@ -2,6 +2,7 @@
 #define XENT_H
 
 #include "xBase.h"
+#include "xEntAsset.h"
 #include "xCollide.h"
 #include "xGrid.h"
 #include "xBound.h"
@@ -10,25 +11,6 @@ struct xEnt;
 struct xScene;
 struct xEntCollis;
 struct xEntDriveInfo;
-
-struct xEntAsset : xBaseAsset
-{
-    U8 flags;
-    U8 subtype;
-    U8 pflags;
-    U8 moreFlags;
-    U32 surfaceID;
-    xVec3 ang;
-    xVec3 pos;
-    xVec3 scale;
-    F32 redMult;
-    F32 greenMult;
-    F32 blueMult;
-    F32 seeThru;
-    F32 seeThruSpeed;
-    U32 modelInfoID;
-    U32 animListID;
-};
 
 struct xEntFrame
 {

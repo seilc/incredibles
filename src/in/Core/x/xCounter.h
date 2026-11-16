@@ -2,11 +2,7 @@
 #define XCOUNTER_H
 
 #include "xBase.h"
-
-struct xCounterAsset : xBaseAsset
-{
-    S16 count;
-};
+#include "xCounterAsset.h"
 
 typedef struct _xCounter : xBase
 {

@@ -1,6 +1,8 @@
 #include "xCommon.h"
 #include "xVolume.h"
 
+#include "xVolumeAsset.h"
+
 void xVolume::Init(xVolumeAsset* asset)
 {
     xBaseInit(this, asset);

@@ -2,14 +2,7 @@
 #define ZPORTAL_H
 
 #include "xBase.h"
-
-struct xPortalAsset : xBaseAsset
-{
-    U32 assetCameraID;
-    U32 assetMarkerID;
-    F32 ang;
-    U32 sceneID;
-};
+#include "xPortalAsset.h"
 
 typedef struct _zPortal : xBase
 {

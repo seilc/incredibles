@@ -2,13 +2,7 @@
 #define XGROUP_H
 
 #include "xBase.h"
-
-struct xGroupAsset : xBaseAsset
-{
-    U16 itemCount;
-    U16 groupFlags;
-};
-
+#include "xGroupAsset.h"
 
 struct xGroup : xBase
 {

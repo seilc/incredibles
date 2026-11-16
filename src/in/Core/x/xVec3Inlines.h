@@ -34,7 +34,7 @@ inline void xVec3AddTo(xVec3& a, const xVec3& b)
 
 inline void xVec3AddTo(xVec3* a, const xVec3* b)
 {
-    a->x += b->x, a->y += b->y, a->z += b->z;
+    xVec3AddToMacro(a, b);
 }
 
 inline void xVec3AddScaled(xVec3* a, const xVec3* b, F32 scale)
@@ -58,7 +58,7 @@ inline void xVec3AddScaled(xVec3& o, const xVec3& a, const xVec3& b, F32 scale)
 
 inline void xVec3Sub(xVec3* o, const xVec3* a, const xVec3* b)
 {
-    o->x = a->x - b->x, o->y = a->y - b->y, o->z = a->z - b->z;
+    xVec3SubMacro(o, a, b);
 }
 
 inline void xVec3Sub(xVec3& o, const xVec3& a, const xVec3& b)
@@ -97,7 +97,7 @@ inline void xVec3SMul(xVec3& o, const xVec3& v, F32 s)
 
 inline void xVec3SMulBy(xVec3* v, F32 s)
 {
-    v->x *= s, v->y *= s, v->z *= s;
+    xVec3SMulByMacro(v, s);
 }
 
 inline void xVec3SMulBy(xVec3& v, F32 s)

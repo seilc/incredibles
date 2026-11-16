@@ -22,7 +22,7 @@ namespace zHud
 {
     struct Incredimeter;
     struct BossMeter;
-    struct FamilyMeter;
+    class FamilyMeter;
 } // namespace zHud
 
 #define ZPLAYER_CUTSCENEREADY 0x8000

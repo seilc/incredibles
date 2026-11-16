@@ -660,8 +660,8 @@ static U32 Mgc_TriBoxTest(xVec3* apkTri, xBox* rkBox)
         return FALSE;
     }
 
-    akE[0].x = apkTri[1].x - apkTri[0].x, akE[0].y = apkTri[1].y - apkTri[0].y, akE[0].z = apkTri[1].z - apkTri[0].z;
-    akE[1].x = apkTri[2].x - apkTri[0].x, akE[1].y = apkTri[2].y - apkTri[0].y, akE[1].z = apkTri[2].z - apkTri[0].z;
+    xVec3SubMacro(&akE[0], &apkTri[1], &apkTri[0]);
+    xVec3SubMacro(&akE[1], &apkTri[2], &apkTri[0]);
     kD.x = akE[0].y * akE[1].z - akE[1].y * akE[0].z, kD.y = akE[0].z * akE[1].x - akE[1].z * akE[0].x, kD.z = akE[0].x * akE[1].y - akE[1].x * akE[0].y;
     fMin0 = kD.x * apkTri[0].x + kD.y * apkTri[0].y + kD.z * apkTri[0].z;
     fMax0 = fMin0;
@@ -673,7 +673,7 @@ static U32 Mgc_TriBoxTest(xVec3* apkTri, xBox* rkBox)
     baxis.x = 0.0f;
     baxis.y = 0.0f;
     baxis.z = 0.0f;
-    akE[2].x = akE[1].x - akE[0].x, akE[2].y = akE[1].y - akE[0].y, akE[2].z = akE[1].z - akE[0].z;
+    xVec3SubMacro(&akE[2], &akE[1], &akE[0]);
 
     for (S32 i0 = 0; i0 < 3; i0++) {
         for (S32 i1 = 0; i1 < 3; i1++) {

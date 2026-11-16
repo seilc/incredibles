@@ -2,12 +2,7 @@
 #define XTIMER_H
 
 #include "xBase.h"
-
-struct xTimerAsset : xBaseAsset
-{
-    F32 seconds;
-    F32 randomRange;
-};
+#include "xTimerAsset.h"
 
 struct xTimer : xBase
 {

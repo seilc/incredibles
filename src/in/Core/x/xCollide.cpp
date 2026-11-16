@@ -753,8 +753,8 @@ S32 xCapsuleIsectsModelClosestToLine(const xCapsule* c, const xModelInstance* mo
 
     RpIntersection isx;
     xSphere cbound;
-    cbound.center.x = c->start.x + c->end.x, cbound.center.y = c->start.y + c->end.y, cbound.center.z = c->start.z + c->end.z;
-    cbound.center.x *= 0.5f, cbound.center.y *= 0.5f, cbound.center.z *= 0.5f;
+    xVec3AddMacro(&cbound.center, &c->start, &c->end);
+    xVec3SMulByMacro(&cbound.center, 0.5f);
     xVec3DistMacro(&c->start, &c->end, &cbound.r);
     cbound.r *= 0.5f;
     cbound.r += c->r;

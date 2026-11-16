@@ -150,7 +150,7 @@ namespace {
         iAsyncLockRWSentry rw_sentry;
         U32 plat_flags = 0;
 
-        RpAtomic* ptank = RpPTankAtomicCreate(80, flags, plat_flags);
+        RpAtomic* ptank = RpPTankAtomicCreate(BLOCK_SIZE, flags, plat_flags);
         if (!ptank) {
             return NULL;
         }

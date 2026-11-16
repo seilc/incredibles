@@ -245,7 +245,7 @@ void ROMFont::InitFont()
     }
     RwResEntry* fontRes = RwResourcesAllocateResEntry(NULL, NULL, fontDataSize, NULL);
     if (!fontRes) {
-        mFontData = (OSFontHeader*)RwMalloc(fontDataSize, 0);
+        mFontData = (OSFontHeader*)RwMalloc(fontDataSize, rwMEMHINTDUR_NADURATION);
         mFontMalloced = true;
     } else {
         mFontData = (OSFontHeader*)(fontRes + 1);
@@ -253,7 +253,7 @@ void ROMFont::InitFont()
     void* fontTemp;
     fontRes = RwResourcesAllocateResEntry(NULL, NULL, fontTempSize, NULL);
     if (!fontRes) {
-        fontTemp = RwMalloc(fontTempSize, 0);
+        fontTemp = RwMalloc(fontTempSize, rwMEMHINTDUR_NADURATION);
     } else {
         fontTemp = fontRes + 1;
     }

@@ -218,7 +218,7 @@ S32 iCSLoadStep(xCutscene* csn)
 
                 if (csn->GotData) {
                     if (csn->Data[csn->DataLoading].DataType == 6) {
-                        csn->Data[csn->DataLoading].DataPtr = RwMalloc(csn->Data[csn->DataLoading].ChunkSize, 0);
+                        csn->Data[csn->DataLoading].DataPtr = RwMalloc(csn->Data[csn->DataLoading].ChunkSize, rwMEMHINTDUR_NADURATION);
                         memcpy(csn->Data[csn->DataLoading].DataPtr, csn->AlignBuf, csn->Data[csn->DataLoading].ChunkSize);
                     } else {
                         csn->Data[csn->DataLoading].DataPtr = iModelFileNew(csn->AlignBuf, csn->Data[csn->DataLoading].ChunkSize);

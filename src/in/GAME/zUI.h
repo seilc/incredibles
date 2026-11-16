@@ -3,39 +3,10 @@
 
 #include "xDynAsset.h"
 #include "xColor.h"
+#include "zUIAsset.h"
 
 struct zUICustom;
-
-struct zUIAsset : xDynAsset
-{
-    F32 x;
-    F32 y;
-    F32 z;
-    F32 width;
-    F32 height;
-    S32 flags;
-    U32 color;
-    U32 selectedMotion;
-    U32 unselectedMotion;
-    U8 brightness;
-    U8 pad[3];
-    U32 autoMenuUp;
-    U32 autoMenuDown;
-    U32 autoMenuLeft;
-    U32 autoMenuRight;
-    U32 custom;
-    U32 customWidget;
-};
-
-struct zUIMotionAsset : xBaseAsset
-{
-    U8 cmdCount;
-    U8 in;
-    U8 pad[2];
-    U32 cmdSize;
-    F32 totalTime;
-    F32 loopTime;
-};
+struct zUIMotionAsset;
 
 struct zUIMotionFrame
 {
@@ -92,6 +63,7 @@ public:
     bool brighten;
     bool hdrPass;
     bool locked;
+    bool forcepreupdate;
 
     zUI();
 
@@ -107,7 +79,7 @@ public:
     virtual U32 GetSortKey() const = 0;
     virtual bool Blends() const;
     virtual bool IsUIText() { return false; }
-    virtual bool IsForcePreUpdate();
+    virtual bool IsForcePreUpdate() { return forcepreupdate; }
     virtual void DoInit();
     virtual void DoSetup();
     virtual void DoReset();

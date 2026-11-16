@@ -48,13 +48,13 @@ static void* BigMovieAlloc(U32 uNumBytes)
         if (uNumBytes <= amt) {
             addr = iARAMTmpMalloc('ANIM', uNumBytes);
             if ((U32)addr == 0xBEEEEEEF)
-                addr = RwMalloc(uNumBytes, 0);
+                addr = RwMalloc(uNumBytes, rwMEMHINTDUR_NADURATION);
             else
                 amt -= uNumBytes;
         } else
-            addr = RwMalloc(uNumBytes, 0);
+            addr = RwMalloc(uNumBytes, rwMEMHINTDUR_NADURATION);
     } else {
-        addr = RwMalloc(uNumBytes, 0);
+        addr = RwMalloc(uNumBytes, rwMEMHINTDUR_NADURATION);
     }
 
     return addr;
@@ -71,7 +71,7 @@ static void BigMovieFree(void* pMemToFree)
 
 static void* LilMovieAlloc(U32 uNumBytes)
 {
-    void* addr = RwMalloc(uNumBytes, 0);
+    void* addr = RwMalloc(uNumBytes, rwMEMHINTDUR_NADURATION);
     return addr;
 }
 

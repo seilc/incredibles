@@ -2,6 +2,7 @@
 #define XSND_H
 
 #include "iSnd.h"
+#include "xDebug.h"
 #include "xDebugTweak.h"
 #include "xMath3.h"
 
@@ -84,6 +85,20 @@ enum xSndListener
 // xSndGlobals::m_uSndMgrFlags
 #define k_XSNDMGR_INITED 0x1
 #define k_XSNDMGR_DIALOG_PLAYING 0x2
+#define k_XSNDMGR_PAUSED_GAME_3D 0x4
+#define k_XSNDMGR_PAUSED_GAME_2D 0x8
+#define k_XSNDMGR_PAUSED_DIALOG 0x10
+#define k_XSNDMGR_PAUSED_MUSIC 0x20
+#define k_XSNDMGR_PAUSED_CUTSCENE 0x40
+#define k_XSNDMGR_PAUSED_UI 0x80
+#define k_XSNDMGR_PAUSED_ALL                    \
+    (k_XSNDMGR_PAUSED_GAME_3D |                 \
+     k_XSNDMGR_PAUSED_GAME_2D |                 \
+     k_XSNDMGR_PAUSED_DIALOG |                  \
+     k_XSNDMGR_PAUSED_MUSIC |                   \
+     k_XSNDMGR_PAUSED_CUTSCENE |                \
+     k_XSNDMGR_PAUSED_UI)
+#define k_XSNDMGR_PAUSED_ALL_BUT_MUSIC (k_XSNDMGR_PAUSED_ALL & ~k_XSNDMGR_PAUSED_MUSIC)
 
 struct xSndGlobals
 {

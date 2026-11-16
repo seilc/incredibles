@@ -306,7 +306,7 @@ inline void xMat4x3OrthoInv(xMat4x3* o, const xMat4x3* m)
 inline void xMat4x3Toworld(xVec3* o, const xMat4x3* m, const xVec3* v)
 {
     xMat3x3RMulVec(o, m, v);
-    o->x = o->x + m->pos.x, o->y = o->y + m->pos.y, o->z = o->z + m->pos.z;
+    xVec3AddMacro(o, o, &m->pos);
 }
 
 inline void xMat4x3Tolocal(xVec3* o, const xMat4x3* m, const xVec3* v)
@@ -321,7 +321,7 @@ inline void xMat4x3Tolocal(xVec3* o, const xMat4x3* m, const xVec3* v)
 // UNUSED: needed to match (speculative code)
 inline void xMat4x3Tolocal(xVec3* o, const xMat3x3* m, const xVec3* pos, const xVec3* v)
 {
-    o->x = v->x - pos->x, o->y = v->y - pos->y, o->z = v->z - pos->z;
+    xVec3SubMacro(o, v, pos);
     xMat3x3Tolocal(o, m, o);
 }
 
@@ -449,7 +449,7 @@ do {                                                                            
     if ((r)->flags & XRAY3_USE_MIN) {                                                                                                               \
         xVec3 delta;                                                                                                                                \
         delta.x = (r)->dir.x * (r)->min_t, delta.y = (r)->dir.y * (r)->min_t, delta.z = (r)->dir.z * (r)->min_t;                                    \
-        (ln).p1.x = (r)->origin.x + delta.x, (ln).p1.y = (r)->origin.y + delta.y, (ln).p1.z = (r)->origin.z + delta.z;                              \
+        xVec3AddMacro(&(ln).p1, &(r)->origin, &delta);                                                                                              \
     } else {                                                                                                                                        \
         (ln).p1.x = (r)->origin.x, (ln).p1.y = (r)->origin.y, (ln).p1.z = (r)->origin.z;                                                            \
     }                                                                                                                                               \
@@ -464,7 +464,7 @@ do {                                                                            
     } else {                                                                                                                                        \
         (ln).p2.x = (r)->dir.x, (ln).p2.y = (r)->dir.y, (ln).p2.z = (r)->dir.z;                                                                     \
     }                                                                                                                                               \
-    (ln).p2.x = (ln).p1.x + (ln).p2.x, (ln).p2.y = (ln).p1.y + (ln).p2.y, (ln).p2.z = (ln).p1.z + (ln).p2.z;                                        \
+    xVec3AddMacro(&(ln).p2, &(ln).p1, &(ln).p2);                                                                                                    \
 } while (0)
 
 inline void xBoxFromLine(xBox& box, const xLine3& line)

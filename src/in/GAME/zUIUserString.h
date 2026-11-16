@@ -2,12 +2,7 @@
 #define ZUIUSERSTRING_H
 
 #include "zUIText.h"
-
-struct zUIUserStringAsset : zUITextAsset
-{
-    U8 hardMaxChars;
-    U8 softMaxChars;
-};
+#include "zUIUserStringAsset.h"
 
 class zUIUserString : public zUIText
 {

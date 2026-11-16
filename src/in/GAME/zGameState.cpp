@@ -243,24 +243,24 @@ void zGameModeSwitch(eGameMode modeNew)
 
     if ((modeOld == eGameMode_Game && modeNew == eGameMode_Pause) ||
         (modeOld == eGameMode_Game && modeNew == eGameMode_Save)) {
-        xSndMgrPauseSounds(4, true, true);
-        xSndMgrPauseSounds(2, true, false);
-        xSndMgrPauseSounds(1, true, true);
-        xSndMgrPauseSounds(0, true, true);
-        xSndMgrPauseSounds(3, true, true);
+        xSndMgrPauseSounds(xSndCat_CUTSCENE, true, true);
+        xSndMgrPauseSounds(xSndCat_DIALOG, true, false);
+        xSndMgrPauseSounds(xSndCat_GAME_2D, true, true);
+        xSndMgrPauseSounds(xSndCat_GAME_3D, true, true);
+        xSndMgrPauseSounds(xSndCat_MUSIC, true, true);
     } else if ((modeOld == eGameMode_Pause || modeOld == eGameMode_Save ||
               modeOld == eGameMode_Load) &&
              modeNew == eGameMode_Game) {
         if (globals.sceneCur->sceneID != SCENE_ID_MNU_START) {
-            xSndMgrStopSounds(2, true);
+            xSndMgrStopSounds(xSndCat_DIALOG, true);
         }
 
         if (!globals.sceneCur->pendingPortal) {
-            xSndMgrPauseSounds(4, false, true);
-            xSndMgrPauseSounds(2, false, true);
-            xSndMgrPauseSounds(1, false, true);
-            xSndMgrPauseSounds(0, false, true);
-            xSndMgrPauseSounds(3, false, true);
+            xSndMgrPauseSounds(xSndCat_CUTSCENE, false, true);
+            xSndMgrPauseSounds(xSndCat_DIALOG, false, true);
+            xSndMgrPauseSounds(xSndCat_GAME_2D, false, true);
+            xSndMgrPauseSounds(xSndCat_GAME_3D, false, true);
+            xSndMgrPauseSounds(xSndCat_MUSIC, false, true);
         }
     }
 

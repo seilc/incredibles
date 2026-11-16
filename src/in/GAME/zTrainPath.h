@@ -2,17 +2,8 @@
 #define ZTRAINPATH_H
 
 #include "xDynAsset.h"
+#include "zTrainPathJunctionAsset.h"
 #include "xSplineAsset.h"
-
-struct zTrainPathJunctionAsset : xDynAsset
-{
-    U32 in_spline;
-    bool in_is_from_forward;
-    U32 out1_spline;
-    bool out1_is_forward;
-    U32 out2_spline;
-    bool out2_is_forward;
-};
 
 struct zTrainPathJunction : xBase
 {

@@ -1,6 +1,7 @@
 #include "xCommon.h"
 #include "xPartition.h"
 
+#include "xBound.h"
 #include "xEnv.h"
 #include "xMemMgr.h"
 #include "xVolume.h"

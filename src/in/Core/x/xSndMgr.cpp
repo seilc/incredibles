@@ -30,7 +30,7 @@ xSndEffect m_eCurrentEffect;
 static F32 s_fCategoryVolume[6];
 static F32 s_fCategoryVolumeFade[6];
 
-inline void xSndMgr_SetInitFlag(bool bIsInit) { bIsInit ? (gSnd.m_uSndMgrFlags |= 0x1) : (gSnd.m_uSndMgrFlags &= ~0x1); }
+inline void xSndMgr_SetInitFlag(bool bIsInit) { bIsInit ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_INITED) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_INITED); }
 
 namespace
 {
@@ -1093,28 +1093,28 @@ inline void xSndMgr_SetPaused(S16 whichCat, bool bPause)
 {
     switch (whichCat) {
     case xSndCat_ALL:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0xFC) : (gSnd.m_uSndMgrFlags &= ~0xFC);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_ALL) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_ALL);
         break;
     case xSndCat_ALL_BUT_MUSIC:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0xDC) : (gSnd.m_uSndMgrFlags &= ~0xDC);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_ALL_BUT_MUSIC) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_ALL_BUT_MUSIC);
         break;
     case xSndCat_GAME_3D:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0x4) : (gSnd.m_uSndMgrFlags &= ~0x4);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_GAME_3D) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_GAME_3D);
         break;
     case xSndCat_GAME_2D:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0x8) : (gSnd.m_uSndMgrFlags &= ~0x8);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_GAME_2D) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_GAME_2D);
         break;
     case xSndCat_DIALOG:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0x10) : (gSnd.m_uSndMgrFlags &= ~0x10);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_DIALOG) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_DIALOG);
         break;
     case xSndCat_MUSIC:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0x20) : (gSnd.m_uSndMgrFlags &= ~0x20);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_MUSIC) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_MUSIC);
         break;
     case xSndCat_CUTSCENE:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0x40) : (gSnd.m_uSndMgrFlags &= ~0x40);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_CUTSCENE) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_CUTSCENE);
         break;
     case xSndCat_UI:
-        bPause ? (gSnd.m_uSndMgrFlags |= 0x80) : (gSnd.m_uSndMgrFlags &= ~0x80);
+        bPause ? (gSnd.m_uSndMgrFlags |= k_XSNDMGR_PAUSED_UI) : (gSnd.m_uSndMgrFlags &= ~k_XSNDMGR_PAUSED_UI);
         break;
     }
 }
@@ -1123,21 +1123,21 @@ bool xSndMgrIsPaused(S16 eSoundCategory)
 {
     switch (eSoundCategory) {
     case xSndCat_ALL:
-        return gSnd.m_uSndMgrFlags & 0xFC;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_ALL;
     case xSndCat_ALL_BUT_MUSIC:
-        return gSnd.m_uSndMgrFlags & 0xDC;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_ALL_BUT_MUSIC;
     case xSndCat_GAME_3D:
-        return gSnd.m_uSndMgrFlags & 0x4;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_GAME_3D;
     case xSndCat_GAME_2D:
-        return gSnd.m_uSndMgrFlags & 0x8;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_GAME_2D;
     case xSndCat_DIALOG:
-        return gSnd.m_uSndMgrFlags & 0x10;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_DIALOG;
     case xSndCat_MUSIC:
-        return gSnd.m_uSndMgrFlags & 0x20;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_MUSIC;
     case xSndCat_CUTSCENE:
-        return gSnd.m_uSndMgrFlags & 0x40;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_CUTSCENE;
     case xSndCat_UI:
-        return gSnd.m_uSndMgrFlags & 0x80;
+        return gSnd.m_uSndMgrFlags & k_XSNDMGR_PAUSED_UI;
     }
     return false;
 }

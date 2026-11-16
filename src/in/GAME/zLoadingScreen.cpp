@@ -57,23 +57,23 @@ void zLoadingScreen::Init()
 
             switch (asset->type) {
             case HASH_ui_image:
-                test = RwMalloc(sizeof(zUIImage), 0);
+                test = RwMalloc(sizeof(zUIImage), rwMEMHINTDUR_NADURATION);
                 element = (zUI*)test;
                 memset(element, 0, sizeof(zUIImage));
                 zUIImage_Init(*element, *asset, size);
                 break;
             case HASH_ui_box:
-                element = (zUI*)RwMalloc(sizeof(zUIBox), 0);
+                element = (zUI*)RwMalloc(sizeof(zUIBox), rwMEMHINTDUR_NADURATION);
                 memset(element, 0, sizeof(zUIBox));
                 zUIBox_Init(*element, *asset, size);
                 break;
             case HASH_ui_text:
-                element = (zUI*)RwMalloc(sizeof(zUIText), 0);
+                element = (zUI*)RwMalloc(sizeof(zUIText), rwMEMHINTDUR_NADURATION);
                 memset(element, 0, sizeof(zUIText));
                 zUIText_Init(*element, *asset, size);
                 break;
             case HASH_ui_controller:
-                element = (zUI*)RwMalloc(sizeof(zUIController), 0);
+                element = (zUI*)RwMalloc(sizeof(zUIController), rwMEMHINTDUR_NADURATION);
                 memset(element, 0, sizeof(zUIController));
                 zUIController_Init(*element, *asset, size);
                 break;
@@ -133,7 +133,7 @@ void zLoadingScreen::Exit()
 
 void* zLoadingScreen::CustomAllocate(U32 size)
 {
-    allocations[allocationCount] = RwMalloc(size, 0);
+    allocations[allocationCount] = RwMalloc(size, rwMEMHINTDUR_NADURATION);
 
     return allocations[allocationCount++];
 }

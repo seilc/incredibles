@@ -28,6 +28,12 @@ enum
     AnimFile_BackAndForth = 0x2000
 };
 
+// xAnimState::Flags
+enum
+{
+    AnimState_Loop = 0x10
+};
+
 struct xAnimPhysicsData
 {
     xVec3* tranTable;

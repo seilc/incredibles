@@ -2,16 +2,9 @@
 #define XVOLUME_H
 
 #include "xBase.h"
-#include "xBound.h"
 
-struct xVolumeAsset : xBaseAsset
-{
-    U32 flags;
-    xBound bound;
-    F32 rot;
-    F32 xpivot;
-    F32 zpivot;
-};
+struct xBound;
+struct xVolumeAsset;
 
 struct xVolume : xBase
 {

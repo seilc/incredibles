@@ -1,6 +1,7 @@
 #include "xCommon.h"
 #include "xSubTitles.h"
 
+#include "xSubtitlesAsset.h"
 #include "xstransvc.h"
 #include "xMemMgr.h"
 #include "xFont.h"
