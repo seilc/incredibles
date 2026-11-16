@@ -23,10 +23,10 @@ namespace zNPC
         F32 max_talk_distance_2;
         F32 speak_distance_2;
 
-        speak(); // UNUSED
+        speak();
 
         virtual const char* getName() { return "speak"; }
-        virtual void add_states(xAnimTable* table); // UNUSED
+        virtual void add_states(xAnimTable* table);
     };
 
     struct idle : behavior_implementation<common>

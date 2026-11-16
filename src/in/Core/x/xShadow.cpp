@@ -590,7 +590,7 @@ static RwRaster* ShadowRasterCreate(S32 size)
     return raster;
 }
 
-static RpCollisionTriangle* ShadowRenderTriangleCB(RpIntersection*, RpWorldSector*, RpCollisionTriangle* collTriangle, RwReal, void* data); // UNUSED
+static RpCollisionTriangle* ShadowRenderTriangleCB(RpIntersection*, RpWorldSector*, RpCollisionTriangle* collTriangle, RwReal, void* data);
 
 static void ShadowRenderCachePolys(ProjectionParam* param, xShadowPoly* poly, S32 count)
 {

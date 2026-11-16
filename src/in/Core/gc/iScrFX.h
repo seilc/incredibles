@@ -20,7 +20,7 @@ struct iScrFxLensFlare
 void iScrFxInit();
 void iScrFxBegin();
 void iScrFxEnd();
-void iCameraSetBlurriness(F32 amount); // UNUSED
+void iCameraSetBlurriness(F32 amount);
 void iScrFxCameraCreated(RwCamera* pCamera);
 void iScrFxCameraEndScene(RwCamera* pCamera);
 S32 iScrFxMotionBlurOpen(RwCamera* camera);

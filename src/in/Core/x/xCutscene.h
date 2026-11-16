@@ -104,7 +104,7 @@ struct xCutscene
     U32 useDefaultTrackID;
 };
 
-void xCutscene_Init(void* toc); // UNUSED
+void xCutscene_Init(void* toc);
 void xCutscene_InitBegin();
 void xCutscene_InitTOC(void* toc);
 void xCutscene_InitEnd();

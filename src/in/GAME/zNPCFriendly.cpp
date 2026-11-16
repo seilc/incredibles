@@ -10,14 +10,12 @@ namespace zNPC
 {
     static z::JetParticleSystem::config fire_config;
 
-    // UNUSED: needed to match (speculative code)
     speak::speak()
     {
     }
 
     DECOMP_FORCEFLOAT(0.0f)
 
-    // UNUSED: needed to match (speculative code)
     void speak::add_states(xAnimTable* table)
     {
         xAnimTableNewState(table, "SP_L_Talk01", AnimState_Loop, 0, 1.0f, NULL, NULL, 0.0f, NULL, NULL, NULL,

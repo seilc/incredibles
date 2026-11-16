@@ -99,7 +99,6 @@ U32 xSphereHitsBox(const xSphere* a, const xBox* b, xCollis* coll)
     return TRUE;
 }
 
-// UNUSED: needed to match (code from Scooby PS2)
 U32 xSphereHitsOBB(const xSphere* a, const xBox* b, const xMat4x3* m, xCollis* coll)
 {
     xSphere mxa;

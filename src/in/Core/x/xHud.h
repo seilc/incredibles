@@ -282,7 +282,7 @@ public:
     void hide(move_direction d, bool clearmotives, bool bSkipHideMotive);
     void add_motive(const motive& m);
     void clear_motives();
-    void clear_motives(motive_update_callback fp_update, void* context); // UNUSED
+    void clear_motives(motive_update_callback fp_update, void* context);
     bool active();
     bool enabled() const { return flag.enabled; }
     bool visible() const { return flag.visible && enabled(); }

@@ -102,7 +102,7 @@ public:
     F32 get_layer_clamp_top(U32 whichLayer) const;
     bool set_layer_scale(U32 whichLayer, F32 fScaleX, F32 fScaleY);
     bool set_layer_offset(U32 whichLayer, F32 fOffsetX, F32 fOffsetY);
-    bool get_layer_offset(U32 whichLayer, F32& fOffsetX, F32& fOffsetY); // UNUSED
+    bool get_layer_offset(U32 whichLayer, F32& fOffsetX, F32& fOffsetY);
     bool set_layer_alpha(U32 whichLayer, F32 fAlpha);
     F32 get_layer_alpha(U32 whichLayer);
     F32 get_layer_max(U32 whichLayer) const;

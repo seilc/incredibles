@@ -53,7 +53,6 @@ void iScrFxEnd()
 static U32 sMotionBlurEnabled;
 static iMotionBlurData sMBD = { 0 };
 
-// UNUSED: needed to match (code from TSSM GC, BFBB GC)
 void iCameraSetBlurriness(F32 amount)
 {
     if (amount <= 0.0f) {

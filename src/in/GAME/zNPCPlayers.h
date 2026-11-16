@@ -55,7 +55,7 @@ namespace zNPC
         virtual void update_npc(F32 dt);
         virtual void setup();
         virtual const char* get_type_name() const { return "incrediball"; }
-        inline xVec3 predict(F32 time); // UNUSED
+        inline xVec3 predict(F32 time);
         virtual void render_npc();
         virtual void damage(const zCombatDamageInfo& damageInfo);
 
@@ -70,9 +70,9 @@ namespace zNPC
         idle idle_state;
         health_hud hud_state;
 
-        elastigirl(); // UNUSED
-        inline virtual const char* get_type_name() const; // UNUSED
-        inline xVec3 predict(); // UNUSED
+        elastigirl();
+        inline virtual const char* get_type_name() const;
+        inline xVec3 predict();
     };
 
     struct ice_effect : behavior_implementation<common>
@@ -96,7 +96,7 @@ namespace zNPC
         frozone();
         virtual void setup();
         virtual const char* get_type_name() const { return "frozone"; }
-        inline xVec3 predict(F32 time); // UNUSED
+        inline xVec3 predict(F32 time);
     };
 } // namespace zNPC
 

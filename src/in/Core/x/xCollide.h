@@ -76,7 +76,7 @@ enum xCollideSphereHitType
 
 U32 xSphereHitsSphere(const xSphere* a, const xSphere* b, xCollis* coll);
 U32 xSphereHitsBox(const xSphere* a, const xBox* b, xCollis* coll);
-U32 xSphereHitsOBB(const xSphere* a, const xBox* b, const xMat4x3* m, xCollis* coll); // UNUSED
+U32 xSphereHitsOBB(const xSphere* a, const xBox* b, const xMat4x3* m, xCollis* coll);
 U32 xSphereHitsOBB_nu(const xSphere* s, const xBox* b, const xMat4x3* m, xCollis* coll);
 U32 xSphereHitsModel(const xSphere* b, const xModelInstance* m, xCollis* coll);
 void xParabolaRecenter(xParabola* p, F32 newZeroT);
