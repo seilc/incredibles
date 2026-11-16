@@ -843,7 +843,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xModelWarp.cpp"),
             Object(NonMatching, "in/GAME/zCombo.cpp"),
             Object(NonMatching, "in/GAME/zRubbleSystem.cpp"),
-            Object(NonMatching, "in/GAME/zNPCPlayers.cpp"),
+            Object(Matching, "in/GAME/zNPCPlayers.cpp"),
             Object(Matching, "in/GAME/zCineFXShared.cpp"),
             Object(NonMatching, "in/GAME/zCineFX.cpp"),
             Object(NonMatching, "in/GAME/zFrozoneIce.cpp"),

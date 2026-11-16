@@ -39,6 +39,7 @@ struct zScene : xScene
 };
 
 typedef xBase* (*zSceneForAllBaseCallback)(xBase*, zScene*, void*);
+typedef void (*zSceneSpecialRenderCallback)();
 
 #define ZSCENE_LOAD_HIP 0x1
 #define ZSCENE_LOAD_HOP 0x2
@@ -54,5 +55,6 @@ void zSceneForAllBase(zSceneForAllBaseCallback func, S32 baseType, void* data);
 U32 zScene_ScreenAdjustMode();
 bool zSceneLoadPackFile(U32 id, S32 options, bool noLocalized,
                         const char* filename);
+void zSceneSpecialRenderSet(zSceneSpecialRenderCallback callback);
 
 #endif

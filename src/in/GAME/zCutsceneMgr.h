@@ -28,4 +28,9 @@ void zCutsceneMgr_Started();
 S32 zCutsceneMgrGetHackTableSize();
 zCutsceneHack& zCutsceneMgrGetHackTableDataByIdx(S32 idx);
 
+inline bool zCutsceneMgrRunning(zCutsceneMgr* t)
+{
+    return t && t->csn && t->csn->Ready;
+}
+
 #endif
