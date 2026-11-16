@@ -163,7 +163,7 @@ add_relocations:
   type: sda21
   target: "default_physics_properties__Q21z4bomb!.sdata2:0x803D6208"
   addend: -4
-# Hardcoded linker-symbol and TRK addresses dtk leaves as numbers (shiftability, 2026-10-25).
+# Hardcoded linker-symbol and TRK addresses dtk leaves as numbers.
 - source: .init:0x8000381C
   type: hi
   target: TRKInterruptHandler

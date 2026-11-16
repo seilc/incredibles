@@ -30,6 +30,7 @@ from tools.project import (
 DEFAULT_VERSION = 0
 VERSIONS = [
     "GICE78",  # 0
+    "GICF78",  # 1
 ]
 
 parser = argparse.ArgumentParser()
@@ -603,7 +604,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xTransient.cpp"),
             Object(Matching, "in/Core/x/xTRC.cpp"),
             Object(Matching, "in/Core/x/xUpdateCull.cpp"),
-            Object(Matching, "in/Core/x/xutil.cpp"),
+            Object(MatchingFor("GICE78"), "in/Core/x/xutil.cpp"),
             Object(Matching, "in/Core/x/xVec3.cpp"),
             Object(Matching, "in/Core/x/xVolume.cpp"),
             Object(Matching, "in/Core/gc/iAnimSKB.cpp"),
@@ -612,7 +613,7 @@ config.libs = [
             Object(Matching, "in/Core/gc/iDraw.cpp"),
             Object(Matching, "in/Core/gc/iEnv.cpp"),
             Object(Matching, "in/Core/gc/iFile.cpp"),
-            Object(Matching, "in/Core/gc/iFMV.cpp"),
+            Object(MatchingFor("GICE78"), "in/Core/gc/iFMV.cpp"),
             Object(Matching, "in/Core/gc/iFX.cpp"),
             Object(Matching, "in/Core/gc/iLight.cpp"),
             Object(Matching, "in/Core/gc/iMath.cpp"),
@@ -621,12 +622,12 @@ config.libs = [
             Object(Matching, "in/Core/gc/iModel.cpp"),
             Object(Matching, "in/Core/gc/iMorph.cpp"),
             Object(Matching, "in/Core/gc/iPad.cpp"),
-            Object(Matching, "in/Core/gc/isavegame.cpp"),
+            Object(MatchingFor("GICE78"), "in/Core/gc/isavegame.cpp"),
             Object(Matching, "in/Core/gc/iScrFX.cpp"),
             Object(Matching, "in/Core/gc/iSnd.cpp"),
             Object(Matching, "in/Core/gc/iSystem.cpp"),
             Object(Matching, "in/Core/gc/iTime.cpp"),
-            Object(Matching, "in/Core/gc/iTRC.cpp"),
+            Object(MatchingFor("GICE78"), "in/Core/gc/iTRC.cpp"),
             Object(Matching, "in/Core/gc/iAnim.cpp"),
             Object(NonMatching, "in/GAME/zZipLine.cpp"),
             Object(NonMatching, "in/GAME/zAnimCache.cpp"),
