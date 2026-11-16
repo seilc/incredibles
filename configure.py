@@ -761,7 +761,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xParticleBatch.cpp"),
             Object(NonMatching, "in/GAME/zSmoke.cpp"),
             Object(NonMatching, "in/GAME/zSplash.cpp"),
-            Object(NonMatching, "in/GAME/zNPCNavigationMeshDriven.cpp"),
+            Object(Matching, "in/GAME/zNPCNavigationMeshDriven.cpp"),
             Object(NonMatching, "in/GAME/zDashCam.cpp"),
             Object(NonMatching, "in/GAME/zNPCRobotBehavior.cpp"),
             Object(NonMatching, "in/GAME/zIncrediSlam.cpp"),

@@ -55,6 +55,11 @@ namespace xAsset
         void get_triangle(const xVec3& position, S32& sub_mesh_index, S32& tri_index);
     };
 
+    inline S32 GET_GROUP_INDEX(U8 flags)
+    {
+        return flags >> 2;
+    }
+
     inline F32 navigation_mesh::sub_mesh::get_height(S32 triangle, F32 x, F32 z) const
     {
         if (triangle == NO_TRIANGLE) {
