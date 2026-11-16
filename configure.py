@@ -32,6 +32,7 @@ VERSIONS = [
     "GICE78",  # 0
     "GICF78",  # 1
     "GICJ78_20040913",  # 2
+    "GICE78_20040912",  # 3
 ]
 
 parser = argparse.ArgumentParser()
@@ -582,7 +583,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xRMemData.cpp"),
             Object(Matching, "in/Core/x/xRumbleEmitter.cpp"),
             Object(Matching, "in/Core/x/xRumbleManager.cpp"),
-            Object(MatchingFor("GICE78", "GICF78"), "in/Core/x/xsavegame.cpp"),
+            Object(MatchingFor("GICE78", "GICF78", "GICE78_20040912"), "in/Core/x/xsavegame.cpp"),
             Object(Matching, "in/Core/x/xScene.cpp"),
             Object(MatchingFor("GICE78", "GICF78"), "in/Core/x/xScreenWarp.cpp"),
             Object(Matching, "in/Core/x/xScrFx.cpp"),
@@ -605,7 +606,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xTransient.cpp"),
             Object(MatchingFor("GICE78", "GICF78"), "in/Core/x/xTRC.cpp"),
             Object(Matching, "in/Core/x/xUpdateCull.cpp"),
-            Object(MatchingFor("GICE78", "GICJ78_20040913"), "in/Core/x/xutil.cpp"),
+            Object(MatchingFor("GICE78", "GICJ78_20040913", "GICE78_20040912"), "in/Core/x/xutil.cpp"),
             Object(Matching, "in/Core/x/xVec3.cpp"),
             Object(Matching, "in/Core/x/xVolume.cpp"),
             Object(Matching, "in/Core/gc/iAnimSKB.cpp"),
@@ -790,7 +791,7 @@ config.libs = [
             Object(Matching, "in/GAME/zNPCSenses.cpp"),
             Object(NonMatching, "in/GAME/zBomb.cpp"),
             Object(Matching, "in/GAME/zProgressScript.cpp"),
-            Object(Matching, "in/Core/x/xHudText.cpp"),
+            Object(MatchingFor("GICE78", "GICF78", "GICJ78_20040913"), "in/Core/x/xHudText.cpp"),
             Object(NonMatching, "in/GAME/zFlameThrower.cpp"),
             Object(Matching, "in/GAME/zNPCFlyShooter.cpp"),
             Object(NonMatching, "in/GAME/zRocket.cpp"),
