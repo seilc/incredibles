@@ -167,6 +167,15 @@ public:
     }
 };
 
+#define BEHAVIOR_ANIM_CALLBACK(type, owner_type, method)                                          \
+    static U32 an##method(xAnimTransition* tran, xAnimSingle* anim, void* object)                 \
+    {                                                                                             \
+        return !((owner_type*)object)->get_current_behavior()                                     \
+                   ? 0                                                                            \
+                   : ((type*)((owner_type*)object)->get_current_behavior())                       \
+                         ->method(tran, anim);                                                    \
+    }
+
 U32 ErrorCB(xAnimTransition*, xAnimSingle*, void*);
 
 #endif

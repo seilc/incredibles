@@ -3,8 +3,26 @@
 
 #include "zNPCCommon.h"
 
+struct zShrapnelAsset;
+
 namespace zNPC
 {
+    class shrapnel_death : public behavior_implementation<common>
+    {
+    public:
+        xModelInstance* base_model;
+        xModelInstance* destroyed_model;
+        zShrapnelAsset* shrapnel;
+        xVec3 old_pos[2];
+        F32 old_dt[2];
+        U8 destroyed_collidable;
+
+        virtual void enter_state(const behavior_implementation<common>* prev_behavior);
+        virtual void setup();
+        virtual void reset();
+        virtual bool runnable(F32 dt);
+    };
+
     class bone_behavior : public behavior_implementation<common>
     {
     public:

@@ -119,6 +119,11 @@ namespace zNPC
             manager.add_behavior(new_behavior, this, priority);
         }
 
+        behavior* get_current_behavior()
+        {
+            return manager.get_current_behavior();
+        }
+
         bool is_human()
         {
             return commonFlags.human;
