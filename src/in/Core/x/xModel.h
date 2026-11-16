@@ -192,6 +192,16 @@ inline void xModelResetMaterial(xModelInstance* modelInst)
     iModelResetMaterial(modelInst->Data);
 }
 
+inline U32 xModelTagSetup(xModelTag* tag, const xModelInstance* model, const xVec3* pos)
+{
+    return iModelTagSetup(tag, model->Data, pos->x, pos->y, pos->z);
+}
+
+inline void xModelTagEval(xModelInstance* model, const xModelTag* tag, xVec3* dest)
+{
+    iModelTagEval(model->Data, tag, model->Mat, dest);
+}
+
 extern S32 xModelBucketEnabled;
 
 #endif

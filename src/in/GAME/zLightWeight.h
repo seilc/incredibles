@@ -50,6 +50,8 @@ namespace z
             used = value;
         }
 
+        static void add(const T& item);
+
         virtual void render() const {}
         virtual void post_render_2d() const {}
         virtual void post_render_3d() const {}

@@ -5,6 +5,8 @@
 #include "xFactory.h"
 #include "xMovePoint.h"
 
+#include <stdio.h>
+
 struct xModelAssetInfo;
 struct xModelAssetParam;
 
@@ -81,6 +83,14 @@ namespace zNPC
         bool get_parameter(const char* name, F32* value, F32 default_value);
         bool get_parameter(const char* name, xVec3* value, const xVec3& default_value);
         bool get_parameter(const char* name, const char** value, const char* default_value);
+
+        template <class T>
+        bool get_parameter(const char* name, S32 index, T* value, T default_value)
+        {
+            char buffer[128];
+            sprintf(buffer, "%s%d", name, index);
+            return get_parameter(buffer, value, default_value);
+        }
 
         U32 get_type() const
         {

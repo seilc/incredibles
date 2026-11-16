@@ -34,6 +34,16 @@ protected:
                       U32 toParamWidgetID);
 };
 
+struct group_attack
+{
+    bool attacking;
+
+    group_attack()
+    {
+        attacking = false;
+    }
+};
+
 }
 
 #endif

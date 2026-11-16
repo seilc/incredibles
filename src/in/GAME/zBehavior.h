@@ -38,8 +38,6 @@ private:
     xEnt* owner;
 
 public:
-    behavior() {}
-
     virtual bool in_state(const char* state, F32 look_ahead, xModelInstance* model) const;
     virtual const char* getName() { return "behavior"; }
     virtual void set_owner(xEnt* new_owner) { owner = new_owner; }

@@ -119,6 +119,11 @@ namespace zNPC
             manager.add_behavior(new_behavior, this, priority);
         }
 
+        void remove_behavior(behavior* which)
+        {
+            manager.remove_behavior(which);
+        }
+
         behavior* get_current_behavior()
         {
             return manager.get_current_behavior();

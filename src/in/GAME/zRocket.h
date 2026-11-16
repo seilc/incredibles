@@ -2,9 +2,31 @@
 #define ZROCKET_H
 
 #include "xMath3.h"
+#include "xEnt.h"
+#include "zLightWeight.h"
 
 namespace z
 {
+    class rocket : public lightweight<rocket, 20>
+    {
+    public:
+        F32 turn_speed;
+        F32 time;
+        xVec3 position;
+        xVec3 velocity;
+        xEnt* source;
+        xModelInstance* model;
+        xVec3* target_pos;
+        F32 above_target_pos;
+        iSndHandle flying_noise;
+        F32 emit_remaining;
+        F32 jet_emit_remaining;
+
+        rocket();
+        rocket(xVec3* target_pos, F32 above_target_pos, xEnt* source, const xVec3& position,
+               const xVec3& direction, F32 turn_speed, F32 rocket_speed);
+    };
+
     class JetParticleSystem
     {
     public:
