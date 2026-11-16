@@ -2055,7 +2055,7 @@ void xDecal::emit(const emit_context& ec, const xMat4x3& mat, RpAtomic* model, c
         complete_decal_atomic(decal->data.atomic, arg->out.uv, o);
 
         if (ec.emitAtomicCB) {
-            ec.emitAtomicCB(decal->data.atomic, (xMat4x3*)decal->driver);
+            ec.emitAtomicCB(decal->data.atomic, decal->driver);
         }
     }
 

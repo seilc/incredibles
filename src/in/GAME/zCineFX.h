@@ -95,9 +95,9 @@ struct NCINEntry
 
     struct Callbacks
     {
-        void (*fxupd)(zCutsceneMgr*, NCINEntry*, S32);
-        void (*fxanim)(zCutsceneMgr*, NCINEntry*, RpAtomic*, RwMatrix*, U32, U32);
-        void (*fxrend)(zCutsceneMgr*, NCINEntry*);
+        void (*fxupd)(const zCutsceneMgr*, NCINEntry*, S32);
+        void (*fxanim)(const zCutsceneMgr*, NCINEntry*, RpAtomic*, RwMatrix*, U32, U32, U32&);
+        void (*fxrend)(const zCutsceneMgr*, NCINEntry*);
         void (*tweaks)(const char*, NCINEntry*);
     };
 

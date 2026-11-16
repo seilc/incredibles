@@ -75,7 +75,7 @@ namespace xDecal
         RwTexture* texture;
         xVec2 uv[2];
         const xResponseCurve* curve;
-        void (*emitAtomicCB)(RpAtomic*, xMat4x3*);
+        void (*emitAtomicCB)(RpAtomic*, const xMat4x3*);
         void (*destAtomicCB)(RpAtomic*);
     };
 
