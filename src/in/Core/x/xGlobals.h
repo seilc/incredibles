@@ -96,7 +96,7 @@ struct xGlobals
     U8 ForceMono;
     U32 minVSyncCnt;
     bool dontShowPadMessageDuringLoadingOrCutScene;
-    U8 autoSaveFeature;
+    bool autoSaveFeature;
     bool skipAsserts;
     bool beforeFirstFrame;
     S32 asyncLoadingScreen;

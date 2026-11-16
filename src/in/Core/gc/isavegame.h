@@ -75,19 +75,28 @@ U32 iSGTgtState(st_ISGSESSION* isgdata, S32 tgtidx, const char* dpath);
 S32 iSGTgtSetActive(st_ISGSESSION* isgdata, S32 tgtidx);
 S32 iSGTgtHaveRoom(st_ISGSESSION* isgdata, S32 tgtidx, S32 fsize, const char* dpath, const char* fname, S32* needbyte,
                    S32* availbyte, S32* needFile);
-S32 iSGTgtHaveRoomStartup(st_ISGSESSION* isgdata, S32 tidx, S32 fsize, const char* dpath, const char* fname,
-                          S32* bytesNeeded, S32* availOnDisk, S32* needFile);
+S32 iSGTgtHaveRoomStartup(st_ISGSESSION* isgdata, S32, S32 fsize, const char*, const char* fname, S32* needbyte,
+                          S32* availbyte, S32* needFile);
 S32 iSGFileSize(st_ISGSESSION* isgdata, const char* fname);
-char* iSGFileModDate(st_ISGSESSION* isgdata, const char* fname);
+const char* iSGFileModDate(st_ISGSESSION* isgdata, const char* fname);
+char* iSGFileModDate(st_ISGSESSION* isgdata, const char* fname, S32* usr_sec, S32* usr_min, S32* usr_hr, S32* usr_mon,
+                     S32* usr_day, S32* usr_yr);
 void iSGMakeTimeStamp(char* str);
 S32 iSGSelectGameDir(st_ISGSESSION* isgdata, const char* dname);
 S32 iSGSetupGameDir(st_ISGSESSION* isgdata, const char* dname, S32 force_iconfix);
+S32 iSGSaveFile(st_ISGSESSION* isgdata, const char* fname, char* data, S32 n, S32 async); // UNUSED
 S32 iSGSaveFile(st_ISGSESSION* isgdata, const char* fname, char* data, S32 n, S32 async, char* label);
 S32 iSGLoadFile(st_ISGSESSION* isgdata, const char* fname, char* databuf, S32 async);
 S32 iSGReadLeader(st_ISGSESSION* isgdata, const char* fname, char* databuf, S32 numbytes, S32 async);
 en_ASYNC_OPSTAT iSGPollStatus(st_ISGSESSION* isgdata, en_ASYNC_OPCODE* curop, S32 block);
 en_ASYNC_OPERR iSGOpError(st_ISGSESSION* isgdata, char* errbuf);
+S32 iSG_mcidx2slot(S32 mcidx, S32* slot, S32* concnt);
+void CheckExCallback(s32, s32 result);
+void CardCreateCallback(s32, s32 result);
+void CardDeleteCallback(s32, s32 result);
+S32 iSGCheckForWrongDevice();
 S32 iSGCheckForCorruptFiles(st_ISGSESSION* isgdata, char (*fileName)[64]);
+bool iSGIsGameCorrupt(st_ISGSESSION* sess, S32 gidx);
 bool iSGCheckMemoryCard(st_ISGSESSION* isgdata, S32 index);
 void iSGAutoSave_Startup();
 st_ISGSESSION* iSGAutoSave_Connect(S32 idx_target, void* cltdata, ISGChangeCallback chg);
