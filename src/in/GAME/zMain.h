@@ -19,6 +19,8 @@ extern xGlobals* xglobals;
 
 #define ZPLAYER (xglobals->___player_ent_dont_use_directly)
 
+void zMainShowProgressBar(S32 percentage);
+
 inline bool zMainIsPAL() { return gVidMode == eGameVidModePAL; }
 
 inline bool zMainIsNTSC() { return gVidMode == eGameVidModeNTSC; }
