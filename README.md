@@ -47,14 +47,20 @@ The project is built with [decomp-toolkit](https://github.com/encounter/decomp-t
 [dtk-template](https://github.com/encounter/dtk-template) layout; [objdiff](https://github.com/encounter/objdiff)
 reads the generated `objdiff.json`.
 
-Special Thanks
-==============
+Credits
+=======
+
+**[bfbbdecomp/bfbb](https://github.com/bfbbdecomp/bfbb)** -
+Code ported from it: engine code, types and the Bink headers.
 
 **[@seilc](https://github.com/seilc)** -
 Starting the project, working on tools, decompilation.
 
 **[@bluisblu](https://github.com/bluisblu)** -
 Porting the project to decomp-toolkit.
+
+**[@joeyballentine](https://github.com/joeyballentine)** -
+Porting code from BFBB, decompilation.
 
 **[@mattbruv](https://github.com/mattbruv)** -
 The original project tracking website and inlineasm tool, decompilation.
