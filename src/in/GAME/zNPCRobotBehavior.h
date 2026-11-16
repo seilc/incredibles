@@ -29,12 +29,18 @@ namespace zNPC
         F32 velocity_up;
         F32 velocity_away;
         S16 damage;
-        U8 hurt_things;
+        bool hurt_things;
 
         virtual bool system_event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
                                   xBase* toParamWidget, U32 toParamWidgetID);
         virtual void enter_state(const behavior_implementation<common>* prev_behavior);
         virtual void setup();
+
+        virtual void reset()
+        {
+            shrapnel_death::reset();
+            hurt_things = true;
+        }
     };
 
     struct engine_exhaust : behavior_implementation<common>

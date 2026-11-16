@@ -56,6 +56,7 @@ namespace zNPC
         xVec3 last_destination;
         F32 cos_min_move_angle;
 
+        virtual const char* getName() { return "npc_move"; }
         virtual bool system_event(xBase* from, xBase* to, U32 toEvent, const F32* toParam,
                                   xBase* toParamWidget, U32 toParamWidgetID);
         virtual void setup();

@@ -704,7 +704,7 @@ config.libs = [
             Object(NonMatching, "in/GAME/zNPCMelee.cpp"),
             Object(NonMatching, "in/GAME/zNPCMeleeShielded.cpp"),
             Object(NonMatching, "in/GAME/zNPCMgr.cpp"),
-            Object(NonMatching, "in/GAME/zNPCMine.cpp"),
+            Object(Matching, "in/GAME/zNPCMine.cpp"),
             Object(NonMatching, "in/GAME/zNPCNavigation.cpp"),
             Object(NonMatching, "in/GAME/zNPCNavigationMesh.cpp"),
             Object(Matching, "in/GAME/zNPCOracle.cpp"),
