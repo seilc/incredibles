@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [GICE78, GICF78, GICJ78_20040913, GICE78_20040912]
+        version: [GICE78, GICF78, GICJ78_20040913, GICE78_20040912, GICE78_20040719]
 
     steps:
       - name: Checkout
