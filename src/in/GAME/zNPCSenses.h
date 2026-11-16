@@ -1,8 +1,10 @@
 #ifndef ZNPCSENSES_H
 #define ZNPCSENSES_H
 
-#include "xEnt.h"
+#include "xVec3.h"
 #include "xMath2.h"
+
+struct xEnt;
 
 namespace zNPC
 {
@@ -22,13 +24,13 @@ namespace zNPC
         F32 aimDist;
         F32 timeSinceUpdate;
         F32 nextLOSCheckTime;
-        bool unk5C;
         bool canSee;
+        bool canDetect;
         F32 viewDist;
         F32 viewAngle;
         F32 cosViewAngle;
-        U8 checkLOS;
-        U8 updateVarsAlways;
+        bool checkLOS;
+        bool updateVarsAlways;
         F32 checkLOSMinDelay;
         F32 checkLOSMaxDelay;
         F32 memoryDuration;
@@ -37,8 +39,14 @@ namespace zNPC
 
         void Setup(common* owner);
         void Reset(common* owner);
+        bool HasTarget() const;
+        bool CanSeeTarget() const;
         void AlertTargetPos(common* owner, const xVec3& newTargetPos);
         void Update(common* owner, F32 dt);
+        void UpdateEyePos(common* owner);
+        bool CheckLOS(common* owner);
+        void UpdateTargetVars(common* owner);
+        bool WorldRayLOS(const xVec3& start, const xVec3& dir, F32 dist) const;
     };
 } // namespace zNPC
 

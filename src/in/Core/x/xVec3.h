@@ -37,6 +37,7 @@ struct xVec3
         return 1.0f / f;
     }
     F32 length2() const { return x * x + y * y + z * z; }
+    F32 distance(const xVec3& c) const { return (c - *this).length(); }
 
     void assign(F32 x, F32 y, F32 z)
     {

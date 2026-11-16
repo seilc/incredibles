@@ -664,12 +664,12 @@ namespace zNPC
         }
         case eEventNPCDetectOff:
         {
-            senses.canSee = false;
+            senses.canDetect = false;
             break;
         }
         case eEventNPCDetectOn:
         {
-            senses.canSee = true;
+            senses.canDetect = true;
             break;
         }
         case eEventUnknown:

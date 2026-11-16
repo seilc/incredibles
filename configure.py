@@ -785,7 +785,7 @@ config.libs = [
             Object(Matching, "in/Core/x/xFXHighDynamicRange.cpp"),
             Object(Matching, "in/Core/x/xCollideSpherePolygonUnprocessed.cpp"),
             Object(NonMatching, "in/GAME/zInteraction.cpp"),
-            Object(NonMatching, "in/GAME/zNPCSenses.cpp"),
+            Object(Matching, "in/GAME/zNPCSenses.cpp"),
             Object(NonMatching, "in/GAME/zBomb.cpp"),
             Object(Matching, "in/GAME/zProgressScript.cpp"),
             Object(Matching, "in/Core/x/xHudText.cpp"),

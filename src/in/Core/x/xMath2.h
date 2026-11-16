@@ -22,6 +22,16 @@ struct xVec2
     F32 dot(const xVec2& c) const { return x * c.x + y * c.y; }
     F32 length() const { return xsqrt(length2()); }
     F32 length2() const { return x * x + y * y; }
+    xVec2& normalize() { *this *= xinvsqrt(length2()); return *this; }
+
+    xVec2& safe_normalize(const xVec2& safety)
+    {
+        F32 len2 = length2();
+        if (len2 < 0.0000001f) {
+            return *this = safety;
+        }
+        return *this *= 1.0f / xsqrt(len2);
+    }
 };
 
 typedef struct _xMat3x2
