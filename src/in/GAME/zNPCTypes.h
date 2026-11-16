@@ -1,6 +1,8 @@
 #ifndef ZNPCTYPES_H
 #define ZNPCTYPES_H
 
+#include "types.h"
+
 enum en_npctyp
 {
     NPC_TYPE_UNKNOWN,
@@ -36,7 +38,6 @@ enum en_npctyp
     NPC_TYPE_MONOPOD,
     NPC_TYPE_INCREDIBALL,
     NPC_TYPE_FROZONE,
-    NPC_TYPE_ELASTIGIRL,
     NPC_TYPE_BOSS_OMNIDROID,
     NPC_TYPE_BOSS_OMNIDROID10,
     NPC_TYPE_BOSS_BOMB_CHOPPER,

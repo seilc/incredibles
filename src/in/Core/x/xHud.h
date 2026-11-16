@@ -154,6 +154,43 @@ struct motive
     {
     }
 
+    motive(F32* value, F32 delta, F32 begin_scale, F32 final_scale, F32 begin_alpha, F32 end_alpha,
+           motive_update_callback fp_update, motive_finish_callback finish)
+        : value(value)
+        , delta(delta)
+        , begin_scale(begin_scale)
+        , final_scale(final_scale)
+        , begin_alpha(begin_alpha)
+        , end_alpha(end_alpha)
+        , elapsed(0.0f)
+        , current_scale(0.0f)
+        , fp_update(fp_update)
+        , fp_finish(finish)
+        , start_delta(0.0f)
+        , hold(false)
+        , inverse(false)
+    {
+    }
+
+    motive(F32 time_to_blink, F32 start_blink_period, F32 end_blink_period, F32 fade_blink_time,
+           xColor on_blink_color, xColor off_blink_color, bool _hold, motive_update_callback fp_update,
+           motive_finish_callback finish)
+        : time_to_blink(time_to_blink)
+        , start_blink_period(start_blink_period)
+        , end_blink_period(end_blink_period)
+        , fade_blink_time(fade_blink_time)
+        , on_blink_color(on_blink_color)
+        , off_blink_color(off_blink_color)
+        , elapsed(0.0f)
+        , current_blink_time(0.0f)
+        , fp_update(fp_update)
+        , fp_finish(finish)
+        , period_blink_time(0.0f)
+        , hold(_hold)
+        , inverse(false)
+    {
+    }
+
     bool update(widget& w, F32 dt)
     {
         return fp_update(w, *this, dt);

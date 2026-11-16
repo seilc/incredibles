@@ -803,7 +803,7 @@ config.libs = [
             Object(Matching, "in/GAME/zNPCGroup.cpp"),
             Object(NonMatching, "in/GAME/zThrowableSystem.cpp"),
             Object(NonMatching, "in/GAME/zNPCHelibot.cpp"),
-            Object(NonMatching, "in/GAME/zHudDashMeter.cpp"),
+            Object(Matching, "in/GAME/zHudDashMeter.cpp"),
             Object(NonMatching, "in/GAME/zNPCBossOmnidroid10.cpp"),
             Object(NonMatching, "in/GAME/zNPCBotLeap.cpp"),
             Object(Matching, "in/GAME/zUIController.cpp"),
