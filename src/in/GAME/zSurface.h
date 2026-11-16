@@ -86,6 +86,13 @@ struct zFootstepsData
     F32 duration;
 };
 
+struct zHitDecalData
+{
+    U32 texture;
+    F32 x_size;
+    F32 y_size;
+};
+
 struct zSurfAssetIN : zSurfAssetBase
 {
     U8 dash_impact_type;

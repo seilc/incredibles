@@ -48,16 +48,9 @@ struct zHitSourceMapEntry
     zHitSource sourcetype;
 };
 
-struct zHitDecalData
-{
-    U32 texture;
-    F32 x_size;
-    F32 y_size;
-};
-
-extern const zHitSourceMapEntry zHitSourceMap[];
-extern U32 zHitSourceCCs[];
-extern U32 zHitTargetCCs[];
+extern const zHitSourceMapEntry zHitSourceMap[zHS_COUNT + 1];
+extern U32 zHitSourceCCs[zHS_COUNT];
+extern U32 zHitTargetCCs[zHT_COUNT];
 
 S32 getSourceCCIdx(U32 value);
 
