@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 GAME = "Incredibles"
-VERSIONS = ["GICE78", "GICF78"]
+VERSIONS = ["GICE78", "GICF78", "GICJ78_20040913"]
 USERNAME = "Mr. Incredible"
 CATEGORY = "game"
 ABBREVS = {"DEBUG": "D", "RELEASE": "R", "MASTERDEBUG": "MD", "MASTER": "M"}

@@ -14,7 +14,7 @@ See https://decomp.dev/api for an API overview.
 [Discord Badge]: https://img.shields.io/discord/829152115322257436?color=%237289DA&logo=discord&logoColor=%23FFFFFF
 [discord]: https://discord.gg/dVbGFdYU6A
 
-A work-in-progress matching decompilation of *The Incredibles* for the GameCube (USA, `GICE78`; France, `GICF78`),
+A work-in-progress matching decompilation of *The Incredibles* for the GameCube (retail and prototype builds, below),
 built on Heavy Iron's EvilEngine. Much of the engine is shared with the [Ratatouille prototype decomp](https://github.com/seilc/rat)
 and the [Rise of the Underminer decomp](https://github.com/seilc/rotu), which this project ports matched code from.
 
@@ -28,16 +28,16 @@ prove may be guesses.
 
 Supported versions:
 
-- `GICE78` - The Incredibles (USA), retail `main.dol`
-- `GICF78` - Les Indestructibles (France), retail `main.dol`
+- `GICE78` - The Incredibles (USA), retail (SHA-1 `c7413be2fba5b8cc47b7506ecb7785677a4a1c12`)
+- `GICF78` - Les Indestructibles (France), retail (SHA-1 `fd8b7bc9b5149f9d96ac7110b7d53cd2338ca936`)
+- `GICJ78_20040913` - The Incredibles (Japan), demo disc, Build 302 (SHA-1 `03820f44b96fe548ab1b233cf9c761a2067c325d`)
 
 Building
 ========
 
 - Install Python 3 and ninja (on Linux/macOS also [wibo](https://github.com/decompals/wibo) or wine; `configure.py`
   downloads wibo automatically).
-- Copy `sys/main.dol` from the disc to `orig/GICE78/sys/main.dol` (SHA-1 `c7413be2fba5b8cc47b7506ecb7785677a4a1c12`),
-  or to `orig/GICF78/sys/main.dol` for the French disc (SHA-1 `fd8b7bc9b5149f9d96ac7110b7d53cd2338ca936`).
+- Copy `sys/main.dol` from the disc to `orig/<version>/sys/main.dol` (its SHA-1 is listed above).
 - Run `python configure.py`, then `ninja`. To build a version other than `GICE78`, pass it with `--version`.
 
 The project is built with [decomp-toolkit](https://github.com/encounter/decomp-toolkit) on the
