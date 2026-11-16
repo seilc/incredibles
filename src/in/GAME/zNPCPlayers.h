@@ -55,7 +55,7 @@ namespace zNPC
         virtual void update_npc(F32 dt);
         virtual void setup();
         virtual const char* get_type_name() const { return "incrediball"; }
-        inline xVec3 predict(F32 time);
+        inline xVec3 predict(F32 time) const;
         virtual void render_npc();
         virtual void damage(const zCombatDamageInfo& damageInfo);
 
@@ -72,7 +72,7 @@ namespace zNPC
 
         elastigirl();
         inline virtual const char* get_type_name() const;
-        inline xVec3 predict();
+        inline xVec3 predict(F32) const;
     };
 
     struct ice_effect : behavior_implementation<common>
@@ -96,7 +96,7 @@ namespace zNPC
         frozone();
         virtual void setup();
         virtual const char* get_type_name() const { return "frozone"; }
-        inline xVec3 predict(F32 time);
+        inline xVec3 predict(F32 time) const;
     };
 } // namespace zNPC
 
