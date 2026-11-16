@@ -30,6 +30,7 @@ Supported versions:
 
 - `GICE78` - The Incredibles (USA), retail (SHA-1 `c7413be2fba5b8cc47b7506ecb7785677a4a1c12`)
 - `GICF78` - Les Indestructibles (France), retail (SHA-1 `fd8b7bc9b5149f9d96ac7110b7d53cd2338ca936`)
+- `GICP78` - The Incredibles (Europe), retail (SHA-1 `c73f9b261a25c4109626757f1b992662b4df886d`)
 - `GICJ78_20040913` - The Incredibles (Japan), demo disc, Build 302 (SHA-1 `03820f44b96fe548ab1b233cf9c761a2067c325d`)
 - `GICE78_20040912` - The Incredibles (USA), prototype, Build 300 (SHA-1 `07edbff92cfe28b9a1b8fee6dd3630004d2b3750`)
 - `GICE78_20040719` - The Incredibles (USA), prototype (SHA-1 `cd33c28bb15c6fd41a33a72288a816e4fda0bec7`)
