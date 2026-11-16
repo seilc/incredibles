@@ -11,7 +11,7 @@ S32 xUtilShutdown();
 char* xUtil_idtag2string(U32 srctag, S32 bufidx);
 U32 xUtil_crc_init();
 U32 xUtil_crc_update(U32 crc_accum, char* data, S32 datasize);
-void strtosjis(U8* string, U8* dest); // UNUSED
+void strtosjis(U8* string, U8* dest);
 U8 BCDtoi(U8 hex); // UNUSED
 U8 itoBCD(U8 dec); // UNUSED
 U8 itoBCD(U16 dec); // UNUSED
