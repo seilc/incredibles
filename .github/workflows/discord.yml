@@ -37,6 +37,7 @@ jobs:
     outputs:
       prev_sha: ${{ steps.reports.outputs.prev_sha }}
       commits: ${{ steps.reports.outputs.commits }}
+      site: ${{ steps.site.outcome }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -71,12 +72,18 @@ jobs:
           retention-days: 1
           overwrite: true
 
+      - name: Write badges
+        id: badges
+        continue-on-error: true
+        run: python3 .github/progress.py --badges site reports/cur
+
       - name: Draw treemap
         continue-on-error: true
         timeout-minutes: 5
         run: |
           python3 -m pip install --break-system-packages -q pillow==12.3.0
           python3 .github/treemap.py reports/cur treemap.png $(test -d reports/prev && echo reports/prev)
+          python3 .github/treemap.py reports/cur site/treemap.png
 
       - name: Save treemap
         uses: actions/upload-artifact@v4
@@ -86,6 +93,35 @@ jobs:
           if-no-files-found: ignore
           retention-days: 1
           overwrite: true
+
+      # Without its treemap, the site would replace the last one with nothing: keep the old site.
+      - name: Save Pages site
+        id: site
+        if: steps.badges.outcome == 'success' && hashFiles('site/treemap.png') != ''
+        continue-on-error: true
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+          retention-days: 1
+
+  # The README's treemap and badges. Only deploys: nothing from the repository or PyPI runs with the Pages token.
+  pages:
+    needs: treemap
+    if: needs.treemap.outputs.site == 'success'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v5
 
   progress:
     needs: treemap

@@ -2,6 +2,7 @@
 """Print a Discord message (JSON payload) with per-version Game progress from objdiff reports.
 
 Usage: progress.py CUR_DIR [PREV_DIR]
+       progress.py --badges OUT_DIR CUR_DIR
 One line per version of MAIN_VERSIONS (fuzzy-matched code, objdiff's fuzzy_match_percent, and its change since
 PREV_DIR when it moved; a 🎉 when it passed a multiple of 10% since PREV_DIR), the other versions' percentages in one
 line under them, then, with PREV_DIR, the Game files whose match changed, with the changed functions of the files
@@ -12,6 +13,8 @@ that fits in MAX_CONTENT, with a count of the files left out.
 Optional environment, for the line naming who pushed what: PUSHER (GitHub login), REPO (owner/name), HEAD_SHA,
 PREV_SHA, COMMITS (the number of commits pushed).
 Prints nothing when nothing changed since PREV_DIR.
+With --badges, writes instead a shields.io endpoint badge for each version's line, OUT_DIR/<VERSION>.json, for the
+README (published to GitHub Pages with treemap.py's image).
 Each directory holds <VERSION>_report/report.json, as downloaded from the Build workflow's artifacts.
 """
 import json
@@ -27,6 +30,7 @@ CATEGORY = "game"
 ABBREVS = {"DEBUG": "D", "RELEASE": "R", "MASTERDEBUG": "MD", "MASTER": "M"}
 MAX_CONTENT = 1000  # kept short (Discord's own limit is 2000)
 COLLAPSE = 3  # more functions of one file now at 100.00% than this become one count line
+BADGE_COLORS = ("3987e5", "1fa84f")  # treemap.py's PARTIAL and MATCHED
 
 
 def func_name(name):
@@ -120,8 +124,24 @@ def contributor():
     return f"[{pusher}](<https://github.com/{pusher}>) just contributed the following in {ref}:"
 
 
+def badges(out_dir, cur_dir):
+    """Write OUT_DIR/<VERSION>.json for each version of MAIN_VERSIONS: the percentage its line shows, labelled with
+    the version, or "decompiled" when there is only one."""
+    rows = [(ver, load(cur_dir, ver)) for ver in MAIN_VERSIONS]
+    rows = [(ver, loaded[0]) for ver, loaded in rows if loaded]
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    for ver, cur in rows:
+        cur_pct = f"{pct(cur, 'fuzzy_code', 'total_code'):.2f}"
+        badge = {"schemaVersion": 1, "label": ver if len(rows) > 1 else "decompiled", "message": f"{cur_pct}%",
+                 "color": BADGE_COLORS[cur_pct == "100.00"]}
+        (Path(out_dir) / f"{ver}.json").write_text(json.dumps(badge) + "\n")
+
+
 def main():
     args = sys.argv[1:]
+    if args[0] == "--badges":
+        badges(args[1], args[2])
+        return
     cur_dir, prev_dir = args[0], (args[1] if len(args) > 1 else None)
     rows = []
     changes = {}

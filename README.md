@@ -1,9 +1,11 @@
 The Incredibles (GameCube)  
-[![Build Status]][actions] <!--[![Code Progress]][progress] [![Data Progress]][progress]--> [![Discord Badge]][discord]
+[![Build Status]][actions] [![GICE78 Progress]][treemap] <!--[![Code Progress]][progress] [![Data Progress]][progress]--> [![Discord Badge]][discord]
 =============
 
 [Build Status]: https://github.com/seilc/incredibles/actions/workflows/build.yml/badge.svg
 [actions]: https://github.com/seilc/incredibles/actions/workflows/build.yml
+[GICE78 Progress]: https://img.shields.io/endpoint?url=https%3A%2F%2Fseilc.github.io%2Fincredibles%2FGICE78.json
+[treemap]: https://seilc.github.io/incredibles/treemap.png
 <!--
 decomp.dev progress badges (hidden until the project is registered on decomp.dev)
 See https://decomp.dev/api for an API overview.
@@ -17,6 +19,8 @@ See https://decomp.dev/api for an API overview.
 A work-in-progress matching decompilation of *The Incredibles* for the GameCube (retail and prototype builds, below),
 built on Heavy Iron's EvilEngine. Much of the engine is shared with the [Ratatouille prototype decomp](https://github.com/seilc/rat)
 and the [Rise of the Underminer decomp](https://github.com/seilc/rotu), which this project ports matched code from.
+
+![Progress treemap][treemap]
 
 This repository does **not** contain any game assets or assembly whatsoever. An existing copy of the game is required.
 
