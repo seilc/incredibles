@@ -2,9 +2,10 @@
 """Print a Discord message (JSON payload) with per-version Game progress from objdiff reports.
 
 Usage: progress.py CUR_DIR [PREV_DIR]
-One line per version (fuzzy-matched code, objdiff's fuzzy_match_percent, and its change since PREV_DIR; a 🎉 when
-it passed a multiple of 10% since PREV_DIR), then, with PREV_DIR, the Game files whose match changed, with the
-changed functions of the files not yet complete.
+One line per version of MAIN_VERSIONS (fuzzy-matched code, objdiff's fuzzy_match_percent, and its change since
+PREV_DIR when it moved; a 🎉 when it passed a multiple of 10% since PREV_DIR), the other versions' percentages in one
+line under them, then, with PREV_DIR, the Game files whose match changed, with the changed functions of the files
+not yet complete.
 Files come newly matched first, then rising, then falling, each group by bytes changed (biggest first); more than
 COLLAPSE functions of one file now at 100.00% become one count line. The message stops after the last whole file
 that fits in MAX_CONTENT, with a count of the files left out.
@@ -20,6 +21,7 @@ from pathlib import Path
 
 GAME = "Incredibles"
 VERSIONS = ["GICE78", "GICF78", "GICP78", "GICJ78_20040913", "GICE78_20040912", "GICE78_20040719"]
+MAIN_VERSIONS = VERSIONS[:1]  # a line each; the other versions share one
 USERNAME = "Mr. Incredible"
 CATEGORY = "game"
 ABBREVS = {"DEBUG": "D", "RELEASE": "R", "MASTERDEBUG": "MD", "MASTER": "M"}
@@ -134,7 +136,7 @@ def main():
             changed = True
         else:
             prev, prev_units = prev
-            changed |= cur.get("fuzzy_code", 0) != prev.get("fuzzy_code", 0)
+            changed |= ver in MAIN_VERSIONS and cur.get("fuzzy_code", 0) != prev.get("fuzzy_code", 0)
             for key, u in cur_units.items():
                 change = unit_change(prev_units.get(key), u)
                 if change:
@@ -143,23 +145,31 @@ def main():
     if not changed and not changes:
         return
 
-    lines = []
+    lines, others = [], []
+    mains = [ver for ver, _, _ in rows if ver in MAIN_VERSIONS]
     for ver, cur, prev in rows:
         stats = f"{cur.get('fuzzy_code', 0):,} / {cur.get('total_code', 0):,}"
-        cur_pct, end = pct(cur, "fuzzy_code", "total_code"), "."
-        if prev:
+        cur_pct, end, moved = pct(cur, "fuzzy_code", "total_code"), ".", ""
+        if prev and cur.get("fuzzy_code", 0) != prev.get("fuzzy_code", 0):
             prev_pct = pct(prev, "fuzzy_code", "total_code")
             gained = cur.get("fuzzy_code", 0) - prev.get("fuzzy_code", 0)
-            stats = f"({cur_pct - prev_pct:+.2f}% {gained:+,}), " + stats
+            moved = f"({cur_pct - prev_pct:+.2f}% {gained:+,})"
             if round(cur_pct, 2) // 10 > round(prev_pct, 2) // 10:
                 end = " 🎉"
-        who = f"{GAME} {ver}" if len(rows) > 1 else GAME
+        if ver not in MAIN_VERSIONS:
+            others.append(f"{ver} {cur_pct:.2f}%")
+            continue
+        stats = f"{moved}, {stats}" if moved else stats
+        who = f"{GAME} {ver}" if len(mains) > 1 else GAME
         lines.append(f"{who} is **{cur_pct:.2f}%** decompiled{end} `{stats}`")
+    if others:
+        lines.append(f"Other versions: `{' · '.join(others)}`")
 
     vers = [ver for ver, _, prev in rows if prev]
     items = []
     for key, per_ver in changes.items():
-        rank, gained, line, funcs = per_ver[-1][1]  # the latest build with the change
+        main_changes = [change for ver, change in per_ver if ver in MAIN_VERSIONS] or [change for _, change in per_ver]
+        rank, gained, line, funcs = main_changes[-1]  # the latest main build with the change
         builds = [ver for ver, _ in per_ver]
         if builds != vers:
             line += f" ({', '.join(ABBREVS.get(b, b) for b in builds)})"

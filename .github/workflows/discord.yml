@@ -28,10 +28,67 @@ jobs:
           curl -fsS -H "Content-Type: application/json" -H "X-GitHub-Event: push" \
             --data-binary @"$GITHUB_EVENT_PATH" "$HOOK"
 
-  progress:
+  # No webhook here: Pillow comes from PyPI, installed only after the reports are saved.
+  treemap:
     if: >-
       github.event_name == 'workflow_run' && github.event.workflow_run.event == 'push'
       && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      prev_sha: ${{ steps.reports.outputs.prev_sha }}
+      commits: ${{ steps.reports.outputs.commits }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+
+      - name: Download reports
+        id: reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          gh run download "$RUN_ID" -R "$GITHUB_REPOSITORY" -p '*_report' -D reports/cur
+          read -r prev prev_sha <<< "$(gh run list -R "$GITHUB_REPOSITORY" -w Build -b main -e push -L 20 \
+              --json databaseId,headSha,conclusion \
+              --jq "[.[] | select(.databaseId < $RUN_ID and .conclusion == \"success\")][0] // empty | \"\\(.databaseId) \\(.headSha)\"")"
+          if [ -n "$prev" ] && gh run download "$prev" -R "$GITHUB_REPOSITORY" -p '*_report' -D reports/prev; then
+            echo "prev_sha=$prev_sha" >> "$GITHUB_OUTPUT"
+            commits=$(gh api "repos/$GITHUB_REPOSITORY/compare/$prev_sha...$HEAD_SHA" --jq .total_commits 2>/dev/null) || commits=
+            echo "commits=$commits" >> "$GITHUB_OUTPUT"
+          else
+            rm -rf reports/prev
+          fi
+
+      - name: Save reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: progress-reports
+          path: reports
+          retention-days: 1
+          overwrite: true
+
+      - name: Draw treemap
+        continue-on-error: true
+        timeout-minutes: 5
+        run: |
+          python3 -m pip install --break-system-packages -q pillow==12.3.0
+          python3 .github/treemap.py reports/cur treemap.png $(test -d reports/prev && echo reports/prev)
+
+      - name: Save treemap
+        uses: actions/upload-artifact@v4
+        with:
+          name: treemap
+          path: treemap.png
+          if-no-files-found: ignore
+          retention-days: 1
+          overwrite: true
+
+  progress:
+    needs: treemap
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -40,41 +97,31 @@ jobs:
           ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Download reports
-        env:
-          GH_TOKEN: ${{ github.token }}
-          RUN_ID: ${{ github.event.workflow_run.id }}
-          HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
-        run: |
-          gh run download "$RUN_ID" -R "$GITHUB_REPOSITORY" -p '*_report' -D cur
-          read -r prev prev_sha <<< "$(gh run list -R "$GITHUB_REPOSITORY" -w Build -b main -e push -L 20 \
-              --json databaseId,headSha,conclusion \
-              --jq "[.[] | select(.databaseId != $RUN_ID and .conclusion == \"success\")][0] // empty | \"\\(.databaseId) \\(.headSha)\"")"
-          if [ -n "$prev" ] && gh run download "$prev" -R "$GITHUB_REPOSITORY" -p '*_report' -D prev; then
-            echo "PREV=prev" >> "$GITHUB_ENV"
-            echo "PREV_SHA=$prev_sha" >> "$GITHUB_ENV"
-            commits=$(gh api "repos/$GITHUB_REPOSITORY/compare/$prev_sha...$HEAD_SHA" --jq .total_commits 2>/dev/null) || commits=
-            echo "COMMITS=$commits" >> "$GITHUB_ENV"
-          fi
+        uses: actions/download-artifact@v4
+        with:
+          name: progress-reports
+          path: reports
 
-      - name: Draw treemap
+      - name: Download treemap
         continue-on-error: true
-        timeout-minutes: 5
-        run: |
-          python3 -m pip install --break-system-packages -q pillow==12.3.0
-          python3 .github/treemap.py cur treemap.png $PREV
+        uses: actions/download-artifact@v4
+        with:
+          name: treemap
 
       - name: Post progress to Discord
         env:
           PUSHER: ${{ github.event.workflow_run.actor.login }}
           REPO: ${{ github.repository }}
           HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          PREV_SHA: ${{ needs.treemap.outputs.prev_sha }}
+          COMMITS: ${{ needs.treemap.outputs.commits }}
           HOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
         run: |
           if [ -z "$HOOK" ]; then
             echo "::warning::No DISCORD_PROGRESS_WEBHOOK secret, skipped"
             exit 0
           fi
-          python3 .github/progress.py cur $PREV > payload.json
+          python3 .github/progress.py reports/cur $(test -d reports/prev && echo reports/prev) > payload.json
           if [ ! -s payload.json ]; then
             echo "No progress change, skipped"
             exit 0
